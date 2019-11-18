@@ -1,0 +1,88 @@
+@charset "UTF-8";
+/* CSS Document 
+Author: Jekaterina Pavlenko K00224431
+Date: 09/03/2019
+Forum Page
+*/
+
+#fit1, #fit2 {
+	font-size: 0.9em;
+}
+
+.sign_login {
+  list-style:none;
+  padding:0 0;
+  margin:0 0;
+}
+
+#form ul li {
+	width: 19.01%;
+}
+
+#form2 ul li {
+	width: 22%;
+}
+
+#form ul li a, #form2 ul li a  {
+	text-align: center;
+	display: block;
+	padding: .8em 0;
+	background-color: #3d3d5c;
+	color:#E7F3EF;
+}
+
+.title {
+	font-size: 0.9em;
+        float:left;
+        width:125px;
+	text-align: right;
+	padding-right: 20px;
+}
+
+span {
+	color:red;
+}
+
+h2 {
+	text-align: center;
+}
+
+fieldset {
+	margin-top: 15px;
+}
+
+input {
+	border: 1px solid gray;
+	border-radius: 5px;
+}
+
+#form ul {
+	width: 100%;                        
+	list-style-type: none;
+	position: relative;
+	margin-left: 30%;
+}
+
+#form2 ul {
+	margin-left: 25% !important;
+}
+
+#form ul li, #form2 ul li {
+	float: left;
+	border: 1px solid #E7F3EF;
+}
+
+#form ul li a, #form2 ul li a {
+	text-align: center;
+	display: block;
+	padding: .8em 0;
+}
+
+#form a:hover, a:focus, #form2 a:hover, a:focus {
+	color: white !important;
+	background-color: #a3a3c2;
+}
+label
+{
+    width:100px;
+}
