@@ -71,7 +71,7 @@ public class RegisterDB extends HttpServlet
             prepStat.setInt(8, 2);
             prepStat.executeUpdate();
             // send us to the forum.html page once query done
-            response.sendRedirect("forum.html");
+            response.sendRedirect("login.html");
 
         } catch (IOException | SQLException e)
         {

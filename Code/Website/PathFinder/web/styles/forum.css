@@ -16,7 +16,7 @@ Forum Page
 }
 
 #form ul li {
-	width: 19.01%;
+	width: 12%;
 }
 
 #form2 ul li {
@@ -34,7 +34,7 @@ Forum Page
 .title {
 	font-size: 0.9em;
         float:left;
-        width:125px;
+        width:45%;
 	text-align: right;
 	padding-right: 20px;
 }
@@ -46,6 +46,9 @@ span {
 h2 {
 	text-align: center;
 }
+#info {
+    text-align: center;
+}
 
 fieldset {
 	margin-top: 15px;
@@ -54,6 +57,14 @@ fieldset {
 input {
 	border: 1px solid gray;
 	border-radius: 5px;
+}
+
+fieldset {
+    width: 45%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #form ul {
@@ -75,14 +86,19 @@ input {
 #form ul li a, #form2 ul li a {
 	text-align: center;
 	display: block;
-	padding: .8em 0;
+	padding: .6em 0;
+        margin: .2em .2em;
 }
 
-#form a:hover, a:focus, #form2 a:hover, a:focus {
+#form a:hover, a:focus, #form2 a:hover, a:focus, .current {
 	color: white !important;
 	background-color: #a3a3c2;
 }
 label
 {
     width:100px;
+}
+
+#submit {
+    margin-left:18em;
 }

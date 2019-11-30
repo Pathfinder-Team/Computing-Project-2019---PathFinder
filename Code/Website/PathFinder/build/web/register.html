@@ -1,11 +1,11 @@
 <!doctype html>
-<!-- Author: Jekaterina Pavlenko, Kevin Dunne, Christopher Costello
+<!-- Author: Jekaterina Pavlenko, Kevin Dunne, Christopher Costelloe
          Date: 
 -->
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Forum</title>
+        <title>Register</title>
         <link rel="stylesheet" type="text/css" href="styles/mainstyle.css" />
         <link rel="stylesheet" type="text/css" href="styles/forum.css" />
         <script>
@@ -88,36 +88,35 @@
     <body>
         <div id="container">
             <header>
-                <img src="images/img3.jpg" >
+                <img src="images/bn_header.png" alt="" >
             </header>
             <nav id="menu">
                 <ul>
-                    <li><a href="index.html" >About Us</a></li>
-                    <li><a href="register.html">Register</a></li>
+                    <li><a href="index.html" >ABOUT US</a></li>
+                    <li><a href="register.html" class="current">REGISTER</a></li>
                     <li><a href="login.html" >LOGIN</a></li>
-                    <li><a href="forum.html">FORUM</a></li>
-                    <li><a href="contact.html" >CONTACT</a></li>
-                    <li><a href="ControlDB" >CONTROL</a></li>
+                    <li><a href="contact.html" >CONTACT US</a></li>
+                    <!--<li><a href="ControlDB" >CONTROL</a></li>-->
                 </ul>
             </nav>
             <main>
                 <section id="form">
-                    <h1>Register to sign in.</h1>
+                  
+                    <h1>Register</h1>
+                   
                     <form action="RegisterDB" method="post" name="form" onSubmit="return validateAll();" >
                         <fieldset>
-                            <ul class="sign_login">
-                                <li><a class="current" href="register.html">Register</a></li>
-                                <li><a href="login.html">Login</a></li>
-                            </ul>
-                            <br>
-                            <br>
-                            <p>Please fill in this form to create an account.</p>
+                          
+                            <p id="info">Please fill in this form to create an account.</p>
 
                             <p><label for="first_name" class="title">First Name: <span>*</span></label>
                                 <input type="text" name="first_name" id="first_name" /></p>
 
                             <p><label for="last_name" class="title">Last Name: <span>*</span></label>
                                 <input type="text" name="last_name" id="last_name" /></p>
+                            
+                            <p><label for="org_name" class="title">Organisation name: <span>*</span></label>
+                                <input type="text" name="org_name" id="org_name" /></p>
 
                             <p><label for="user_name" class="title">Username: <span>*</span></label>
                                 <input type="text" name="user_name" id="user_name" /></p>
@@ -137,11 +136,13 @@
                         </fieldset>
                     </form>
                 </section>
+                <br>
+                <br>
             </main>
             <footer>
-                <p>
-                    
-                </p>
+                <p>PathFinder project 2019</p>
+                <p>Authors: Kevin Dunne,Jekaterina Pavlenko & Christopher Costelloe</p>
+                <p><img src="images/maze_ic.png" alt="" ></p>
             </footer>	
 
         </div>
