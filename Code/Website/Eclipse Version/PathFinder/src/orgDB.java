@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 @WebServlet(name = "orgDB", urlPatterns = {"/orgDB"})
 public class orgDB extends HttpServlet {
 
+	private static final int BUFFER_SIZE = 4096;
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
     Connection conn;
     Connection conn2;
@@ -203,8 +204,9 @@ public class orgDB extends HttpServlet {
                 + "<br>Organisation Address: "+organisation_address
                 + "<br>Organisation Email: "+organisation_email
                 + "<br>Organisation Contact Number: "+organisation_mobile
-                + "<br>Organisation Building Name: "+organisation_building_name
-                + "                    <br>\r\n"
+                + "<br>Organisation Building Name: "+organisation_building_name);
+        		/*
+        		out.println("                    <br>\r\n"
                 + "                    <div class=\"test\">\r\n"
                 + "                    <div class=\"responsive\">\r\n"
                 + "                    <div class=\"gallery\">\r\n"
@@ -221,7 +223,34 @@ public class orgDB extends HttpServlet {
                 + "                      </form>\r\n"
                 + "                      </div>\r\n"
                 + "                    </div>\r\n"
-                + "                  </div>");
+                + "                  </div>");*/
+        String filepath = "WebContent/FromDb.jpg";
+        try {
+        String sql1 = "select * from maps join organisation on maps.org_building_name = organisation.organisation_name where org_building_name = ?";
+        prepStat = conn.prepareStatement(sql1);
+        prepStat.setString(1, organisation_name);
+        ResultSet result = prepStat.executeQuery();
+        if (result.next()) {
+        	String map_location_url = result.getString("map_location_url");
+        	String important_points = result.getString("important_points");
+        	String map_comments = result.getString("map_comments");
+        	String org_building_name = result.getString("org_building_name");
+        	Blob map_image_floor = result.getBlob("map_image_floor");
+            InputStream inputStream1 = map_image_floor.getBinaryStream();
+            OutputStream outputStream = new FileOutputStream(filepath);
+            int bytesRead = -1;
+            byte[] buffer = new byte[BUFFER_SIZE];
+            while ((bytesRead = inputStream1.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+            inputStream1.close();
+            outputStream.close();
+            System.out.println("File saved");
+        }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         out.println("                  <div class=\"clearfix\"></div>\r\n"
                 + "\r\n"
                 + "                    <div style=\"padding:6px;\">\r\n"

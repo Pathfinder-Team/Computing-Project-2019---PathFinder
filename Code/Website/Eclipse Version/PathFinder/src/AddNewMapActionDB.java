@@ -70,38 +70,6 @@ public class AddNewMapActionDB extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// create a cookie array
-		getPower(request);
-		map_location_url = request.getParameter("important_points");
-		important_points = request.getParameter("important_points");
-		map_comments = request.getParameter("map_comments");
-		// map_image_floor = request.getParameter("map_image_floor");
-		org_building_name = request.getParameter("org_building_name");
-		InputStream inputStream = null;
-		Part parts1 = request.getPart("map_image_floor");
-		inputStream = parts1.getInputStream();
-		try {
-			prepStat = conn.prepareStatement("insert into maps values(? ,? ,? ,? ,? ,?");
-			prepStat.setInt(1, 0);
-			prepStat.setString(2, map_location_url);
-			prepStat.setString(3, important_points);
-			prepStat.setString(4, map_comments);
-			prepStat.setBlob(5, inputStream);
-			prepStat.setString(6, org_building_name);
-
-			int i = prepStat.executeUpdate();
-			//response.sendRedirect("orgDB");
-		} catch (SQLException ex) {
-			Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
-			// response.sendRedirect("UploadMapDB");
-			System.err.println("inputStream: " + inputStream);
-			System.err.println("Error 5: "+parts1.getInputStream());
-			System.err.println("Error 6: "+parts1);
-			System.err.println("Error 2: " + ex);
-
-		}
-	}
-
-	public void getPower(HttpServletRequest request) {
 		Cookie cookie = null;
 		Cookie[] cookies = null;
 		cookies = request.getCookies();
@@ -143,6 +111,57 @@ public class AddNewMapActionDB extends HttpServlet {
 		} catch (SQLException ex) {
 			Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
 		}
+		map_location_url = request.getParameter("important_points");
+		important_points = request.getParameter("important_points");
+		map_comments = request.getParameter("map_comments");
+		// map_image_floor = request.getParameter("map_image_floor");
+		org_building_name = request.getParameter("org_building_name");
+		InputStream inputStream = null;
+		Part parts1 = request.getPart("map_image_floor");
+		//inputStream = parts1.getInputStream();
+		
+	       if (parts1 != null) {
+	            // prints out some information for debugging
+	            System.out.println(parts1.getName());
+	            System.out.println(parts1.getSize());
+	            System.out.println(parts1.getContentType());
+
+	            //obtains input stream of the upload file
+	            //the InputStream will point to a stream that contains
+	            //the contents of the file
+	            inputStream = parts1.getInputStream();
+	        }
+		try {
+			prepStat = conn.prepareStatement("insert into maps values(? ,? ,? ,? ,? ,? )");
+			prepStat.setInt(1, 0);
+			prepStat.setString(2, map_location_url);
+			prepStat.setString(3, important_points);
+			prepStat.setString(4, map_comments);
+            if (inputStream != null) {
+                //files are treated as BLOB objects in database
+                //here we're letting the JDBC driver
+                //create a blob object based on the
+                //input stream that contains the data of the file
+                prepStat.setBlob(5, inputStream);
+            }
+			
+			prepStat.setString(6, org_building_name);
+
+			int i = prepStat.executeUpdate();
+			response.sendRedirect("orgDB");
+		} catch (SQLException ex) {
+			Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
+			response.sendRedirect("UploadMapDB");
+			System.err.println("inputStream: " + inputStream);
+			System.err.println("Error 5: "+parts1.getInputStream());
+			System.err.println("Error 6: "+parts1);
+			System.err.println("Error 2: " + ex);
+
+		}
+	}
+
+	public void getPower(HttpServletRequest request) {
+		
 	}
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
