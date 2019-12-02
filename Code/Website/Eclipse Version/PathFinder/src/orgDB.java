@@ -133,9 +133,9 @@ public class orgDB extends HttpServlet {
         }
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        System.out.println("power : "+userOrgRights);
-        System.out.println("power right : "+organisation_name);
-        System.out.println("if before");
+       // System.out.println("power : "+userOrgRights);
+        //System.out.println("power right : "+organisation_name);
+        //System.out.println("if before");
         if(organisation_name.equals(userOrgRights))
         {
         out.println("<!doctype html>\n"
@@ -222,62 +222,11 @@ public class orgDB extends HttpServlet {
                 + "                      </div>\r\n"
                 + "                    </div>\r\n"
                 + "                  </div>");
-        out.println("                  <div class=\"responsive\">\r\n"
-                + "                    <div class=\"gallery\">\r\n"
-                + "                      <a target=\"_blank\" href=\"images/map1.jpg\">\r\n"
-                + "                        <img src=\"images/map1.jpg\" alt=\"Forest\" style=\"width:100%\">\r\n"
-                + "                      </a>\r\n"
-                + "                        <div class=\"desc\">\r\n"
-                + "                        <form action=\"commentDB\" method=\"post\" class=\"change\">\r\n"
-                + "                        <button type=\"submit\" >Change</button>\r\n"
-                + "                        </form>\r\n"
-                + "                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\r\n"
-                + "                        <form action=\"commentDB\" method=\"post\" class=\"delete\">\r\n"
-                + "                        <button type=\"submit\" >Delete</button>\r\n"
-                + "                      </form>\r\n"
-                + "                        </div>\r\n"
-                + "                    </div>\r\n"
-                + "                  </div>");
-        out.println("                  <div class=\"responsive\">\r\n"
-                + "                    <div class=\"gallery\">\r\n"
-                + "                      <a target=\"_blank\" href=\"images/map1.jpg\">\r\n"
-                + "                        <img src=\"images/map1.jpg\" alt=\"Northern Lights\" style=\"width:100%\">\r\n"
-                + "                      </a>\r\n"
-                + "                        <div class=\"desc\">\r\n"
-                + "                        <form action=\"commentDB\" method=\"post\" class=\"change\">\r\n"
-                + "                        <button type=\"submit\" >Change</button>\r\n"
-                + "                        </form>\r\n"
-                + "                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\r\n"
-                + "                        <form action=\"commentDB\" method=\"post\" class=\"delete\">\r\n"
-                + "                        <button type=\"submit\" >Delete</button>\r\n"
-                + "                        </form>\r\n"
-                + "                        </div>\r\n"
-                + "                    </div>\r\n"
-                + "                  </div>");
-        out.println("                  <div class=\"responsive\">\r\n"
-                + "                    <div class=\"gallery\">\r\n"
-                + "                      <a target=\"_blank\" href=\"images/map1.jpg\">\r\n"
-                + "                        <img src=\"images/map1.jpg\" alt=\"Mountains\" style=\"width:100%\">\r\n"
-                + "                      </a>\r\n"
-                + "                      <div class=\"desc\">\r\n"
-                + "                      <form action=\"commentDB\" method=\"post\" class=\"change\">\r\n"
-                + "                      <button type=\"submit\" >Change</button>\r\n"
-                + "                      </form>\r\n"
-                + "                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\r\n"
-                + "                      <form action=\"commentDB\" method=\"post\" class=\"delete\">\r\n"
-                + "                        <button type=\"submit\" >Delete</button>\r\n"
-                + "                      </form>\r\n"
-                + "                      </div>\r\n"
-                + "                    </div>\r\n"
-                + "                  </div>\r\n"
-                + "                    </div>  ");
         out.println("                  <div class=\"clearfix\"></div>\r\n"
                 + "\r\n"
                 + "                    <div style=\"padding:6px;\">\r\n"
                 + "                        <br>\r\n"
-                + "                        <br>\r\n"
-                + "                        <br>\r\n"
-                + "                 <form action=\"commentDB\" method=\"post\" class=\"\">\r\n"
+                + "                 <form action=\"UploadMapDB\" method=\"post\" class=\"\">\r\n"
                 + "                        <button type=\"submit\" >Upload A New Map</button>\r\n"
                 + "                 </form>\r\n"
                 + "                        <br>\r\n"
