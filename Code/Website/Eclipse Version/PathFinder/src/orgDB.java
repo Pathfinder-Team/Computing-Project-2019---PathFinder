@@ -260,11 +260,11 @@ public class orgDB extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        //out.println("<p>"+map_image_floor+"</p>");
-        
+        ///////////////////////////////////////////////////
 		out.println("<p>Image Here</p>"
-				+ "<img src=\"\\images/map1.jpg\" alt=\"not image\" >"
+				+ "<img src=\"\\images/special_image.png\" alt=\"not image\" >"
 				+ "<br>\n");
+		////////////////////////////////////////////////////
 
         out.println("                  <div class=\"clearfix\"></div>\r\n"
                 + "\r\n"
