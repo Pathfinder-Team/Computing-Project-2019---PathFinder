@@ -37,7 +37,7 @@ public class UploadMapDB extends HttpServlet
     String emailRights;
     int AccountStatusRights;
     int special;
-    String userOrgRights;
+    String orgNameRights;
     
     String organisation_name;
     String organisation_address;
@@ -46,11 +46,11 @@ public class UploadMapDB extends HttpServlet
     String organisation_building_name;
     String user_org_name;
     
-    String map_location_url;
-    String important_points;
-    String map_comments;
-    Blob map_image_floor;
-    String org_building_name;
+	String org_name;
+	String org_building;
+	String map_name;
+	String map_comments;
+	Blob map_image;
 
     @Override
     public void init() throws ServletException {
@@ -70,7 +70,48 @@ public class UploadMapDB extends HttpServlet
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // create a cookie array
-    	getPower(request);
+    	Cookie cookie = null;
+        Cookie[] cookies = null;
+        cookies = request.getCookies();
+        // were going to loop through the cookies array and if the active cookies match
+        // values in the database
+        // we know we are that user in the database so were going to put there
+        // information into some variables
+        try {
+            //
+            //
+            if (cookies != null) {
+                for (int i = 0; i < cookies.length; i++) {
+                    cookie = cookies[i];
+                    stmt = conn.createStatement();
+                    String sql5 = "select user_id,user_name,password,account_rank_account_rank_id,email,organisation_name from users";
+                    result = stmt.executeQuery(sql5);
+                    while (result.next()) {
+                    	String powerOrgName = result.getString("organisation_name");
+                        String powerUsername = result.getString("user_name");
+                        int powerID = result.getInt("user_id");
+                        String powerPassword = result.getString("password");
+                        int powerStatus = result.getInt("account_rank_account_rank_id");
+                        String powerEmail = result.getString("email");
+
+                        // if cookie username and username from the database match then we are this
+                        // record,
+                        // extremly important note!: all usernames are unique so they database cannot
+                        // contain 2 exact usernames
+                        if (powerUsername.equals(cookie.getValue())) {
+                            userNameRights = powerUsername;
+                            idRights = powerID;
+                            passwordRights = powerPassword;
+                            AccountStatusRights = powerStatus;
+                            emailRights = powerEmail;
+                            orgNameRights = powerOrgName;
+                        }
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try {
                     prepStat = conn.prepareStatement("select "
                     		+ "organisation_name, "
@@ -79,7 +120,7 @@ public class UploadMapDB extends HttpServlet
                     		+ "organisation_mobile,"
                     		+ "organisation_building_name "
                     		+ "from organisation where organisation_name = ?");
-                    prepStat.setString(1, userOrgRights);
+                    prepStat.setString(1, orgNameRights);
                     result = prepStat.executeQuery();
                     while (result.next()) 
                     {
@@ -97,7 +138,7 @@ public class UploadMapDB extends HttpServlet
        // System.out.println("power : "+userOrgRights);
         //System.out.println("power right : "+organisation_name);
         //System.out.println("if before");
-        if(organisation_name.equals(userOrgRights))
+        if(organisation_name.equals(orgNameRights))
         {
         out.println("<!doctype html>\n"
                 + "<!-- Author: Jekaterina Pavlenko, Kevin Dunne, Christopher Costelloe Date: 09/03/2019-->"
@@ -163,25 +204,25 @@ public class UploadMapDB extends HttpServlet
         out.println(""
         		+ "<form method=\"post\" action=\"AddNewMapActionDB\" enctype=\"multipart/form-data\">\r\n"
         		+ "<fieldset>" 
-        		+ " <p><label for=\"map_location_url\" class=\"title\">Map Url: <span>*</span></label>"
-        		+ "	<input type=\"text\" name=\"map_location_url\" id=\"map_location_url\" /></p>"
+        		//+ " <p><label for=\"map_location_url\" class=\"title\">Map Url: <span>*</span></label>"
+        		+ "	<input type=\"hidden\" name=\"org_name\" id=\"org_name\" value=\""+orgNameRights+"\" /></p>"
         		+ ""
-        		+ " <p><label for=\"important_points\" class=\"title\">Important Points: <span>*</span></label>"
-        		+ "	<input type=\"text\" name=\"important_points\" id=\"important_points\" /></p>"
+        		+ "<p><label for=\"org_building\" class=\"title\">Building Name: <span>*</span></label>"
+        		+ "<input type=\"text\" name=\"org_building\" id=\"org_building\" /></p>"
         		+ ""
-        		+ " <p><label for=\"map_comments\" class=\"title\">Map Comments: <span>*</span></label>"
-        		+ "	<input type=\"text\" name=\"map_comments\" id=\"map_comments\" /></p>"
+        		+ "<p><label for=\"map_name\" class=\"title\">Floor Name: <span>*</span></label>"
+        		+ "<input type=\"text\" name=\"map_name\" id=\"map_name\" /></p>"
         		+ ""
-        		+ " <p><label for=\"org_building_name\" class=\"title\">Building Orginsation: <span>*</span></label>"
-        		+ "	<input type=\"text\" name=\"org_building_name\" id=\"org_building_name\" /></p>"
+        		+ "<p><label for=\"map_comments\" class=\"title\">Map Comments: <span>*</span></label>"
+        		+ "<input type=\"text\" name=\"map_comments\" id=\"map_comments\" /></p>"
         		+ ""
-        		+ "<label for=\"map_image_floor\"><br><strong>Choose a file</strong><span> or drag it here</span>.</label>\r\n"
+        		+ "<label for=\"map_image\"><br><strong>Choose a file</strong><span> or drag it here</span>.</label>\r\n"
         		+ "<br>"
         		+ "<br>"
-        		+ "<input type=\"file\" name=\"map_image_floor\" id=\"map_image_floor\" />\r\n"
+        		+ "<input type=\"file\" name=\"map_image\" id=\"map_image\" />\r\n"
         		+ "<br>"
         		+ "<br>"
-        		+ "<button type=\"submit\">Upload</button>\r\n"
+        		+ "<button type=\"submit\">Upload and Submit</button>\r\n"
         		+ " <br>"
         		+ "<br>"
         		+ "</fieldset>"
@@ -201,48 +242,7 @@ public class UploadMapDB extends HttpServlet
     }
     public void getPower(HttpServletRequest request)
     {
-        Cookie cookie = null;
-        Cookie[] cookies = null;
-        cookies = request.getCookies();
-        // were going to loop through the cookies array and if the active cookies match
-        // values in the database
-        // we know we are that user in the database so were going to put there
-        // information into some variables
-        try {
-            //
-            //
-            if (cookies != null) {
-                for (int i = 0; i < cookies.length; i++) {
-                    cookie = cookies[i];
-                    stmt = conn.createStatement();
-                    String sql5 = "select user_id,user_name,password,account_rank_account_rank_id,email,organisation_name from users";
-                    result = stmt.executeQuery(sql5);
-                    while (result.next()) {
-                    	String user_org_name = result.getString("organisation_name");
-                        String powerUsername = result.getString("user_name");
-                        int powerID = result.getInt("user_id");
-                        String powerPassword = result.getString("password");
-                        int powerStatus = result.getInt("account_rank_account_rank_id");
-                        String powerEmail = result.getString("email");
-
-                        // if cookie username and username from the database match then we are this
-                        // record,
-                        // extremly important note!: all usernames are unique so they database cannot
-                        // contain 2 exact usernames
-                        if (powerUsername.equals(cookie.getValue())) {
-                            userNameRights = powerUsername;
-                            idRights = powerID;
-                            passwordRights = powerPassword;
-                            AccountStatusRights = powerStatus;
-                            emailRights = powerEmail;
-                            userOrgRights = user_org_name;
-                        }
-                    }
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

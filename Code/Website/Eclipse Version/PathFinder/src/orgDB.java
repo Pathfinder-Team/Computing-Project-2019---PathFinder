@@ -37,7 +37,7 @@ public class orgDB extends HttpServlet {
     String emailRights;
     int AccountStatusRights;
     int special;
-    String userOrgRights;
+    String orgNameRights;
     
     String organisation_name;
     String organisation_address;
@@ -45,6 +45,12 @@ public class orgDB extends HttpServlet {
     String organisation_mobile;
     String organisation_building_name;
     String user_org_name;
+    
+	String org_name;
+	String org_building;
+	String map_name;
+	String map_comments;
+	Blob map_image;
 
     @Override
     public void init() throws ServletException {
@@ -82,7 +88,7 @@ public class orgDB extends HttpServlet {
                     String sql5 = "select user_id,user_name,password,account_rank_account_rank_id,email,organisation_name from users";
                     result = stmt.executeQuery(sql5);
                     while (result.next()) {
-                    	String user_org_name = result.getString("organisation_name");
+                    	String powerOrgName = result.getString("organisation_name");
                         String powerUsername = result.getString("user_name");
                         int powerID = result.getInt("user_id");
                         String powerPassword = result.getString("password");
@@ -99,7 +105,7 @@ public class orgDB extends HttpServlet {
                             passwordRights = powerPassword;
                             AccountStatusRights = powerStatus;
                             emailRights = powerEmail;
-                            userOrgRights = user_org_name;
+                            orgNameRights = powerOrgName;
                         }
                     }
                 }
@@ -119,7 +125,7 @@ public class orgDB extends HttpServlet {
                     		+ "organisation_mobile,"
                     		+ "organisation_building_name "
                     		+ "from organisation where organisation_name = ?");
-                    prepStat.setString(1, userOrgRights);
+                    prepStat.setString(1, orgNameRights);
                     result = prepStat.executeQuery();
                     while (result.next()) 
                     {
@@ -137,7 +143,7 @@ public class orgDB extends HttpServlet {
        // System.out.println("power : "+userOrgRights);
         //System.out.println("power right : "+organisation_name);
         //System.out.println("if before");
-        if(organisation_name.equals(userOrgRights))
+        if(organisation_name.equals(orgNameRights))
         {
         out.println("<!doctype html>\n"
                 + "<!-- Author: Jekaterina Pavlenko, Kevin Dunne, Christopher Costelloe Date: 09/03/2019-->"
@@ -206,7 +212,7 @@ public class orgDB extends HttpServlet {
                 + "<br>Organisation Contact Number: "+organisation_mobile
                 + "<br>Organisation Building Name: "+organisation_building_name);
         		/*
-        		out.println("                    <br>\r\n"
+        		out.println("<br>\r\n"
                 + "                    <div class=\"test\">\r\n"
                 + "                    <div class=\"responsive\">\r\n"
                 + "                    <div class=\"gallery\">\r\n"
@@ -223,24 +229,27 @@ public class orgDB extends HttpServlet {
                 + "                      </form>\r\n"
                 + "                      </div>\r\n"
                 + "                    </div>\r\n"
-                + "                  </div>");*/
-        String filepath = "WebContent/FromDb.jpg";
+                + "                  </div>");
+                */
+        //String filepath = "PathFinder/WebContent/images/map1.jpg";
+        String filepath = "images\\special_image.png";
         try {
-        String sql1 = "select * from maps join organisation on maps.org_building_name = organisation.organisation_name where org_building_name = ?";
+        String sql1 = "select * from maps join organisation on maps.org_name = organisation.organisation_name where org_name = ?";
         prepStat = conn.prepareStatement(sql1);
         prepStat.setString(1, organisation_name);
         ResultSet result = prepStat.executeQuery();
         if (result.next()) {
-        	String map_location_url = result.getString("map_location_url");
-        	String important_points = result.getString("important_points");
-        	String map_comments = result.getString("map_comments");
-        	String org_building_name = result.getString("org_building_name");
-        	Blob map_image_floor = result.getBlob("map_image_floor");
-            InputStream inputStream1 = map_image_floor.getBinaryStream();
+        	org_name = result.getString("org_name");
+        	org_building = result.getString("org_building");
+        	map_name = result.getString("map_name");
+        	map_comments = result.getString("map_comments");
+        	map_image = result.getBlob("map_image");
+            InputStream inputStream1 = map_image.getBinaryStream();
             OutputStream outputStream = new FileOutputStream(filepath);
             int bytesRead = -1;
             byte[] buffer = new byte[BUFFER_SIZE];
             while ((bytesRead = inputStream1.read(buffer)) != -1) {
+            	//response.setContentType("image/jpg");
                 outputStream.write(buffer, 0, bytesRead);
             }
             inputStream1.close();
@@ -251,6 +260,12 @@ public class orgDB extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        //out.println("<p>"+map_image_floor+"</p>");
+        
+		out.println("<p>Image Here</p>"
+				+ "<img src=\"\\images/map1.jpg\" alt=\"not image\" >"
+				+ "<br>\n");
+
         out.println("                  <div class=\"clearfix\"></div>\r\n"
                 + "\r\n"
                 + "                    <div style=\"padding:6px;\">\r\n"

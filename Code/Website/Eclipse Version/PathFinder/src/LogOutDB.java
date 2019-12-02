@@ -76,7 +76,7 @@ public class LogOutDB extends HttpServlet
                     + "    <body>\n"
                     + "        <div id=\"container\">\n"
                     + "            <header>\n"
-                    + "                <img src=\"images/img3.jpg\" >\n"
+                    + "                <img src=\"images/bn_header.png\" >\n"
                     + "            </header>\n"
                     + "            <nav id=\"menu\">\n"
                     + "                <ul>\n"

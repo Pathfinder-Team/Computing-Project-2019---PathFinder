@@ -36,7 +36,7 @@ public class AddNewMapActionDB extends HttpServlet {
 	String emailRights;
 	int AccountStatusRights;
 	int special;
-	String userOrgRights;
+	String orgNameRights;
 
 	String organisation_name;
 	String organisation_address;
@@ -45,11 +45,11 @@ public class AddNewMapActionDB extends HttpServlet {
 	String organisation_building_name;
 	String user_org_name;
 
-	String map_location_url;
-	String important_points;
+	String org_name;
+	String org_building;
+	String map_name;
 	String map_comments;
-	Blob map_image_floor;
-	String org_building_name;
+	Blob map_image;
 
 	@Override
 	public void init() throws ServletException {
@@ -86,7 +86,7 @@ public class AddNewMapActionDB extends HttpServlet {
 					String sql5 = "select user_id,user_name,password,account_rank_account_rank_id,email,organisation_name from users";
 					result = stmt.executeQuery(sql5);
 					while (result.next()) {
-						String user_org_name = result.getString("organisation_name");
+						String powerOrgName = result.getString("organisation_name");
 						String powerUsername = result.getString("user_name");
 						int powerID = result.getInt("user_id");
 						String powerPassword = result.getString("password");
@@ -103,7 +103,7 @@ public class AddNewMapActionDB extends HttpServlet {
 							passwordRights = powerPassword;
 							AccountStatusRights = powerStatus;
 							emailRights = powerEmail;
-							userOrgRights = user_org_name;
+							orgNameRights = powerOrgName;
 						}
 					}
 				}
@@ -111,57 +111,43 @@ public class AddNewMapActionDB extends HttpServlet {
 		} catch (SQLException ex) {
 			Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		map_location_url = request.getParameter("important_points");
-		important_points = request.getParameter("important_points");
+		org_name = request.getParameter("org_name");
+		org_building = request.getParameter("org_building");
+		map_name = request.getParameter("map_name");
 		map_comments = request.getParameter("map_comments");
-		// map_image_floor = request.getParameter("map_image_floor");
-		org_building_name = request.getParameter("org_building_name");
 		InputStream inputStream = null;
-		Part parts1 = request.getPart("map_image_floor");
-		//inputStream = parts1.getInputStream();
-		
-	       if (parts1 != null) {
-	            // prints out some information for debugging
-	            System.out.println(parts1.getName());
-	            System.out.println(parts1.getSize());
-	            System.out.println(parts1.getContentType());
+		Part parts1 = request.getPart("map_image");
 
-	            //obtains input stream of the upload file
-	            //the InputStream will point to a stream that contains
-	            //the contents of the file
-	            inputStream = parts1.getInputStream();
-	        }
+		if (parts1 != null) {
+			System.out.println(parts1.getName());
+			System.out.println(parts1.getSize());
+			System.out.println(parts1.getContentType());
+			inputStream = parts1.getInputStream();
+		}
 		try {
 			prepStat = conn.prepareStatement("insert into maps values(? ,? ,? ,? ,? ,? )");
 			prepStat.setInt(1, 0);
-			prepStat.setString(2, map_location_url);
-			prepStat.setString(3, important_points);
-			prepStat.setString(4, map_comments);
-            if (inputStream != null) {
-                //files are treated as BLOB objects in database
-                //here we're letting the JDBC driver
-                //create a blob object based on the
-                //input stream that contains the data of the file
-                prepStat.setBlob(5, inputStream);
-            }
-			
-			prepStat.setString(6, org_building_name);
-
+			prepStat.setString(2, org_name);
+			prepStat.setString(3, org_building);
+			prepStat.setString(4, map_name);
+			prepStat.setString(5, map_comments);
+			if (inputStream != null) {
+				prepStat.setBlob(6, inputStream);
+			}
 			int i = prepStat.executeUpdate();
 			response.sendRedirect("orgDB");
 		} catch (SQLException ex) {
 			Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
 			response.sendRedirect("UploadMapDB");
 			System.err.println("inputStream: " + inputStream);
-			System.err.println("Error 5: "+parts1.getInputStream());
-			System.err.println("Error 6: "+parts1);
+			System.err.println("Error 5: " + parts1.getInputStream());
+			System.err.println("Error 6: " + parts1);
 			System.err.println("Error 2: " + ex);
-
 		}
 	}
 
 	public void getPower(HttpServletRequest request) {
-		
+
 	}
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
