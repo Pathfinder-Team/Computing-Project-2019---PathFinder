@@ -112,12 +112,10 @@ public class orgDB extends HttpServlet {
             }
         } catch (SQLException ex) {
             Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Error 2" + ex);
         }
         try {
-                    /*stmt = conn.createStatement();
-                    String sql5 = "select organisation_name, organisation_address,organisation_email,organisation_mobile,organisation_building_name from organisation where organisation_name = "+userOrgRights;
-                    result = stmt.executeQuery(sql5);
-                    */
+        	System.out.println("get org details");
                     prepStat = conn.prepareStatement("select "
                     		+ "organisation_name, "
                     		+ "organisation_address,"
@@ -153,33 +151,6 @@ public class orgDB extends HttpServlet {
                 + "<title>Organisation Page</title>"
                 + "<link rel=\"stylesheet\" type=\"text/css\" href=\"styles/mainstyle.css\" />"
                 + "<link rel=\"stylesheet\" type=\"text/css\" href=\"styles/forum.css\" />"
-                + "<script>"
-                + "</script>"
-                + "<script type=\"text/javascript\">"
-                + "function validateLogin()"
-                + "  {"
-                + "    var username = document.getElementById(\"username\").value;"
-                + "  var password = document.getElementById(\"password\").value;"
-                + "                       if (validate_req(username, password) == true)"
-                + "      return true;"
-                + "else"
-                + "    return false;"
-                + "   }"
-                + "                function validate_req(username, password)"
-                + "              {"
-                + "                if (username == null || username == \"\")"
-                + "              {"
-                + "                alert(\"Please enter your username\");"
-                + "              return false;"
-                + "          }"
-                + "           if (password == null || password == \"\")"
-                + "         {"
-                + "           alert(\"Please enter your password\");"
-                + "         return false;"
-                + "     }"
-                + "                     return true;"
-                + "               }"
-                + "           </script>"
                 + "     </head>"
                 + "           <body>"
                 + "             <div id=\"container\">"
@@ -188,7 +159,7 @@ public class orgDB extends HttpServlet {
                 + "             </header>"
                 + "              <nav id=\"menu\">"
                 + "               <ul>"
-                + "                   <li><a href=\"index.html\" >ABOUT US</a></li>"
+                + "                 <li><a href=\"index.html\" >ABOUT US</a></li>"
                 + "                 <li><a href=\"register.html\" >REGISTER</a></li>"
                 + "                 <li><a href=\"login.html\" >LOGIN</a></li>"
                 + "                 <li><a href=\"contact.html\" >CONTACT US</a></li>"
@@ -199,41 +170,29 @@ public class orgDB extends HttpServlet {
                 + "                <section id=\"form\">\r\n"
                 + "                    <ul class=\"sign_login\">\r\n"
                 + "                        <li><a href=\"details.html\">DETAILS</a></li>\r\n"
-                + "                        <li><a href=\"maps.html\" class=\"current\">MAPS</a></li>\r\n"
+                + "                        <li><a href=\"orgDB\" class=\"current\">MAPS</a></li>\r\n"
                 + "                        <li><a href=\"LogOutDB\" >LOG OUT</a></li>\r\n"
                 + "						   <li><a href=\"ControlDB\" >Control</a></li>\r\n"
                 + "                    </ul>\r\n"
                 + "                    <br>\r\n"
                 + "                    <br>\r\n"
                 + "                    <p>Here you can upload maps:<p>\r\n"
-                + "<br>Organisation name: "+organisation_name
-                + "<br>Organisation Address: "+organisation_address
-                + "<br>Organisation Email: "+organisation_email
-                + "<br>Organisation Contact Number: "+organisation_mobile
-                + "<br>Organisation Building Name: "+organisation_building_name);
-        		/*
-        		out.println("<br>\r\n"
-                + "                    <div class=\"test\">\r\n"
-                + "                    <div class=\"responsive\">\r\n"
-                + "                    <div class=\"gallery\">\r\n"
-                + "                      <a target=\"_blank\" href=\"images/map1.jpg\">\r\n"
-                + "                        <img src=\"images/map1.jpg\" alt=\"Cinque Terre\" style=\"width:100%\">\r\n"
-                + "                      </a>\r\n"
-                + "                      <div class=\"desc\">\r\n"
-                + "                      <form action=\"commentDB\" method=\"post\" class=\"change\">\r\n"
-                + "                        <button type=\"submit\" >Change</button>\r\n"
-                + "                      </form>\r\n"
-                + "                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\r\n"
-                + "                      <form action=\"commentDB\" method=\"post\" class=\"delete\">\r\n"
-                + "                        <button type=\"submit\" >Delete</button>\r\n"
-                + "                      </form>\r\n"
-                + "                      </div>\r\n"
-                + "                    </div>\r\n"
-                + "                  </div>");
-                */
-        //String filepath = "PathFinder/WebContent/images/map1.jpg";
-        String filepath = "images\\special_image.png";
+                + ""
+                + "					   <br>Organisation name: "+organisation_name
+                + "					   <br>Organisation Address: "+organisation_address
+                + "					   <br>Organisation Email: "+organisation_email
+                + "					   <br>Organisation Contact Number: "+organisation_mobile
+                + "  				   <br>Organisation Building Name: "+organisation_building_name
+                + "                    <br>\r\n"
+                + ""
+                + "                 <form action=\"UploadMapDB\" method=\"post\" class=\"\">\r\n"
+                + "                 	<button type=\"submit\" >Upload A New Map</button>\r\n"
+                + "                 </form>\r\n"
+                + "                 <br>\r\n"
+        		);
+        String filepath = "images/map1.png";
         try {
+        System.out.println("get image");
         String sql1 = "select * from maps join organisation on maps.org_name = organisation.organisation_name where org_name = ?";
         prepStat = conn.prepareStatement(sql1);
         prepStat.setString(1, organisation_name);
@@ -249,30 +208,28 @@ public class orgDB extends HttpServlet {
             int bytesRead = -1;
             byte[] buffer = new byte[BUFFER_SIZE];
             while ((bytesRead = inputStream1.read(buffer)) != -1) {
-            	//response.setContentType("image/jpg");
+            	response.setContentType("image/jpg");
                 outputStream.write(buffer, 0, bytesRead);
             }
             inputStream1.close();
             outputStream.close();
             System.out.println("File saved");
         }
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			 System.err.println("Error 3" + e);
 		}
         ///////////////////////////////////////////////////
-		out.println("<p>Image Here</p>"
-				+ "<img src=\"\\images/special_image.png\" alt=\"not image\" >"
-				+ "<br>\n");
+        out.println("<p>Image Here</p>" 
+        +"<img src=\"images/map1.jpg\" alt=\"\" >" 
+        + "<br>\n");
 		////////////////////////////////////////////////////
 
         out.println("                  <div class=\"clearfix\"></div>\r\n"
                 + "\r\n"
                 + "                    <div style=\"padding:6px;\">\r\n"
                 + "                        <br>\r\n"
-                + "                 <form action=\"UploadMapDB\" method=\"post\" class=\"\">\r\n"
-                + "                        <button type=\"submit\" >Upload A New Map</button>\r\n"
-                + "                 </form>\r\n"
                 + "                        <br>\r\n"
                 + "                        <br>\r\n"
                 + "                        <br>\r\n"
@@ -289,100 +246,7 @@ public class orgDB extends HttpServlet {
                 + "    </body>\r\n"
                 + "</html>");
         }
-        else
-        {
-            out.println("<!doctype html>\n"
-                    + "<!-- Author: Jekaterina Pavlenko, Kevin Dunne, Christopher Costelloe Date: 09/03/2019-->"
-                    + "<html lang=\"en\">"
-                    + "<head>"
-                    + "<meta charset=\"UTF-8\">"
-                    + "<title>Organisation Page</title>"
-                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"styles/mainstyle.css\" />"
-                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"styles/forum.css\" />"
-                    + "<script>"
-                    + "</script>"
-                    + "<script type=\"text/javascript\">"
-                    + "function validateLogin()"
-                    + "  {"
-                    + "    var username = document.getElementById(\"username\").value;"
-                    + "  var password = document.getElementById(\"password\").value;"
-                    + "                       if (validate_req(username, password) == true)"
-                    + "      return true;"
-                    + "else"
-                    + "    return false;"
-                    + "   }"
-                    + "                function validate_req(username, password)"
-                    + "              {"
-                    + "                if (username == null || username == \"\")"
-                    + "              {"
-                    + "                alert(\"Please enter your username\");"
-                    + "              return false;"
-                    + "          }"
-                    + "           if (password == null || password == \"\")"
-                    + "         {"
-                    + "           alert(\"Please enter your password\");"
-                    + "         return false;"
-                    + "     }"
-                    + "                     return true;"
-                    + "               }"
-                    + "           </script>"
-                    + "     </head>"
-                    + "           <body>"
-                    + "             <div id=\"container\">"
-                    + "               <header>"
-                    + "                   <img src=\"images/bn_header.png\" alt=\"\" >"
-                    + "             </header>"
-                    + "              <nav id=\"menu\">"
-                    + "               <ul>"
-                    + "                   <li><a href=\"index.html\" >ABOUT US</a></li>"
-                    + "                 <li><a href=\"register.html\" >REGISTER</a></li>"
-                    + "                 <li><a href=\"login.html\" >LOGIN</a></li>"
-                    + "                 <li><a href=\"contact.html\" >CONTACT US</a></li>"
-                    + "             </ul>"
-                    + "           </nav>");
-            out.println(""
-                    + "<main>\r\n"
-                    + "                <section id=\"form\">\r\n"
-                    + "                    <ul class=\"sign_login\">\r\n"
-                    + "                        <li><a href=\"details.html\">DETAILS</a></li>\r\n"
-                    + "                        <li><a href=\"maps.html\" class=\"current\">MAPS</a></li>\r\n"
-                    + "                        <li><a href=\"LogOutDB\" >LOG OUT</a></li>\r\n"
-                    + "						   <li><a href=\"ControlDB\" >Control</a></li>\r\n"
-                    + "                    </ul>\r\n"
-                    + "                    <br>\r\n"
-                    + "                    <br>\r\n"
-                    + "                    <p>Here you can upload maps:<p>\r\n"
-                    + "<br>Organisation name: "+organisation_name
-                    + "<br>Organisation Address: "+organisation_address
-                    + "<br>Organisation Email: "+organisation_email
-                    + "<br>Organisation Contact Number: "+organisation_mobile
-                    + "<br>Organisation Building Name: "+organisation_building_name
-                    + "                    <br>\r\n");
-            out.println("                  <div class=\"clearfix\"></div>\r\n"
-                    + "\r\n"
-                    + "                    <div style=\"padding:6px;\">\r\n"
-                    + "                        <br>\r\n"
-                    + "                        <br>\r\n"
-                    + "                        <br>\r\n"
-                    + "                 <form action=\"commentDB\" method=\"post\" class=\"\">\r\n"
-                    + "                        <button type=\"submit\" >Upload A New Map</button>\r\n"
-                    + "                 </form>\r\n"
-                    + "                        <br>\r\n"
-                    + "                        <br>\r\n"
-                    + "                        <br>\r\n"
-                    + "                </section>\r\n"
-                    + "            </main>");
-            out.println("            <footer>\r\n"
-                    + "                <p>PathFinder project 2019</p>\r\n"
-                    + "                <p>Authors: Kevin Dunne,Jekaterina Pavlenko & Christopher Costelloe</p>\r\n"
-                    + "                <p><img src=\"images/maze_ic.png\" alt=\"\" ></p>\r\n"
-                    + "            </footer>	\r\n"
-                    + "\r\n"
-                    + "        </div>\r\n"
-                    + "\r\n"
-                    + "    </body>\r\n"
-                    + "</html>");	
-        }
+        System.out.println("end");
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
