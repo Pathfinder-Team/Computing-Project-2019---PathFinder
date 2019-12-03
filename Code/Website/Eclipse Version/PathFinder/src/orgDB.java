@@ -1,13 +1,34 @@
 
 /* 
  Authors: Kevin Dunne, Jekaterina Pavlenko
+
  Date: 7/4/19
  Program: Website for enterprise application development
+ 
+ Note:
+ ///
+ xu9KHOXeU/ZpJnBw+2aPy5jhGnZ/fbzJbEApmaU85uC878wcpW6hvVN6gwFiOiz2UsX3VfZaJGfwPi2JIGLJ5w==
+ 
+ MDOl8Eb0uwfBZKUB5KadIh919IJYvXd2K0NNDYVwlfm7eQtX3ifnvUg+b2VNAz+PdFPi+4RyBZ/Fu/DX+aa3jg==
+ 
+ //
+ https://vision-api-key-path.cognitiveservices.azure.com/
+ 
+ 
+ //
+ 65d239a931bb4a938f8c59ca5a3cc8e2
+ 
+ c1279b3b51a541ffab4dc7cde8425c09
+ 
+ 
  */
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 import javax.servlet.*;
 import java.io.*;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -190,9 +211,12 @@ public class orgDB extends HttpServlet {
                 + "                 </form>\r\n"
                 + "                 <br>\r\n"
         		);
-        String filepath = "images/map1.png";
+        String filepath = "";
+        String imageName = "";
+        File root;	
         try {
-        System.out.println("get image");
+        String webAppPath = getServletContext().getRealPath("\\");
+        System.out.println("web: "+webAppPath);
         String sql1 = "select * from maps join organisation on maps.org_name = organisation.organisation_name where org_name = ?";
         prepStat = conn.prepareStatement(sql1);
         prepStat.setString(1, organisation_name);
@@ -203,29 +227,56 @@ public class orgDB extends HttpServlet {
         	map_name = result.getString("map_name");
         	map_comments = result.getString("map_comments");
         	map_image = result.getBlob("map_image");
-            InputStream inputStream1 = map_image.getBinaryStream();
-            OutputStream outputStream = new FileOutputStream(filepath);
-            int bytesRead = -1;
-            byte[] buffer = new byte[BUFFER_SIZE];
-            while ((bytesRead = inputStream1.read(buffer)) != -1) {
-            	response.setContentType("image/jpg");
-                outputStream.write(buffer, 0, bytesRead);
-            }
-            inputStream1.close();
-            outputStream.close();
-            System.out.println("File saved");
+        	        	
+        	//filepath = webAppPath+"\\WebContent\\images\\"+map_name+".png";
+        	//filepath = webAppPath+"images\\"+map_name+".png";
+        	
+					/*
+					 * filepath = "images\\"+map_name+".png"; InputStream inputStream1 =
+					 * map_image.getBinaryStream(); OutputStream outputStream = new
+					 * FileOutputStream(filepath); int bytesRead = -1; byte[] buffer = new
+					 * byte[BUFFER_SIZE]; while ((bytesRead = inputStream1.read(buffer)) != -1) {
+					 * response.setContentType("image/jpg"); 
+					 * System.out.println("File Path 1: ");
+					 * outputStream.write(buffer, 0, bytesRead);
+					 * System.out.println("File Path: "+filepath); } inputStream1.close();
+					 * outputStream.close(); 
+					 * System.out.println("File saved");
+					 */
         }
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			 System.err.println("Error 3" + e);
+			 System.err.println("Error 3: " + e);
 		}
+        
+			/*
+			 * String webAppPath = getServletContext().getRealPath("/"); String webAppPath1
+			 * = getServletContext().getRealPath("\\");
+			 * System.out.println("web: "+webAppPath);
+			 */
+        out.println("<p>Organisation Building Name: "+org_building);
+			/*
+			 * out.println("<p>webAppPath</p> "+webAppPath);
+			 * out.println("<p>filepath</p> "+filepath);
+			 * out.println("<p>webAppPath1</p> "+webAppPath1);
+			 */
+        out.println(
+        		"<select name=\"floorSelection\">\r\n" + 
+        		"<option value=\"floor\">Ground</option>\r\n" + 
+        		"<option value=\"floor\">First Floor</option>\r\n" + 
+        		"<option value=\"floor\">Second Floor</option>\r\n" + 
+        		"<option value=\"floor\">Third Floor</option>\r\n" + 
+        		"</select>"
+        		+ "<input type=\"submit\" value=\"Send\">");
+        
         ///////////////////////////////////////////////////
-        out.println("<p>Image Here</p>" 
-        +"<img src=\"images/map1.jpg\" alt=\"\" >" 
+        out.println("<p>Image Here</p>"
+        +"<img src=\"images/map1.png\" alt=\"\" size=\"30%\" >" 
         + "<br>\n");
+			
 		////////////////////////////////////////////////////
-
+        
         out.println("                  <div class=\"clearfix\"></div>\r\n"
                 + "\r\n"
                 + "                    <div style=\"padding:6px;\">\r\n"
