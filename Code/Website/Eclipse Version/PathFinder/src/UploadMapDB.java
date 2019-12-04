@@ -167,7 +167,7 @@ public class UploadMapDB extends HttpServlet
                 + "                <section id=\"form\">\r\n"
                 + "                    <ul class=\"sign_login\">\r\n"
                 + "                        <li><a href=\"details.html\">DETAILS</a></li>\r\n"
-                + "                        <li><a href=\"orgDB\">MAPS</a></li>\r\n"
+                + "                        <li><a href=\"Maps.jsp\">MAPS</a></li>\r\n"
                 + "                        <li><a href=\"LogOutDB\" >LOG OUT</a></li>\r\n"
                 + "						   <li><a href=\"ControlDB\" >Control</a></li>\r\n"
                 + "                    </ul>\r\n"

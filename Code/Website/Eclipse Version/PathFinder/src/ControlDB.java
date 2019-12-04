@@ -139,6 +139,7 @@ public class ControlDB extends HttpServlet
                 + "                    <ul class=\"sign_login\">\r\n"
                 + "                        <li><a href=\"details.html\">DETAILS</a></li>\r\n"
                 + "                        <li><a href=\"orgDB\">MAPS</a></li>\r\n"
+                + "                        <li><a href=\"Maps.jsp\">Maps JSP</a></li>\r\n"
                 + "                        <li><a href=\"LogOutDB\" >LOG OUT</a></li>\r\n"
                 + "						   <li><a href=\"ControlDB\" class=\"current\">Control</a></li>\r\n"
                 + "                    </ul>\r\n"

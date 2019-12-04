@@ -135,7 +135,7 @@ public class AddNewMapActionDB extends HttpServlet {
 				prepStat.setBlob(6, inputStream);
 			}
 			int i = prepStat.executeUpdate();
-			response.sendRedirect("orgDB");
+			response.sendRedirect("Maps.jsp");
 		} catch (SQLException ex) {
 			Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
 			response.sendRedirect("UploadMapDB");

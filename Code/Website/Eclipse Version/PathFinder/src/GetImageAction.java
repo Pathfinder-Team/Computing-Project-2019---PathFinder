@@ -1,27 +1,3 @@
-
-/* 
- Authors: Kevin Dunne, Jekaterina Pavlenko
-
- Date: 7/4/19
- Program: Website for enterprise application development
- 
- Note:
- ///
- xu9KHOXeU/ZpJnBw+2aPy5jhGnZ/fbzJbEApmaU85uC878wcpW6hvVN6gwFiOiz2UsX3VfZaJGfwPi2JIGLJ5w==
- 
- MDOl8Eb0uwfBZKUB5KadIh919IJYvXd2K0NNDYVwlfm7eQtX3ifnvUg+b2VNAz+PdFPi+4RyBZ/Fu/DX+aa3jg==
- 
- //
- https://vision-api-key-path.cognitiveservices.azure.com/
- 
- 
- //
- 65d239a931bb4a938f8c59ca5a3cc8e2
- 
- c1279b3b51a541ffab4dc7cde8425c09
- 
- 
- */
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 import javax.servlet.*;
@@ -30,11 +6,12 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@WebServlet(name = "orgDB", urlPatterns = { "/orgDB" })
-public class orgDB extends HttpServlet {
+@WebServlet(name = "GetImageAction", urlPatterns = { "/GetImageAction" })
+public class GetImageAction extends HttpServlet {
 
 	private static final int BUFFER_SIZE = 4096;
 	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -100,8 +77,6 @@ public class orgDB extends HttpServlet {
 		// we know we are that user in the database so were going to put there
 		// information into some variables
 		try {
-			//
-			//
 			if (cookies != null) {
 				for (int i = 0; i < cookies.length; i++) {
 					cookie = cookies[i];
@@ -135,104 +110,9 @@ public class orgDB extends HttpServlet {
 			Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
 			System.err.println("Error 2" + ex);
 		}
-		try {
-			System.out.println("get org details");
-			prepStat = conn.prepareStatement("select " + "organisation_name, " + "organisation_address,"
-					+ "organisation_email," + "organisation_mobile," + "organisation_building_name "
-					+ "from organisation where organisation_name = ?");
-			prepStat.setString(1, orgNameRights);
-			result = prepStat.executeQuery();
-			while (result.next()) {
-				organisation_name = result.getString("organisation_name");
-				organisation_address = result.getString("organisation_address");
-				organisation_email = result.getString("organisation_email");
-				organisation_mobile = result.getString("organisation_mobile");
-				organisation_building_name = result.getString("organisation_building_name");
-			}
-		} catch (SQLException ex) {
-			Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
-		}
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		// System.out.println("power : "+userOrgRights);
-		// System.out.println("power right : "+organisation_name);
-		// System.out.println("if before");
-		if (organisation_name.equals(orgNameRights)) {
-			out.println("<!doctype html>\n"
-					+ "<!-- Author: Jekaterina Pavlenko, Kevin Dunne, Christopher Costelloe Date: 09/03/2019-->"
-					+ "<html lang=\"en\">" 
-					+ "<head>" + "<meta charset=\"UTF-8\">" 
-					+ "<title>Organisation Page</title>"
-					+ "<link rel=\"stylesheet\" type=\"text/css\" href=\"styles/mainstyle.css\" />"
-					+ "<link rel=\"stylesheet\" type=\"text/css\" href=\"styles/forum.css\" />" 
-					+ "</head>"
-					+ "<body>" 
-					+ "<div id=\"container\">"
-					+ "<header>"
-					+ "<img src=\"images/bn_header.png\" alt=\"\" >" 
-					+ "</header>"
-					+ "<nav id=\"menu\">" 
-					+ "<ul>"
-					+ "<li><a href=\"index.html\" >ABOUT US</a></li>"
-					+ "<li><a href=\"register.html\" >REGISTER</a></li>"
-					+ "<li><a href=\"login.html\" >LOGIN</a></li>"
-					+ "<li><a href=\"contact.html\" >CONTACT US</a></li>"
-					+ "</ul>"
-					+ "</nav>");
-			out.println("" + "<main>\r\n" 
-					+ "                <section id=\"form\">\r\n"
-					+ "                    <ul class=\"sign_login\">\r\n"
-					+ "                        <li><a href=\"details.html\">DETAILS</a></li>\r\n"
-					+ "                        <li><a href=\"Maps.jsp\" class=\"current\">MAPS</a></li>\r\n"
-					+ "                        <li><a href=\"LogOutDB\" >LOG OUT</a></li>\r\n"
-					+ "						   <li><a href=\"ControlDB\" >Control</a></li>\r\n"
-					+ "                    </ul>\r\n" + "                    <br>\r\n" + "                    <br>\r\n"
-					+ "                    <p>Here you can upload maps:<p>\r\n" + ""
-					+ "					   <br>Organisation name: " + organisation_name
-					+ "					   <br>Organisation Address: " + organisation_address
-					+ "					   <br>Organisation Email: " + organisation_email
-					+ "					   <br>Organisation Contact Number: " + organisation_mobile
-					+ "  				   <br>Organisation Building Name: " + organisation_building_name
-					+ "                    <br>\r\n" + ""
-					+ "                 <form action=\"UploadMapDB\" method=\"post\" class=\"\">\r\n"
-					+ "                 	<button type=\"submit\" >Upload A New Map</button>\r\n"
-					+ "                 </form>\r\n" + "                 <br>\r\n");
-			String filepath = "";
-			String imageName = "";
-			File root;
-
-			out.println("<p>Organisation Building Name: " + org_building);
-			out.println("<p>filepath</p> " + filepath);
-
-			out.println("<select name=\"floorSelection\">\r\n" + "<option value=\"floor\">Ground</option>\r\n"
-					+ "<option value=\"floor\">First Floor</option>\r\n"
-					+ "<option value=\"floor\">Second Floor</option>\r\n"
-					+ "<option value=\"floor\">Third Floor</option>\r\n" + "</select>"
-					+ "<input type=\"submit\" value=\"Send\">");
-
-			///////////////////////////////////////////////////
-			out.println("<p>Image Here</p>" + "<img src=\"images/map1.png\" alt=\"\" size=\"30%\" >" + "<br>\n");
-			
-			//getImage(response,out);
-
-
-			////////////////////////////////////////////////////
-
-			out.println("                  <div class=\"clearfix\"></div>\r\n" + "\r\n"
-					+ "                    <div style=\"padding:6px;\">\r\n" + "                        <br>\r\n"
-					+ "                        <br>\r\n" + "                        <br>\r\n"
-					+ "                        <br>\r\n" + "                </section>\r\n" + "            </main>");
-			out.println("            <footer>\r\n" + "                <p>PathFinder project 2019</p>\r\n"
-					+ "                <p>Authors: Kevin Dunne,Jekaterina Pavlenko & Christopher Costelloe</p>\r\n"
-					+ "                <p><img src=\"images/maze_ic.png\" alt=\"\" ></p>\r\n"
-					+ "            </footer>	\r\n" + "\r\n" + "        </div>\r\n" + "\r\n" + "    </body>\r\n"
-					+ "</html>");
-		}
-		System.out.println("end");
-	}
-	
-	public void getImage(HttpServletResponse response,PrintWriter out)
-	{
+		String jsp_org_name = request.getParameter("org_name");
 		try {
 			ResultSet rs1 = stmt.executeQuery(
 					"select map_image from maps join organisation on maps.org_name = organisation.organisation_name where org_name = 'Limerick Institute of Technology'");
@@ -260,6 +140,26 @@ public class orgDB extends HttpServlet {
 			e.printStackTrace();
 			System.err.println("Error 3: " + e);
 		}
+	}
+
+	public ArrayList<String> getImageArray()
+	{
+		ArrayList<String> specialArray = new ArrayList<>();
+		try {
+			prepStat = conn.prepareStatement("select map_name from maps where org_name = ?");
+			prepStat.setString(1, orgNameRights);
+			result = prepStat.executeQuery();
+		
+			while (result.next()) {
+				specialArray.add(result.getString("map_name"));
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.err.println("Error 3: " + e);
+		}
+		return specialArray;
 	}
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
