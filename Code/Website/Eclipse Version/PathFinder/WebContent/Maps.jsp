@@ -184,7 +184,15 @@
 				<form action="UploadMapDB" method="post" class="">
 					<button type="submit">Upload A New Map</button>
 				</form>
-				<br> <select name="party">
+				
+				<br>
+				<br>
+				
+				<!--  <img src="GetImageAction?">
+				<img src="GetImageAction?org_name=Limerick Institute of Technology" width="300" height="325" border="1">
+				-->
+				<form action="Maps.jsp">
+					<select name="party">
 					<option value="">SELECT</option>
 					<%
 						for (int i = 0; i < specialArray.size(); i++) {
@@ -197,13 +205,13 @@
 					<%
 						}
 					%>
-				</select> <input type="submit" value="Select Floor"> <br> <br>
-				
-				<!--  <img src="GetImageAction" width="300" height="325" border="1">-->
-				<img
-					src="GetImageAction?org_name=Limerick Institute of Technology 
-				width="
-					300" height="325" border="1">
+				</select> 
+				<input type="Submit" value="Submit">
+				</form>
+				<%
+				String selected = request.getParameter("party");
+				%>
+				<img src="GetImageAction?map_name=<%=selected%>" width="300" height="325" border="1">
 			</section>
 		</main>
             <footer>
