@@ -187,28 +187,28 @@
 				
 				<br>
 				<br>
-				
-				<!--  <img src="GetImageAction?">
-				<img src="GetImageAction?org_name=Limerick Institute of Technology" width="300" height="325" border="1">
-				-->
+			
 				<form action="Maps.jsp">
 					<select name="party">
-					<option value="">SELECT</option>
-					<%
-						for (int i = 0; i < specialArray.size(); i++) {
-							String party = (String) specialArray.get(i);
-					%>
-					<option value="<%=party%>">
-						<%=party%>
-						
-					</option>
-					<%
-						}
-					%>
-				</select> 
+						<option value="">SELECT</option>
+						<%
+							for (int i = 0; i < specialArray.size(); i++) 
+							{
+								String party = (String) specialArray.get(i);
+						%>
+						<option value="<%=party%>">
+							<%=party%>
+						</option>
+						<%
+							}
+						%>
+					</select> 
 				<input type="Submit" value="Submit">
+				<br>
+				<br>
 				</form>
 				<%
+				//String selected = "ground";
 				String selected = request.getParameter("party");
 				%>
 				<img src="GetImageAction?map_name=<%=selected%>" width="300" height="325" border="1">

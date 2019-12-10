@@ -111,30 +111,29 @@ public class GetImageAction extends HttpServlet {
 		}
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		String jsp_org_name = request.getParameter("orgNameRights");
+		//String jsp_org_name = request.getParameter("orgNameRights");
 		String jsp_org_name2 = request.getParameter("map_name");
-		String jsp_org_name3 = request.getParameter("party");
+		//String jsp_org_name3 = request.getParameter("party");
 		System.out.println("map_name: "+jsp_org_name2);
 		try {
 			
-           prepStat = conn.prepareStatement("select map_image "
+			/*
+			PreparedStatement prepStat1 = conn.prepareStatement("select map_image "
 					+ "from maps "
 					+ "join organisation "
 					+ "on maps.org_name = organisation.organisation_name "
 					+ "where map_name = ?");
-            prepStat.setString(1, jsp_org_name2);
-            result = prepStat.executeQuery();
+           	
+            prepStat1.setString(1, jsp_org_name2);
+            result = prepStat1.executeQuery();
+            System.out.println("prepstat: "+prepStat1);
             String imgLen = "";
 			if (result.next()) 
 			{
 				imgLen = result.getString(1);
+				//System.out.println("imgLen: "+imgLen);
 				//System.out.println(imgLen.length());
 			}
-			prepStat = conn.prepareStatement("select map_image "
-					+ "from maps "
-					+ "join organisation "
-					+ "on maps.org_name = organisation.organisation_name "
-					+ "where map_name = ?");
 			if (result.next()) {
 				int len = imgLen.length();
 				byte[] rb = new byte[len];
@@ -147,23 +146,50 @@ public class GetImageAction extends HttpServlet {
 				response.getOutputStream().write(rb, 0, len);
 				response.getOutputStream().flush();
 			}
+			*/
 			
-			/*
-			ResultSet rs1 = stmt.executeQuery("select map_image "
+			ResultSet rs1 = stmt.executeQuery("select maps.map_image,maps.map_name "
 					+ "from maps "
 					+ "join organisation "
 					+ "on maps.org_name = organisation.organisation_name "
-					+ "where map_name = 'second floor'");
+					+ "where org_name = 'Limerick Institute of Technology'");
 			String imgLen = "";
-			if (rs1.next()) 
+			while (rs1.next()) 
 			{
-				imgLen = rs1.getString(1);
+				String check = rs1.getString("map_name");
+				System.out.println("Check: "+check);
+				if(check.equals(jsp_org_name2))
+				{
+					System.out.println("Inside check if");
+					imgLen = rs1.getString("map_image");
 				//System.out.println(imgLen.length());
+					if (rs1.next()) {
+						System.out.println("Inside next if");
+						int len = imgLen.length();
+						byte[] rb = new byte[len];
+						InputStream readImg = rs1.getBinaryStream(1);
+						int index = readImg.read(rb, 0, len);
+						//System.out.println("index " + index);
+						stmt.close();
+						response.reset();
+						response.setContentType("image/jpg");
+						response.getOutputStream().write(rb, 0, len);
+						response.getOutputStream().flush();
+						System.out.println(" ");
+						break;
+					}
+					
+				}
 			}
-			*/
+			
 			/*
-			rs1 = stmt.executeQuery(
-					"select map_image from maps join organisation on maps.org_name = organisation.organisation_name where org_name = 'Limerick Institute of Technology'");
+			rs1 = stmt.executeQuery("select map_image "
+					+ "from maps "
+					+ "join organisation "
+					+ "on maps.org_name = organisation.organisation_name "
+					+ "where org_name = 'Limerick Institute of Technology'");
+			
+			
 			if (rs1.next()) {
 				int len = imgLen.length();
 				byte[] rb = new byte[len];
@@ -177,6 +203,7 @@ public class GetImageAction extends HttpServlet {
 				response.getOutputStream().flush();
 			}
 			*/
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
