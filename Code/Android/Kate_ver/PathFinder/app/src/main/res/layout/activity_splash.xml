@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#708EC5"
+    android:background="#4C75A7"
     tools:context=".SplashActivity">
 
     <TextView
@@ -23,22 +23,23 @@
         android:id="@+id/splashImage"
         android:layout_width="346dp"
         android:layout_height="237dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="44dp"
         android:adjustViewBounds="false"
         android:fadingEdge="horizontal|vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/splashTop"
-        app:srcCompat="@drawable/maze_ic" />
+        app:srcCompat="@drawable/header_m" />
 
     <TextView
         android:id="@+id/version"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="256dp"
+        android:layout_marginTop="76dp"
         android:text="@string/version"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/splashImage" />
 
