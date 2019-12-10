@@ -11,6 +11,20 @@ import android.widget.TextView;
 
 public class SplashActivity extends AppCompatActivity {
 
+    public void onPause () {
+
+        super.onPause();
+
+        TextView splash = (TextView) findViewById(R.id.splashTop);
+        ImageView splash_image = (ImageView) findViewById(R.id.splashImage);
+        TextView version = (TextView) findViewById(R.id.version);
+
+        splash.clearAnimation();
+        splash_image.clearAnimation();
+        version.clearAnimation();
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +42,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                Intent intent = new Intent(SplashActivity.this, MenuActivity.class);
                 startActivity(intent);
             }
             @Override
