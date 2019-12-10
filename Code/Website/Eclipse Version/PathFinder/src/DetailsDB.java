@@ -63,7 +63,7 @@ public class DetailsDB extends HttpServlet {
 	String organisation_name;
 	String organisation_address;
 	String organisation_email;
-	String organisation_mobile;
+	int organisation_mobile;
 	String organisation_building_name;
 	String user_org_name;
 
@@ -146,7 +146,7 @@ public class DetailsDB extends HttpServlet {
 				organisation_name = result.getString("organisation_name");
 				organisation_address = result.getString("organisation_address");
 				organisation_email = result.getString("organisation_email");
-				organisation_mobile = result.getString("organisation_mobile");
+				organisation_mobile = result.getInt("organisation_mobile");
 				organisation_building_name = result.getString("organisation_building_name");
 			}
 		} catch (SQLException ex) {
@@ -189,23 +189,24 @@ public class DetailsDB extends HttpServlet {
 					+ "                    </ul>\r\n" + "                    <br>\r\n" + "                    <br>\r\n"
 					+ "                    <p>Organisation Information:<p>\r\n" + ""
 					+ "					   <br>"
-					+ "						<form action=\"EditAction\">"
+											+ "<form action=\"EditDB\">"
 												+ "Organisation Name: " + organisation_name
+												+ "<input type=\"hidden\" id=\"old_organisation_name\" name=\"old_organisation_name\" value="+organisation_name+">"
 												+ "<button type=\"submit\" >Edit Name</button>"
 											+ "</form>"
-											+ "<form>"
+											+ "<form action=\"EditDB\">"
 												+ "Organisation Address: " + organisation_address
 												+ "<button type=\"submit\" >Edit Name</button>"
 											+ "</form>"
-											+ "<form>"
+											+ "<form action=\"EditDB\">"
 												+ "Organisation Email: " + organisation_email
 												+ "<button type=\"submit\" >Edit Name</button>"
 											+ "</form>"
-											+ "<form>"
+											+ "<form action=\"EditDB\">"
 												+ "Organisation Contact Number: " + organisation_building_name
 												+ "<button type=\"submit\" >Edit Name</button>"
 											+ "</form>"
-											+ "<form>"
+											+ "<form action=\"EditDB\">"
 												+ "Organisation Building Name: " + organisation_name
 												+ "<button type=\"submit\" >Edit Name</button>"
 											+ "</form>");

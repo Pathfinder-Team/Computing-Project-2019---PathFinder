@@ -23,15 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 })
 public class EditDB extends HttpServlet
 {
-
-    String first_name;
-    String last_name;
-    String user_name;
-    String password;
-    String email;
-    String old_username;
-    int Account_Status_Users;
-
+	
     Connection conn;
     PreparedStatement prepStat;
     Statement stat;
@@ -60,13 +52,12 @@ public class EditDB extends HttpServlet
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        old_username = request.getParameter("user_name");
-
-        System.out.println("editdb check: " + old_username);
+    	String old_organisation_name = request.getParameter("organisation_name");
+    	System.out.println("special old_organisation_name: "+old_organisation_name);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         out.println("<!doctype html>\n"
-                + "<!-- Author: Jekaterina Pavlenko K00224431\n"
+                + "<!-- Author: Kevin Dunne K00224431\n"
                 + "         Date: 09/03/2019\n"
                 + "         Project Forum Page\n"
                 + "-->\n"
@@ -84,45 +75,48 @@ public class EditDB extends HttpServlet
                 + "            <header>\n"
                 + "                <img src=\"images/img3.jpg\" >\n"
                 + "            </header>\n"
-                + "            <nav id=\"menu\">\n"
-                + "                <ul>\n"
-                + "                    <li><a href=\"index.html\" >About Us</a></li>\n"
-                + "                    <li><a href=\"register.html\">Register</a></li>\n"
-                + "                    <li><a href=\"login.html\" >LOGIN</a></li>\n"
-                + "                    <li><a href=\"forum.html\">FORUM</a></li>\n"
-                + "                    <li><a href=\"contact.html\" >CONTACT</a></li>\n"
-                + "                    <li><a href=\"ControlDB\" >CONTROL</a></li>\n"
-                + "                    <li><a href=\"LogOutDB\" >Log Out</a></li>\n"
-                + "                </ul>\n"
-                + "            </nav>"
+                + "              <nav id=\"menu\">"
+                + "               <ul>"
+                + "                 <li><a href=\"index.html\" >ABOUT US</a></li>"
+                + "                 <li><a href=\"register.html\" >REGISTER</a></li>"
+                + "                 <li><a href=\"login.html\" >LOGIN</a></li>"
+                + "                 <li><a href=\"contact.html\" >CONTACT US</a></li>"
+                + "             </ul>"
+                + "           </nav>"
                 + " <main>\n"
                 + "                <section id=\"form\">\n"
+				+ "                    <ul class=\"sign_login\">\r\n"
+				+ "                        <li><a href=\"DetailsDB\" class=\"current\">DETAILS</a></li>\r\n"
+				+ "                        <li><a href=\"Maps.jsp\">MAPS</a></li>\r\n"
+				+ "                        <li><a href=\"LogOutDB\" >LOG OUT</a></li>\r\n"
+				+ "						   <li><a href=\"ControlDB\" >Control</a></li>\r\n"
+				+ "                    </ul>\r\n" 
+				+ "<br>\r\n" 
+				+ "<br>\r\n"
                 + "                    <h1>Edit</h1>\n"
                 + "                    <form action=\"EditActionDB\" method=\"post\" name=\"form\" onSubmit=\"return validateAll();\" >\n"
                 + "                        <fieldset>\n"
                 + "                            <legend>Edit Record</legend>\n"
                 + "                            <br>\n"
                 + "\n"
-                + "                            <p><label for=\"first_name\" class=\"title\" >First Name: <span>*</span></label>\n"
-                + "                                <input type=\"text\" name=\"first_name\" id=\"first_name\" /required></p>\n"
+                + "                            <p><label for=\"organisation_name\" class=\"title\" >organisation Name: <span>*</span></label>\n"
+                + "                                <input type=\"text\" name=\"organisation_name\" id=\"organisation_name\" /required></p>\n"
                 + "\n"
-                + "                            <p><label for=\"last_name\" class=\"title\">Last Name: <span>*</span></label>\n"
-                + "                                <input type=\"text\" name=\"last_name\" id=\"last_name\" /required></p>\n"
+                + "                            <p><label for=\"organisation_address\" class=\"title\">organisation_address: <span>*</span></label>\n"
+                + "                                <input type=\"text\" name=\"organisation_address\" id=\"organisation_address\" /required></p>\n"
                 + "\n"
-                + "                            <p><label for=\"user_name\" class=\"title\">Username: <span>*</span></label>\n"
-                + "                                <input type=\"text\" name=\"user_name\" id=\"user_name\" /required></p>\n"
+                + "                            <p><label for=\"organisation_email\" class=\"title\">organisation_email: <span>*</span></label>\n"
+                + "                                <input type=\"email\" name=\"organisation_email\" id=\"organisation_email\" /required></p>\n"
                 + "\n"
-                + "                            <p><label for=\"email\" class=\"title\">Email: <span>*</span></label>\n"
-                + "                                <input type=\"email\" name=\"email\" id=\"email\" /required></p>\n"
+                + "                            <p><label for=\"organisation_mobile\" class=\"title\">organisation_mobile: <span>*</span></label>\n"
+                + "                                <input type=\"number\" name=\"organisation_mobile\" id=\"organisation_mobile\" /required></p>\n"
                 + "\n"
-                + "                            <p><label for=\"password\" class=\"title\">Password: <span>*</span></label>\n"
-                + "                                <input type=\"password\" name=\"password\" id=\"password\" /required></p>\n"
+                + "                            <p><label for=\"organisation_building_name\" class=\"title\">organisation_building_name: <span>*</span></label>\n"
+                + "                                <input type=\"text\" name=\"organisation_building_name\" id=\"organisation_building_name\" /required></p>\n"
                 + "                            <p>\n"
-                + "                            <p><label for=\"Account_Status_Users\" class=\"title\">Account Status: <span>*</span></label>\n"
-                + "                                <input type=\"number\" name=\"Account_Status_Users\" id=\"Account_Status_Users\" /required></p>\n"
-                + "                            <p>\n"
-                + "                            <input type=\"hidden\" id=\"old_username\" name=\"old_username\" value=" + old_username + ">"
+                + "                            <input type=\"hidden\" id=\"old_organisation_name\" name=\"old_organisation_name\" value=\""+old_organisation_name+"\">"
         );
+        
         out.println("<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Submit Details\" />\n"
                 + "                            </p>\n"
                 + "                        </fieldset>\n"

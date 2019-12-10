@@ -23,16 +23,9 @@ public class ControlDB extends HttpServlet
     Connection conn2;
     Statement stmt;
     PreparedStatement prepStat;
-
-    int powerID;
-    String powerUsername;
-    String powerFirstName;
-    String powerLastName;
-    String powerPassword;
-    String powerEmail;
-    int powerStatus;
     ResultSet result;
-    RankPower rp = new RankPower();
+    //RankPower rp = new RankPower();
+    getRankPower rp = new getRankPower();
     
 
     @Override
@@ -57,8 +50,12 @@ public class ControlDB extends HttpServlet
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-    	
-    	
+		//rp1.getStatus(request,response,stmt,conn);
+		
+		int check = rp.getStatusRank(request,response,stmt,conn);
+		
+		System.out.println("Check status: "+check);
+		
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         out.println("<!doctype html>\n"

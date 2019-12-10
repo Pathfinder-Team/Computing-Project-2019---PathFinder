@@ -23,13 +23,13 @@ import javax.servlet.http.HttpServletResponse;
 public class EditActionDB extends HttpServlet
 {
 
-    String first_name;
-    String last_name;
-    String user_name;
-    String password;
-    String email;
-    String old_username;
-    int Account_Status_Users;
+	String organisation_name = "";
+	String old_organisation_name = "";
+	String organisation_address = "";
+	String organisation_email = "";
+	int organisation_mobile = 0;
+	String organisation_building_name = "";
+	String user_org_name = "";
 
     Connection conn;
     PreparedStatement prepStat;
@@ -59,33 +59,44 @@ public class EditActionDB extends HttpServlet
             throws ServletException, IOException
     {
 
-        old_username = request.getParameter("old_username");
-        System.out.println("old_username check action "+old_username);
         
-        first_name = request.getParameter("first_name");
-        last_name = request.getParameter("last_name");
-        user_name = request.getParameter("user_name");
-        password = request.getParameter("password");
-        email = request.getParameter("email");
-        Account_Status_Users = Integer.parseInt(request.getParameter("Account_Status_Users"));
+        organisation_name = request.getParameter("organisation_name");
+        old_organisation_name = request.getParameter("old_organisation_name");
+        organisation_address = request.getParameter("organisation_address");
+        organisation_email = request.getParameter("organisation_email");
+        organisation_building_name = request.getParameter("organisation_building_name");
+        organisation_mobile = Integer.parseInt(request.getParameter("organisation_mobile"));
+        
+        System.out.println("organisation_name: "+organisation_name);
+        System.out.println("old_organisation_name: "+old_organisation_name);
+        System.out.println("organisation_address: "+organisation_address);
+        System.out.println("organisation_email: "+organisation_email);
+        System.out.println("organisation_building_name: "+organisation_building_name);
+        System.out.println("organisation_mobile: "+organisation_mobile);
         try
         {
-            String query = "update users set user_name = ?,first_name = ?,last_name = ?,password = ?,email = ?, Account_Status_Users = ? where user_name = ?";
+            String query = "update organisation "
+            		+ "set organisation_name = ?,"
+            		+ "organisation_address = ?,"
+            		+ "organisation_email = ?,"
+            		+ "organisation_mobile = ?,"
+            		+ "organisation_building_name = ? "
+            		+ "where organisation_name = ?";
             prepStat = conn.prepareStatement(query);
-            prepStat.setString(1, user_name);
-            prepStat.setString(2, first_name);
-            prepStat.setString(3, last_name);
-            prepStat.setString(4, password);
-            prepStat.setString(5, email);
-            prepStat.setInt(6, Account_Status_Users);
-            prepStat.setString(7, old_username);
+            
+            prepStat.setString(1, organisation_name);
+            prepStat.setString(2, organisation_address);
+            prepStat.setString(3, organisation_email);
+            prepStat.setInt(4, organisation_mobile);
+            prepStat.setString(5, organisation_building_name);
+            prepStat.setString(6, old_organisation_name);
             prepStat.executeUpdate();
 
         } catch (SQLException e)
         {
             System.err.println("Error 2 " + e);
         }
-        response.sendRedirect("ChangeDetailsDB");
+        response.sendRedirect("DetailsDB");
 
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

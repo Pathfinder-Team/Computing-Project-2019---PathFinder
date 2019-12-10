@@ -68,7 +68,7 @@ public class LoginDB extends HttpServlet
                 response.addCookie(cookUsername);
                 response.addCookie(cookPassword);
                 String getNameRights = checkUsername;
-                response.sendRedirect("RankPower");
+                response.sendRedirect("ControlDB");
             } else
             {
                 // display a message using a jsp page that the was an error
