@@ -105,7 +105,7 @@
 		}
 
 		try {
-			System.out.println("get org details");
+			//System.out.println("get org details");
 			//orgNameRights = "Limerick Institute of Technology";
 			prepStat = conn.prepareStatement(
 					"select organisation_name, organisation_address, organisation_email,organisation_mobile,organisation_building_name from organisation where organisation_name = ?");
@@ -179,6 +179,19 @@
 						}
 					%>
 				</select> <input type="submit" value="Select Floor"> <br> <br>
-				<img src="GetImageAction?org_name=<%=organisation_name%>width="300" height="325" border="1">
+				<img src="GetImageAction" width="300" height="325" border="1">
+				<br> <img src="GetImageAction?orgNameRights=<%=orgNameRights%>"
+					width="125" height="125" border="1">
+			<br>
+			</section>
+		</main>
+		<footer>
+			<p>PathFinder project 2019</p>
+			<p>Authors: Kevin Dunne,Jekaterina Pavlenko & Christopher
+				Costelloe</p>
+			<p>
+				<img src="images/maze_ic.png" alt="">
+			</p>
+		</footer>
 </body>
 </html>

@@ -136,7 +136,7 @@ public class orgDB extends HttpServlet {
 			System.err.println("Error 2" + ex);
 		}
 		try {
-			System.out.println("get org details");
+			//System.out.println("get org details");
 			prepStat = conn.prepareStatement("select " + "organisation_name, " + "organisation_address,"
 					+ "organisation_email," + "organisation_mobile," + "organisation_building_name "
 					+ "from organisation where organisation_name = ?");

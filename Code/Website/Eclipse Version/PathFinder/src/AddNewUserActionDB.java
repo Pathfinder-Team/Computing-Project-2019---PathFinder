@@ -36,7 +36,6 @@ public class AddNewUserActionDB extends HttpServlet {
     Statement stat;
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-    @Override
     public void init() throws ServletException {
         /*
          String URL = "jdbc:mysql://localhost:3306/mydb?autoReconnect=true&useSSL=false";

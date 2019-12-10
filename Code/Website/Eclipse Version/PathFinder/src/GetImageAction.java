@@ -50,7 +50,6 @@ public class GetImageAction extends HttpServlet {
 	String map_comments;
 	Blob map_image;
 
-	@Override
 	public void init() throws ServletException {
 		String URL = "jdbc:mysql://remotemysql.com:3306/4eyg55o51S?autoReconnect=true&useSSL=false";
 		String USERNAME = "4eyg55o51S";
@@ -112,7 +111,8 @@ public class GetImageAction extends HttpServlet {
 		}
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		String jsp_org_name = request.getParameter("org_name");
+		String jsp_org_name = request.getParameter("orgNameRights");
+		System.out.println("orgNameRights: "+orgNameRights);
 		try {
 			ResultSet rs1 = stmt.executeQuery(
 					"select map_image from maps join organisation on maps.org_name = organisation.organisation_name where org_name = 'Limerick Institute of Technology'");
@@ -153,6 +153,7 @@ public class GetImageAction extends HttpServlet {
 			while (result.next()) {
 				specialArray.add(result.getString("map_name"));
 			}
+			System.out.println("Output Image");
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
