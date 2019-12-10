@@ -32,6 +32,7 @@ public class ControlDB extends HttpServlet
     String powerEmail;
     int powerStatus;
     ResultSet result;
+    RankPower rp = new RankPower();
     
 
     @Override
@@ -56,12 +57,8 @@ public class ControlDB extends HttpServlet
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-    	RankPower rp = new RankPower();
     	
-    	int special = rp.getStatusRights();
-    	String special1 = rp.getUserNameRights();
-    	System.out.println("Check "+special);
-    	System.out.println("Check "+special1);
+    	
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         out.println("<!doctype html>\n"
@@ -93,8 +90,8 @@ public class ControlDB extends HttpServlet
                 + "            <main>"
                 + "                <section id=\"form\">\n"
                 + "                    <ul class=\"sign_login\">\r\n"
-                + "                        <li><a href=\"details.html\">DETAILS</a></li>\r\n"
-               // + "                        <li><a href=\"orgDB\">MAPS</a></li>\r\n"
+                + "                        <li><a href=\"DetailsDB\">DETAILS</a></li>\r\n"
+               // + "                      <li><a href=\"orgDB\">MAPS</a></li>\r\n"
                 + "                        <li><a href=\"Maps.jsp\">Maps JSP</a></li>\r\n"
                 + "                        <li><a href=\"LogOutDB\" >LOG OUT</a></li>\r\n"
                 + "						   <li><a href=\"ControlDB\" class=\"current\">Control</a></li>\r\n"
@@ -111,12 +108,11 @@ public class ControlDB extends HttpServlet
                         + "<h3>Controls</h3>"
                         + "<form action=\"ChangeDetailsDB\">"
                         + "<h4>Username: " + rp.getUserNameRights() + "</h4>"
-                        + "<h4>Email: " + rp.getEmailRights() + "</h4>");
+                        + "<h4>Email: " + rp.getEmailRights() + "</h4>"
+                        + "<h4>Organization: " + rp.getOrgRights() + "</h4>"
+                        + "<button type=\"submit\" >Edit Details</button>"
+                        + "</form>");
 
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                stmt = conn.createStatement();
-                String sql = "select * from users";
-                result = stmt.executeQuery(sql);
             } else if (rp.getStatusRights() == 2)
             {
                 out.println("<h2>Welcome to the User Control Panel</h2>"
@@ -147,9 +143,10 @@ public class ControlDB extends HttpServlet
                     + "</body>\n"
                     + "</html>\n"
                     + "");
-        } catch (SQLException | ClassNotFoundException ex)
+        } catch (Exception ex)
         {
             Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Error: "+ex);
         }
     }
 

@@ -157,29 +157,31 @@
 		<main>
 			<section id="form">
 				<ul class="sign_login">
-					<li><a href="details.html">DETAILS</a></li>
-					<li><a href="orgDB" class="current">MAPS</a></li>
+					<li><a href="DetailsDB">DETAILS</a></li>
+					<li><a href="Maps.jsp" class="current">MAPS</a></li>
 					<li><a href="LogOutDB">LOG OUT</a></li>
 					<li><a href="ControlDB">Control</a></li>
 				</ul>
 				<br> <br>
 				<p>Here you can upload maps:</p>
 				<br>
-
+				<!-- 
 				<p>
-					Organization name:<%=organisation_name%></p>
+					Organization name:<//%=organisation_name%></p>
 				<p>
-					Organization Address:<%=organisation_address%></p>
+					Organization Address:<//%=organisation_address%></p>
 				<p>
 					Organization Email:
-					<%=organisation_email%></p>
+					<//%=organisation_email%></p>
 				<p>
 					Organization Contact Number:
-					<%=organisation_mobile%></p>
+					<//%=organisation_mobile%></p>
 				<p>
 					Organization Building Name:
-					<%=organisation_building_name%></p>
+					<//%=organisation_building_name%></p>
 				<br>
+				
+				 -->
 
 				<form action="UploadMapDB" method="post" class="">
 					<button type="submit">Upload A New Map</button>
@@ -211,7 +213,9 @@
 				//String selected = "ground";
 				String selected = request.getParameter("party");
 				%>
-				<img src="GetImageAction?map_name=<%=selected%>" >
+				<img src="GetImageAction?map_name=<%=selected%>" alt="Select Image" >
+				<br>
+				<br>
 			</section>
 		</main>
             <footer>
