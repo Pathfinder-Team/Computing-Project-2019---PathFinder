@@ -190,7 +190,7 @@
 			
 				<form action="Maps.jsp">
 					<select name="party">
-						<option value="">SELECT</option>
+						<option value="ground">SELECT</option>
 						<%
 							for (int i = 0; i < specialArray.size(); i++) 
 							{
@@ -211,7 +211,7 @@
 				//String selected = "ground";
 				String selected = request.getParameter("party");
 				%>
-				<img src="GetImageAction?map_name=<%=selected%>" width="300" height="325" border="1">
+				<img src="GetImageAction?map_name=<%=selected%>" >
 			</section>
 		</main>
             <footer>

@@ -80,7 +80,14 @@ public class GetImageAction extends HttpServlet {
 				for (int i = 0; i < cookies.length; i++) {
 					cookie = cookies[i];
 					stmt = conn.createStatement();
-					String sql5 = "select user_id,user_name,password,account_rank_account_rank_id,email,organisation_name from users";
+					String sql5 = "select "
+							+ "user_id,"
+							+ "user_name,"
+							+ "password,"
+							+ "account_rank_account_rank_id,"
+							+ "email,"
+							+ "organisation_name "
+							+ "from users";
 					result = stmt.executeQuery(sql5);
 					while (result.next()) {
 						String powerOrgName = result.getString("organisation_name");
@@ -111,9 +118,7 @@ public class GetImageAction extends HttpServlet {
 		}
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		//String jsp_org_name = request.getParameter("orgNameRights");
 		String jsp_org_name2 = request.getParameter("map_name");
-		//String jsp_org_name3 = request.getParameter("party");
 		System.out.println("map_name: "+jsp_org_name2);
 		try {
 			
@@ -163,8 +168,8 @@ public class GetImageAction extends HttpServlet {
 					System.out.println("Inside check if");
 					imgLen = rs1.getString("map_image");
 				//System.out.println(imgLen.length());
-					if (rs1.next()) {
-						System.out.println("Inside next if");
+					//if (rs1.next()) {
+						System.out.println("next if");
 						int len = imgLen.length();
 						byte[] rb = new byte[len];
 						InputStream readImg = rs1.getBinaryStream(1);
@@ -176,8 +181,8 @@ public class GetImageAction extends HttpServlet {
 						response.getOutputStream().write(rb, 0, len);
 						response.getOutputStream().flush();
 						System.out.println(" ");
-						break;
-					}
+						//break;
+					//}
 					
 				}
 			}

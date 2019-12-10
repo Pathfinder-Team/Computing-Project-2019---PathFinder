@@ -29,6 +29,7 @@ public class LoginDB extends HttpServlet
         // get the username and password from the login.html form
         String checkUsername = request.getParameter("user_name");
         String checkPassowrd = request.getParameter("password");
+        
         boolean found = false;
         PreparedStatement prepStat;
         try
@@ -66,7 +67,8 @@ public class LoginDB extends HttpServlet
 
                 response.addCookie(cookUsername);
                 response.addCookie(cookPassword);
-                response.sendRedirect("ControlDB");
+                String getNameRights = checkUsername;
+                response.sendRedirect("RankPower");
             } else
             {
                 // display a message using a jsp page that the was an error

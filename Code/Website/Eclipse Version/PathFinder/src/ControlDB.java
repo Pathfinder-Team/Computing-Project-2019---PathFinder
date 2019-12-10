@@ -32,13 +32,7 @@ public class ControlDB extends HttpServlet
     String powerEmail;
     int powerStatus;
     ResultSet result;
-
-    int idRights;
-    String userNameRights;
-    String passwordRights;
-    String emailRights;
-    int AccountStatusRights;
-    int special;
+    
 
     @Override
     public void init() throws ServletException
@@ -62,50 +56,12 @@ public class ControlDB extends HttpServlet
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        // create a cookie array
-        Cookie cookie = null;
-        Cookie[] cookies = null;
-        cookies = request.getCookies();
-        // were going to loop through the cookies array and if the active cookies match values in the database
-        // we know we are that user in the database so were going to put there information into some variables
-        try
-        {
-            //
-            //
-            if (cookies != null)
-            {
-                for (int i = 0; i < cookies.length; i++)
-                {
-                    cookie = cookies[i];
-                    stmt = conn.createStatement();
-                    String sql5 = "select user_id,user_name,password,account_rank_account_rank_id,email from users";
-                    result = stmt.executeQuery(sql5);
-                    while (result.next())
-                    {
-                        String powerUsername = result.getString("user_name");
-                        int powerID = result.getInt("user_id");
-                        String powerPassword = result.getString("password");
-                        int powerStatus = result.getInt("account_rank_account_rank_id");
-                        String powerEmail = result.getString("email");
-
-                        // if cookie username and username from the database match then we are this record,
-                        // extremly important note!: all usernames are unique so they database cannot contain 2 exact usernames
-                        if (powerUsername.equals(cookie.getValue()))
-                        {
-                            userNameRights = powerUsername;
-                            idRights = powerID;
-                            passwordRights = powerPassword;
-                            AccountStatusRights = powerStatus;
-                            emailRights = powerEmail;
-                        }
-                    }
-                }
-            }
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println("userNameRights: "+userNameRights);
+    	RankPower rp = new RankPower();
+    	
+    	int special = rp.getStatusRights();
+    	String special1 = rp.getUserNameRights();
+    	System.out.println("Check "+special);
+    	System.out.println("Check "+special1);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         out.println("<!doctype html>\n"
@@ -138,7 +94,7 @@ public class ControlDB extends HttpServlet
                 + "                <section id=\"form\">\n"
                 + "                    <ul class=\"sign_login\">\r\n"
                 + "                        <li><a href=\"details.html\">DETAILS</a></li>\r\n"
-                + "                        <li><a href=\"orgDB\">MAPS</a></li>\r\n"
+               // + "                        <li><a href=\"orgDB\">MAPS</a></li>\r\n"
                 + "                        <li><a href=\"Maps.jsp\">Maps JSP</a></li>\r\n"
                 + "                        <li><a href=\"LogOutDB\" >LOG OUT</a></li>\r\n"
                 + "						   <li><a href=\"ControlDB\" class=\"current\">Control</a></li>\r\n"
@@ -149,28 +105,26 @@ public class ControlDB extends HttpServlet
         try
         {
             // if AccountStatusRights which determines if your an admin or normal user equals 1 then you are an admin
-            if (AccountStatusRights == 1)
+            if (rp.getStatusRights() == 1)
             {
                 out.println("<h2>Welcome to the Administrator Control Panel</h2>"
                         + "<h3>Controls</h3>"
                         + "<form action=\"ChangeDetailsDB\">"
-                        + "<h4>Username: " + userNameRights + "</h4>"
-                        + "<h4>Email: " + emailRights + "</h4>");
+                        + "<h4>Username: " + rp.getUserNameRights() + "</h4>"
+                        + "<h4>Email: " + rp.getEmailRights() + "</h4>");
 
-                Class.forName("com.mysql.jdbc.Driver");
-                //out.println("<h2>Messages from Users</h2>");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 stmt = conn.createStatement();
                 String sql = "select * from users";
                 result = stmt.executeQuery(sql);
-                
-                // else you are a normal user
-            } else if (AccountStatusRights == 2)
+            } else if (rp.getStatusRights() == 2)
             {
                 out.println("<h2>Welcome to the User Control Panel</h2>"
                         + "<h3 style=\"text-align:left\">Controls</h3>"
                         + "<form action=\"ChangeDetailsDB\">"
-                        + "<h4>Username: " + userNameRights + "</h4>"
-                        + "<h4>Email: " + emailRights + "</h4>"
+                        + "<h4>Username: " + rp.getUserNameRights() + "</h4>"
+                        + "<h4>Email: " + rp.getEmailRights() + "</h4>"
+                        + "<h4>Organization: " + rp.getOrgRights() + "</h4>"
                         + "<button type=\"submit\" >Edit Details</button>"
                         + "</form>");
             } else

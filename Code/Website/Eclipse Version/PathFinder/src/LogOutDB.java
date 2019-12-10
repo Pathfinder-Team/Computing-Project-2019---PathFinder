@@ -54,8 +54,6 @@ public class LogOutDB extends HttpServlet
         cookies = request.getCookies();
         try
         {
-            Class.forName("com.mysql.jdbc.Driver");
-
             stmt = conn.createStatement();
             // display a html page for the log out
             response.setContentType("text/html;charset=UTF-8");
@@ -131,7 +129,7 @@ public class LogOutDB extends HttpServlet
                     + "</html>\n"
                     + "");
         }
-        catch (ClassNotFoundException | SQLException e)
+        catch (SQLException e)
         {
             System.err.println("Special Warning Login " + e);
         }
