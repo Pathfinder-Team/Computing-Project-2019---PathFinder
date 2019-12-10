@@ -122,8 +122,6 @@
 		} catch (SQLException ex) {
 			System.err.println("Error: " + ex);
 		}
-		
-		
 	%>
 	<div id="container">
 		<header>
@@ -169,24 +167,18 @@
 					<button type="submit">Upload A New Map</button>
 				</form>
 				<br> <select name="party">
-						<option value="">SELECT</option>
-						<%
-							for (int i = 0; i < specialArray.size(); i++) {
-								String party = (String) specialArray.get(i);
-						%>
-						<option value="<%=party%>">
-							<%=party%>
-						</option>
-						<%
-							}
-						%>
-				</select>
-					<input type="submit" value="Select Floor">
-					<br>
-					<br>
-					<img
-					src="GetImageAction?org_name=<%=organisation_name%> 
-				width="
-					300" height="325" border="1">
+					<option value="">SELECT</option>
+					<%
+						for (int i = 0; i < specialArray.size(); i++) {
+							String party = (String) specialArray.get(i);
+					%>
+					<option value="<%=party%>">
+						<%=party%>
+					</option>
+					<%
+						}
+					%>
+				</select> <input type="submit" value="Select Floor"> <br> <br>
+				<img src="GetImageAction?org_name=<%=organisation_name%>width="300" height="325" border="1">
 </body>
 </html>
