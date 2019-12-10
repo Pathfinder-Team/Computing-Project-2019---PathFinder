@@ -142,27 +142,6 @@ public class GetImageAction extends HttpServlet {
 		}
 	}
 
-	public ArrayList<String> getImageArray()
-	{
-		ArrayList<String> specialArray = new ArrayList<>();
-		try {
-			prepStat = conn.prepareStatement("select map_name from maps where org_name = ?");
-			prepStat.setString(1, orgNameRights);
-			result = prepStat.executeQuery();
-		
-			while (result.next()) {
-				specialArray.add(result.getString("map_name"));
-			}
-			System.out.println("Output Image");
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.err.println("Error 3: " + e);
-		}
-		return specialArray;
-	}
-
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/**
 	 * Handles the HTTP <code>GET</code> method.

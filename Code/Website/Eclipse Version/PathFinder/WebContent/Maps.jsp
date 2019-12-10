@@ -122,6 +122,24 @@
 		} catch (SQLException ex) {
 			System.err.println("Error: " + ex);
 		}
+		
+		try {
+			prepStat = conn.prepareStatement("select map_name from maps where org_name = ?");
+			prepStat.setString(1, orgNameRights);
+			result = prepStat.executeQuery();
+		
+			while (result.next()) {
+				specialArray.add(result.getString("map_name"));
+				System.out.println("Output Image");
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.err.println("Error 3: " + e);
+		}
+		
 	%>
 	<div id="container">
 		<header>
@@ -174,24 +192,24 @@
 					%>
 					<option value="<%=party%>">
 						<%=party%>
+						
 					</option>
 					<%
 						}
 					%>
 				</select> <input type="submit" value="Select Floor"> <br> <br>
-				<img src="GetImageAction" width="300" height="325" border="1">
-				<br> <img src="GetImageAction?orgNameRights=<%=orgNameRights%>"
-					width="125" height="125" border="1">
-			<br>
+				
+				<!--  <img src="GetImageAction" width="300" height="325" border="1">-->
+				<img
+					src="GetImageAction?org_name=Limerick Institute of Technology 
+				width="
+					300" height="325" border="1">
 			</section>
 		</main>
-		<footer>
-			<p>PathFinder project 2019</p>
-			<p>Authors: Kevin Dunne,Jekaterina Pavlenko & Christopher
-				Costelloe</p>
-			<p>
-				<img src="images/maze_ic.png" alt="">
-			</p>
-		</footer>
+            <footer>
+                <p>PathFinder project 2019</p>
+                <p>Authors: Kevin Dunne,Jekaterina Pavlenko & Christopher Costelloe</p>
+                <p><img src="images/maze_ic.png" alt="" ></p>
+            </footer>	
 </body>
 </html>
