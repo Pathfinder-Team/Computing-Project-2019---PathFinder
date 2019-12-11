@@ -119,16 +119,16 @@ public class EditDB extends HttpServlet
                 + "                    </form>\n");
 
         out.println("</section>\n"
-                + "            </main>\n"
+                + "</main>\n"
                 + "<footer>"
                 + "<p>PathFinder project 2019</p>"
                 + "<p>Authors: Kevin Dunne,Jekaterina Pavlenko & Christopher Costelloe</p>"
                 + "<p><img src=\"images/maze_ic.png\" alt=\"\" ></p>"
                 + "</footer>"
                 + "\n"
-                + "        </div>\n"
+                + "</div>\n"
                 + "\n"
-                + "    </body>\n"
+                + "</body>\n"
                 + "</html>\n"
                 + "");
     }

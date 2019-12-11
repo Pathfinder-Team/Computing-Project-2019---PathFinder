@@ -174,11 +174,19 @@ public class DetailsDB extends HttpServlet {
 					+ "                    <div style=\"padding:6px;\">\r\n" + "                        <br>\r\n"
 					+ "                        <br>\r\n" + "                        <br>\r\n"
 					+ "                        <br>\r\n" + "                </section>\r\n" + "            </main>");
-			out.println("            <footer>\r\n" + "                <p>PathFinder project 2019</p>\r\n"
-					+ "                <p>Authors: Kevin Dunne,Jekaterina Pavlenko & Christopher Costelloe</p>\r\n"
-					+ "                <p><img src=\"images/maze_ic.png\" alt=\"\" ></p>\r\n"
-					+ "            </footer>	\r\n" + "\r\n" + "        </div>\r\n" + "\r\n" + "    </body>\r\n"
-					+ "</html>");
+	        out.println("</section>\n"
+	                + "</main>\n"
+	                + "<footer>"
+	                + "<p>PathFinder project 2019</p>"
+	                + "<p>Authors: Kevin Dunne,Jekaterina Pavlenko & Christopher Costelloe</p>"
+	                + "<p><img src=\"images/maze_ic.png\" alt=\"\" ></p>"
+	                + "</footer>"
+	                + "\n"
+	                + "</div>\n"
+	                + "\n"
+	                + "</body>\n"
+	                + "</html>\n"
+	                + "");
 		}
 		System.out.println("end");
 	}
