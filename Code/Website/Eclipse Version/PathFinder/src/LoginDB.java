@@ -1,7 +1,7 @@
 /* 
-Authors: Kevin Dunne, Jekaterina Pavlenko
-Date: 7/4/19
-Program: Website for enterprise application development
+Authors: Kevin Dunne, Jekaterina Pavlenko, Christopher Costelloe
+Date: 11/12/2019
+Program: PathFinder website application - Login servlet
  */
 import java.io.IOException;
 import java.sql.Connection;
@@ -80,7 +80,7 @@ public class LoginDB extends HttpServlet
                 // display a message using a jsp page that the was an error
                 String errorMessage = "The retrived password or username did not match";
                 request.setAttribute("error", errorMessage);
-                RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/login.html");
                 rd.forward(request, response);
             }
         } catch (IOException | ClassNotFoundException | SQLException e)

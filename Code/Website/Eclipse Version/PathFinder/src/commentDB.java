@@ -1,7 +1,7 @@
 /* 
-Authors: Kevin Dunne, Jekaterina Pavlenko
-Date: 7/4/19
-Program: Website for enterprise application development
+Authors: Kevin Dunne, Jekaterina Pavlenko, Christopher Costelloe
+Date: 11/12/2019
+Program: PathFinder website application - contact us page servlet
  */
 
 import javax.servlet.annotation.*;
@@ -10,10 +10,6 @@ import javax.servlet.*;
 import java.io.*;
 import java.sql.*;
 
-/**
- *
- * @author: Kevin Dunne
- */
 @WebServlet(name = "commentDB", urlPatterns =
 {
     "/commentDB"
@@ -96,7 +92,6 @@ public class commentDB extends HttpServlet
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 		out.println("<!doctype html>\n"
-				+ "<!-- Author: Jekaterina Pavlenko, Kevin Dunne, Christopher Costelloe Date: 09/03/2019-->"
 				+ "<html lang=\"en\">" 
 				+ "<head>" + "<meta charset=\"UTF-8\">" 
 				+ "<title>Organisation Page</title>"
@@ -106,7 +101,7 @@ public class commentDB extends HttpServlet
 				+ "<body>" 
 				+ "<div id=\"container\">"
 				+ "<header>"
-				+ "<img src=\"images/bn_header.png\" alt=\"\" >" 
+				+ "<img src=\"images/bn_header.png\" alt=\"PathFinder banner\" >" 
 				+ "</header>"
 				+ "<nav id=\"menu\">" 
 				+ "<ul>"
@@ -116,26 +111,28 @@ public class commentDB extends HttpServlet
 				+ "<li><a href=\"contact.html\" >CONTACT US</a></li>"
 				+ "</ul>"
 				+ "</nav>");
+		
 				out.println("" + "<main>\r\n" 
-				+ "<section id=\"form\">\r\n"
-                + "                    <ul class=\"sign_login\">\r\n"
-                + "                        <li><a href=\"DetailsDB\" class=\"current\">DETAILS</a></li>\r\n"
-               // + "                      <li><a href=\"orgDB\">MAPS</a></li>\r\n"
-                + "                        <li><a href=\"Maps.jsp\">MAPS</a></li>\r\n"
-                + "                        <li><a href=\"LogOutDB\" >LOG OUT</a></li>\r\n"
-                + "						   <li><a href=\"ControlDB\">Control</a></li>\r\n"
-                + "                    </ul>\r\n"
-				+ "<br>\r\n"
-				+ "<br>");
+				+ "<section id=\"form\">\r\n");
+        
 				
         if (rp.getStatusRights() == 2 || rp.getStatusRights() == 1 )
         {
-            out.println("<form action=\"commentDB\" method=\"post\">"
+        	out.println("" +          "<ul class=\"sign_login\">\r\n"
+    				+ "						   <li><a href=\"ControlDB\" >CONTROL</a></li>\r\n"
+                    + "                        <li><a href=\"DetailsDB\" class=\"current\">DETAILS</a></li>\r\n"
+                   // + "                      <li><a href=\"orgDB\">MAPS</a></li>\r\n"
+                    + "                        <li><a href=\"Maps.jsp\">MAPS</a></li>\r\n"
+                    + "                        <li><a href=\"LogOutDB\" >LOG OUT</a></li>\r\n"
+                    + "                </ul>\r\n"
+    				+ "<br>\r\n"
+    				+ "<br>\r\n"
+    				+"<form action=\"commentDB\" method=\"post\">"
                     + "<fieldlist>"
-                    + "<p><label for=\"comment_title\" class=\"title\">Enter Comment Title: <span>*</span></label>\n"
+                    + "<p><label for=\"comment_title\" class=\"title\">Enter Comment Title: </label>\n"
                     + "<input type=\"text\" name=\"comment_title\" id=\"comment_title\" /></p>\n"
                     + "\n"
-                    + "<p><label for=\"comment_text\" class=\"title\">Comment Content: <span>*</span></label>\n"
+                    + "<p><label for=\"comment_text\" class=\"title\">Comment Content: </label>\n"
                     + "<textarea rows=\"10\" cols=\"100\" name=\"comment_text\" id=\"comment_text\" /></textarea></p>"
                     + "<p>\n"
                     + "<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Submit Post\" />\n"
@@ -154,8 +151,8 @@ public class commentDB extends HttpServlet
                         + "</main>\n"
                         + "<footer>"
                         + "<p>PathFinder project 2019</p>"
-                        + "<p>Authors: Kevin Dunne,Jekaterina Pavlenko & Christopher Costelloe</p>"
-                        + "<p><img src=\"images/maze_ic.png\" alt=\"\" ></p>"
+                        + "<p>Authors: Kevin Dunne, Jekaterina Pavlenko & Christopher Costelloe</p>"
+                        + "<p><img src=\"images/maze_ic.png\" alt=\"Maze icon\" ></p>"
                         + "</footer>"
                         + "\n"
                         + "</div>\n"

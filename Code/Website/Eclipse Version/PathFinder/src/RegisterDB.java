@@ -1,12 +1,11 @@
 /* 
-Authors: Kevin Dunne, Jekaterina Pavlenko
-Date: 7/4/19
-Program: Website for enterprise application development
+Authors: Kevin Dunne, Jekaterina Pavlenko, Christopher Costelloe
+Date: 11/12/2019
+Program: PathFinder website application - Registration servlet
  */
 import java.sql.*;
 import javax.servlet.ServletException;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,8 +22,8 @@ public class RegisterDB extends HttpServlet
     String last_name;
     String user_name;
     String password;
-    String organisation_name;
     String email;
+    String organisation_name;
     Connection conn;
     PreparedStatement prepStat;
     Statement stat;
@@ -75,14 +74,13 @@ public class RegisterDB extends HttpServlet
             prepStat.setString(8, organisation_name);
             prepStat.setInt(9, 2);
             prepStat.executeUpdate();
-            // send us to the forum.html page once query done
+            
             response.sendRedirect("login.html");
 
         } catch (IOException | SQLException e)
         {
 
             System.err.println("Error 2 " + e);
-            //response.sendRedirect("register.html");
         }
     }
 
