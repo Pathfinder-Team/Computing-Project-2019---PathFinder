@@ -1,7 +1,7 @@
 /* 
-Authors: Kevin Dunne, Jekaterina Pavlenko
-Date: 7/4/19
-Program: Website for enterprise application development
+Authors: Kevin Dunne, Jekaterina Pavlenko, Christopher Costelloe
+Date: 11/12/2019
+Program: PathFinder website application - Control button servlet
  */
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
@@ -58,10 +58,6 @@ public class ControlDB extends HttpServlet
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         out.println("<!doctype html>\n"
-                + "<!-- Author: Jekaterina Pavlenko K00224431\n"
-                + "         Date: 09/03/2019\n"
-                + "         Project Forum Page\n"
-                + "-->\n"
                 + "<html lang=\"en\">\n"
                 + "    <head>\n"
                 + "        <meta charset=\"UTF-8\">\n"
@@ -73,7 +69,7 @@ public class ControlDB extends HttpServlet
                 + "    <body>\n"
                 + "        <div id=\"container\">\n"
                 + "            <header>\n"
-                + "                <img src=\"images/img3.jpg\" alt=\"\" >\n"
+                + "                <img src=\"images/bn_header.png\" alt=\"PathFinder banner\" >\n"
                 + "            </header>\n"
                 + "              <nav id=\"menu\">"
                 + "               <ul>"
@@ -86,11 +82,11 @@ public class ControlDB extends HttpServlet
                 + "            <main>"
                 + "                <section id=\"form\">\n"
                 + "                    <ul class=\"sign_login\">\r\n"
+                + "						   <li><a href=\"ControlDB\" class=\"current\">Control</a></li>\r\n"
                 + "                        <li><a href=\"DetailsDB\">DETAILS</a></li>\r\n"
                // + "                      <li><a href=\"orgDB\">MAPS</a></li>\r\n"
                 + "                        <li><a href=\"Maps.jsp\">MAPS</a></li>\r\n"
                 + "                        <li><a href=\"LogOutDB\" >LOG OUT</a></li>\r\n"
-                + "						   <li><a href=\"ControlDB\" class=\"current\">Control</a></li>\r\n"
                 + "                    </ul>\r\n"
                 + "                    <br>\r\n"
                 + "                    <br>\r\n"
@@ -130,8 +126,8 @@ public class ControlDB extends HttpServlet
                     + "</main>\n"
                     + "<footer>"
                     + "<p>PathFinder project 2019</p>"
-                    + "<p>Authors: Kevin Dunne,Jekaterina Pavlenko & Christopher Costelloe</p>"
-                    + "<p><img src=\"images/maze_ic.png\" alt=\"\" ></p>"
+                    + "<p>Authors: Kevin Dunne, Jekaterina Pavlenko & Christopher Costelloe</p>"
+                    + "<p><img src=\"images/maze_ic.png\" alt=\"Maze icon\" ></p>"
                     + "</footer>"
                     + "\n"
                     + "</div>\n"

@@ -1,9 +1,9 @@
 
 /* 
- Authors: Kevin Dunne, Jekaterina Pavlenko
+ Authors: Kevin Dunne, Jekaterina Pavlenko, Christopher Costelloe
 
- Date: 7/4/19
- Program: Website for enterprise application development
+ Date: 11/12/2019
+ Program: PathFinder website application - Details servlet
  
  Note:
  ///
