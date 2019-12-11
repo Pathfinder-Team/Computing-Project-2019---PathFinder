@@ -3,11 +3,17 @@ Authors: Kevin Dunne, Jekaterina Pavlenko
 Date: 7/4/19
 Program: Website for enterprise application development
  */
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
-import javax.servlet.*;
-import java.io.*;
-import java.sql.*;
 
 @WebServlet(name = "LoginDB", urlPatterns =
 {

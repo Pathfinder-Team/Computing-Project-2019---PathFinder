@@ -1,3 +1,6 @@
+create database 4eyg55o51S;
+use 4eyg55o51S;
+
 create table `account_rank` (
   `account_rank_id` int(11) not null,
   `rank_name` varchar(45) default null,
