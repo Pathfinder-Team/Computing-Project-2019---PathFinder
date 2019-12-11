@@ -24,7 +24,6 @@ public class ControlDB extends HttpServlet
     Statement stmt;
     PreparedStatement prepStat;
     ResultSet result;
-    //RankPower rp = new RankPower();
     getRankPower rp = new getRankPower();
     
 
@@ -52,9 +51,9 @@ public class ControlDB extends HttpServlet
     {
 		//rp1.getStatus(request,response,stmt,conn);
 		
-		int check = rp.getStatusRank(request,response,stmt,conn);
+		rp.getStatusRank(request,response,stmt,conn);
 		
-		System.out.println("Check status: "+check);
+		System.out.println(" rp.getUserNameRights() ControlDB: "+ rp.getUserNameRights());
 		
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -89,7 +88,7 @@ public class ControlDB extends HttpServlet
                 + "                    <ul class=\"sign_login\">\r\n"
                 + "                        <li><a href=\"DetailsDB\">DETAILS</a></li>\r\n"
                // + "                      <li><a href=\"orgDB\">MAPS</a></li>\r\n"
-                + "                        <li><a href=\"Maps.jsp\">Maps JSP</a></li>\r\n"
+                + "                        <li><a href=\"Maps.jsp\">MAPS</a></li>\r\n"
                 + "                        <li><a href=\"LogOutDB\" >LOG OUT</a></li>\r\n"
                 + "						   <li><a href=\"ControlDB\" class=\"current\">Control</a></li>\r\n"
                 + "                    </ul>\r\n"

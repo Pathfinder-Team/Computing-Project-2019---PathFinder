@@ -48,49 +48,45 @@ public class EditDB extends HttpServlet
             System.err.println("Error 1" + e);
         }
     }
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-    	String old_organisation_name = request.getParameter("organisation_name");
+    	String old_organisation_name = request.getParameter("old_organisation_name");
+    	
     	System.out.println("special old_organisation_name: "+old_organisation_name);
+    	
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.println("<!doctype html>\n"
-                + "<!-- Author: Kevin Dunne K00224431\n"
-                + "         Date: 09/03/2019\n"
-                + "         Project Forum Page\n"
-                + "-->\n"
-                + "<html lang=\"en\">\n"
-                + "    <head>\n"
-                + "        <meta charset=\"UTF-8\">\n"
-                + "        <title>Edit User Record's</title>\n"
-                + "        <link rel=\"stylesheet\" type=\"text/css\" href=\"styles/mainstyle.css\" />\n"
-                + "        <link rel=\"stylesheet\" type=\"text/css\" href=\"styles/forum.css\" />\n"
-                + "\n"
-                + "    </head>\n"
-                + "\n"
-                + "    <body>\n"
-                + "        <div id=\"container\">\n"
-                + "            <header>\n"
-                + "                <img src=\"images/img3.jpg\" >\n"
-                + "            </header>\n"
-                + "              <nav id=\"menu\">"
-                + "               <ul>"
-                + "                 <li><a href=\"index.html\" >ABOUT US</a></li>"
-                + "                 <li><a href=\"register.html\" >REGISTER</a></li>"
-                + "                 <li><a href=\"login.html\" >LOGIN</a></li>"
-                + "                 <li><a href=\"contact.html\" >CONTACT US</a></li>"
-                + "             </ul>"
-                + "           </nav>"
-                + " <main>\n"
+		out.println("<!doctype html>\n"
+				+ "<!-- Author: Jekaterina Pavlenko, Kevin Dunne, Christopher Costelloe Date: 09/03/2019-->"
+				+ "<html lang=\"en\">" 
+				+ "<head>" + "<meta charset=\"UTF-8\">" 
+				+ "<title>Organisation Page</title>"
+				+ "<link rel=\"stylesheet\" type=\"text/css\" href=\"styles/mainstyle.css\" />"
+				+ "<link rel=\"stylesheet\" type=\"text/css\" href=\"styles/forum.css\" />" 
+				+ "</head>"
+				+ "<body>" 
+				+ "<div id=\"container\">"
+				+ "<header>"
+				+ "<img src=\"images/bn_header.png\" alt=\"\" >" 
+				+ "</header>"
+				+ "<nav id=\"menu\">" 
+				+ "<ul>"
+				+ "<li><a href=\"index.html\" >ABOUT US</a></li>"
+				+ "<li><a href=\"register.html\" >REGISTER</a></li>"
+				+ "<li><a href=\"login.html\" >LOGIN</a></li>"
+				+ "<li><a href=\"contact.html\" >CONTACT US</a></li>"
+				+ "</ul>"
+				+ "</nav>");
+                out.println("<main>\n"
                 + "                <section id=\"form\">\n"
-				+ "                    <ul class=\"sign_login\">\r\n"
-				+ "                        <li><a href=\"DetailsDB\" class=\"current\">DETAILS</a></li>\r\n"
-				+ "                        <li><a href=\"Maps.jsp\">MAPS</a></li>\r\n"
-				+ "                        <li><a href=\"LogOutDB\" >LOG OUT</a></li>\r\n"
-				+ "						   <li><a href=\"ControlDB\" >Control</a></li>\r\n"
-				+ "                    </ul>\r\n" 
+                + "                    <ul class=\"sign_login\">\r\n"
+                + "                        <li><a href=\"DetailsDB\">DETAILS</a></li>\r\n"
+               // + "                      <li><a href=\"orgDB\">MAPS</a></li>\r\n"
+                + "                        <li><a href=\"Maps.jsp\">MAPS</a></li>\r\n"
+                + "                        <li><a href=\"LogOutDB\" >LOG OUT</a></li>\r\n"
+                + "						   <li><a href=\"ControlDB\">Control</a></li>\r\n"
+                + "                    </ul>\r\n"
 				+ "<br>\r\n" 
 				+ "<br>\r\n"
                 + "                    <h1>Edit</h1>\n"

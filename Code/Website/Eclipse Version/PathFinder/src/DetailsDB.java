@@ -73,6 +73,8 @@ public class DetailsDB extends HttpServlet {
 	String map_comments;
 	Blob map_image;
 
+	getRankPower rp = new getRankPower();
+	
 	@Override
 	public void init() throws ServletException {
 		String URL = "jdbc:mysql://remotemysql.com:3306/4eyg55o51S?autoReconnect=true&useSSL=false";
@@ -91,56 +93,20 @@ public class DetailsDB extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// create a cookie array
-		Cookie cookie = null;
-		Cookie[] cookies = null;
-		cookies = request.getCookies();
-		// were going to loop through the cookies array and if the active cookies match
-		// values in the database
-		// we know we are that user in the database so were going to put there
-		// information into some variables
-		try {
-			//
-			//
-			if (cookies != null) {
-				for (int i = 0; i < cookies.length; i++) {
-					cookie = cookies[i];
-					stmt = conn.createStatement();
-					String sql5 = "select user_id,user_name,password,account_rank_account_rank_id,email,organisation_name from users";
-					result = stmt.executeQuery(sql5);
-					while (result.next()) {
-						String powerOrgName = result.getString("organisation_name");
-						String powerUsername = result.getString("user_name");
-						int powerID = result.getInt("user_id");
-						String powerPassword = result.getString("password");
-						int powerStatus = result.getInt("account_rank_account_rank_id");
-						String powerEmail = result.getString("email");
-
-						// if cookie username and username from the database match then we are this
-						// record,
-						// extremly important note!: all usernames are unique so they database cannot
-						// contain 2 exact usernames
-						if (powerUsername.equals(cookie.getValue())) {
-							userNameRights = powerUsername;
-							idRights = powerID;
-							passwordRights = powerPassword;
-							AccountStatusRights = powerStatus;
-							emailRights = powerEmail;
-							orgNameRights = powerOrgName;
-						}
-					}
-				}
-			}
-		} catch (SQLException ex) {
-			Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
-			System.err.println("Error 2" + ex);
-		}
+		rp.getStatusRank(request,response,stmt,conn);
+		System.out.println(" rp.getUserNameRights() ControlDB: "+ rp.getUserNameRights());
+		
 		try {
 			//System.out.println("get org details");
-			prepStat = conn.prepareStatement("select " + "organisation_name, " + "organisation_address,"
-					+ "organisation_email," + "organisation_mobile," + "organisation_building_name "
-					+ "from organisation where organisation_name = ?");
-			prepStat.setString(1, orgNameRights);
+			prepStat = conn.prepareStatement("select " 
+					+ "organisation_name, " 
+					+ "organisation_address,"
+					+ "organisation_email," 
+					+ "organisation_mobile," 
+					+ "organisation_building_name "
+					+ "from organisation "
+					+ "where organisation_name = ?");
+			prepStat.setString(1, rp.getOrgRights());
 			result = prepStat.executeQuery();
 			while (result.next()) {
 				organisation_name = result.getString("organisation_name");
@@ -151,13 +117,14 @@ public class DetailsDB extends HttpServlet {
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
+			System.err.println("Error: "+ex);
 		}
+		
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		// System.out.println("power : "+userOrgRights);
-		// System.out.println("power right : "+organisation_name);
-		// System.out.println("if before");
-		if (organisation_name.equals(orgNameRights)) {
+		
+		if (rp.getOrgRights().equals(organisation_name)) 
+		{
 			out.println("<!doctype html>\n"
 					+ "<!-- Author: Jekaterina Pavlenko, Kevin Dunne, Christopher Costelloe Date: 09/03/2019-->"
 					+ "<html lang=\"en\">" 
@@ -180,36 +147,29 @@ public class DetailsDB extends HttpServlet {
 					+ "</ul>"
 					+ "</nav>");
 			out.println("" + "<main>\r\n" 
-					+ "                <section id=\"form\">\r\n"
-					+ "                    <ul class=\"sign_login\">\r\n"
-					+ "                        <li><a href=\"DetailsDB\" class=\"current\">DETAILS</a></li>\r\n"
-					+ "                        <li><a href=\"Maps.jsp\">MAPS</a></li>\r\n"
-					+ "                        <li><a href=\"LogOutDB\" >LOG OUT</a></li>\r\n"
-					+ "						   <li><a href=\"ControlDB\" >Control</a></li>\r\n"
-					+ "                    </ul>\r\n" + "                    <br>\r\n" + "                    <br>\r\n"
-					+ "                    <p>Organisation Information:<p>\r\n" + ""
-					+ "					   <br>"
-											+ "<form action=\"EditDB\">"
-												+ "Organisation Name: " + organisation_name
-												+ "<input type=\"hidden\" id=\"old_organisation_name\" name=\"old_organisation_name\" value="+organisation_name+">"
-												+ "<button type=\"submit\" >Edit Name</button>"
-											+ "</form>"
-											+ "<form action=\"EditDB\">"
-												+ "Organisation Address: " + organisation_address
-												+ "<button type=\"submit\" >Edit Name</button>"
-											+ "</form>"
-											+ "<form action=\"EditDB\">"
-												+ "Organisation Email: " + organisation_email
-												+ "<button type=\"submit\" >Edit Name</button>"
-											+ "</form>"
-											+ "<form action=\"EditDB\">"
-												+ "Organisation Contact Number: " + organisation_building_name
-												+ "<button type=\"submit\" >Edit Name</button>"
-											+ "</form>"
-											+ "<form action=\"EditDB\">"
-												+ "Organisation Building Name: " + organisation_name
-												+ "<button type=\"submit\" >Edit Name</button>"
-											+ "</form>");
+					+ "<section id=\"form\">\r\n"
+	                + "                    <ul class=\"sign_login\">\r\n"
+	                + "                        <li><a href=\"DetailsDB\" class=\"current\">DETAILS</a></li>\r\n"
+	               // + "                      <li><a href=\"orgDB\">MAPS</a></li>\r\n"
+	                + "                        <li><a href=\"Maps.jsp\">MAPS</a></li>\r\n"
+	                + "                        <li><a href=\"LogOutDB\" >LOG OUT</a></li>\r\n"
+	                + "						   <li><a href=\"ControlDB\">Control</a></li>\r\n"
+	                + "                    </ul>\r\n"
+					+ "<br>\r\n" 
+					+ "<br>\r\n"
+					+ "<p>Organisation Information:<p>\r\n"
+					+ "<br>"
+					+ "<form action=\"EditDB\">"
+					+ "Organisation Name: " + organisation_name
+					+ "<input type=\"hidden\" id=\"old_organisation_name\" name=\"old_organisation_name\" value="+organisation_name+">"
+					+ "<br>Organisation Address: " + organisation_address
+					+ "<br>Organisation Email: " + organisation_email
+					+ "<br>Organisation Contact Number: " + organisation_mobile
+					+ "<br>Organisation Building Name: " + organisation_building_name
+					+ "<br>"
+					+ "<br>"
+					+ "<button type=\"submit\" >Edit Name</button>"
+					+ "</form>");
 			out.println("                  <div class=\"clearfix\"></div>\r\n" + "\r\n"
 					+ "                    <div style=\"padding:6px;\">\r\n" + "                        <br>\r\n"
 					+ "                        <br>\r\n" + "                        <br>\r\n"

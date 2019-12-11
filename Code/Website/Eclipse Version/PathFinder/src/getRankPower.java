@@ -78,7 +78,7 @@ public class getRankPower
 			System.err.println("Error 2" + ex);
 		}
 	}
-	public int getStatusRank(HttpServletRequest request, HttpServletResponse response, Statement stmt,Connection conn)
+	public void getStatusRank(HttpServletRequest request, HttpServletResponse response, Statement stmt,Connection conn)
 	{
 		// create a cookie array
 		Cookie cookie = null;
@@ -112,6 +112,7 @@ public class getRankPower
 							AccountStatusRights = powerStatus;
 							emailRights = powerEmail;
 							orgNameRights = powerOrgName;
+							
 							setUserNameRights(powerUsername);
 							setIdRights(powerID);
 							setPasswordRights(powerPassword);
@@ -126,7 +127,7 @@ public class getRankPower
 			Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
 			System.err.println("Error 2" + ex);
 		}
-		return 2;
+		
 	}
 	
 	// 1

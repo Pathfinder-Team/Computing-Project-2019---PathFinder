@@ -61,11 +61,12 @@ public class EditActionDB extends HttpServlet
 
         
         organisation_name = request.getParameter("organisation_name");
-        old_organisation_name = request.getParameter("old_organisation_name");
         organisation_address = request.getParameter("organisation_address");
         organisation_email = request.getParameter("organisation_email");
-        organisation_building_name = request.getParameter("organisation_building_name");
         organisation_mobile = Integer.parseInt(request.getParameter("organisation_mobile"));
+        organisation_building_name = request.getParameter("organisation_building_name");
+        old_organisation_name = request.getParameter("old_organisation_name");
+        
         
         System.out.println("organisation_name: "+organisation_name);
         System.out.println("old_organisation_name: "+old_organisation_name);
