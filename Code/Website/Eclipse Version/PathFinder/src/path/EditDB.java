@@ -14,10 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author: Kevin Dunne,Jekaterina Pavlenko
- */
 @WebServlet(name = "EditDB", urlPatterns =
 {
     "/EditDB"
@@ -59,7 +55,6 @@ public class EditDB extends HttpServlet
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 		out.println("<!doctype html>\n"
-				+ "<!-- Author: Jekaterina Pavlenko, Kevin Dunne, Christopher Costelloe Date: 09/03/2019-->"
 				+ "<html lang=\"en\">" 
 				+ "<head>" + "<meta charset=\"UTF-8\">" 
 				+ "<title>Organisation Page</title>"
@@ -82,11 +77,10 @@ public class EditDB extends HttpServlet
                 out.println("<main>\n"
                 + "                <section id=\"form\">\n"
                 + "                    <ul class=\"sign_login\">\r\n"
+                + "						   <li><a href=\"ControlDB\">CONTROL</a></li>\r\n"
                 + "                        <li><a href=\"DetailsDB\">DETAILS</a></li>\r\n"
-               // + "                      <li><a href=\"orgDB\">MAPS</a></li>\r\n"
                 + "                        <li><a href=\"Maps.jsp\">MAPS</a></li>\r\n"
                 + "                        <li><a href=\"LogOutDB\" >LOG OUT</a></li>\r\n"
-                + "						   <li><a href=\"ControlDB\">Control</a></li>\r\n"
                 + "                    </ul>\r\n"
 				+ "<br>\r\n" 
 				+ "<br>\r\n"

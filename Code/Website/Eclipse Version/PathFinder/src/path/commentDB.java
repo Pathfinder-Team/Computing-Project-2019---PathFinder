@@ -121,24 +121,24 @@ public class commentDB extends HttpServlet
         {
         	out.println("" +          "<ul class=\"sign_login\">\r\n"
     				+ "						   <li><a href=\"ControlDB\" >CONTROL</a></li>\r\n"
-                    + "                        <li><a href=\"DetailsDB\" class=\"current\">DETAILS</a></li>\r\n"
-                   // + "                      <li><a href=\"orgDB\">MAPS</a></li>\r\n"
+                    + "                        <li><a href=\"DetailsDB\" >DETAILS</a></li>\r\n"
+
                     + "                        <li><a href=\"Maps.jsp\">MAPS</a></li>\r\n"
                     + "                        <li><a href=\"LogOutDB\" >LOG OUT</a></li>\r\n"
                     + "                </ul>\r\n"
     				+ "<br>\r\n"
     				+ "<br>\r\n"
     				+"<form action=\"commentDB\" method=\"post\">"
-                    + "<fieldlist>"
-                    + "<p><label for=\"comment_title\" class=\"title\">Enter Comment Title: </label>\n"
+                    + "<fieldset id=\"field\">"
+                    + "<p><label for=\"comment_title\" class=\"title1\">Enter Comment Title: </label>\n"
                     + "<input type=\"text\" name=\"comment_title\" id=\"comment_title\" /></p>\n"
                     + "\n"
-                    + "<p><label for=\"comment_text\" class=\"title\">Comment Content: </label>\n"
-                    + "<textarea rows=\"10\" cols=\"100\" name=\"comment_text\" id=\"comment_text\" /></textarea></p>"
+                    + "<p><label for=\"comment_text\" class=\"title1\">Comment Content: </label>\n"
+                    + "<textarea rows=\"10\" cols=\"80\" name=\"comment_text\" id=\"comment_text\" /></textarea></p>"
                     + "<p>\n"
-                    + "<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Submit Post\" />\n"
+                    + "<input type=\"submit\" name=\"submit\" id=\"submit1\" value=\"Submit Post\" />\n"
                     + "</p>"
-                    + "</fieldlist>"
+                    + "</fieldset>"
                     + "</form>");
         }
         else 

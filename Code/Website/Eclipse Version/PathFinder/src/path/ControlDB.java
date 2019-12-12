@@ -83,6 +83,10 @@ public class ControlDB extends HttpServlet
                 + "            <main>"
                 + "                <section id=\"form\">\n"
                 + "                    <ul class=\"sign_login\">\r\n"
+<<<<<<< HEAD:Code/Website/Eclipse Version/PathFinder/src/path/ControlDB.java
+=======
+                + "						   <li><a href=\"ControlDB\" class=\"current\">CONTROL</a></li>\r\n"
+>>>>>>> 2a56295afc6144cc4ddebdb6f2825c6d21612d82:Code/Website/Eclipse Version/PathFinder/src/ControlDB.java
                 + "                        <li><a href=\"DetailsDB\">DETAILS</a></li>\r\n"
                 + "                        <li><a href=\"Maps.jsp\">MAPS</a></li>\r\n"
                 + "                        <li><a href=\"LogOutDB\" >LOG OUT</a></li>\r\n"
