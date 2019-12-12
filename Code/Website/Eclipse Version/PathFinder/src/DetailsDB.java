@@ -26,9 +26,6 @@ import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 import javax.servlet.*;
 import java.io.*;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,6 +33,7 @@ import java.util.logging.Logger;
 @WebServlet(name = "DetailsDB", urlPatterns = { "/DetailsDB" })
 public class DetailsDB extends HttpServlet {
 
+	@SuppressWarnings("unused")
 	private static final int BUFFER_SIZE = 4096;
 	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 	Connection conn;

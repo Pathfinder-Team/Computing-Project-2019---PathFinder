@@ -188,6 +188,16 @@
 				</form>
 				
 				<br>
+				<p>
+					Building Name:
+					<%=organisation_building_name%>
+				</p>
+				<form action="AddPoints" method="post">
+				<input type="hidden" id=" " name=" " value="">
+				<input type="hidden" id=" " name=" " value="">
+				<button type="submit" >Add Map Points</button>
+				</form>
+				<br>
 				<br>
 			
 				<form action="Maps.jsp">
