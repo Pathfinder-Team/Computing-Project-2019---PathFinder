@@ -13,10 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author: Kevin Dunne,Jekaterina Pavlenko
- */
 @WebServlet(name = "EditDB", urlPatterns =
 {
     "/EditDB"
@@ -58,7 +54,6 @@ public class EditDB extends HttpServlet
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 		out.println("<!doctype html>\n"
-				+ "<!-- Author: Jekaterina Pavlenko, Kevin Dunne, Christopher Costelloe Date: 09/03/2019-->"
 				+ "<html lang=\"en\">" 
 				+ "<head>" + "<meta charset=\"UTF-8\">" 
 				+ "<title>Organisation Page</title>"
