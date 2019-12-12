@@ -66,13 +66,29 @@ public class AddThings extends HttpServlet {
 		System.out.println(" rp.getUserNameRights() AddThings: "+ rp.getUserNameRights());
 		
 		
-		String mapAction = request.getParameter("mapAction");
-		String userAction = request.getParameter("userAction");
-		String pointsAction = request.getParameter("insertPoints");
+		String mapAction = "";
+		mapAction = request.getParameter("mapAction");
+		String userAction = "";
+		userAction = request.getParameter("userAction");
+		String pointsAction = "";
+		pointsAction = request.getParameter("insertPoints");
 		
+		if(mapAction == null)
+		{
+			mapAction = "";
+		}
+		if(userAction == null)
+		{
+			userAction = "";
+		}
+		if(pointsAction == null)
+		{
+			pointsAction = "";
+		}
+		System.out.println("mapAction: "+mapAction);
 		if(mapAction.equals("mapAction"))
 		{
-			org_name = request.getParameter("org_name");
+			org_name = rp.getOrgRights();
 			org_building = request.getParameter("org_building");
 			map_name = request.getParameter("map_name");
 			map_comments = request.getParameter("map_comments");
@@ -86,8 +102,17 @@ public class AddThings extends HttpServlet {
 				inputStream = parts1.getInputStream();
 			}
 			try {
+				int counter = 0;
+				
+				System.out.println("counter : "+counter);
+				System.out.println("org_name : "+org_name);
+				System.out.println("org_building : "+org_building);
+				System.out.println("map_name : "+map_name);
+				System.out.println("map_comments : "+map_comments);
+				System.out.println("inputStream : "+inputStream);
+				
 				prepStat = conn.prepareStatement("insert into maps values(? ,? ,? ,? ,? ,? )");
-				prepStat.setInt(1, 0);
+				prepStat.setInt(1, counter);
 				prepStat.setString(2, org_name);
 				prepStat.setString(3, org_building);
 				prepStat.setString(4, map_name);
