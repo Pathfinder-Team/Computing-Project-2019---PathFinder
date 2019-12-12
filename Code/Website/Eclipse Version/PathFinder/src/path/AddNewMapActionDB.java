@@ -1,19 +1,21 @@
+package path;
+
+/* 
+ Authors: Kevin Dunne, Jekaterina Pavlenko
+ Date: 7/4/19
+ Program: Website for enterprise application development
+ */
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 import javax.servlet.*;
 import java.io.*;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@WebServlet(name = "GetImageAction", urlPatterns = { "/GetImageAction" })
-public class GetImageAction extends HttpServlet {
-
-	private static final int BUFFER_SIZE = 4096;
+@MultipartConfig(maxFileSize = 16177216) // upto 16 MB
+@WebServlet(name = "AddNewMapActionDB", urlPatterns = { "/AddNewMapActionDB" })
+public class AddNewMapActionDB extends HttpServlet {
 	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 	Connection conn;
 	Connection conn2;
@@ -50,6 +52,7 @@ public class GetImageAction extends HttpServlet {
 	String map_comments;
 	Blob map_image;
 
+	@Override
 	public void init() throws ServletException {
 		String URL = "jdbc:mysql://remotemysql.com:3306/4eyg55o51S?autoReconnect=true&useSSL=false";
 		String USERNAME = "4eyg55o51S";
@@ -61,7 +64,7 @@ public class GetImageAction extends HttpServlet {
 			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			System.out.println("Connected");
 		} catch (ClassNotFoundException | SQLException e) {
-			System.err.println("Error 1" + e);
+			System.err.println("Error 1: " + e);
 		}
 	}
 
@@ -76,18 +79,12 @@ public class GetImageAction extends HttpServlet {
 		// we know we are that user in the database so were going to put there
 		// information into some variables
 		try {
+			//
 			if (cookies != null) {
 				for (int i = 0; i < cookies.length; i++) {
 					cookie = cookies[i];
 					stmt = conn.createStatement();
-					String sql5 = "select "
-							+ "user_id,"
-							+ "user_name,"
-							+ "password,"
-							+ "account_rank_account_rank_id,"
-							+ "email,"
-							+ "organisation_name "
-							+ "from users";
+					String sql5 = "select user_id,user_name,password,account_rank_account_rank_id,email,organisation_name from users";
 					result = stmt.executeQuery(sql5);
 					while (result.next()) {
 						String powerOrgName = result.getString("organisation_name");
@@ -114,106 +111,44 @@ public class GetImageAction extends HttpServlet {
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
-			System.err.println("Error 2" + ex);
 		}
-		response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		String jsp_org_name2 = request.getParameter("map_name");
-		System.out.println("map_name: "+jsp_org_name2);
+		org_name = request.getParameter("org_name");
+		org_building = request.getParameter("org_building");
+		map_name = request.getParameter("map_name");
+		map_comments = request.getParameter("map_comments");
+		InputStream inputStream = null;
+		Part parts1 = request.getPart("map_image");
+
+		if (parts1 != null) {
+			System.out.println(parts1.getName());
+			System.out.println(parts1.getSize());
+			System.out.println(parts1.getContentType());
+			inputStream = parts1.getInputStream();
+		}
 		try {
-			
-			/*
-			PreparedStatement prepStat1 = conn.prepareStatement("select map_image "
-					+ "from maps "
-					+ "join organisation "
-					+ "on maps.org_name = organisation.organisation_name "
-					+ "where map_name = ?");
-           	
-            prepStat1.setString(1, jsp_org_name2);
-            result = prepStat1.executeQuery();
-            System.out.println("prepstat: "+prepStat1);
-            String imgLen = "";
-			if (result.next()) 
-			{
-				imgLen = result.getString(1);
-				//System.out.println("imgLen: "+imgLen);
-				//System.out.println(imgLen.length());
+			prepStat = conn.prepareStatement("insert into maps values(? ,? ,? ,? ,? ,? )");
+			prepStat.setInt(1, 0);
+			prepStat.setString(2, org_name);
+			prepStat.setString(3, org_building);
+			prepStat.setString(4, map_name);
+			prepStat.setString(5, map_comments);
+			if (inputStream != null) {
+				prepStat.setBlob(6, inputStream);
 			}
-			if (result.next()) {
-				int len = imgLen.length();
-				byte[] rb = new byte[len];
-				InputStream readImg = result.getBinaryStream(1);
-				int index = readImg.read(rb, 0, len);
-				//System.out.println("index " + index);
-				stmt.close();
-				response.reset();
-				response.setContentType("image/jpg");
-				response.getOutputStream().write(rb, 0, len);
-				response.getOutputStream().flush();
-			}
-			*/
-			
-			ResultSet rs1 = stmt.executeQuery("select maps.map_image,maps.map_name "
-					+ "from maps "
-					+ "join organisation "
-					+ "on maps.org_name = organisation.organisation_name "
-					+ "where org_name = 'Limerick Institute of Technology'");
-			String imgLen = "";
-			while (rs1.next()) 
-			{
-				String check = rs1.getString("map_name");
-				System.out.println("Check: "+check);
-				if(check.equals(jsp_org_name2))
-				{
-					System.out.println("Inside check if");
-					imgLen = rs1.getString("map_image");
-				//System.out.println(imgLen.length());
-					//if (rs1.next()) {
-						System.out.println("next if");
-						int len = imgLen.length();
-						byte[] rb = new byte[len];
-						InputStream readImg = rs1.getBinaryStream(1);
-						int index = readImg.read(rb, 0, len);
-						//System.out.println("index " + index);
-						stmt.close();
-						response.reset();
-						response.setContentType("image/jpg");
-						response.getOutputStream().write(rb, 0, len);
-						response.getOutputStream().flush();
-						System.out.println(" ");
-						//break;
-					//}
-					
-				}
-			}
-			
-			/*
-			rs1 = stmt.executeQuery("select map_image "
-					+ "from maps "
-					+ "join organisation "
-					+ "on maps.org_name = organisation.organisation_name "
-					+ "where org_name = 'Limerick Institute of Technology'");
-			
-			
-			if (rs1.next()) {
-				int len = imgLen.length();
-				byte[] rb = new byte[len];
-				InputStream readImg = rs1.getBinaryStream(1);
-				int index = readImg.read(rb, 0, len);
-				//System.out.println("index " + index);
-				stmt.close();
-				response.reset();
-				response.setContentType("image/jpg");
-				response.getOutputStream().write(rb, 0, len);
-				response.getOutputStream().flush();
-			}
-			*/
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.err.println("Error 3: " + e);
+			int i = prepStat.executeUpdate();
+			response.sendRedirect("Maps.jsp");
+		} catch (SQLException ex) {
+			Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
+			response.sendRedirect("UploadMapDB");
+			System.err.println("inputStream: " + inputStream);
+			System.err.println("Error 5: " + parts1.getInputStream());
+			System.err.println("Error 6: " + parts1);
+			System.err.println("Error 2: " + ex);
 		}
+	}
+
+	public void getPower(HttpServletRequest request) {
+
 	}
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -1,3 +1,4 @@
+package path;
 /* 
  Authors: Kevin Dunne, Jekaterina Pavlenko
  Date: 7/4/19
@@ -5,6 +6,9 @@
  */
 
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,18 +21,25 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author: Kevin Dunne,Jekaterina Pavlenko
  */
-@WebServlet(name = "AddPoints", urlPatterns =
+@WebServlet(name = "ViewPointsDB", urlPatterns =
 {
-    "/AddPoints"
+    "/ViewPointsDB"
 })
-public class AddPointsDB extends HttpServlet
+public class ViewPointsDB extends HttpServlet
 {
 	
-    Connection conn;
-    PreparedStatement prepStat;
-    Statement stat;
-    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
+    
+    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+    Connection conn;
+    Statement stmt;
+    PreparedStatement prepStat;
+    ResultSet result;
+    
+    int maps_map_id = 0;
+	int current_point_id = 0;
+	String point_name = "";
+    
     @Override
     public void init() throws ServletException
     {
@@ -51,12 +62,50 @@ public class AddPointsDB extends HttpServlet
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-    	String maps_map_id = request.getParameter("map_id");
-    	String point_org = request.getParameter("organization_name");
+    	//String maps_map_id = request.getParameter("imageId");
+    	String point_org = request.getParameter("organisation_name");
     	String point_building_name = request.getParameter("organisation_building_name");
+		String map_image_name = request.getParameter("maps_map_id");
     	
-    	System.out.println("special maps_map_id: "+maps_map_id);
+    	System.out.println("special map_image_name: "+map_image_name);
+    	System.out.println("special point_org: "+point_org);
+    	System.out.println("special point_building_name: "+point_building_name);
     	
+    	
+		try {
+			prepStat = conn.prepareStatement("select map_id from maps where map_name = ?");
+			prepStat.setString(1, map_image_name);
+			result = prepStat.executeQuery();
+		
+			while (result.next()) {
+				maps_map_id = result.getInt("map_id");
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.err.println("Error 10 ae: " + e);
+		}
+		/*
+		try {
+			prepStat = conn.prepareStatement("select * from map points where maps_map_id = ?");
+			prepStat.setString(1, map_image_name);
+			result = prepStat.executeQuery();
+		
+			while (result.next()) {
+				current_point_id = result.getInt("current_point_id");
+				point_name = result.getString("point_name");
+				maps_map_id = result.getInt("maps_map_id");
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.err.println("Error 10 ae: " + e);
+		}
+		*/
+		
+    	System.out.println("special "+maps_map_id);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 		out.println("<!doctype html>\n"
@@ -88,34 +137,46 @@ public class AddPointsDB extends HttpServlet
                 + "                        <li><a href=\"LogOutDB\" >LOG OUT</a></li>\r\n"
                 + "						   <li><a href=\"ControlDB\">Control</a></li>\r\n"
                 + "                    </ul>\r\n"
-				+ "<br>\r\n" 
 				+ "<br>\r\n"
-                + "                    <h1>Edit</h1>\n"
-                + "                    <form action=\"AddPointsAction\" method=\"post\" name=\"form\" onSubmit=\"return validateAll();\" >\n"
-                + "                        <fieldset>\n"
-                + "                            <legend>Add New Points to Map</legend>\n"
-                + "                            <br>\n"
-                + "\n"
-                + "                            <p><label for=\"point_name\" class=\"title\" >point_name Name: <span>*</span></label>\n"
-                + "                                <input type=\"text\" name=\"point_name\" id=\"point_name\" /required></p>\n"
-                + "\n"
-                + "                            <input type=\"hidden\" name=\"point_org\" id=\"point_org\" value="+point_org+"></p>\n"
-                + "                            <input type=\"hidden\" name=\"maps_map_id\" id=\"maps_map_id\" value="+maps_map_id+"></p>\n"
-                + "\n"
-                + "                            <p><label for=\"point_weight\" class=\"title\">point_weight: <span>*</span></label>\n"
-                + "                                <input type=\"number\" name=\"point_weight\" id=\"point_weight\" /required></p>\n"
-                + "\n"
-                + "                            <p><label for=\"organisation_building_name\" class=\"title\">organisation_building_name: <span>*</span></label>\n"
-                + "                                <input type=\"text\" name=\"organisation_building_name\" id=\"organisation_building_name\" /required></p>\n"
-                + "                            <p>\n"
-        );
-        
-        out.println("<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Submit Details\" />\n"
-                + "                            </p>\n"
-                + "                        </fieldset>\n"
-                + "                    </form>\n");
+				+ "<br>"
+				+ "<br>"
+				+ "<br>");
+                try
+                {
+                        stmt = conn.createStatement();
+                        String sql = "select * from map_points";
 
+                        result = stmt.executeQuery(sql);
+                        while (result.next())
+                        {
+                            out.println("<table class=\"comments\">"
+                                    + "<tr>"
+                                    + "<th>current_point_id:" + result.getString("current_point_id") + "</th>"
+                                    + "<th>point_name:" + result.getString("point_name") + "</th>"
+                                    + "<th>maps_map_id: " + result.getString("maps_map_id") + "</th>"
+                                    + "<th>"
+                                    + "<form action=\"EditDB\" method=\"post\">"
+                                    + "<input type=\"hidden\" id=\"pageDirection\" name=\"pageDirection\" value=\"PostsDB\">"
+                                    + "<input type=\"submit\" value=\"Delete Post\">"
+                                    + "</form>"
+                                    + "</th>"
+                                    + "<th>"
+                                    + "<form action=\"EditDB\" method=\"post\">"
+                                    + "<input type=\"hidden\" id=\"pageDirection\" name=\"pageDirection\" value=\"PostsDB\">"
+                                    + "<input type=\"submit\" value=\"Edit Post\">"
+                                    + "</form>"
+                                    + "</th>"
+                                    + "</tr>"
+                                    + "</table>"
+                                    + "<br>");
+
+                        }
+
+                    }catch (SQLException ex) {
+        				System.err.println("Error 2: " + ex);
+        			}
         out.println("</section>\n"
+        		+ "<br>"
                 + "</main>\n"
                 + "<footer>"
                 + "<p>PathFinder project 2019</p>"

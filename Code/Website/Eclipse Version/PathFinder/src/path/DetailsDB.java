@@ -1,3 +1,4 @@
+package path;
 
 /* 
  Authors: Kevin Dunne, Jekaterina Pavlenko, Christopher Costelloe
@@ -33,7 +34,6 @@ import java.util.logging.Logger;
 @WebServlet(name = "DetailsDB", urlPatterns = { "/DetailsDB" })
 public class DetailsDB extends HttpServlet {
 
-	@SuppressWarnings("unused")
 	private static final int BUFFER_SIZE = 4096;
 	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 	Connection conn;
@@ -91,6 +91,7 @@ public class DetailsDB extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		///////////////////////////////////////////
 		rp.getStatusRank(request,response,stmt,conn);
 		System.out.println(" rp.getUserNameRights() ControlDB: "+ rp.getUserNameRights());
 		

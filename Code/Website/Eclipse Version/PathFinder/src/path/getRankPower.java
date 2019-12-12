@@ -1,3 +1,4 @@
+package path;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -75,7 +76,7 @@ public class getRankPower
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
-			System.err.println("Error 2" + ex);
+			System.err.println("Error 8s" + ex);
 		}
 	}
 	public void getStatusRank(HttpServletRequest request, HttpServletResponse response, Statement stmt,Connection conn)
@@ -125,7 +126,7 @@ public class getRankPower
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
-			System.err.println("Error 2" + ex);
+			System.err.println("Error 9" + ex);
 		}
 		
 	}

@@ -1,3 +1,4 @@
+package path;
 /* 
 Authors: Kevin Dunne, Jekaterina Pavlenko, Christopher Costelloe
 Date: 11/12/2019
