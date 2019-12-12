@@ -52,6 +52,7 @@ public class UploadMapDB extends HttpServlet
 	String map_name;
 	String map_comments;
 	Blob map_image;
+	getRankPower rp = new getRankPower();
 
     @Override
     public void init() throws ServletException {
@@ -70,76 +71,34 @@ public class UploadMapDB extends HttpServlet
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // create a cookie array
-    	Cookie cookie = null;
-        Cookie[] cookies = null;
-        cookies = request.getCookies();
-        // were going to loop through the cookies array and if the active cookies match
-        // values in the database
-        // we know we are that user in the database so were going to put there
-        // information into some variables
-        try {
-            //
-            //
-            if (cookies != null) {
-                for (int i = 0; i < cookies.length; i++) {
-                    cookie = cookies[i];
-                    stmt = conn.createStatement();
-                    String sql5 = "select user_id,user_name,password,account_rank_account_rank_id,email,organisation_name from users";
-                    result = stmt.executeQuery(sql5);
-                    while (result.next()) {
-                    	String powerOrgName = result.getString("organisation_name");
-                        String powerUsername = result.getString("user_name");
-                        int powerID = result.getInt("user_id");
-                        String powerPassword = result.getString("password");
-                        int powerStatus = result.getInt("account_rank_account_rank_id");
-                        String powerEmail = result.getString("email");
+    	
+		rp.getStatusRank(request,response,stmt,conn);
+		
+		System.out.println("rp.getUserNameRights() AddThings: "+ rp.getUserNameRights());
+		
+		try {
 
-                        // if cookie username and username from the database match then we are this
-                        // record,
-                        // extremly important note!: all usernames are unique so they database cannot
-                        // contain 2 exact usernames
-                        if (powerUsername.equals(cookie.getValue())) {
-                            userNameRights = powerUsername;
-                            idRights = powerID;
-                            passwordRights = powerPassword;
-                            AccountStatusRights = powerStatus;
-                            emailRights = powerEmail;
-                            orgNameRights = powerOrgName;
-                        }
-                    }
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-                    prepStat = conn.prepareStatement("select "
-                    		+ "organisation_name, "
-                    		+ "organisation_address,"
-                    		+ "organisation_email,"
-                    		+ "organisation_mobile,"
-                    		+ "organisation_building_name "
-                    		+ "from organisation where organisation_name = ?");
-                    prepStat.setString(1, orgNameRights);
-                    result = prepStat.executeQuery();
-                    while (result.next()) 
-                    {
-                        organisation_name = result.getString("organisation_name");
-                        organisation_address = result.getString("organisation_address");
-                        organisation_email = result.getString("organisation_email");
-                        organisation_mobile = result.getString("organisation_mobile");
-                        organisation_building_name = result.getString("organisation_building_name"); 
-                    }
-        } catch (SQLException ex) {
-            Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
-        }
+			prepStat = conn.prepareStatement("select * from organisation where organisation_name = ?");
+			prepStat.setString(1, rp.getOrgRights());
+			result = prepStat.executeQuery();
+			while (result.next()) {
+				organisation_name = result.getString("organisation_name");
+				organisation_address = result.getString("organisation_address");
+				organisation_email = result.getString("organisation_email");
+				organisation_mobile = result.getString("organisation_mobile");
+				organisation_building_name = result.getString("organisation_building_name");
+			}
+
+		} catch (SQLException ex) {
+			System.err.println("Error Org: " + ex);
+		}
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-       // System.out.println("power : "+userOrgRights);
-        //System.out.println("power right : "+organisation_name);
-        //System.out.println("if before");
-        if(organisation_name.equals(orgNameRights))
+
+        System.out.println("organisation_name: "+organisation_name);
+        System.out.println("getOrgRights: "+rp.getOrgRights());
+        
+        if(organisation_name.equals(rp.getOrgRights()))
         {
         out.println("<!doctype html>\n"
                 + "<!-- Author: Jekaterina Pavlenko, Kevin Dunne, Christopher Costelloe Date: 09/03/2019-->"
@@ -176,20 +135,16 @@ public class UploadMapDB extends HttpServlet
                 + "                    <br>\r\n"
                 + "                    <p>Here you can upload maps:<p>\r\n");
         out.println(""
-        		+ "<form method=\"post\" action=\"AddNewMapActionDB\" enctype=\"multipart/form-data\">\r\n"
+        		+ "<form method=\"post\" action=\"AddThings\" enctype=\"multipart/form-data\">\r\n"
         		+ "<fieldset>" 
-        		//+ " <p><label for=\"map_location_url\" class=\"title\">Map Url: <span>*</span></label>"
-        		+ "	<input type=\"hidden\" name=\"org_name\" id=\"org_name\" value=\""+orgNameRights+"\" /></p>"
-        		+ ""
+        		+ "<input type=\"hidden\" name=\"org_name\" id=\"org_name\" value=\""+orgNameRights+"\" /></p>"
+        		+ "<input type=\"hidden\" name=\"mapAction\" id=\"mapAction\" value=\"mapAction\" /></p>"
         		+ "<p><label for=\"org_building\" class=\"title\">Building Name: <span>*</span></label>"
         		+ "<input type=\"text\" name=\"org_building\" id=\"org_building\" /></p>"
-        		+ ""
         		+ "<p><label for=\"map_name\" class=\"title\">Floor Name: <span>*</span></label>"
         		+ "<input type=\"text\" name=\"map_name\" id=\"map_name\" /></p>"
-        		+ ""
         		+ "<p><label for=\"map_comments\" class=\"title\">Map Comments: <span>*</span></label>"
         		+ "<input type=\"text\" name=\"map_comments\" id=\"map_comments\" /></p>"
-        		+ ""
         		+ "<label for=\"map_image\"><br><strong>Choose a file</strong><span> or drag it here</span>.</label>\r\n"
         		+ "<br>"
         		+ "<br>"
@@ -197,26 +152,27 @@ public class UploadMapDB extends HttpServlet
         		+ "<br>"
         		+ "<br>"
         		+ "<button type=\"submit\">Upload and Submit</button>\r\n"
-        		+ " <br>"
+        		+ "<br>"
         		+ "<br>"
         		+ "</fieldset>"
         		+ "</form>"
         		+ "<br>");
-        out.println("            <footer>\r\n"
-                + "                <p>PathFinder project 2019</p>\r\n"
-                + "                <p>Authors: Kevin Dunne,Jekaterina Pavlenko & Christopher Costelloe</p>\r\n"
-                + "                <p><img src=\"images/maze_ic.png\" alt=\"\" ></p>\r\n"
-                + "            </footer>	\r\n"
-                + "\r\n"
-                + "        </div>\r\n"
-                + "\r\n"
-                + "    </body>\r\n"
-                + "</html>");
+        out.println("</section>\n"
+                + "<br>\n"
+                + "<br>\n"
+                + "</main>\n"
+                + "<footer>"
+                + "<p>PathFinder project 2019</p>"
+                + "<p>Authors: Kevin Dunne, Jekaterina Pavlenko & Christopher Costelloe</p>"
+                + "<p><img src=\"images/maze_ic.png\" alt=\"Maze icon\" ></p>"
+                + "</footer>"
+                + "\n"
+                + "</div>\n"
+                + "\n"
+                + "</body>\n"
+                + "</html>\n"
+                + "");
         }
-    }
-    public void getPower(HttpServletRequest request)
-    {
-        
     }
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

@@ -51,6 +51,8 @@ public class AddNewMapActionDB extends HttpServlet {
 	String map_name;
 	String map_comments;
 	Blob map_image;
+	
+	getRankPower rp = new getRankPower();
 
 	@Override
 	public void init() throws ServletException {
@@ -70,48 +72,10 @@ public class AddNewMapActionDB extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// create a cookie array
-		Cookie cookie = null;
-		Cookie[] cookies = null;
-		cookies = request.getCookies();
-		// were going to loop through the cookies array and if the active cookies match
-		// values in the database
-		// we know we are that user in the database so were going to put there
-		// information into some variables
-		try {
-			//
-			if (cookies != null) {
-				for (int i = 0; i < cookies.length; i++) {
-					cookie = cookies[i];
-					stmt = conn.createStatement();
-					String sql5 = "select user_id,user_name,password,account_rank_account_rank_id,email,organisation_name from users";
-					result = stmt.executeQuery(sql5);
-					while (result.next()) {
-						String powerOrgName = result.getString("organisation_name");
-						String powerUsername = result.getString("user_name");
-						int powerID = result.getInt("user_id");
-						String powerPassword = result.getString("password");
-						int powerStatus = result.getInt("account_rank_account_rank_id");
-						String powerEmail = result.getString("email");
-
-						// if cookie username and username from the database match then we are this
-						// record,
-						// extremly important note!: all usernames are unique so they database cannot
-						// contain 2 exact usernames
-						if (powerUsername.equals(cookie.getValue())) {
-							userNameRights = powerUsername;
-							idRights = powerID;
-							passwordRights = powerPassword;
-							AccountStatusRights = powerStatus;
-							emailRights = powerEmail;
-							orgNameRights = powerOrgName;
-						}
-					}
-				}
-			}
-		} catch (SQLException ex) {
-			Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		///////////////////////////////////////////
+		rp.getStatusRank(request,response,stmt,conn);
+		System.out.println(" rp.getUserNameRights() AddNewMapActionDB: "+ rp.getUserNameRights());
+		
 		org_name = request.getParameter("org_name");
 		org_building = request.getParameter("org_building");
 		map_name = request.getParameter("map_name");
@@ -138,7 +102,6 @@ public class AddNewMapActionDB extends HttpServlet {
 			int i = prepStat.executeUpdate();
 			response.sendRedirect("Maps.jsp");
 		} catch (SQLException ex) {
-			Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
 			response.sendRedirect("UploadMapDB");
 			System.err.println("inputStream: " + inputStream);
 			System.err.println("Error 5: " + parts1.getInputStream());
@@ -146,11 +109,6 @@ public class AddNewMapActionDB extends HttpServlet {
 			System.err.println("Error 2: " + ex);
 		}
 	}
-
-	public void getPower(HttpServletRequest request) {
-
-	}
-
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/**
 	 * Handles the HTTP <code>GET</code> method.
