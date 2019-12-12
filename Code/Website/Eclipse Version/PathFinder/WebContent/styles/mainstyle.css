@@ -17,7 +17,7 @@ body {
     padding: 10px 15px;
     border: 1px solid #99b3e6;
     border-radius: 10px;
-    background-color: #ffffff;	
+    background-color: #ffffff;
 }
 
 a {
@@ -31,45 +31,7 @@ body header img{
     margin-bottom: 15px;
     border-radius: 10px;
 }
-/* nav */
-/*.nav {
-        
-	position: relative;
-}
 
-.nav li {
-	margin: 0 0.31em;
-	padding: 0.4em 0;
-	list-style: none;
-	display: inline-block;
-        border: 10px solid #2A4B7C;
-        border-radius: 10px;
-        width:21%;
-        height:auto;
-        background-color: #2A4B7C;
-        
-}
-.nav a {
-	padding: 3px 12px;
-	text-decoration: none;
-        background-color: #2A4B7C;
-	color: #E7F3EF;
-	line-height: 100%;
-}
-.nav a:hover, a:focus, li:hover, li:focus {
-    color: white !important;
-    background-color: #99b3e6;
-}
-.nav .current a {
-	background: #99b3e6;
-	color: white !important;
-	border-radius: 5px;
-}
-
- center nav 
-.nav ul {
-	text-align: center;
-}*/
 
 #menu ul {
     width: 100%;                        
@@ -123,19 +85,6 @@ body header img{
 nav {
     padding-bottom: 0.15em;
 }
-
-/*div.gallery {
-    margin: 5px;
-    border: 1px solid #ccc;
-    float: left;
-    width: 31.9%;
-}
-
-div.gallery img {
-    width: 100%;
-    height: auto;
-    border: 1px solid #99b3e6;
-}*/
 
 div.gallery {
   border: 1px solid #ccc;
@@ -213,6 +162,13 @@ fieldset {
     border-radius: 10px;
 }
 
+fieldset #field {
+	width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 footer {
     text-align: center;
     border-radius: 10px;
@@ -250,20 +206,6 @@ h2 {
 .boxed {
     border: 1px solid green ;
     padding: 5px;
-}
-
-.killers {
-    width: 14%;
-    height: auto;
-    float:left;
-    padding: 10px;
-}
-
-.perks {
-    width: 20%;
-    height: auto;
-    float:left;
-    padding: 10px; 
 }
 
 .mapouter {

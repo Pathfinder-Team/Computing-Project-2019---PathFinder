@@ -39,6 +39,12 @@ Forum Page
 	padding-right: 20px;
 }
 
+.title1 {
+	font-size: 0.9em;
+    width:100%;
+	text-align: left;
+}
+
 span {
 	color:red;
 }
@@ -67,6 +73,14 @@ fieldset {
     margin-right: auto;
 }
 
+#field {
+	width: 100%;
+    height: auto;
+    text-aligh:left;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 #form ul {
 	width: 100%;                        
 	list-style-type: none;
@@ -87,7 +101,7 @@ fieldset {
 	text-align: center;
 	display: block;
 	padding: .6em 0;
-        margin: .2em .2em;
+    margin: .2em .2em;
 }
 
 #form a:hover, a:focus, #form2 a:hover, a:focus, .current {
@@ -101,4 +115,8 @@ label
 
 #submit {
     margin-left:18em;
+}
+
+#submit1 {
+	margin: 0 0;
 }
