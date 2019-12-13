@@ -99,7 +99,7 @@ public class AddPointsDB extends HttpServlet
 			System.err.println("Error 10 ae: " + e);
 		}
 		
-    	System.out.println("special "+maps_map_id);
+    	//System.out.println("special "+maps_map_id);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 		out.println("<!doctype html>\n"
@@ -135,7 +135,7 @@ public class AddPointsDB extends HttpServlet
                 out.println(""
                 + "<br>\r\n"
                 + "<h3>Add New Nodes</h3>\n"
-                + "<form action=\"AddNewPointsActionDB\" method=\"post\" name=\"form\" onSubmit=\"return validateAll();\" >\n"
+                + "<form action=\"AddThings\" method=\"post\" name=\"form\" onSubmit=\"return validateAll();\" >\n"
                 + "<fieldset>\n"
                 + "<legend>Add New Points to Map</legend>\n"
                 + "<br>\n"
@@ -159,7 +159,7 @@ public class AddPointsDB extends HttpServlet
                 out.println(""
                 + "<br>\r\n"
                 + "<h3>Add New Points</h3>\n"
-                + "<form action=\"AddNewPointsActionDB\" method=\"post\" name=\"form\" onSubmit=\"return validateAll();\" >\n"
+                + "<form action=\"AddThings\" method=\"post\" name=\"form\" onSubmit=\"return validateAll();\" >\n"
                 + "<fieldset>\n"
                 + "<legend>Add New Points to Map</legend>\n"
                 + "<br>\n"
@@ -174,7 +174,7 @@ public class AddPointsDB extends HttpServlet
                 + "<input type=\"number\" name=\"point_weight\" id=\"point_weight\" /required></p>\n"
                 + "\n"
                 + "<p><label for=\"point_direction\" class=\"title\">point_direction: <span>*</span></label>\n"
-                + "<input type=\"number\" name=\"point_direction\" id=\"point_direction\" /required></p>\n"
+                + "<input type=\"text\" name=\"point_direction\" id=\"point_direction\" /required></p>\n"
                 + "\n"
                 + "<input type=\"hidden\" name=\"insertPoints\" id=\"insertPoints\" value=\"insertPoints\"></p>\n"
                 + "<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Submit Details\" />\n"
