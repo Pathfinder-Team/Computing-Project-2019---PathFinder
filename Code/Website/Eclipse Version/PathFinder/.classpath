@@ -11,5 +11,10 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="D:/Documents/GitHub/Computing-Project-2019---PathFinder/Code/Website/apache-tomcat-9.0.29/lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="D:/Documents/GitHub/Computing-Project-2019---PathFinder/Code/Website/Eclipse Version/PathFinder/json-20190722.jar"/>
+	<classpathentry kind="lib" path="D:/Documents/GitHub/Computing-Project-2019---PathFinder/Code/Website/Eclipse Version/PathFinder/json-simple-1.1.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

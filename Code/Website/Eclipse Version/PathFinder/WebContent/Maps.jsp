@@ -187,6 +187,10 @@
 				</form>
 				<br>
 				<br>
+				<form action="ActionJson" method="post">
+				<button type="submit" >Create Points Json</button>
+				</form>
+				<br>
 			</section>
 		</main>
 		</div>

@@ -6,6 +6,7 @@ package path;
  Program: Website for enterprise application development
  */
 import javax.servlet.annotation.*;
+
 import javax.servlet.http.*;
 import javax.servlet.*;
 import java.io.*;
@@ -13,7 +14,8 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.json.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 @MultipartConfig(maxFileSize = 16177216) // upto 16 MB
 @WebServlet(name = "ActionJson", urlPatterns = { "/ActionJson" })
@@ -79,32 +81,50 @@ public class ActionJson extends HttpServlet {
 		System.out.println(" rp.getUserNameRights() ActionJson: "+ rp.getUserNameRights());
 		
 		org_name = request.getParameter("org_name");
-	      JSONObject jsonObject = new JSONObject();
-	      //Creating a json array
-	      JSONArray array = new JSONArray();
-	      ResultSet rs = RetrieveData();
-	      //Inserting ResutlSet data into the json object
-	      while(rs.next()) {
+		
+	    JSONObject jsonObject = new JSONObject();
+	    JSONArray array = new JSONArray();
+		
+		try 
+		{
+		stmt = conn.createStatement();
+
+		String sql5 = "select * from map_points join point_to on map_points.current_point_id=point_to.point_from_id";
+		result = stmt.executeQuery(sql5);
+		
+		System.out.println("Begin");
+
+	    
+	      while(result.next()) {
 	         JSONObject record = new JSONObject();
-	         //Inserting key-value pairs into the json object
-	         record.put("ID", rs.getInt("ID"));
-	         record.put("First_Name", rs.getString("First_Name"));
-	         record.put("Last_Name", rs.getString("Last_Name"));
-	         record.put("Date_Of_Birth", rs.getDate("Date_Of_Birth"));
-	         record.put("Place_Of_Birth", rs.getString("Place_Of_Birth"));
-	         record.put("Country", rs.getString("Country"));
+	         record.put("current_point_id", result.getInt("current_point_id"));
+	         record.put("point_name", result.getString("point_name"));
+	         record.put("maps_map_id", result.getInt("maps_map_id"));
+	         record.put("point_from_id", result.getInt("point_from_id"));
+	         record.put("point_to_id", result.getInt("point_to_id"));
+	         record.put("point_weight", result.getInt("point_weight"));
+	         record.put("point_direction", result.getString("point_direction"));
 	         array.add(record);
 	      }
-	      jsonObject.put("Players_data", array);
-	      try {
-	         FileWriter file = new FileWriter("E:/output.json");
-	         file.write(jsonObject.toJSONString());
-	         file.close();
-	      } catch (IOException e) {
-	         // TODO Auto-generated catch block
-	         e.printStackTrace();
-	      }
+	      jsonObject.put("map_points", array);
+	      
+		  } catch (SQLException e) {
+			  e.printStackTrace();
+		      System.out.println("Special Json error: "+e);
+		  }
+		
+	      try
+	      {
+		  FileWriter file = new FileWriter("D:\\Documents\\GitHub\\Computing-Project-2019---PathFinder\\Code\\Website\\Eclipse Version\\PathFinder\\specialjson.json");
+		  file.write(((JSONArray) array).toJSONString());
+		  file.flush();
+		  file.close();
+		  } catch (IOException e) {
+			  e.printStackTrace();
+		      System.out.println("Special Json error: "+e);
+		  }
 	      System.out.println("JSON file created......");
+	      //response.sendRedirect("Maps.jsp");
 	}
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/**
