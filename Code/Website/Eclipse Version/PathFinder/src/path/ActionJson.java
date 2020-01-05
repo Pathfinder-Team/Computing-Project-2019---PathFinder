@@ -74,6 +74,7 @@ public class ActionJson extends HttpServlet {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		///////////////////////////////////////////
@@ -92,10 +93,9 @@ public class ActionJson extends HttpServlet {
 		String sql5 = "select * from map_points join point_to on map_points.current_point_id=point_to.point_from_id";
 		result = stmt.executeQuery(sql5);
 		
-		System.out.println("Begin");
-
 	    
-	      while(result.next()) {
+	      while(result.next())
+	      {
 	         JSONObject record = new JSONObject();
 	         record.put("current_point_id", result.getInt("current_point_id"));
 	         record.put("point_name", result.getString("point_name"));
@@ -104,28 +104,32 @@ public class ActionJson extends HttpServlet {
 	         record.put("point_to_id", result.getInt("point_to_id"));
 	         record.put("point_weight", result.getInt("point_weight"));
 	         record.put("point_direction", result.getString("point_direction"));
+	         //System.out.println("Hello");
 	         array.add(record);
 	      }
 	      jsonObject.put("map_points", array);
-	      
-		  } catch (SQLException e) {
-			  e.printStackTrace();
-		      System.out.println("Special Json error: "+e);
-		  }
-		
-	      try
-	      {
+	     
+	      /*
 		  FileWriter file = new FileWriter("D:\\Documents\\GitHub\\Computing-Project-2019---PathFinder\\Code\\Website\\Eclipse Version\\PathFinder\\specialjson.json");
 		  file.write(((JSONArray) array).toJSONString());
 		  file.flush();
 		  file.close();
-		  } catch (IOException e) {
+		  */
+		  
+	     response.setContentType("application/json");
+		 PrintWriter out = response.getWriter();
+		
+		  out.println(jsonObject.toJSONString()+"\n");
+		  
+		  } catch (IOException | SQLException e) {
 			  e.printStackTrace();
 		      System.out.println("Special Json error: "+e);
 		  }
-	      System.out.println("JSON file created......");
+			
+
+		}
 	      //response.sendRedirect("Maps.jsp");
-	}
+
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/**
 	 * Handles the HTTP <code>GET</code> method.

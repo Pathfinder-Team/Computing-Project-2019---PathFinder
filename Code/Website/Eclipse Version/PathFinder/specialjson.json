@@ -1,1 +1,173 @@
-[{"maps_map_id":1,"point_weight":5,"point_from_id":1,"current_point_id":1,"point_name":"front entrance","point_direction":"straight","point_to_id":2}]
+[
+  {
+    "maps_map_id": 1,
+    "point_weight": 2,
+    "point_from_id": 1,
+    "current_point_id": 1,
+    "point_name": "front entrance",
+    "point_direction": "straight",
+    "point_to_id": 2
+  },
+  {
+    "maps_map_id": 1,
+    "point_weight": 2,
+    "point_from_id": 7,
+    "current_point_id": 7,
+    "point_name": "end hallway",
+    "point_direction": "right",
+    "point_to_id": 4
+  },
+  {
+    "maps_map_id": 1,
+    "point_weight": 2,
+    "point_from_id": 7,
+    "current_point_id": 7,
+    "point_name": "end hallway",
+    "point_direction": "upstairs",
+    "point_to_id": 12
+  },
+  {
+    "maps_map_id": 2,
+    "point_weight": 2,
+    "point_from_id": 8,
+    "current_point_id": 8,
+    "point_name": "start hallway upstairs",
+    "point_direction": "left",
+    "point_to_id": 9
+  },
+  {
+    "maps_map_id": 2,
+    "point_weight": 2,
+    "point_from_id": 8,
+    "current_point_id": 8,
+    "point_name": "start hallway upstairs",
+    "point_direction": "straight",
+    "point_to_id": 10
+  },
+  {
+    "maps_map_id": 2,
+    "point_weight": 2,
+    "point_from_id": 9,
+    "current_point_id": 9,
+    "point_name": "library",
+    "point_direction": "main_hallway",
+    "point_to_id": 8
+  },
+  {
+    "maps_map_id": 2,
+    "point_weight": 2,
+    "point_from_id": 10,
+    "current_point_id": 10,
+    "point_name": "middle hallway upstairs",
+    "point_direction": "straight",
+    "point_to_id": 12
+  },
+  {
+    "maps_map_id": 2,
+    "point_weight": 2,
+    "point_from_id": 10,
+    "current_point_id": 10,
+    "point_name": "middle hallway upstairs",
+    "point_direction": "left",
+    "point_to_id": 11
+  },
+  {
+    "maps_map_id": 2,
+    "point_weight": 2,
+    "point_from_id": 10,
+    "current_point_id": 10,
+    "point_name": "middle hallway upstairs",
+    "point_direction": "downstairs",
+    "point_to_id": 4
+  },
+  {
+    "maps_map_id": 2,
+    "point_weight": 2,
+    "point_from_id": 10,
+    "current_point_id": 10,
+    "point_name": "middle hallway upstairs",
+    "point_direction": "straight",
+    "point_to_id": 12
+  },
+  {
+    "maps_map_id": 2,
+    "point_weight": 2,
+    "point_from_id": 12,
+    "current_point_id": 12,
+    "point_name": "end hallway upstairs",
+    "point_direction": "downstairs",
+    "point_to_id": 7
+  },
+  {
+    "maps_map_id": 1,
+    "point_weight": 2,
+    "point_from_id": 1,
+    "current_point_id": 1,
+    "point_name": "front entrance",
+    "point_direction": "upstairs",
+    "point_to_id": 8
+  },
+  {
+    "maps_map_id": 1,
+    "point_weight": 2,
+    "point_from_id": 2,
+    "current_point_id": 2,
+    "point_name": "reception",
+    "point_direction": "left",
+    "point_to_id": 3
+  },
+  {
+    "maps_map_id": 1,
+    "point_weight": 3,
+    "point_from_id": 2,
+    "current_point_id": 2,
+    "point_name": "reception",
+    "point_direction": "straight",
+    "point_to_id": 4
+  },
+  {
+    "maps_map_id": 1,
+    "point_weight": 2,
+    "point_from_id": 3,
+    "current_point_id": 3,
+    "point_name": "conference center",
+    "point_direction": "reception",
+    "point_to_id": 2
+  },
+  {
+    "maps_map_id": 1,
+    "point_weight": 2,
+    "point_from_id": 4,
+    "current_point_id": 4,
+    "point_name": "main hallway",
+    "point_direction": "left",
+    "point_to_id": 5
+  },
+  {
+    "maps_map_id": 1,
+    "point_weight": 2,
+    "point_from_id": 4,
+    "current_point_id": 4,
+    "point_name": "main hallway",
+    "point_direction": "right",
+    "point_to_id": 6
+  },
+  {
+    "maps_map_id": 1,
+    "point_weight": 2,
+    "point_from_id": 5,
+    "current_point_id": 5,
+    "point_name": "b150",
+    "point_direction": "main_hallway",
+    "point_to_id": 4
+  },
+  {
+    "maps_map_id": 1,
+    "point_weight": 2,
+    "point_from_id": 6,
+    "current_point_id": 6,
+    "point_name": "canteen",
+    "point_direction": "main_hallway",
+    "point_to_id": 4
+  }
+]
