@@ -4,6 +4,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <wb-resource deploy-path="/WEB-INF/classes/" source-path="/ImportedClasses"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/UnusedDB"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/"/>
         <dependent-module archiveName="mysql-connector-java-8.0.18.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/mysql-connector-java-8.0.18/mysql-connector-java-8.0.18">
             <dependency-type>uses</dependency-type>
         </dependent-module>
