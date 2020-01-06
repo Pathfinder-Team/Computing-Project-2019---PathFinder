@@ -31,13 +31,13 @@
         android:text="@string/btn_org" />
 
     <Button
-        android:minHeight="0dp"
-        android:minWidth="0dp"
         android:id="@+id/btn_scan"
         android:layout_width="105dp"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:layout_below="@id/imageView2"
         android:layout_toRightOf="@id/btn_org"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
         android:text="@string/btn_scan" />
 
     <Button
