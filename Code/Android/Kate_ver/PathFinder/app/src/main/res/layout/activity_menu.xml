@@ -22,6 +22,8 @@
         app:srcCompat="@drawable/bn_header" />
 
     <Button
+        android:minHeight="0dp"
+        android:minWidth="0dp"
         android:id="@+id/btn_org"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,13 +32,17 @@
 
     <Button
         android:id="@+id/btn_scan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="105dp"
+        android:layout_height="56dp"
         android:layout_below="@id/imageView2"
         android:layout_toRightOf="@id/btn_org"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
         android:text="@string/btn_scan" />
 
     <Button
+        android:minHeight="0dp"
+        android:minWidth="0dp"
         android:id="@+id/btn_contact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,28 +50,50 @@
         android:layout_toRightOf="@id/btn_scan"
         android:text="@string/btn_contact" />
 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    <Button
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:id="@+id/btn_map"
+        android:layout_width="79dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageView2"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="-8dp"
+        android:layout_toRightOf="@id/btn_scan"
+        android:text="@string/btn_map" />
+
     <TextView
         android:id="@+id/instr"
         android:layout_width="wrap_content"
         android:layout_height="29dp"
         android:layout_below="@id/btn_scan"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="17dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="122dp"
+        android:layout_marginLeft="122dp"
+        android:layout_marginTop="77dp"
         android:text="@string/instructions"
         android:visibility="visible" />
 
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-
     <TableLayout
+
         android:layout_width="144dp"
         android:layout_height="194dp"
         android:layout_below="@id/instr"
-        android:layout_centerHorizontal="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="116dp"
+        android:layout_marginLeft="116dp"
+        android:layout_marginTop="99dp">
 
         <TableRow
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+            android:layout_height="fill_parent">
 
             <TextView
                 android:id="@+id/textView6"
@@ -76,7 +104,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/textView7"
@@ -87,7 +115,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/textView8"
@@ -98,7 +126,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/textView9"
@@ -109,4 +137,5 @@
         </TableRow>
 
     </TableLayout>
+
 </RelativeLayout>

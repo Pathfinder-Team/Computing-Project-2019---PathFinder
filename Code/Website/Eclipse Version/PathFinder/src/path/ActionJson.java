@@ -6,6 +6,7 @@ package path;
  Program: Website for enterprise application development
  */
 import javax.servlet.annotation.*;
+
 import javax.servlet.http.*;
 import javax.servlet.*;
 import java.io.*;
@@ -13,9 +14,12 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 @MultipartConfig(maxFileSize = 16177216) // upto 16 MB
-@WebServlet(name = "AddNewPointsActionDB", urlPatterns = { "/AddNewPointsActionDB" })
-public class AddNewPointsActionDB extends HttpServlet {
+@WebServlet(name = "ActionJson", urlPatterns = { "/ActionJson" })
+public class ActionJson extends HttpServlet {
 	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 	Connection conn;
 	Connection conn2;
@@ -46,6 +50,11 @@ public class AddNewPointsActionDB extends HttpServlet {
 	String organisation_building_name;
 	String user_org_name;
 
+	String org_name;
+	String org_building;
+	String map_name;
+	String map_comments;
+	Blob map_image;
 	
 	getRankPower rp = new getRankPower();
 
@@ -66,60 +75,61 @@ public class AddNewPointsActionDB extends HttpServlet {
         }
     }
 
+	@SuppressWarnings("unchecked")
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
 		///////////////////////////////////////////
 		rp.getStatusRank(request,response,stmt,conn);
-		System.out.println(" rp.getUserNameRights() AddNewPointsActionDB: "+ rp.getUserNameRights());
+		System.out.println(" rp.getUserNameRights() ActionJson: "+ rp.getUserNameRights());
 		
+		org_name = request.getParameter("org_name");
 		
-		String insertPoints = request.getParameter("insertPoints");
+	    JSONObject jsonObject = new JSONObject();
+	    JSONArray array = new JSONArray();
 		
-		if(insertPoints.contentEquals("insertNode"))
+		try 
 		{
-			int current_point_id = Integer.parseInt(request.getParameter("current_point_id"));
-			String point_name = request.getParameter("point_name");
-			int maps_map_id = Integer.parseInt(request.getParameter("maps_map_id"));
+		stmt = conn.createStatement();
+
+		String sql5 = "select * from map_points join point_to on map_points.current_point_id=point_to.point_from_id";
+		result = stmt.executeQuery(sql5);
+		
+	    
+	      while(result.next())
+	      {
+	         JSONObject record = new JSONObject();
+	         record.put("current_point_id", result.getInt("current_point_id"));
+	         record.put("point_name", result.getString("point_name"));
+	         record.put("maps_map_id", result.getInt("maps_map_id"));
+	         record.put("point_from_id", result.getInt("point_from_id"));
+	         record.put("point_to_id", result.getInt("point_to_id"));
+	         record.put("point_weight", result.getInt("point_weight"));
+	         record.put("point_direction", result.getString("point_direction"));
+	         //System.out.println("Hello");
+	         array.add(record);
+	      }
+	      jsonObject.put("map_points", array);
+	     
+	      /*
+		  FileWriter file = new FileWriter("D:\\Documents\\GitHub\\Computing-Project-2019---PathFinder\\Code\\Website\\Eclipse Version\\PathFinder\\specialjson.json");
+		  file.write(((JSONArray) array).toJSONString());
+		  file.flush();
+		  file.close();
+		  */
+		  
+	     response.setContentType("application/json");
+		 PrintWriter out = response.getWriter();
+		
+		  out.println(jsonObject.toJSONString()+"\n");
+		  
+		  } catch (IOException | SQLException e) {
+			  e.printStackTrace();
+		      System.out.println("Special Json error: "+e);
+		  }
 			
-			System.out.println("maps_map_id "+maps_map_id);
-			
-			try {
-				prepStat = conn.prepareStatement("insert into map_points values(? ,? ,?)");
-				prepStat.setInt(1, current_point_id);
-				prepStat.setString(2, point_name);
-				prepStat.setInt(3, maps_map_id);
-				prepStat.executeUpdate();
-				response.sendRedirect("ViewPointsDB");
-				
-			} catch (SQLException ex) {
-				Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
-				System.err.println("Error 2: " + ex);
-			}
-			
-			
+
 		}
-		else if(insertPoints.contentEquals("insertPoints"))
-		{
-			int point_from_id = Integer.parseInt(request.getParameter("current_point_id"));
-			int point_to_id = Integer.parseInt(request.getParameter("point_to_id"));
-			int point_weight = Integer.parseInt(request.getParameter("point_weight"));
-			String point_direction = request.getParameter("point_direction");
-			
-			try {
-				prepStat = conn.prepareStatement("insert into map point_to values(? ,? ,?, ?)");
-				prepStat.setInt(1, point_from_id);
-				prepStat.setInt(2, point_to_id);
-				prepStat.setInt(3, point_weight);
-				prepStat.setString(4, point_direction);
-				prepStat.executeUpdate();
-				response.sendRedirect("ViewPointsDB");				
-			} catch (SQLException ex) {
-				Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
-				System.err.println("Error 2: " + ex);
-			}
-		}
-	}
+	      //response.sendRedirect("Maps.jsp");
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/**
