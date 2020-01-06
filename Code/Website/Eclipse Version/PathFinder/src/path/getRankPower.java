@@ -36,6 +36,7 @@ public class getRankPower
 	static int AccountStatusRights;
 	static String orgNameRights;
 	
+	
 	public void getStatus(HttpServletRequest request, HttpServletResponse response,Statement stmt,Connection conn)
 	{
 		// create a cookie array

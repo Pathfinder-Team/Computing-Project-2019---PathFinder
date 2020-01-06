@@ -3,6 +3,7 @@
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <%@page import="path.getRankPower"%>
+<%@page import="path.SQLConnection"%>
 
 <!DOCTYPE html>
 <html>
@@ -36,18 +37,21 @@
 		int imageId = 0;
 		String selected = "";
 
-		String URL = "jdbc:mysql://remotemysql.com:3306/4eyg55o51S?autoReconnect=true&useSSL=false";
-		String USERNAME = "4eyg55o51S";
-		String PASSWORD = "ADRFyeBfRn";
 
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			// setup the connection with the DB
-			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-			System.out.println("Connected");
-		} catch (ClassNotFoundException | SQLException e) {
-			System.err.println("Error 1" + e);
-		}
+	    	
+	        try
+	        {
+	        	SQLConnection connect = new SQLConnection();
+	            Class.forName("com.mysql.cj.jdbc.Driver");
+	            // setup the connection with the DB
+	            conn = DriverManager.getConnection(connect.URL(), connect.USERNAME(), connect.PASSWORD());
+	            
+	            System.out.println("Connected");
+	        } catch (ClassNotFoundException | SQLException e)
+	        {
+	            System.err.println("Error 1" + e);
+	        }
+	   
 
 		///////////////////////////////////////////
 		rp.getStatusRank(request,response,stmt,conn);

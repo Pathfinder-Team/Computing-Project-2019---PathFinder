@@ -35,21 +35,18 @@ public class AddPointsDB extends HttpServlet
 	int current_point_id = 0;
 	String point_name = "";
     
-    @Override
     public void init() throws ServletException
     {
-        String URL = "jdbc:mysql://remotemysql.com:3306/4eyg55o51S?autoReconnect=true&useSSL=false";
-        String USERNAME = "4eyg55o51S";
-        String PASSWORD = "ADRFyeBfRn";
 
+    	SQLConnection connect = new SQLConnection();
         try
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
             // setup the connection with the DB
-            conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            conn = DriverManager.getConnection(connect.URL, connect.USERNAME, connect.PASSWORD);
+            
             System.out.println("Connected");
-        }
-        catch (Exception e)
+        } catch (ClassNotFoundException | SQLException e)
         {
             System.err.println("Error 1" + e);
         }

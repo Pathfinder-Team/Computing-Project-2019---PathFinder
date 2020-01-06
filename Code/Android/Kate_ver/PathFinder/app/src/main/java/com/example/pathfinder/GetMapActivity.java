@@ -21,25 +21,7 @@ import java.util.HashMap;
 
 public class GetMapActivity extends AppCompatActivity {
 
-    public class SpecialObject
-    {
-        String specialValue;
-        int specialValueInt;
-        public SpecialObject()
-        {
-
-        }
-        public SpecialObject(String value)
-        {
-            this.specialValue = value;
-        }
-        public SpecialObject(int value)
-        {
-            this.specialValueInt = value;
-        }
-    }
-
-    private String TAG = MainActivity.class.getSimpleName();
+    private String TAG = GetMapActivity.class.getSimpleName();
 
     private ProgressDialog pDialog;
     private ListView lv;
@@ -47,14 +29,14 @@ public class GetMapActivity extends AppCompatActivity {
     // URL to get contacts JSON
     private static String url = "https://pathsearcher.azurewebsites.net/ActionJson";
 
-    ArrayList<HashMap<String, SpecialObject>> contactList;
+    ArrayList<HashMap<String, String>> contactList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_get_map);
 
-        contactList = new ArrayList<HashMap<String, SpecialObject>>();
+        contactList = new ArrayList<>();
 
         lv = (ListView) findViewById(R.id.list);
 
@@ -106,17 +88,18 @@ public class GetMapActivity extends AppCompatActivity {
                         String point_direction = c.getString("point_direction");
 
                         // tmp hash map for single contact
-                        SpecialObject ob = new SpecialObject();
+                        HashMap<String, String> contact = new HashMap<>();
 
-                        HashMap<String, SpecialObject> contact = new HashMap<>();
+                        // adding each child node to HashMap key => value
+                        //contact.put("current_point_id", current_point_id);
 
-                        contact.put("current_point_id", new SpecialObject(current_point_id));
-                        contact.put("point_name", new SpecialObject(point_name));
-                        contact.put("maps_map_id", new SpecialObject(maps_map_id));
-                        contact.put("point_from_id", new SpecialObject(point_from_id));
-                        contact.put("point_to_id", new SpecialObject(point_to_id));
-                        contact.put("point_weight", new SpecialObject(point_weight));
-                        contact.put("point_direction", new SpecialObject(point_direction));
+                        contact.put("maps_map_id", Integer.toString(maps_map_id));
+                        contact.put("point_from_id", Integer.toString(point_from_id));
+                        contact.put("point_to_id", Integer.toString(point_to_id));
+                        contact.put("point_weight", Integer.toString(point_weight));
+                        contact.put("point_name", point_name);
+                        contact.put("point_direction", point_direction);
+
                         // adding contact to contact list
                         contactList.add(contact);
                     }
@@ -161,7 +144,15 @@ public class GetMapActivity extends AppCompatActivity {
              * */
             ListAdapter adapter = new SimpleAdapter(
                     GetMapActivity.this, contactList,
-                    R.layout.list_item, new String[]{"point_name", "point_directions"}, new int[]{R.id.point_name,R.id.point_direction});
+                    R.layout.list_item, new String[]{"point_name",
+                    "point_from_id",
+                    "point_to_id",
+                    "point_weight",
+                    "point_direction"}, new int[]{R.id.point_name,
+                    R.id.point_from_id,
+                    R.id.point_to_id,
+                    R.id.point_weight,
+                    R.id.point_direction});
 
             lv.setAdapter(adapter);
         }

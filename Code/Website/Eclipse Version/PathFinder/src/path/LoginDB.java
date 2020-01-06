@@ -22,16 +22,33 @@ import javax.servlet.http.*;
 })
 public class LoginDB extends HttpServlet
 {
+    Connection conn;
+    Statement stmt;
+    ResultSet result;	
+    @Override
+    
+    public void init() throws ServletException
+    {
+
+    	SQLConnection connect = new SQLConnection();
+        try
+        {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            // setup the connection with the DB
+            conn = DriverManager.getConnection(connect.URL, connect.USERNAME, connect.PASSWORD);
+            
+            System.out.println("Connected");
+        } catch (ClassNotFoundException | SQLException e)
+        {
+            System.err.println("Error 1" + e);
+        }
+    }
+
+	
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        Connection conn;
-        Statement stmt;
-        ResultSet result;
 
-        String URL = "jdbc:mysql://remotemysql.com:3306/4eyg55o51S?autoReconnect=true&useSSL=false";
-        String USERNAME = "4eyg55o51S";
-        String PASSWORD = "ADRFyeBfRn";
         
         // get the username and password from the login.html form
         String checkUsername = request.getParameter("user_name");
@@ -41,9 +58,6 @@ public class LoginDB extends HttpServlet
         PreparedStatement prepStat;
         try
         {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            stmt = conn.createStatement();
             
             // query to get the user, password from users table where the user_name = username you get from the form
             String query = " select user_name,password from users where user_name = ?";
@@ -84,7 +98,7 @@ public class LoginDB extends HttpServlet
                 RequestDispatcher rd = request.getRequestDispatcher("/login.html");
                 rd.forward(request, response);
             }
-        } catch (IOException | ClassNotFoundException | SQLException e)
+        } catch (IOException | SQLException e)
         {
             System.err.println("Special Login Warning" + e);
         }

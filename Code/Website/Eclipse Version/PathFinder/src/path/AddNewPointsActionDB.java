@@ -49,21 +49,22 @@ public class AddNewPointsActionDB extends HttpServlet {
 	
 	getRankPower rp = new getRankPower();
 
-	@Override
-	public void init() throws ServletException {
-		String URL = "jdbc:mysql://remotemysql.com:3306/4eyg55o51S?autoReconnect=true&useSSL=false";
-		String USERNAME = "4eyg55o51S";
-		String PASSWORD = "ADRFyeBfRn";
+    public void init() throws ServletException
+    {
 
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			// setup the connection with the DB
-			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-			System.out.println("Connected");
-		} catch (ClassNotFoundException | SQLException e) {
-			System.err.println("Error 1: " + e);
-		}
-	}
+    	SQLConnection connect = new SQLConnection();
+        try
+        {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            // setup the connection with the DB
+            conn = DriverManager.getConnection(connect.URL, connect.USERNAME, connect.PASSWORD);
+            
+            System.out.println("Connected");
+        } catch (ClassNotFoundException | SQLException e)
+        {
+            System.err.println("Error 1" + e);
+        }
+    }
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
