@@ -11,11 +11,18 @@ import javax.servlet.http.*;
 import javax.servlet.*;
 import java.io.*;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
+
 
 @MultipartConfig(maxFileSize = 16177216) // upto 16 MB
 @WebServlet(name = "ActionJson", urlPatterns = { "/ActionJson" })
@@ -25,6 +32,7 @@ public class ActionJson extends HttpServlet {
 	Connection conn2;
 	Statement stmt;
 	PreparedStatement prepStat;
+	PreparedStatement prepStat1;
 
 	int powerID;
 	String powerUsername;
@@ -34,6 +42,7 @@ public class ActionJson extends HttpServlet {
 	String powerEmail;
 	int powerStatus;
 	ResultSet result;
+	ResultSet result1;
 
 	int idRights;
 	String userNameRights;
@@ -58,6 +67,9 @@ public class ActionJson extends HttpServlet {
 	
 	getRankPower rp = new getRankPower();
 
+	ArrayList<Node> map_points_array = new ArrayList();
+	ArrayList<Node> points_array = new ArrayList();
+	
     public void init() throws ServletException
     {
 
@@ -77,7 +89,8 @@ public class ActionJson extends HttpServlet {
 
 	@SuppressWarnings("unchecked")
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException 
+	{
 		///////////////////////////////////////////
 		rp.getStatusRank(request,response,stmt,conn);
 		System.out.println(" rp.getUserNameRights() ActionJson: "+ rp.getUserNameRights());
@@ -86,50 +99,97 @@ public class ActionJson extends HttpServlet {
 		
 	    JSONObject jsonObject = new JSONObject();
 	    JSONArray array = new JSONArray();
+	    
 		
 		try 
 		{
-		stmt = conn.createStatement();
-
-		String sql5 = "select * from map_points join point_to on map_points.current_point_id=point_to.point_from_id";
-		result = stmt.executeQuery(sql5);
-		
-	    
-	      while(result.next())
-	      {
-	         JSONObject record = new JSONObject();
-	         record.put("current_point_id", result.getInt("current_point_id"));
-	         record.put("point_name", result.getString("point_name"));
-	         record.put("maps_map_id", result.getInt("maps_map_id"));
-	         record.put("point_from_id", result.getInt("point_from_id"));
-	         record.put("point_to_id", result.getInt("point_to_id"));
-	         record.put("point_weight", result.getInt("point_weight"));
-	         record.put("point_direction", result.getString("point_direction"));
-	         //System.out.println("Hello");
-	         array.add(record);
-	      }
-	      jsonObject.put("map_points", array);
-	     
-	      /*
-		  FileWriter file = new FileWriter("D:\\Documents\\GitHub\\Computing-Project-2019---PathFinder\\Code\\Website\\Eclipse Version\\PathFinder\\specialjson.json");
-		  file.write(((JSONArray) array).toJSONString());
-		  file.flush();
-		  file.close();
-		  */
-		  
-	     response.setContentType("application/json");
-		 PrintWriter out = response.getWriter();
-		
-		  out.println(jsonObject.toJSONString()+"\n");
-		  
-		  } catch (IOException | SQLException e) {
-			  e.printStackTrace();
-		      System.out.println("Special Json error: "+e);
-		  }
 			
+		prepStat = conn.prepareStatement("select * from map_points");
+		result = prepStat.executeQuery();
 
+	    while(result.next())
+	    {
+	    	Node edge = new Node(result.getInt("current_point_id"),result.getString("point_name"),result.getInt("maps_map_id"));
+	    	map_points_array.add(edge);
+	    }
 		}
-	      //response.sendRedirect("Maps.jsp");
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		    System.out.println("Special Json error: "+e);
+		}
+		
+	    try
+	    {
+	    	
+		prepStat1 = conn.prepareStatement("select * from point_to");
+		result1 = prepStat1.executeQuery();
+		
+	    while(result1.next())
+	    {
+	    	Node edge = new Node(
+	    			result1.getInt("point_id"),
+	    			result1.getInt("point_from_id"),
+	    			result1.getInt("point_to_id"),
+	    			result1.getInt("point_weight"),
+	    			result1.getString("point_direction"));
+	    	points_array.add(edge);
+	    }
+	    
+		/*
+		String sql5 = "select * from map_points join point_to on map_points.current_point_id = point_to.point_from_id";
+		result = stmt.executeQuery(sql5);
+		*/
+        
+	    for(int i = 0; i < map_points_array.size();i++)
+	    {
+	    	//System.out.println("Size1: "+map_points_array.size());
+		    JSONObject record = new JSONObject();
+		    
+		    record.put("current_point_id", map_points_array.get(i).current_point_id);
+		    record.put("point_name", map_points_array.get(i).point_name);
+		    record.put("maps_map_id", map_points_array.get(i).maps_map_id);
+		    JSONArray array2 = new JSONArray();
+		    for(int j = 0; j < points_array.size();j++)
+		    {
+		    	
+		    	//System.out.println("Size: "+points_array.size());
+		    	if(map_points_array.get(i).current_point_id == points_array.get(j).point_from_id)
+		    	{
+		    		JSONObject record2 = new JSONObject();
+		    		record2.put("point_weight", points_array.get(j).point_weight);
+				    record2.put("point_from_id", points_array.get(j).point_from_id);
+				    //System.out.println("point_from_id: "+points_array.get(j).point_from_id);
+				    record2.put("point_to_id", points_array.get(j).point_to_id);
+				    record2.put("point_direction", points_array.get(j).point_direction);
+				    record2.put("point_id", points_array.get(j).point_id);
+				  
+				    // add array record to second array
+			    	array2.add(record2);
+			    	
+		    	}
+		    	// add the second array to the record
+		    	record.put("special_points",array2);
+		    }
+		    // add total record to array
+		    array.add(record);
+	    }
+
+	    // each array is a set of values
+	    jsonObject.put("map_points", array);  
+	    response.setContentType("application/json");
+	    PrintWriter out = response.getWriter();	    
+		out.println(jsonObject.toJSONString()+"\n");
+
+		
+		} 
+	    catch (IOException | SQLException e) 
+	    {
+	    	e.printStackTrace();
+	    	System.out.println("Special Json error: "+e);
+		}
+	}
+	//response.sendRedirect("Maps.jsp");
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/**
