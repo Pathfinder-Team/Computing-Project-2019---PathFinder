@@ -67,6 +67,21 @@
         android:layout_toRightOf="@id/btn_scan"
         android:text="@string/btn_map" />
 
+
+    <Button
+        android:id="@+id/btn_path_finder"
+        android:layout_width="79dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageView2"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="131dp"
+        android:layout_marginEnd="-18dp"
+        android:layout_toRightOf="@id/btn_scan"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="@string/btn_path_finder" />
+
     <TextView
         android:id="@+id/instr"
         android:layout_width="wrap_content"
@@ -74,9 +89,9 @@
         android:layout_below="@id/btn_scan"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginStart="122dp"
-        android:layout_marginLeft="122dp"
-        android:layout_marginTop="77dp"
+        android:layout_marginStart="63dp"
+        android:layout_marginLeft="63dp"
+        android:layout_marginTop="68dp"
         android:text="@string/instructions"
         android:visibility="visible" />
 

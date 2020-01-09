@@ -6,5 +6,6 @@
     <string name="btn_scan">Scan QR code</string>
     <string name="btn_contact">contact us</string>
     <string name="btn_map">Update Maps:</string>
+    <string name="btn_path_finder">Path:</string>
     <string name="instructions">Instructions to use:</string>
 </resources>
