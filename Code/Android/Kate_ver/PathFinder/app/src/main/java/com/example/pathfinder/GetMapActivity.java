@@ -2,6 +2,8 @@ package com.example.pathfinder;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,12 +21,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 public class GetMapActivity extends AppCompatActivity {
 
     private String TAG = GetMapActivity.class.getSimpleName();
 
     private ProgressDialog pDialog;
     private ListView lv;
+    SQLiteDatabase db;
 
     // URL to get contacts JSON
     private static String url = "https://pathsearcher.azurewebsites.net/ActionJson";
@@ -75,6 +79,16 @@ public class GetMapActivity extends AppCompatActivity {
                     // Getting JSON Array node
                     JSONArray contacts = jsonObj.getJSONArray("map_points");
 
+                    db=openOrCreateDatabase("EventDB", Context.MODE_PRIVATE,null);
+                    db.execSQL("CREATE TABLE IF NOT EXISTS " +
+                            "map_points(current_point_id int ," +
+                            "point_from_id int," +
+                            "point_to_id int," +
+                            "point_weight int," +
+                            "maps_map_id int," +
+                            "point_direction VARCHAR," +
+                            "point_name varhar);");
+
                     // looping through All Contacts
                     for (int i = 0; i < contacts.length(); i++) {
                         JSONObject c = contacts.getJSONObject(i);
@@ -86,6 +100,16 @@ public class GetMapActivity extends AppCompatActivity {
                         int point_to_id = c.getInt("point_to_id");
                         int point_weight = c.getInt("point_weight");
                         String point_direction = c.getString("point_direction");
+
+
+                        db.execSQL("INSERT INTO map_points VALUES('"
+                                +current_point_id+"','"
+                                +point_from_id+"','"
+                                +point_to_id+"','"
+                                +point_weight+"','"
+                                +maps_map_id+"','"
+                                +point_direction+"','"
+                                +point_name+"');");
 
                         // tmp hash map for single contact
                         HashMap<String, String> contact = new HashMap<>();
