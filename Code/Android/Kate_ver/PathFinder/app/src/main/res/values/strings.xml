@@ -8,4 +8,9 @@
     <string name="btn_map">Update Maps:</string>
     <string name="btn_path_finder">Path:</string>
     <string name="instructions">Instructions to use:</string>
+    <string name="start_text">Select Location</string>
+    <string name="Select">Destination</string>
+    <string name="start_path">Start Path</string>
+    <string name="current_dest">Current Destination</string>
+    <string name="next_dest">Next Destination</string>
 </resources>
