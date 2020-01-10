@@ -32,7 +32,7 @@
                 android:text="@string/start_text" />
 
             <Spinner
-                android:id="@+id/spinner2"
+                android:id="@+id/spinner"
                 android:layout_width="131dp"
                 android:layout_height="wrap_content" />
 
@@ -54,7 +54,7 @@
                 android:text="@string/Select" />
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/spinner2"
                 android:layout_width="195dp"
                 android:layout_height="wrap_content" />
 
@@ -79,6 +79,7 @@
                 android:id="@+id/btn_scan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="onClick"
                 android:text="@string/btn_scan" />
         </TableRow>
 
