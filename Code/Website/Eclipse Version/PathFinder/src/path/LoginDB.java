@@ -24,32 +24,34 @@ public class LoginDB extends HttpServlet
 {
     Connection conn;
     Statement stmt;
-    ResultSet result;	
-    @Override
+    ResultSet result;
     
-    public void init() throws ServletException
-    {
-
-    	SQLConnection connect = new SQLConnection();
-        try
-        {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            // setup the connection with the DB
-            conn = DriverManager.getConnection(connect.URL, connect.USERNAME, connect.PASSWORD);
-            
-            System.out.println("Connected");
-        } catch (ClassNotFoundException | SQLException e)
-        {
-            System.err.println("Error 1" + e);
-        }
-    }
-
+    String URL = "jdbc:mysql://localhost:3306/";
+    String DB = "4eyg55o51s";
+    String USERNAME = "root";
+    String PASSWORD = "password";
+    
 	
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
 
-        
+    	SQLConnection connect = new SQLConnection();
+        try
+        {
+        	//Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            // setup the connection with the DB
+            conn = DriverManager.getConnection(connect.URL, connect.USERNAME, connect.PASSWORD);
+            //conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/?user=root");
+            
+            System.out.println("Connected");
+        } catch (ClassNotFoundException | SQLException e)
+        {
+            System.err.println("Error 1 " + e);
+        }
+    	
+    	
         // get the username and password from the login.html form
         String checkUsername = request.getParameter("user_name");
         String checkPassowrd = request.getParameter("password");

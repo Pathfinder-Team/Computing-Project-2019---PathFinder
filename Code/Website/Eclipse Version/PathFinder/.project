@@ -3,7 +3,6 @@
 	<name>PathFinder</name>
 	<comment></comment>
 	<projects>
-		<project>mysql-connector-java-8.0.18</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

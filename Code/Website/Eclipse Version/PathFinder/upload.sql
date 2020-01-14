@@ -1,4 +1,6 @@
+create database 4eyg55o51s;
 
+use 4eyg55o51s;
 
 CREATE TABLE IF NOT EXISTS  `account_rank` (
   `account_rank_id` INT(11) NOT NULL,
