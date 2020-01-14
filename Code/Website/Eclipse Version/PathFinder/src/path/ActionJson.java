@@ -66,9 +66,11 @@ public class ActionJson extends HttpServlet {
 	Blob map_image;
 	
 	getRankPower rp = new getRankPower();
-
+	int counter = 0;
 	ArrayList<Node> map_points_array = new ArrayList();
 	ArrayList<Node> points_array = new ArrayList();
+	
+	
 	
     public void init() throws ServletException
     {
@@ -97,8 +99,7 @@ public class ActionJson extends HttpServlet {
 		
 		org_name = request.getParameter("org_name");
 		
-	    JSONObject jsonObject = new JSONObject();
-	    JSONArray array = new JSONArray();
+
 	    
 		
 		try 
@@ -106,25 +107,17 @@ public class ActionJson extends HttpServlet {
 			
 		prepStat = conn.prepareStatement("select * from map_points");
 		result = prepStat.executeQuery();
-
+		map_points_array.clear();
 	    while(result.next())
 	    {
 	    	Node edge = new Node(result.getInt("current_point_id"),result.getString("point_name"),result.getInt("maps_map_id"));
 	    	map_points_array.add(edge);
 	    }
-		}
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-		    System.out.println("Special Json error: "+e);
-		}
-		
-	    try
-	    {
-	    	
+	    
 		prepStat1 = conn.prepareStatement("select * from point_to");
 		result1 = prepStat1.executeQuery();
 		
+		points_array.clear();
 	    while(result1.next())
 	    {
 	    	Node edge = new Node(
@@ -136,58 +129,81 @@ public class ActionJson extends HttpServlet {
 	    	points_array.add(edge);
 	    }
 	    
-		/*
-		String sql5 = "select * from map_points join point_to on map_points.current_point_id = point_to.point_from_id";
-		result = stmt.executeQuery(sql5);
-		*/
-        
-	    for(int i = 0; i < map_points_array.size();i++)
+		}
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		    System.out.println("Special Json error: "+e);
+		}
+
+	    JSONObject jsonObject = new JSONObject();
+	    JSONArray array = new JSONArray();
+	    
+	    //JSONArray array2 = new JSONArray();
+	   // JSONObject record = new JSONObject();
+	    
+	    int size = map_points_array.size();
+	    
+	    try
 	    {
-	    	//System.out.println("Size1: "+map_points_array.size());
-		    JSONObject record = new JSONObject();
-		    
-		    record.put("current_point_id", map_points_array.get(i).current_point_id);
-		    record.put("point_name", map_points_array.get(i).point_name);
-		    record.put("maps_map_id", map_points_array.get(i).maps_map_id);
-		    JSONArray array2 = new JSONArray();
-		    for(int j = 0; j < points_array.size();j++)
+	    	counter++;
+	    	//if(jsonObject != 0)
+		    for(int i = 0; i < size;i++)
 		    {
-		    	
-		    	//System.out.println("Size: "+points_array.size());
-		    	if(map_points_array.get(i).current_point_id == points_array.get(j).point_from_id)
-		    	{
-		    		JSONObject record2 = new JSONObject();
-		    		record2.put("point_weight", points_array.get(j).point_weight);
-				    record2.put("point_from_id", points_array.get(j).point_from_id);
-				    //System.out.println("point_from_id: "+points_array.get(j).point_from_id);
-				    record2.put("point_to_id", points_array.get(j).point_to_id);
-				    record2.put("point_direction", points_array.get(j).point_direction);
-				    record2.put("point_id", points_array.get(j).point_id);
-				  
-				    // add array record to second array
-			    	array2.add(record2);
-			    	
-		    	}
-		    	// add the second array to the record
-		    	record.put("special_points",array2);
+		    	System.out.println("I: "+i);
+			    JSONArray array2 = new JSONArray();
+			    JSONObject record = new JSONObject();
+			    
+			    //System.out.println("array2: "+array2.size());
+			    //System.out.println("record: "+record.size());
+			    
+			    record.put("current_point_id", map_points_array.get(i).current_point_id);
+			    record.put("point_name", map_points_array.get(i).point_name);
+			    record.put("maps_map_id", map_points_array.get(i).maps_map_id);
+	
+			    for(int j = 0; j < points_array.size();j++)
+			    {
+			    	if(map_points_array.get(i).current_point_id == points_array.get(j).point_from_id)
+			    	{
+			    		JSONObject record2 = new JSONObject();
+			    		record2.put("point_weight", points_array.get(j).point_weight);
+					    record2.put("point_from_id", points_array.get(j).point_from_id);
+					    record2.put("point_to_id", points_array.get(j).point_to_id);
+					    record2.put("point_direction", points_array.get(j).point_direction);
+					    record2.put("point_id", points_array.get(j).point_id);
+					    // add array record to second array
+				    	array2.add(record2);
+			    	}
+			    	// add the second array to the record
+			    	record.put("special_points",array2);
+			    }
+			    // add total record to array
+			    array.add(record);
 		    }
-		    // add total record to array
-		    array.add(record);
-	    }
-
-	    // each array is a set of values
-	    jsonObject.put("map_points", array);  
-	    response.setContentType("application/json");
-	    PrintWriter out = response.getWriter();	    
-		out.println(jsonObject.toJSONString()+"\n");
-
+		    // each array is a set of values
+		    jsonObject.put("map_points", array);  
+		    response.setContentType("application/json");
+		    PrintWriter out = response.getWriter();	      
+		    out.println(jsonObject.toJSONString()+"\n");
+		   
+		    }
 		
-		} 
-	    catch (IOException | SQLException e) 
+	    catch (Exception e) 
 	    {
 	    	e.printStackTrace();
 	    	System.out.println("Special Json error: "+e);
 		}
+	    try
+	    {
+	    	
+
+	    }
+	    catch (Exception e) 
+	    {
+	    	e.printStackTrace();
+	    	System.out.println("Special Json error: "+e);
+		}
+	    
 	}
 	//response.sendRedirect("Maps.jsp");
 

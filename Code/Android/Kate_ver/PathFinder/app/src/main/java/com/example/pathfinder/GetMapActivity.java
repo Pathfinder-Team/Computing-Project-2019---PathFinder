@@ -33,7 +33,8 @@ public class GetMapActivity extends AppCompatActivity {
     SQLiteDatabase db;
 
     // URL to get contacts JSON
-    private static String url = "https://pathsearcher.azurewebsites.net/ActionJson";
+    //private static String url = "https://pathsearcher.azurewebsites.net/ActionJson";
+    private static String url = "http://10.0.2.2:8080/PathFinder/ActionJson";
 
 
     ArrayList<HashMap<String, String>> contactList;
@@ -45,6 +46,10 @@ public class GetMapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_get_map);
 
         contactList = new ArrayList<>();
+
+        //db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
+        //db.execSQL("DROP TABLE IF EXISTS map_points");
+        //db.execSQL("DROP TABLE IF EXISTS special_points");
 
         //lv = (ListView) findViewById(R.id.list);
 
@@ -71,11 +76,11 @@ public class GetMapActivity extends AppCompatActivity {
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
 
-            System.out.println("Special Check Url");
+            //System.out.println("Special Check Url");
             // Making a request to url and getting response
             String jsonStr = sh.makeServiceCall(url);
 
-            System.out.println("Check:: "+url);
+            //System.out.println("Check:: "+url);
 
             Log.e(TAG, "Response from url: " + jsonStr);
 
@@ -109,15 +114,16 @@ public class GetMapActivity extends AppCompatActivity {
                     // looping through All Contacts
                     int counter = 0;
                     int counter2 = 0;
+                    System.out.println("Check: "+PathFinderMap.length());
                     for (int i = 0; i < PathFinderMap.length(); i++) {
                         JSONObject c = PathFinderMap.getJSONObject(i);
                         counter2++;
-                        System.out.println("Counter2: "+PathFinderMap.length());
+                        //System.out.println("Counter2: "+PathFinderMap.length());
 
                         int current_point_id = c.getInt("current_point_id");
                         String point_name = c.getString("point_name");
                         int maps_map_id = c.getInt("maps_map_id");
-                        //System.out.println("Check: " + point_name);
+                        System.out.println("Check:--------------------------------------- " + current_point_id);
                         db.execSQL("INSERT INTO map_points VALUES('"
                                 + current_point_id + "','"
                                 + point_name + "','"
@@ -130,7 +136,7 @@ public class GetMapActivity extends AppCompatActivity {
                                 {
                                     JSONObject cc = PathFinderMap2.getJSONObject(j);
                                     counter++;
-                                    System.out.println("PathFinderMap2.length(): "+PathFinderMap2.length());
+                                    //System.out.println("PathFinderMap2.length(): "+PathFinderMap2.length());
                                     //System.out.println("Counter: "+counter);
                                     int point_id = cc.getInt("point_id");
                                     int point_from_id = cc.getInt("point_from_id");
@@ -189,7 +195,7 @@ public class GetMapActivity extends AppCompatActivity {
             // Dismiss the progress dialog
             if (pDialog.isShowing())
                 pDialog.dismiss();
-            check();
+
             /**
              * Updating parsed JSON data into ListView
              * */
@@ -197,11 +203,7 @@ public class GetMapActivity extends AppCompatActivity {
             TextView txtView = findViewById(R.id.updatedID);
             txtView.setText("The Map has been updated");
 
-            ListAdapter adapter = new SimpleAdapter(
-                    GetMapActivity.this, contactList,
-                    R.layout.list_item, new String[]{"point_name"}, new int[]{R.id.point_name});
-
-            lv.setAdapter(adapter);
+            //check();
         }
 
         public void check()

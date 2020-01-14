@@ -26,11 +26,7 @@ public class LoginDB extends HttpServlet
     Statement stmt;
     ResultSet result;
     
-    String URL = "jdbc:mysql://localhost:3306/";
-    String DB = "4eyg55o51s";
-    String USERNAME = "root";
-    String PASSWORD = "password";
-    
+   
 	
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException

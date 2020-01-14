@@ -31,15 +31,8 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
 
         pointNames = new ArrayList<>();
 
-        db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
 
-        Cursor c = db.rawQuery("select * from map_points",null);
 
-        while(c.moveToNext())
-        {
-            System.out.println("Special: "+c.getString(1));
-            pointNames.add(c.getString(1));
-        }
 
         Spinner spin = (Spinner) findViewById(R.id.spinner);
 
@@ -88,12 +81,15 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
         Counter++;
         // Cursor c = getReadableDatabase().rawQuery("SELECT * FROM friendinfotable",null);
 
+        db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
         Cursor c = db.rawQuery("select * from map_points",null);
-
-        while(c.moveToNext())
-        {
-            System.out.println("Special: "+c.getString(1));
-            pointNames.add(c.getString(1));
+        System.out.println("Check C: "+c.getCount());
+        if(c.getCount() != pointNames.size()) {
+            while (c.moveToNext()) {
+                System.out.println("Special: " + c.getString(1));
+                pointNames.add(c.getString(1));
+            }
+            System.out.println("pointNames: "+pointNames.size());
         }
         return pointNames;
     }

@@ -5,7 +5,7 @@ public class SQLConnection {
     String URL = "jdbc:mysql://localhost:3306/4eyg55o51s?autoReconnect=true&useSSL=false";
     String DB = "4eyg55o51s";
     String USERNAME = "root";
-    String PASSWORD = "password";
+    String PASSWORD = "";
     
     /*
 
