@@ -3,6 +3,7 @@ package com.example.pathfinder;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,7 +46,7 @@ public class GetMapActivity extends AppCompatActivity {
 
         contactList = new ArrayList<>();
 
-        lv = (ListView) findViewById(R.id.list);
+        //lv = (ListView) findViewById(R.id.list);
 
         new GetContacts().execute();
     }
@@ -69,6 +71,7 @@ public class GetMapActivity extends AppCompatActivity {
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
 
+            System.out.println("Special Check Url");
             // Making a request to url and getting response
             String jsonStr = sh.makeServiceCall(url);
 
@@ -109,7 +112,7 @@ public class GetMapActivity extends AppCompatActivity {
                     for (int i = 0; i < PathFinderMap.length(); i++) {
                         JSONObject c = PathFinderMap.getJSONObject(i);
                         counter2++;
-                        System.out.println("Counter2: "+counter2);
+                        System.out.println("Counter2: "+PathFinderMap.length());
 
                         int current_point_id = c.getInt("current_point_id");
                         String point_name = c.getString("point_name");
@@ -186,14 +189,31 @@ public class GetMapActivity extends AppCompatActivity {
             // Dismiss the progress dialog
             if (pDialog.isShowing())
                 pDialog.dismiss();
+            check();
             /**
              * Updating parsed JSON data into ListView
              * */
+
+            TextView txtView = findViewById(R.id.updatedID);
+            txtView.setText("The Map has been updated");
+
             ListAdapter adapter = new SimpleAdapter(
                     GetMapActivity.this, contactList,
                     R.layout.list_item, new String[]{"point_name"}, new int[]{R.id.point_name});
 
             lv.setAdapter(adapter);
+        }
+
+        public void check()
+        {
+            ArrayList<String> pointNames = null;
+            Cursor c = db.rawQuery("select * from map_points",null);
+
+            while(c.moveToNext())
+            {
+                System.out.println("Special: "+c.getString(1));
+                //pointNames.add(c.getString(1));
+            }
         }
 
     }
