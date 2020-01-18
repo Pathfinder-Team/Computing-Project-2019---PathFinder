@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">PathFinder</string>
+    <string name="splash">Welcome to PathFinder!</string>
+    <string name="version">Version 1.0</string>
+    <string name="btn_org">Organisation</string>
+    <string name="btn_scan">Scan QR code</string>
+    <string name="btn_contact">contact us</string>
+    <string name="btn_map">Update Maps:</string>
+    <string name="btn_path_finder">Path:</string>
+    <string name="instructions">Instructions to use:</string>
+    <string name="start_text">Select Location</string>
+    <string name="Select">Destination</string>
+    <string name="start_path">Start Path</string>
+    <string name="current_dest">Current Destination</string>
+    <string name="next_dest">Next Destination</string>
+    <string name="path_info_message">Path Information</string>
+    <string name="display_information">Directions: Straight </string>
+    <string name="updated">The Map Has Been Updated</string>
 </resources>

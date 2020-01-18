@@ -6,47 +6,124 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="15"
-8-->C:\Users\kevin\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml
+8-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml
 9        android:targetSdkVersion="29" />
-9-->C:\Users\kevin\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml
+9-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml
 10
-11    <application
-11-->C:\Users\kevin\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:5:5-21:19
-12        android:allowBackup="true"
-12-->C:\Users\kevin\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:6:9-35
-13        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-13-->[androidx.core:core:1.0.1] C:\Users\kevin\.gradle\caches\transforms-2\files-2.1\46da25c3e2ae6308b2227b660caa604d\core-1.0.1\AndroidManifest.xml:22:18-86
-14        android:debuggable="true"
-15        android:icon="@mipmap/ic_launcher"
-15-->C:\Users\kevin\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:7:9-43
-16        android:label="@string/app_name"
-16-->C:\Users\kevin\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:8:9-41
-17        android:roundIcon="@mipmap/ic_launcher_round"
-17-->C:\Users\kevin\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:9:9-54
-18        android:supportsRtl="true"
-18-->C:\Users\kevin\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:10:9-35
-19        android:theme="@style/AppTheme" >
-19-->C:\Users\kevin\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:11:9-40
-20        <activity android:name="com.example.pathfinder.Login" />
-20-->C:\Users\kevin\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:12:9-52
-20-->C:\Users\kevin\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:12:19-40
-21        <activity android:name="com.example.pathfinder.Menu" />
-21-->C:\Users\kevin\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:13:9-42
-21-->C:\Users\kevin\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:13:19-39
-22        <activity android:name="com.example.pathfinder.MainActivity" >
-22-->C:\Users\kevin\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:14:9-20:20
-22-->C:\Users\kevin\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:14:19-47
-23            <intent-filter>
-23-->C:\Users\kevin\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:15:13-19:29
-24                <action android:name="android.intent.action.MAIN" />
-24-->C:\Users\kevin\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:16:17-69
-24-->C:\Users\kevin\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:16:25-66
-25
-26                <category android:name="android.intent.category.LAUNCHER" />
-26-->C:\Users\kevin\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:18:17-77
-26-->C:\Users\kevin\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:18:27-74
-27            </intent-filter>
-28        </activity>
-29    </application>
-30
-31</manifest>
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:5:5-66
+11-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:5:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:6:5-79
+12-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:6:22-76
+13    <uses-permission android:name="android.permission.CAMERA" />
+13-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:7:5-65
+13-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:7:22-62
+14
+15    <application
+15-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:9:5-36:19
+16        android:allowBackup="true"
+16-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:10:9-35
+17        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+17-->[androidx.core:core:1.0.1] C:\Users\Kate\.gradle\caches\transforms-2\files-2.1\46da25c3e2ae6308b2227b660caa604d\core-1.0.1\AndroidManifest.xml:22:18-86
+18        android:debuggable="true"
+19        android:icon="@mipmap/ic_launcher"
+19-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:12:9-43
+20        android:label="@string/app_name"
+20-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:13:9-41
+21        android:roundIcon="@mipmap/ic_launcher_round"
+21-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:14:9-54
+22        android:supportsRtl="true"
+22-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:15:9-35
+23        android:testOnly="true"
+24        android:theme="@style/AppTheme"
+24-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:16:9-40
+25        android:usesCleartextTraffic="true" >
+25-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:11:9-44
+26        <activity android:name="com.example.pathfinder.DisplayActivity" />
+26-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:17:9-62
+26-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:17:19-50
+27        <activity android:name="com.example.pathfinder.PathFinder" />
+27-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:18:9-48
+27-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:18:19-45
+28        <activity android:name="com.example.pathfinder.ScanActivity" />
+28-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:19:9-50
+28-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:19:19-47
+29        <activity android:name="com.example.pathfinder.ContactActivity" />
+29-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:20:9-53
+29-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:20:19-50
+30        <activity android:name="com.example.pathfinder.OrgActivity" />
+30-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:21:9-49
+30-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:21:19-46
+31        <activity android:name="com.example.pathfinder.GetMapActivity" />
+31-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:22:9-52
+31-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:22:19-49
+32        <activity android:name="com.example.pathfinder.MenuActivity" />
+32-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:23:9-50
+32-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:23:19-47
+33        <activity android:name="com.example.pathfinder.MainActivity" />
+33-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:24:9-50
+33-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:24:19-47
+34        <activity android:name="com.example.pathfinder.SplashActivity" >
+34-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:25:9-31:20
+34-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:25:19-49
+35            <intent-filter>
+35-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:26:13-30:29
+36                <action android:name="android.intent.action.MAIN" />
+36-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:27:17-69
+36-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:27:25-66
+37
+38                <category android:name="android.intent.category.LAUNCHER" />
+38-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:29:17-77
+38-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:29:27-74
+39            </intent-filter>
+40        </activity>
+41
+42        <meta-data
+42-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:33:9-35:57
+43            android:name="preloaded_fonts"
+43-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:34:13-43
+44            android:resource="@array/preloaded_fonts" />
+44-->C:\Users\Kate\AndroidStudioProjects\PathFinder\app\src\main\AndroidManifest.xml:35:13-54
+45
+46        <activity
+46-->[com.google.android.gms:play-services-auth:16.0.0] C:\Users\Kate\.gradle\caches\transforms-2\files-2.1\59d47a9f6d690a2390e293abd88d2f12\jetified-play-services-auth-16.0.0\AndroidManifest.xml:23:9-27:75
+47            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+47-->[com.google.android.gms:play-services-auth:16.0.0] C:\Users\Kate\.gradle\caches\transforms-2\files-2.1\59d47a9f6d690a2390e293abd88d2f12\jetified-play-services-auth-16.0.0\AndroidManifest.xml:24:13-93
+48            android:excludeFromRecents="true"
+48-->[com.google.android.gms:play-services-auth:16.0.0] C:\Users\Kate\.gradle\caches\transforms-2\files-2.1\59d47a9f6d690a2390e293abd88d2f12\jetified-play-services-auth-16.0.0\AndroidManifest.xml:25:13-46
+49            android:exported="false"
+49-->[com.google.android.gms:play-services-auth:16.0.0] C:\Users\Kate\.gradle\caches\transforms-2\files-2.1\59d47a9f6d690a2390e293abd88d2f12\jetified-play-services-auth-16.0.0\AndroidManifest.xml:26:13-37
+50            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+50-->[com.google.android.gms:play-services-auth:16.0.0] C:\Users\Kate\.gradle\caches\transforms-2\files-2.1\59d47a9f6d690a2390e293abd88d2f12\jetified-play-services-auth-16.0.0\AndroidManifest.xml:27:13-72
+51        <!--
+52            Service handling Google Sign-In user revocation. For apps that do not integrate with
+53            Google Sign-In, this service will never be started.
+54        -->
+55        <service
+55-->[com.google.android.gms:play-services-auth:16.0.0] C:\Users\Kate\.gradle\caches\transforms-2\files-2.1\59d47a9f6d690a2390e293abd88d2f12\jetified-play-services-auth-16.0.0\AndroidManifest.xml:33:9-36:110
+56            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+56-->[com.google.android.gms:play-services-auth:16.0.0] C:\Users\Kate\.gradle\caches\transforms-2\files-2.1\59d47a9f6d690a2390e293abd88d2f12\jetified-play-services-auth-16.0.0\AndroidManifest.xml:34:13-89
+57            android:exported="true"
+57-->[com.google.android.gms:play-services-auth:16.0.0] C:\Users\Kate\.gradle\caches\transforms-2\files-2.1\59d47a9f6d690a2390e293abd88d2f12\jetified-play-services-auth-16.0.0\AndroidManifest.xml:35:13-36
+58            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION" />
+58-->[com.google.android.gms:play-services-auth:16.0.0] C:\Users\Kate\.gradle\caches\transforms-2\files-2.1\59d47a9f6d690a2390e293abd88d2f12\jetified-play-services-auth-16.0.0\AndroidManifest.xml:36:13-107
+59
+60        <activity
+60-->[com.google.android.gms:play-services-base:15.0.1] C:\Users\Kate\.gradle\caches\transforms-2\files-2.1\34ee15b76c38e9838db13b3169550280\jetified-play-services-base-15.0.1\AndroidManifest.xml:23:9-26:75
+61            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+61-->[com.google.android.gms:play-services-base:15.0.1] C:\Users\Kate\.gradle\caches\transforms-2\files-2.1\34ee15b76c38e9838db13b3169550280\jetified-play-services-base-15.0.1\AndroidManifest.xml:24:13-79
+62            android:exported="false"
+62-->[com.google.android.gms:play-services-base:15.0.1] C:\Users\Kate\.gradle\caches\transforms-2\files-2.1\34ee15b76c38e9838db13b3169550280\jetified-play-services-base-15.0.1\AndroidManifest.xml:25:13-37
+63            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+63-->[com.google.android.gms:play-services-base:15.0.1] C:\Users\Kate\.gradle\caches\transforms-2\files-2.1\34ee15b76c38e9838db13b3169550280\jetified-play-services-base-15.0.1\AndroidManifest.xml:26:13-72
+64
+65        <meta-data
+65-->[com.google.android.gms:play-services-basement:15.0.1] C:\Users\Kate\.gradle\caches\transforms-2\files-2.1\8595f071a294c366aee7be9e4f987ba7\jetified-play-services-basement-15.0.1\AndroidManifest.xml:23:9-25:69
+66            android:name="com.google.android.gms.version"
+66-->[com.google.android.gms:play-services-basement:15.0.1] C:\Users\Kate\.gradle\caches\transforms-2\files-2.1\8595f071a294c366aee7be9e4f987ba7\jetified-play-services-basement-15.0.1\AndroidManifest.xml:24:13-58
+67            android:value="@integer/google_play_services_version" />
+67-->[com.google.android.gms:play-services-basement:15.0.1] C:\Users\Kate\.gradle\caches\transforms-2\files-2.1\8595f071a294c366aee7be9e4f987ba7\jetified-play-services-basement-15.0.1\AndroidManifest.xml:25:13-66
+68    </application>
+69
+70</manifest>
