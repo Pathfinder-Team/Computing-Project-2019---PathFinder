@@ -93,7 +93,7 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
         System.out.println("Check C: "+c.getCount());
         if(c.getCount() != pointNames.size()) {
             while (c.moveToNext()) {
-                System.out.println("Special: " + c.getString(1));
+                //System.out.println("Special: " + c.getString(1));
                 pointNames.add(c.getString(1));
             }
             System.out.println("pointNames: "+pointNames.size());

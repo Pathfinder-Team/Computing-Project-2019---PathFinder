@@ -33,7 +33,6 @@ public class Graph
             visited[i] = false;
             distance[i] = 99999;
             previous[i] = -1;
-
         }
     }
 
@@ -44,7 +43,7 @@ public class Graph
         adj[source].addFirst(edge);
     }
 
-    /*
+
     public void getUserInput()
     {
         boolean pass = false;
@@ -54,7 +53,8 @@ public class Graph
         {
             System.out.println("Select a source Vertice");
             System.out.println("Between 1 and " + size);
-            verticeCheck = scan.nextInt();
+            //verticeCheck = scan.nextInt();
+            verticeCheck = 4;
             if (verticeCheck != 0 && verticeCheck <= adj.length)
             {
                 sourceVertice = verticeCheck;
@@ -67,8 +67,6 @@ public class Graph
         }
         while (pass != true);
     }
-
-     */
 
     public void displayDistances()
     {
@@ -97,10 +95,10 @@ public class Graph
     public void findShortestPaths()
     {
         // getting the users input to select a source vertex
-        //getUserInput();
+        getUserInput();
         //
         // get source vertice sourceVertice;
-        sourceVertice = 1;
+        //sourceVertice = 1;
         //
         // setting the first index of distance and previous to 0 because i dont use these
         distance[sourceVertice] = 0;

@@ -29,8 +29,9 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
         selected_destination = extras.getString("selected_destination");
 
         Setup setup = new Setup();
-        db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
+
         try {
+            db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
             setup.setUpMap(current_selected,selected_destination,db);
         } catch (IOException e) {
             e.printStackTrace();
