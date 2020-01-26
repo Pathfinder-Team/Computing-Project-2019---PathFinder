@@ -1,14 +1,14 @@
 package com.example.pathfinder;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class Node
+public class Node implements Serializable
 {
 
     int source;
     int destination;
     int weight;
-
 
     int current_point_id;
     String point_name;
@@ -24,6 +24,7 @@ public class Node
     {
 
     }
+
     public Node(int source, int destination, int weight)
     {
         this.source = source;
@@ -47,7 +48,7 @@ public class Node
         this.point_direction = point_direction;
     }
 
-    public Node( int point_from_id, int point_to_id, int point_weight, String point_direction)
+    public Node(int point_from_id, int point_to_id, int point_weight, String point_direction)
     {
         this.point_from_id = point_from_id;
         this.point_to_id = point_to_id;

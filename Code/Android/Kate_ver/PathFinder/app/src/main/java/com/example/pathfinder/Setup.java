@@ -19,10 +19,6 @@ public class Setup
     public void setUpEverythingArrays(SQLiteDatabase db)
     {
         Cursor c = db.rawQuery("select * from map_points",null);
-
-
-
-
         while (c.moveToNext()) {
             Node edge = new Node(c.getInt(0),
                     c.getString(1),
@@ -47,6 +43,7 @@ public class Setup
                     cd.getString(4));
             points_array.add(edge);
         }
+        db.close();
 
         /*
         for(int i = 0; i < points_array.size(); i++)
@@ -63,13 +60,21 @@ public class Setup
     public void setupEdges(Graph graph) {
         for (int i = 0; i < map_points_array.size(); i++)
         {
+
+            Node MapPriority = new Node(map_points_array.get(i).current_point_id,
+                    map_points_array.get(i).point_name,
+                    map_points_array.get(i).maps_map_id);
             for(int j = 0; j < points_array.size();j++)
             {
                 if (map_points_array.get(i).current_point_id == points_array.get(j).point_from_id) {
 
                     //System.out.println("Source: "+points_array.get(j).point_from_id+",Destination: "+points_array.get(j).point_to_id+", Weight: "+points_array.get(j).point_weight);
                     //graph.addEdge(points_array.get(j).point_from_id, points_array.get(j).point_to_id, points_array.get(j).point_weight);
-                    graph.addEdge(points_array.get(j).point_from_id, points_array.get(j).point_to_id, points_array.get(j).point_weight,points_array.get(j).point_direction);
+                    graph.addEdge(MapPriority,
+                            points_array.get(j).point_from_id,
+                            points_array.get(j).point_to_id,
+                            points_array.get(j).point_weight,
+                            points_array.get(j).point_direction);
                     //System.out.println("");
                 }
             }
