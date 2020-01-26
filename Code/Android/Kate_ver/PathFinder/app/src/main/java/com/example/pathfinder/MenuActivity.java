@@ -6,11 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public static Toast resultTextView;
+    public static TextView resultTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         Button btn_contact = (Button) findViewById(R.id.btn_contact);
         btn_contact.setOnClickListener(this);
+
+        resultTextView = (TextView) findViewById(R.id.result_scan);
 
         Button btn_map = (Button) findViewById(R.id.btn_map);
         btn_map.setOnClickListener(this);
@@ -45,6 +48,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_scan:
                 intent = new Intent(this, ScanActivity.class);
+                Bundle extras1 = new Bundle();
+                extras1.putString("ActivityName","MenuActivity");
+                intent.putExtras(extras1);
                 startActivity(intent);
                 break;
             case R.id.btn_contact:

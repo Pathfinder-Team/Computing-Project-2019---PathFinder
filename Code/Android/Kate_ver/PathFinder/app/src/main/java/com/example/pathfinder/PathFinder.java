@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.nio.file.Path;
@@ -24,6 +25,8 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
     String special1 = "Empty";
     String special2 = "Empty";
     int Counter = 0;
+    public static TextView resultTextView;
+    public static String result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,19 +34,32 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
 
         pointNames = new ArrayList<>();
 
-
-
-
         Spinner spin = (Spinner) findViewById(R.id.spinner);
 
         Spinner spin2 = (Spinner) findViewById(R.id.spinner2);
+
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, getPointName());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        spin.setAdapter(adapter);
-        spin.setOnItemSelectedListener(this);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, getPointName());
 
-        spin2.setAdapter(adapter);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spin.setAdapter(adapter);
+
+        if(resultTextView != null)
+        {
+            result = resultTextView.getText().toString();
+            System.out.println("#################### Result: "+result);
+
+            int location = getIntLocation(result);
+            spin.setSelection(location);
+
+            System.out.println("#######################spin.setSelection(location): "+location);
+        }
+        spin.setOnItemSelectedListener(this);
+        spin2.setAdapter(adapter2);
         spin2.setOnItemSelectedListener(this);
 
         Button btn_find_destination = (Button) findViewById(R.id.btn_find_destination);
@@ -51,9 +67,6 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
 
         Button btn_scan = (Button) findViewById(R.id.btn_scan);
         btn_scan.setOnClickListener(this);
-
-
-
     }
     @Override
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
@@ -61,14 +74,12 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
         if(arg0.getId() == R.id.spinner)
         {
             special1 = getPointName().get(position);
-            System.out.println("Counter: "+Counter);
+            //System.out.println("Counter: " + Counter);
         }
         if(arg0.getId() == R.id.spinner2)
         {
             special2 = getPointName().get(position);
         }
-
-
     }
 
     @Override
@@ -107,8 +118,23 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
                 break;
             case R.id.btn_scan:
                 intent = new Intent(this, ScanActivity.class);
+                Bundle ActExtra = new Bundle();
+                ActExtra.putString("ActivityName","PathFinder");
+                intent.putExtras(ActExtra);
                 startActivity(intent);
                 break;
         }
+    }
+    public int getIntLocation(String location)
+    {
+        for(int i = 0; i < pointNames.size();i++)
+        {
+            if(location.equals(pointNames.get(i)))
+            {
+                System.out.println("##################### I: "+i);
+                return i;
+            }
+        }
+        return 0;
     }
 }
