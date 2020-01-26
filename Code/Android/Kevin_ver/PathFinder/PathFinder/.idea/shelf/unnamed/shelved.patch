@@ -1,0 +1,38 @@
+Index: app/src/main/java/com/example/pathfinder/UltraString.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/pathfinder/UltraString.java	(date 1579045578951)
++++ app/src/main/java/com/example/pathfinder/UltraString.java	(date 1579045578951)
+@@ -0,0 +1,30 @@
++package com.example.pathfinder;
++
++public class UltraString {
++
++    String pointName;
++    int currentPoint;
++    int nextPoint;
++    public UltraString()
++    {
++
++    }
++    public UltraString (String pointName, int currentPoint, int nextPoint)
++    {
++        this.pointName = pointName;
++        this.currentPoint = currentPoint;
++        this.nextPoint = nextPoint;
++    }
++    public String getPointNames()
++    {
++        return this.pointName;
++    }
++    public int getCurrentPoint()
++    {
++        return this.currentPoint;
++    }
++    public int getNextPoint()
++    {
++        return this.nextPoint;
++    }
++}
