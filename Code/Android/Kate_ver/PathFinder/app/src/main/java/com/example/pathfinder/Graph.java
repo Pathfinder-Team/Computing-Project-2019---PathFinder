@@ -47,9 +47,9 @@ public class Graph
         }
     }
 
-    public void addEdge(int source, int destination, int weight)
+    public void addEdge(int source, int destination, int weight, String direction)
     {
-        Node edge = new Node(source, destination, weight);
+        Node edge = new Node(source, destination, weight, direction);
        // System.out.println("###########################");
        // System.out.println("source: "+source+", destination: "+destination+", weight: "+weight);
 //

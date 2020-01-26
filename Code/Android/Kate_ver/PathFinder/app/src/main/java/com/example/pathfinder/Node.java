@@ -47,6 +47,13 @@ public class Node
         this.point_direction = point_direction;
     }
 
+    public Node( int point_from_id, int point_to_id, int point_weight, String point_direction)
+    {
+        this.point_from_id = point_from_id;
+        this.point_to_id = point_to_id;
+        this.point_weight = point_weight;
+        this.point_direction = point_direction;
+    }
 
     public void removeAll(LinkedList<Node> adj[])
     {
