@@ -37,8 +37,8 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
             e.printStackTrace();
         }
 
-        System.out.println("current_selected: "+current_selected);
-        System.out.println("selected_destination:"+selected_destination);
+        //System.out.println("current_selected: "+current_selected);
+        //System.out.println("selected_destination:"+selected_destination);
 
         Button btn_scan = (Button) findViewById(R.id.btn_scan);
         btn_scan.setOnClickListener(this);

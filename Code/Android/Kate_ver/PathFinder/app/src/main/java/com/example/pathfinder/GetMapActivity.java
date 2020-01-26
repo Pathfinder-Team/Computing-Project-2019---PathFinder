@@ -80,7 +80,7 @@ public class GetMapActivity extends AppCompatActivity {
                             "point_to_id int," +
                             "point_weight int," +
                             "point_direction varhar);");
-                    System.out.println("Check: "+PathFinderMap.length());
+                    //System.out.println("Check: "+PathFinderMap.length());
                     for (int i = 0; i < PathFinderMap.length(); i++) {
                         JSONObject c = PathFinderMap.getJSONObject(i);
                         int current_point_id = c.getInt("current_point_id");

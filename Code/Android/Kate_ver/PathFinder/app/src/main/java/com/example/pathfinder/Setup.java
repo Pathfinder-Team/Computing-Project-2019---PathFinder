@@ -44,8 +44,8 @@ public class Setup
                 if (map_points_array.get(i).current_point_id == points_array.get(j).point_from_id) {
 
                     System.out.println("1: "+points_array.get(j).point_from_id);
-                    System.out.println("2: "+points_array.get(j).point_to_id);
-                    System.out.println("3: "+points_array.get(j).point_weight);
+                    System.out.print(", 2: "+points_array.get(j).point_to_id);
+                    System.out.print(", 3: "+points_array.get(j).point_weight);
                     graph.addEdge(points_array.get(j).point_from_id, points_array.get(j).point_id, points_array.get(j).point_weight);
                 }
             }

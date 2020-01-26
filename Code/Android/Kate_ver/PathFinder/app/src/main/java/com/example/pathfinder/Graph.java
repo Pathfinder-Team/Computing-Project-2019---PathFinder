@@ -19,6 +19,7 @@ public class Graph
     // constructor
     public Graph(int graphSize)
     {
+        System.out.println("GraphSize: "+graphSize);
         this.graphSize = graphSize;
         // setting up the adjacent linked list and passing in graph size
         adj = new LinkedList[graphSize + 1];

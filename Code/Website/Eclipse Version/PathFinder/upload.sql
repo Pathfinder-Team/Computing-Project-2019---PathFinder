@@ -168,7 +168,6 @@ INSERT INTO `point_to` (`point_id`, `point_from_id`, `point_to_id`, `point_weigh
 (12,8, 9, 2,'left'),
 (13,8, 10, 2,'straight'),
 (14,9, 8, 2,'main_hallway'),
-(15,10, 12, 2,'straight'),
 (16,10, 11, 2,'left'),
 (17,10, 4, 2,'downstairs'),
 (18,10, 12, 2,'straight'),
