@@ -2,27 +2,39 @@ package com.example.pathfinder;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.io.IOException;
 
 public class DisplayActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     String current_selected = "";
     String selected_destination = "";
+    SQLiteDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);
 
-
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         current_selected = extras.getString("current_selected");
         selected_destination = extras.getString("selected_destination");
+
+        Setup setup = new Setup();
+        db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
+        try {
+            setup.setUpMap(current_selected,selected_destination,db);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         System.out.println("current_selected: "+current_selected);
         System.out.println("selected_destination:"+selected_destination);
