@@ -35,34 +35,24 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_path_finder);
 
-
         Intent intent = getIntent();
         ActExtra = intent.getExtras();
         if(ActExtra != null)
         {
-
             ResultLocation = ActExtra.getString("ResultLocation");
             System.out.println("ResultLocation: " + ResultLocation);
         }
-
         pointNames = new ArrayList<>();
-
         Spinner spin = (Spinner) findViewById(R.id.spinner);
-
         Spinner spin2 = (Spinner) findViewById(R.id.spinner2);
-
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, getPointName());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, getPointName());
-
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spin.setAdapter(adapter);
-
-
-        System.out.println("resultTextView1: "+resultTextView1);
         if(ResultLocation != null)
         {
             int location = getIntLocation(ResultLocation);
@@ -80,11 +70,9 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
     }
     @Override
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
-        //Toast.makeText(getApplicationContext(), "Selected: "+getPointName().get(position) ,Toast.LENGTH_SHORT).show();
         if(arg0.getId() == R.id.spinner)
         {
             special1 = getPointName().get(position);
-            //System.out.println("Counter: " + Counter);
         }
         if(arg0.getId() == R.id.spinner2)
         {
@@ -94,14 +82,12 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
 
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
-        // TODO - Custom Code
+
     }
 
     public ArrayList<String> getPointName()
     {
         Counter++;
-        // Cursor c = getReadableDatabase().rawQuery("SELECT * FROM friendinfotable",null);
-
         db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
         Cursor c = db.rawQuery("select * from map_points",null);
         System.out.println("Check C: "+c.getCount());
@@ -141,7 +127,7 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
         {
             if(location.equals(pointNames.get(i)))
             {
-                System.out.println("##################### I: "+i);
+                //System.out.println("##################### I: "+i);
                 return i;
             }
         }
