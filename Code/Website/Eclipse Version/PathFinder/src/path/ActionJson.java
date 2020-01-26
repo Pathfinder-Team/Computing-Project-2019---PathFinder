@@ -99,9 +99,6 @@ public class ActionJson extends HttpServlet {
 		
 		org_name = request.getParameter("org_name");
 		
-
-	    
-		
 		try 
 		{
 			

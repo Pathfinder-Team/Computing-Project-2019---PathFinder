@@ -33,8 +33,8 @@ public class GetMapActivity extends AppCompatActivity {
     SQLiteDatabase db;
 
     // URL to get contacts JSON
-    //private static String url = "https://pathsearcher.azurewebsites.net/ActionJson";
-    private static String url = "http://10.0.2.2:8080/PathFinder/ActionJson";
+    private static String url = "https://pathsearcher.azurewebsites.net/ActionJson";
+    //private static String url = "http://10.0.2.2:8080/PathFinder/ActionJson";
 
 
     ArrayList<HashMap<String, String>> contactList;
