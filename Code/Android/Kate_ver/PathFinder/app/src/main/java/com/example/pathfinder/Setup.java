@@ -67,10 +67,10 @@ public class Setup
             {
                 if (map_points_array.get(i).current_point_id == points_array.get(j).point_from_id) {
 
-                    System.out.println("Source: "+points_array.get(j).point_from_id+",Destination: "+points_array.get(j).point_to_id+", Weight: "+points_array.get(j).point_weight);
+                    //System.out.println("Source: "+points_array.get(j).point_from_id+",Destination: "+points_array.get(j).point_to_id+", Weight: "+points_array.get(j).point_weight);
                     //graph.addEdge(points_array.get(j).point_from_id, points_array.get(j).point_to_id, points_array.get(j).point_weight);
                     graph.addEdge(points_array.get(j).point_from_id, points_array.get(j).point_to_id, points_array.get(j).point_weight);
-                    System.out.println("");
+                    //System.out.println("");
                 }
             }
         }

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class DisplayActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -48,8 +49,21 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
         super.onStart();
         TextView mes1 = (TextView)findViewById(R.id.display_current);
         TextView mes2 =  (TextView)findViewById(R.id.display_next);
+        TextView mes3 =  (TextView)findViewById(R.id.display_path_information);
         mes1.setText(current_selected);
         mes2.setText(selected_destination);
+        ArrayList<String > myArray = new ArrayList<>();
+        myArray.add("Straight");
+        myArray.add("turn left");
+        myArray.add("turn right");
+        myArray.add("upstairs");
+        myArray.add("downstairs");
+
+        for(int i = 0; i < myArray.size(); i++)
+        {
+            mes3.append(myArray.get(i));
+            mes3.append("\n");
+        }
     }
 
     public void onClick(View view)
