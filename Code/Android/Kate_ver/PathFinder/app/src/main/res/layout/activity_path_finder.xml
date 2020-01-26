@@ -8,6 +8,7 @@
     tools:context=".PathFinder">
 
     <TableLayout
+        android:id="@+id/tableLayout2"
         android:layout_width="362dp"
         android:layout_height="457dp"
         android:background="@color/white"
@@ -84,6 +85,5 @@
         </TableRow>
 
     </TableLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

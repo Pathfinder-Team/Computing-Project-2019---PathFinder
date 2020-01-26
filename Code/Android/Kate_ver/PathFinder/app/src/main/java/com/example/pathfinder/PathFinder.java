@@ -25,12 +25,25 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
     String special1 = "Empty";
     String special2 = "Empty";
     int Counter = 0;
-    public static TextView resultTextView;
+    public static TextView resultTextView1;
     public static String result;
+    Bundle ActExtra;
+    String ResultLocation = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_path_finder);
+
+
+        Intent intent = getIntent();
+        ActExtra = intent.getExtras();
+        if(ActExtra != null)
+        {
+
+            ResultLocation = ActExtra.getString("ResultLocation");
+            System.out.println("ResultLocation: " + ResultLocation);
+        }
 
         pointNames = new ArrayList<>();
 
@@ -48,15 +61,12 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
 
         spin.setAdapter(adapter);
 
-        if(resultTextView != null)
+
+        System.out.println("resultTextView1: "+resultTextView1);
+        if(ResultLocation != null)
         {
-            result = resultTextView.getText().toString();
-            System.out.println("#################### Result: "+result);
-
-            int location = getIntLocation(result);
+            int location = getIntLocation(ResultLocation);
             spin.setSelection(location);
-
-            System.out.println("#######################spin.setSelection(location): "+location);
         }
         spin.setOnItemSelectedListener(this);
         spin2.setAdapter(adapter2);
