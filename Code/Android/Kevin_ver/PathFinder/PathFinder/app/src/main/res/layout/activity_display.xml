@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#99B3E6"
+    tools:context=".DisplayActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="match_parent"
+                android:layout_height="414dp"
+                app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ground" />
+
+            <Space
+                android:layout_width="100dp"
+                android:layout_height="match_parent" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Space
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent" />
+
+                <Space
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent" />
+
+                <TableLayout
+                    android:id="@+id/tableLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.521"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0">
+
+                    <TableRow
+                        android:layout_width="303dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:padding="20dp">
+
+                        <TextView
+                            android:id="@+id/current_dest"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="@string/current_dest" />
+
+                        <TextView
+                            android:id="@+id/display_current"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="@string/current_dest" />
+                    </TableRow>
+
+                    <TableRow
+
+                        android:layout_width="match_parent"
+                        android:layout_height="192dp"
+                        android:layout_gravity="center"
+                        android:padding="20dp">
+
+                        <TextView
+                            android:id="@+id/next_dest"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="@string/next_dest" />
+
+                        <TextView
+                            android:id="@+id/display_next"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="@string/next_dest" />
+                    </TableRow>
+                    <TableRow
+
+                        android:layout_width="match_parent"
+                        android:layout_height="192dp"
+                        android:layout_gravity="center"
+                        android:padding="20dp">
+
+                        <TextView
+                            android:id="@+id/path_info"
+                            android:layout_width="109dp"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="@string/path_info_message" />
+
+                        <TextView
+                            android:id="@+id/display_path_information"
+                            android:layout_width="241dp"
+                            android:layout_height="91dp"
+                            android:padding="10dp"
+                            android:text="@string/display_information" />
+                    </TableRow>
+
+                    <TableRow
+
+                        android:layout_width="match_parent"
+                        android:layout_height="192dp"
+                        android:layout_gravity="center"
+                        android:padding="20dp">
+
+                        <Button
+                            android:id="@+id/btn_scan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/btn_scan" />
+
+                    </TableRow>
+                </TableLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
