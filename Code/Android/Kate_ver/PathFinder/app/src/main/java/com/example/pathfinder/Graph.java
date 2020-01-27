@@ -17,6 +17,10 @@ public class Graph
     int[] distance;
     int[] previous;
     LinkedList<Node> adj[];
+
+    ArrayList<Node> directionsArray;
+
+    ArrayList<String> finalDirectionsArray = new ArrayList<>();
     // defaulting the source vertice to 1
     int sourceVertice = 1;
     int sourceDestination = 1;
@@ -34,6 +38,7 @@ public class Graph
         this.graphSize = graphSize;
         // setting up the adjacent linked list and passing in graph size
         adj = new LinkedList[graphSize + 1];
+        directionsArray = new ArrayList<>();
         visited = new boolean[graphSize + 1];
         distance = new int[graphSize + 1];
         previous = new int[graphSize + 1];
@@ -267,7 +272,13 @@ public class Graph
             stackHere = fromid.pop();
             stackThere = toid.pop();
             stackDistance = distanceTo.pop();
-            System.out.println("from " + stackHere + " to " + stackThere + " for distance of " + stackDistance);
+
+            Node addDirections = new Node(stackHere, stackThere);
+            directionsArray.add(addDirections);
+
+            if(stackHere != 0) {
+                System.out.println("from " + stackHere + " to " + stackThere + " for distance of " + stackDistance);
+            }
         } while (!fromid.empty());
 
         for (int source = 1; source < distance.length; source++)
@@ -284,14 +295,61 @@ public class Graph
 
                 //System.out.print("" + source + " Came From " + previous[source]);
                 //System.out.print(", Costing Weight of " + distance[source]);
-                System.out.println("");
+                System.out.println(" ");
             }
         }
+
+        System.out.println("###########################");
+        //System.out.println("adj.length: "+adj.length);
+
+        /*
+        for(int i = 1; i < adj.length;i++)
+        {
+            //System.out.println("check");
+            for(int j = 0; j < adj[i].size();j++)
+            {
+                if(directionsArray.get(i).source != null) {
+                    if (directionsArray.get(i).source == adj[i].get(j).current_point_id) {
+                        System.out.println("Direction: " + adj[i].get(j).point_direction);
+                    }
+                }
+            }
+        }
+
+         */
+
+        for(int i = 1; i < adj.length;i++)
+        {
+                for (int j = 0; j < adj[i].size(); j++)
+                {
+                    //System.out.println("source: "+directionsArray.get(j).source);
+                    for(int k = 0; k < directionsArray.size();k++) {
+                        if (adj[i].get(j).point_from_id == directionsArray.get(k).source && adj[i].get(j).point_to_id == directionsArray.get(k).destination) {
+                            finalDirectionsArray.add(adj[i].get(j).point_direction);
+                            System.out.println("Directions: " + adj[i].get(j).point_direction);
+                        }
+                    }
+                }
+        }
+
+
+        System.out.println("###########################");
+
+        //finalDirectionsArray
+        //System.out.println("Source: " + directionsArray.get(i).source + ", Destination: " + directionsArray.get(i).destination);
+                /* if (directionsArray.get(i).source == adj[i].get(i).current_point_id &&  directionsArray.get(i).destination == adj[i].get(j).point_to_id)
+                {
+                    System.out.println("I: "+i);
+                }
+
+                 */
     }
 
-    public String getCurrentDestination(String special)
+    public ArrayList<String> getCurrentDirections()
     {
-        return special;
+        return finalDirectionsArray;
     }
+
+
 
 }

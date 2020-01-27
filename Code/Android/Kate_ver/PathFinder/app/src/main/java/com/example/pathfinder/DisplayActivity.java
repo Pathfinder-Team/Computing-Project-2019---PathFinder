@@ -26,6 +26,7 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
     public ArrayList<Node> getCurrentLocationDetails = null;
     public ArrayList<Node> getNextLocationDetails = null;
     SQLiteDatabase db;
+    Setup setup = new Setup();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +51,7 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
         selected_name = getNextLocationDetails.get(0).point_name;
         selected_map_id = getNextLocationDetails.get(0).maps_map_id;
 
-        Setup setup = new Setup();
+
 
         try {
             db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
@@ -73,16 +74,14 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
         TextView mes3 =  (TextView)findViewById(R.id.display_path_information);
         mes1.setText(current_selected_name);
         mes2.setText(selected_name);
-        ArrayList<String > myArray = new ArrayList<>();
-        myArray.add("Straight");
-        myArray.add("turn left");
-        myArray.add("turn right");
-        myArray.add("upstairs");
-        myArray.add("downstairs");
+        //ArrayList<String > myArray = new ArrayList<>();
+        //myArray.add("Straight");
 
-        for(int i = 0; i < myArray.size(); i++)
+
+
+        for(int i = 0; i <  setup.getDirect().size(); i++)
         {
-            mes3.append(myArray.get(i));
+            mes3.append( setup.getDirect().get(i));
             mes3.append("\n");
         }
     }

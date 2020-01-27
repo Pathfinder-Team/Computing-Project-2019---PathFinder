@@ -12,6 +12,8 @@ public class Setup
     ArrayList<Node> points_array = new ArrayList();
     ArrayList<Node> map_points_array = new ArrayList();
 
+    public static ArrayList<String> finalDirectionsArray = new ArrayList();
+
     public Setup()
     {
 
@@ -80,11 +82,17 @@ public class Setup
             }
         }
     }
+
+    public static ArrayList<String> getDirect()
+    {
+        return finalDirectionsArray;
+    }
     public void setUpMap(String currentDest, String finalDest, SQLiteDatabase db) throws IOException {
         Graph graph = new Graph();
         setUpEverythingArrays(db);
         graph = new Graph(map_points_array.size());
         setupEdges(graph);
         graph.findShortestPaths();
+        finalDirectionsArray = graph.getCurrentDirections();
     }
 }

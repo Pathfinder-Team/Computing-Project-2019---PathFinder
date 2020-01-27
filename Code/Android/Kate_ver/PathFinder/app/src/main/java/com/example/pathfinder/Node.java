@@ -25,6 +25,12 @@ public class Node implements Serializable
 
     }
 
+    public Node(int source, int destination)
+    {
+        this.source = source;
+        this.destination = destination;
+    }
+
     public Node(int source, int destination, int weight)
     {
         this.source = source;
