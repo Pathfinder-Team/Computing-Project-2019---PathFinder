@@ -75,6 +75,7 @@ public class Graph
         {
             System.out.println("Select a source Vertice");
             System.out.println("Between 1 and " + size);
+            System.out.println(" ");
             //verticeCheck = scan.nextInt();
 
             DisplayActivity da = new DisplayActivity();
@@ -85,18 +86,22 @@ public class Graph
             //System.out.println("1 Current Location "+currentLocation);
             //System.out.println("2 Next Location "+nextLocation);
 
-            System.out.println("3 Current Location "+da.current_selected_id);
-            System.out.println("4 Next Location "+da.selected_destination_id);
+            //System.out.println("3 Current Location "+da.current_selected_id);
+            //System.out.println("4 Next Location "+da.selected_destination_id);
 
             verticeCheck = da.current_selected_id;
-            verticeCheckDestination = da.current_selected_id;
+            verticeCheckDestination = da.selected_destination_id;
 
             if (verticeCheck != 0 && verticeCheck <= adj.length && verticeCheckDestination != 0 && verticeCheckDestination <= adj.length)
             {
-                System.out.println("current location: "+verticeCheck);
-                System.out.println("next location: "+verticeCheckDestination);
+                //System.out.println("current location: "+verticeCheck);
+                //System.out.println("next location: "+verticeCheckDestination);
                 sourceVertice = verticeCheck;
                 sourceDestination = verticeCheckDestination;
+
+                System.out.println("sourceVertice: "+sourceVertice);
+                System.out.println("sourceDestination: "+sourceDestination);
+                System.out.println(" ");
                 pass = true;
             }
             else
@@ -222,11 +227,49 @@ public class Graph
             root = nextNode;
         }
         // output the path
-        displayPath(sourceVertice);
+        displayPath(sourceVertice, sourceDestination);
     }
 
-    public void displayPath(int root)
+    public void displayPath(int root, int destination)
     {
+        System.out.println("############################################################");
+        System.out.println("############################################################");
+        System.out.println(" ");
+        Stack<Integer> fromid = new Stack();
+        Stack<Integer> toid = new Stack();
+        Stack<Integer> distanceTo = new Stack();
+
+        // build our stack from end position to start position
+        //System.out.println("Destination is " + destination);
+        do {
+            //System.out.println("save off details");
+            fromid.push((Integer)previous[destination]);
+            toid.push((Integer)destination);
+            distanceTo.push((Integer)distance[destination]);
+
+            // loop control
+            //System.out.println("now load up detials for " + previous[destination]);
+            destination = previous[destination];
+
+        } while(distance[destination] != 0);
+
+        // add in start position
+        fromid.push((Integer)0);
+        toid.push((Integer)destination);
+        distanceTo.push((Integer)distance[destination]);
+
+        // dump the stack out to see what we have
+        int stackHere;
+        int stackThere;
+        int stackDistance;
+
+        do {
+            stackHere = fromid.pop();
+            stackThere = toid.pop();
+            stackDistance = distanceTo.pop();
+            System.out.println("from " + stackHere + " to " + stackThere + " for distance of " + stackDistance);
+        } while (!fromid.empty());
+
         for (int source = 1; source < distance.length; source++)
         {
             if (distance[source] == 99999)
@@ -238,8 +281,9 @@ public class Graph
             {
                 // just 2 diffrent ways to look at the information if you want to read it as vertex going to desintation uncomment the second out seconds
                 // other if you want to it as vertex coming from previous keep these uncommented.
-                System.out.print("" + source + " Came From " + previous[source]);
-                System.out.print(", Costing Weight of " + distance[source]);
+
+                //System.out.print("" + source + " Came From " + previous[source]);
+                //System.out.print(", Costing Weight of " + distance[source]);
                 System.out.println("");
             }
         }
