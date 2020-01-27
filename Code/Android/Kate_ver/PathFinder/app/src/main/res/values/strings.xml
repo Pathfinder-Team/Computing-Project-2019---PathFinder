@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PathFinder</string>
+    <string name="app_name"></string>
     <string name="splash">Welcome to PathFinder!</string>
     <string name="version">Version 1.0</string>
     <string name="btn_org">Organisation</string>
