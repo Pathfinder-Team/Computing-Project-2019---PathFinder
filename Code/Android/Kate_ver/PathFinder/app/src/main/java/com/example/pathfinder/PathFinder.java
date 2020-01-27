@@ -7,19 +7,22 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.nio.file.Path;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class PathFinder extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
     ArrayList<String> pointNames = null;
+    ArrayList<Node> mapPoints = null;
+    ArrayList<Node> returnMapPointsCurrent = null;
+    ArrayList<Node> returnMapPointsDestination = null;
 
     SQLiteDatabase db;
     String special1 = "Empty";
@@ -43,6 +46,9 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
             //System.out.println("ResultLocation: " + ResultLocation);
         }
         pointNames = new ArrayList<>();
+        mapPoints = new ArrayList<>();
+        returnMapPointsCurrent = new ArrayList<>();
+        returnMapPointsDestination = new ArrayList<>();
         Spinner spin = (Spinner) findViewById(R.id.spinner);
         Spinner spin2 = (Spinner) findViewById(R.id.spinner2);
 
@@ -70,13 +76,38 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
     }
     @Override
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
+
+        mapPoints = getMapPoints();
         if(arg0.getId() == R.id.spinner)
         {
             special1 = getPointName().get(position);
+
+            System.out.println("Special 1 : "+special1);
+
+            for(int i = 0; i < mapPoints.size(); i++)
+            {
+                //
+                if(special1.equals(mapPoints.get(i).point_name))
+                {
+
+                    returnMapPointsCurrent.clear();
+                    //System.out.println("mapPoints.get(i).point_name): "+mapPoints.get(i).point_name);
+                    returnMapPointsCurrent.add(mapPoints.get(i));
+                }
+            }
         }
         if(arg0.getId() == R.id.spinner2)
         {
             special2 = getPointName().get(position);
+            for(int i = 0; i < mapPoints.size(); i++)
+            {
+                //
+                if(special2.equals(mapPoints.get(i).point_name))
+                {
+                    returnMapPointsDestination.clear();
+                    returnMapPointsDestination.add(mapPoints.get(i));
+                }
+            }
         }
     }
 
@@ -89,17 +120,43 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
     {
         Counter++;
         db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
-        Cursor c = db.rawQuery("select * from map_points",null);
-        //System.out.println("Check C: "+c.getCount());
-        if(c.getCount() != pointNames.size()) {
-            while (c.moveToNext()) {
-                //System.out.println("Special: " + c.getString(1));
-                pointNames.add(c.getString(1));
+        if(db != null)
+        {
+            Cursor c = db.rawQuery("select * from map_points", null);
+            //System.out.println("Check C: "+c.getCount());
+            if (c.getCount() != pointNames.size()) {
+                while (c.moveToNext()) {
+                    //System.out.println("Special: " + c.getString(1));
+                    pointNames.add(c.getString(1));
+                }
+                //System.out.println("pointNames: "+pointNames.size());
             }
-            //System.out.println("pointNames: "+pointNames.size());
         }
         return pointNames;
     }
+
+    public ArrayList<Node> getMapPoints()
+    {
+        Counter++;
+        db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
+        if(db != null)
+        {
+            Cursor c = db.rawQuery("select * from map_points", null);
+            //System.out.println("Check C: "+c.getCount());
+            if (c.getCount() != mapPoints.size()) {
+                while (c.moveToNext()) {
+                    //System.out.println("Special: " + c.getString(1));
+                    Node edge = new Node (c.getInt(0),
+                            c.getString(1),
+                            c.getInt(2));
+                    mapPoints.add(edge);
+                }
+                //System.out.println("pointNames: "+pointNames.size());
+            }
+        }
+        return mapPoints;
+    }
+
     public void onClick(View view)
     {
         Intent intent;
@@ -107,8 +164,11 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
             case R.id.btn_find_destination:
                 intent = new Intent(this, DisplayActivity.class);
                 Bundle extras = new Bundle();
-                extras.putString("current_selected",special1);
-                extras.putString("selected_destination",special2);
+                System.out.println(" returnMapPointsCurrent "+returnMapPointsCurrent.get(0).point_name);
+                System.out.println(" returnMapPointsDestination "+returnMapPointsDestination.get(0).point_name);
+                //System.out.println("cudvfrdrvfdg ------------------------: "+returnMapPointsCurrent.size());
+                extras.putSerializable("current_selected", (Serializable) returnMapPointsCurrent);
+                extras.putSerializable("selected_destination", (Serializable) returnMapPointsDestination);
                 intent.putExtras(extras);
                 startActivity(intent);
                 break;

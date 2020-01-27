@@ -1,8 +1,17 @@
 package com.example.pathfinder;
+// Author: Kevin Dunne
+// Program: Programming Assignment 1 - Dijkstra’s Algorithm
+// Date:
+// ToDo:
+////////////////////////////////////////////////////////////////////////////////
+
 import java.util.*;
 
 public class Graph
 {
+
+
+    Scanner scan = new Scanner(System.in);
     // instance variables
     boolean[] visited;
     int[] distance;
@@ -10,12 +19,14 @@ public class Graph
     LinkedList<Node> adj[];
     // defaulting the source vertice to 1
     int sourceVertice = 1;
+    int sourceDestination = 1;
     int graphSize;
 
     public Graph()
     {
 
     }
+
     // constructor
     public Graph(int graphSize)
     {
@@ -34,31 +45,58 @@ public class Graph
             visited[i] = false;
             distance[i] = 99999;
             previous[i] = -1;
+
         }
     }
 
-    public void addEdge(int source, int destination, int weight)
+    public void addEdge(Node MapPriority,
+                        int point_from_id,
+                        int point_to_id,
+                        int point_weight,
+                        String point_direction)
     {
-        Node edge = new Node(source, destination, weight);
-        //System.out.println("source: "+source+", destination: "+destination+", weight: "+weight);
-        adj[source].addFirst(edge);
-    }
+        Node edge = new Node(point_from_id,
+                point_to_id, point_weight,
+                point_direction);
+       // System.out.println("###########################");
+        //System.out.println("point_from_id: "+point_from_id+", point_to_id: "+point_to_id+", point_weight: "+point_weight);
+       // System.out.println("###########################");
 
+        adj[MapPriority.current_point_id].addFirst(edge);
+    }
 
     public void getUserInput()
     {
         boolean pass = false;
         int verticeCheck = 0;
+        int verticeCheckDestination = 0;
         int size = adj.length - 1;
         do
         {
             System.out.println("Select a source Vertice");
             System.out.println("Between 1 and " + size);
             //verticeCheck = scan.nextInt();
-            verticeCheck = 4;
-            if (verticeCheck != 0 && verticeCheck <= adj.length)
+
+            DisplayActivity da = new DisplayActivity();
+
+            //String currentLocation = da.getCurrentLocationDetails.get(0).point_name;
+            //String nextLocation = da.getNextLocationDetails.get(0).point_name;
+
+            //System.out.println("1 Current Location "+currentLocation);
+            //System.out.println("2 Next Location "+nextLocation);
+
+            System.out.println("3 Current Location "+da.current_selected_id);
+            System.out.println("4 Next Location "+da.selected_destination_id);
+
+            verticeCheck = da.current_selected_id;
+            verticeCheckDestination = da.current_selected_id;
+
+            if (verticeCheck != 0 && verticeCheck <= adj.length && verticeCheckDestination != 0 && verticeCheckDestination <= adj.length)
             {
+                System.out.println("current location: "+verticeCheck);
+                System.out.println("next location: "+verticeCheckDestination);
                 sourceVertice = verticeCheck;
+                sourceDestination = verticeCheckDestination;
                 pass = true;
             }
             else
@@ -68,43 +106,36 @@ public class Graph
         }
         while (pass != true);
     }
-
-    public void displayDistances()
+    public void checkOut()
     {
-        for (int d = 1; d < distance.length; d++)
+        System.out.println("###########################");
+        //System.out.println("adj.length: "+adj.length);
+        for(int i = 1; i < adj.length;i++)
         {
-            System.out.println("distance: " + distance[d] + " Previous " + previous[d]);
-        }
-    }
+            //System.out.println("check");
+            for(int j = 0; j < adj[i].size();j++)
+            {
+                //System.out.println("adj[i].size(): "+adj[i].size());
+                System.out.println("Source: "
 
-    public void displayVisited()
-    {
-        for (int d = 1; d < visited.length; d++)
-        {
-            System.out.println("visited: " + visited[d]);
+                        +adj[i].get(j).point_from_id+", Destination: "
+                        +adj[i].get(j).point_to_id+", Weight: "
+                        +adj[i].get(j).point_weight +" Direction: "
+                        +adj[i].get(j).point_direction);
+            }
         }
-    }
-
-    public void displayPrevious()
-    {
-        for (int d = 1; d < previous.length; d++)
-        {
-            System.out.println("previous: " + previous[d]);
-        }
+        System.out.println("###########################");
     }
 
     public void findShortestPaths()
     {
         // getting the users input to select a source vertex
         getUserInput();
-        //
-        // get source vertice sourceVertice;
-        //sourceVertice = 1;
-        //
+        //checkOut();
         // setting the first index of distance and previous to 0 because i dont use these
         distance[sourceVertice] = 0;
         previous[sourceVertice] = 0;
-        // setting the minValue to have a super large number to check against the smallest distance 
+        // setting the minValue to have a super large number to check against the smallest distance
         int minValue = 999999;
         // the root node is the sourcevertice of which the user has chosen
         int root = sourceVertice;
@@ -120,8 +151,8 @@ public class Graph
                 {
                     // variables to hold the value at adjency array index at index j and getting the destination and weight
                     // values respectively
-                    int getAdjIndexValueDest = adj[root].get(j).destination;
-                    int getAdjIndexValueWeight = adj[root].get(j).weight;
+                    int getAdjIndexValueDest = adj[root].get(j).point_to_id;
+                    int getAdjIndexValueWeight = adj[root].get(j).point_weight;
                     // if the minValue is over 9999999
                     // i did this to do this part of the if statement once only
                     if (minValue == 999999)
@@ -132,7 +163,7 @@ public class Graph
                             // this handled the the root index, the previous and weight should be both 0 since they
                             // are the start locations and therefore dont have a previous vertex or a distance to weight
                             distance[getAdjIndexValueDest] = getAdjIndexValueWeight;
-                            previous[adj[root].get(j).destination] = root;
+                            previous[adj[root].get(j).point_to_id] = root;
                         }
                     }
                     else
@@ -144,13 +175,25 @@ public class Graph
                             int holdDestWeightAdjWeight = distance[root] + getAdjIndexValueWeight;
                             // holds the next weight, the point of this is to check if the current weight is less then
                             // the next weight because if so then that is the shortest path to that specfic vertex
-                            int nextWeight = distance[getAdjIndexValueDest];
+                            int nextWeight = 0;
+
+                                //System.out.println("distance "+distance.length);
+
+                                //System.out.println("getAdjIndexValueDest "+getAdjIndexValueDest);
+
+                                nextWeight = distance[getAdjIndexValueDest];
+
+                            //System.out.println(" ");
+                            //System.out.println("current weight "+holdDestWeightAdjWeight);
+                            //System.out.println("next weight "+nextHold);
+                            //System.out.println("");
+
                             // compare the current weight and next weight
                             if (holdDestWeightAdjWeight < nextWeight)
                             {
                                 // pass in the current weight to the distance array at the intended dest
                                 // and pass in the root to the previous array so you know where you have just come from
-                                int intendedDest = adj[root].get(j).destination;
+                                int intendedDest = adj[root].get(j).point_to_id;
                                 distance[intendedDest] = holdDestWeightAdjWeight;
                                 previous[intendedDest] = root;
                             }
@@ -193,11 +236,18 @@ public class Graph
             }
             else
             {
+                // just 2 diffrent ways to look at the information if you want to read it as vertex going to desintation uncomment the second out seconds
+                // other if you want to it as vertex coming from previous keep these uncommented.
                 System.out.print("" + source + " Came From " + previous[source]);
                 System.out.print(", Costing Weight of " + distance[source]);
                 System.out.println("");
-
             }
         }
     }
+
+    public String getCurrentDestination(String special)
+    {
+        return special;
+    }
+
 }

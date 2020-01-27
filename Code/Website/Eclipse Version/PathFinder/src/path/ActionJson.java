@@ -181,8 +181,7 @@ public class ActionJson extends HttpServlet {
 		    jsonObject.put("map_points", array);  
 		    response.setContentType("application/json");
 		    PrintWriter out = response.getWriter();	      
-		    out.println(jsonObject.toJSONString()+"\n");
-		   
+		    out.println(jsonObject.toJSONString()+"\n");  
 		    }
 		
 	    catch (Exception e) 
