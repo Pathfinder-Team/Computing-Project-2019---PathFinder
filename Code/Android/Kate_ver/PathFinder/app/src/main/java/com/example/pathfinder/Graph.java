@@ -20,7 +20,7 @@ public class Graph
 
     ArrayList<Node> directionsArray;
 
-    ArrayList<String> finalDirectionsArray = new ArrayList<>();
+    ArrayList<Node> finalDirectionsArray = new ArrayList<>();
     // defaulting the source vertice to 1
     int sourceVertice = 1;
     int sourceDestination = 1;
@@ -325,8 +325,10 @@ public class Graph
                     //System.out.println("source: "+directionsArray.get(j).source);
                     for(int k = 0; k < directionsArray.size();k++) {
                         if (adj[i].get(j).point_from_id == directionsArray.get(k).source && adj[i].get(j).point_to_id == directionsArray.get(k).destination) {
-                            finalDirectionsArray.add(adj[i].get(j).point_direction);
-                            System.out.println("Directions: " + adj[i].get(j).point_direction);
+                            Node addEdge = new Node(adj[i].get(j).fromPointId,adj[i].get(j).toPointId,adj[i].get(j).pointDirection);
+                            finalDirectionsArray.add(addEdge);
+                            System.out.println("AddEdge: "+addEdge.toPointId);
+                            //System.out.println("Directions: " + adj[i].get(j).point_direction);
                         }
                     }
                 }
@@ -345,7 +347,7 @@ public class Graph
                  */
     }
 
-    public ArrayList<String> getCurrentDirections()
+    public ArrayList<Node> getCurrentDirections()
     {
         return finalDirectionsArray;
     }

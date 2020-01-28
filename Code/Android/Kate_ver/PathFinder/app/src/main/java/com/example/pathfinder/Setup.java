@@ -11,8 +11,7 @@ public class Setup
 {
     ArrayList<Node> points_array = new ArrayList();
     ArrayList<Node> map_points_array = new ArrayList();
-
-    public static ArrayList<String> finalDirectionsArray = new ArrayList();
+    public static ArrayList<Node> finalDirectionsArray = new ArrayList();
 
     public Setup()
     {
@@ -83,7 +82,7 @@ public class Setup
         }
     }
 
-    public static ArrayList<String> getDirect()
+    public static ArrayList<Node> getDirect()
     {
         return finalDirectionsArray;
     }

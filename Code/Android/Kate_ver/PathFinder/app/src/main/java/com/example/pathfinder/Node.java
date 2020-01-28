@@ -20,6 +20,10 @@ public class Node implements Serializable
     int point_weight;
     String point_direction;
 
+    int fromPointId;
+    int toPointId;
+    String pointDirection;
+
     public Node()
     {
 
@@ -36,6 +40,13 @@ public class Node implements Serializable
         this.source = source;
         this.destination = destination;
         this.weight = weight;
+    }
+
+    public Node(int fromPointId, int toPointId,String pointDirection)
+    {
+        this.fromPointId = fromPointId;
+        this.pointDirection = pointDirection;
+        this.toPointId = toPointId;
     }
 
     public Node(int current_point_id, String point_name, int maps_map_id)

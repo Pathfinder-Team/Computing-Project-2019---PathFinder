@@ -94,7 +94,8 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
         mes2.setText(selected_name);
         for(int i = 0; i <  setup.getDirect().size(); i++)
         {
-            mes3.append( setup.getDirect().get(i));
+            String combo = "Location: "+setup.getDirect().get(i).fromPointId+" Direction: "+setup.getDirect().get(i).pointDirection+" Next Location: "+setup.getDirect().get(i).toPointId;
+            mes3.append(combo);
             mes3.append("\n");
         }
     }
