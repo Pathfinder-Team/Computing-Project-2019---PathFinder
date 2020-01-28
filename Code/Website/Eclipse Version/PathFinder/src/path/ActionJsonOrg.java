@@ -11,6 +11,8 @@ import javax.servlet.*;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Base64;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -117,7 +119,7 @@ public class ActionJsonOrg extends HttpServlet {
 	    			result1.getString("org_building"),
 	    			result1.getString("map_name"),
 	    			result1.getString("map_comments"),
-	    			result1.getString("map_image"));
+	    			result1.getBlob("map_image"));
 	    	OrgMaps.add(orgNode);
 	    }
 		}
@@ -160,18 +162,22 @@ public class ActionJsonOrg extends HttpServlet {
 					    record2.put("org_building", OrgMaps.get(j).org_building);
 					    record2.put("map_name", OrgMaps.get(j).map_name);
 					    record2.put("map_comments", OrgMaps.get(j).map_comments);
-					    record2.put("map_image", OrgMaps.get(j).map_image);
+					    Blob specialBlob = OrgMaps.get(j).map_image;
+				        byte [] bytes = specialBlob.getBytes(1l, (int)specialBlob.length());
+				        String encoded = Base64.getEncoder().encodeToString(bytes);
+				        record2.put("map_image", encoded);
+				        
 					    // add array record to second array
 				    	array2.add(record2);
 			    	}
 			    	// add the second array to the record
-			    	record.put("Map_Details",array2);
+			    	record.put("map_details",array2);
 			    }
 			    // add total record to array
 			    array.add(record);
 		    }
 		    // each array is a set of values
-		    jsonObject.put("Org_Details", array);  
+		    jsonObject.put("org_details", array);  
 		    response.setContentType("application/json");
 		    PrintWriter out = response.getWriter();	      
 		    out.println(jsonObject.toJSONString()+"\n");  

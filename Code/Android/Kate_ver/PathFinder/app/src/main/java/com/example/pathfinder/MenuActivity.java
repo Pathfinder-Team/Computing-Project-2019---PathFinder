@@ -6,12 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
-
-    public static TextView resultTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,13 +17,13 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         Button btn_org = (Button) findViewById(R.id.btn_org);
         btn_org.setOnClickListener(this);
 
-        Button btn_scan = (Button) findViewById(R.id.btn_scan);
-        btn_scan.setOnClickListener(this);
+        Button btn_update_org = (Button) findViewById(R.id.btn_update_org);
+        btn_update_org.setOnClickListener(this);
+
 
         Button btn_contact = (Button) findViewById(R.id.btn_contact);
         btn_contact.setOnClickListener(this);
 
-        resultTextView = (TextView) findViewById(R.id.result_scan);
 
         Button btn_map = (Button) findViewById(R.id.btn_map);
         btn_map.setOnClickListener(this);
@@ -63,6 +59,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_path_finder:
                 intent = new Intent(this, PathFinder.class);
+                startActivity(intent);
+                break;
+            case R.id.btn_update_org:
+                intent = new Intent(this, GetOrgActivity.class);
                 startActivity(intent);
                 break;
         }

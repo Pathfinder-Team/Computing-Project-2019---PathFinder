@@ -53,7 +53,7 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
         else if(ActivitySelector.equals("MenuActivity"))
         {
             System.out.println("Scan Result 1 : " + result);
-            MenuActivity.resultTextView.setText(result.getText());
+            //MenuActivity.resultTextView.setText(result.getText());
         }
 
         onBackPressed();

@@ -16,7 +16,7 @@ public class OrgNode
     String org_building;
     String map_name;
     String map_comments;
-    String map_image;
+    Blob map_image;
 
         
     public OrgNode()
@@ -32,7 +32,7 @@ public class OrgNode
     	this.organisation_building_name=organisation_building_name;
     }
     
-    public OrgNode(int map_id, String org_name, String org_building, String map_name,String map_comments, String map_image)
+    public OrgNode(int map_id, String org_name, String org_building, String map_name,String map_comments, Blob map_image)
     {
     	this.map_id=map_id;
     	this.org_name=org_name;
