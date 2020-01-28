@@ -56,7 +56,7 @@ public class GetOrgActivity extends AppCompatActivity
             super.onPreExecute();
             // Showing progress dialog
             pDialog = new ProgressDialog(GetOrgActivity.this);
-            pDialog.setMessage("Please wait...");
+            pDialog.setMessage("Updating Organisation Please wait...");
             pDialog.setCancelable(false);
             pDialog.show();
 

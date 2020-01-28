@@ -32,25 +32,22 @@ import java.util.ArrayList;
 
 public class OrgActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
-    private String TAG = GetMapActivity.class.getSimpleName();
-
-    private ProgressDialog pDialog;
     SQLiteDatabase db;
     String special1 = "Empty";
     String special2 = "Empty";
     ArrayList<String> orgNames = null;
     ArrayList<String> orgBuildings = null;
     public static ArrayList<OrgNode> allOrgBuildingDetails = null;
-    static String orgName = "Limerick Institute of Technology";
-    static String org_building ="LIT Thurles";
-    // URL to get contacts JSON
-    //private static String url = "https://pathsearcher.azurewebsites.net/ActionJsonOrg";
-    private static String url = "http://10.0.2.2:8080/PathFinder/ActionJson";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_org);
+
+        if(db != null) {
+            createBuildingTable();
+            populateTables();
+        }
 
         orgNames = new ArrayList<>();
         orgBuildings = new ArrayList<>();
@@ -70,7 +67,6 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
             ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getOrgBuildings());
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-            System.out.println("Super: "+getOrgBuildings().get(0));
             spin2.setAdapter(adapter2);
             spin2.setOnItemSelectedListener(this);
 
@@ -132,17 +128,9 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
             if( cc != null) {
                 if (cc.getCount() != orgBuildings.size() && cc.getCount() > 0) {
                     while (cc.moveToNext()) {
-                        //System.out.println("Check: "+cc.getString(0));
-
-                        //byte[] decodedString = Base64.decode(cc.getString("map_image"), Base64.DEFAULT);
-                        //Bitmap map_image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                        //byte [] barr = Base64.getDecoder().decode(cc.getString("map_image"));
-
                         byte[] decodedString = Base64.decode(cc.getString(5), Base64.DEFAULT);
                         Bitmap map_image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-
-
-                        System.out.println(map_image);
+                        //System.out.println(map_image);
                         OrgNode addEdge = new OrgNode(cc.getInt(0),
                                 cc.getString(1),
                                 cc.getString(2),
@@ -150,7 +138,9 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
                                 cc.getString(4),
                                 map_image);
                         allOrgBuildingDetails.add(addEdge);
-                        orgBuildings.add(cc.getString(2));
+                        if(!orgBuildings.contains(cc.getString(2))) {
+                            orgBuildings.add(cc.getString(2));
+                        }
                     }
                 }
             }
@@ -170,6 +160,42 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
                 intent = new Intent(this, GetMapActivity.class);
                 startActivity(intent);
                 break;
+        }
+    }
+    public void createBuildingTable()
+    {
+        db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
+        db.execSQL("DROP TABLE IF EXISTS building_details");
+        db.execSQL("DROP TABLE IF EXISTS map_information");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS " +
+                "building_details(" +
+                "building_name varchar);");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS " +
+                "map_information(" +
+                "map_image varchar);");
+    }
+    public void populateTables()
+    {
+        Cursor buildCur = db.rawQuery("select organisation_building_name from org_details", null);
+        if(buildCur != null)
+        {
+            while (buildCur.moveToNext())
+            {
+                String organisation_building_name = buildCur.getString(0);
+                db.execSQL("INSERT INTO building_details VALUES('"+organisation_building_name+"')");
+            }
+        }
+
+        Cursor buildImage = db.rawQuery("select map_image from map_details", null);
+        if(buildImage != null)
+        {
+            while (buildImage.moveToNext())
+            {
+                String map_image = buildImage.getString(5);
+                db.execSQL("INSERT INTO map_information VALUES('"+map_image+"')");
+            }
         }
     }
 }

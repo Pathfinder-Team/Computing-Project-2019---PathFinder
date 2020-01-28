@@ -30,8 +30,8 @@ public class GetMapActivity extends AppCompatActivity {
     static String orgName = "Limerick Institute of Technology";
     static String org_building ="LIT Thurles";
     // URL to get contacts JSON
-    //private static String url = "https://pathsearcher.azurewebsites.net/ActionJson?org_name="+orgName+"&org_building="+org_building;
-    private static String url = "http://10.0.2.2:8080/PathFinder/ActionJson?org_name="+orgName+"&org_building="+org_building;
+    private static String url = "https://pathsearcher.azurewebsites.net/ActionJson?org_name="+orgName+"&org_building="+org_building;
+    //private static String url = "http://10.0.2.2:8080/PathFinder/ActionJson?org_name="+orgName+"&org_building="+org_building;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public class GetMapActivity extends AppCompatActivity {
             super.onPreExecute();
             // Showing progress dialog
             pDialog = new ProgressDialog(GetMapActivity.this);
-            pDialog.setMessage("Please wait...");
+            pDialog.setMessage("Updating Map Please wait...");
             pDialog.setCancelable(false);
             pDialog.show();
 
