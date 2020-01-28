@@ -36,6 +36,7 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
     String special1 = "Empty";
     String special2 = "Empty";
     ArrayList<String> orgNames = null;
+    ArrayList<String> orgBuildings = null;
     static String orgName = "Limerick Institute of Technology";
     static String org_building ="LIT Thurles";
     // URL to get contacts JSON
@@ -47,6 +48,8 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_org);
 
+        orgNames = new ArrayList<>();
+        orgBuildings = new ArrayList<>();
 
         Spinner spin = (Spinner) findViewById(R.id.spinner);
         Spinner spin2 = (Spinner) findViewById(R.id.spinner2);
@@ -55,11 +58,14 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getOrgNames());
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-            ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getOrgNames());
-            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
             spin.setAdapter(adapter);
             spin.setOnItemSelectedListener(this);
+
+
+            ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getOrgBuildings());
+            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            System.out.println("Super: "+getOrgBuildings().get(0));
             spin2.setAdapter(adapter2);
             spin2.setOnItemSelectedListener(this);
 
@@ -83,7 +89,7 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
         }
         if(arg0.getId() == R.id.spinner2)
         {
-            special2 = getOrgNames().get(position);
+            special2 = getOrgBuildings().get(position);
         }
     }
     @Override
@@ -99,7 +105,7 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
             if( c != null) {
                 if (c.getCount() != orgNames.size() && c.getCount() > 0) {
                     while (c.moveToNext()) {
-                        orgNames.add(c.getString(1));
+                        orgNames.add(c.getString(0));
                     }
                 }
             }
@@ -112,6 +118,28 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
 
     }
 
+    public ArrayList<String> getOrgBuildings()
+    {
+        db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
+        if(db != null)
+        {
+            Cursor cc = db.rawQuery("select org_building from map_details", null);
+            if( cc != null) {
+                if (cc.getCount() != orgBuildings.size() && cc.getCount() > 0) {
+                    while (cc.moveToNext()) {
+                        System.out.println("Check: "+cc.getString(0));
+                        orgBuildings.add(cc.getString(0));
+                    }
+                }
+            }
+            return orgBuildings;
+        }
+        else
+        {
+            return null;
+        }
+
+    }
     public void onClick(View view)
     {
         Intent intent;

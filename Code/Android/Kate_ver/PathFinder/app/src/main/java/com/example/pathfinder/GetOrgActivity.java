@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +22,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Blob;
-import java.util.Base64;
+import java.util.Base64.Decoder;
+import java.util.Base64.Encoder;
 
 
 
@@ -36,8 +38,8 @@ public class GetOrgActivity extends AppCompatActivity
     static String org_building ="LIT Thurles";
 
     // URL to get contacts JSON
-    private static String url = "https://pathsearcher.azurewebsites.net/ActionJsonOrg";
-    //private static String url = "http://10.0.2.2:8080/PathFinder/ActionJson";
+    //private static String url = "https://pathsearcher.azurewebsites.net/ActionJsonOrg";
+    private static String url = "http://10.0.2.2:8080/PathFinder/ActionJsonOrg";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,8 +124,9 @@ public class GetOrgActivity extends AppCompatActivity
                                     String map_name = cc.getString("map_name");
                                     String map_comments = cc.getString("map_comments");
 
-                                    byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
-                                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                                    byte[] decodedString = Base64.decode(cc.getString("map_image"), Base64.DEFAULT);
+                                    Bitmap map_image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
                                     //byte [] barr = Base64.getDecoder().decode(cc.getString("map_image"));
                                     //String map_image = barr;
 
