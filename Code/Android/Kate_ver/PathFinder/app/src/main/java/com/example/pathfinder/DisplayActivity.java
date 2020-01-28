@@ -27,6 +27,10 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
     public static int    selected_map_id = 0;
     public ArrayList<Node> getCurrentLocationDetails = null;
     public ArrayList<Node> getNextLocationDetails = null;
+    ImageView hImageViewSemafor;
+    Button imageChange;
+    ImageView imageView;
+    int currentImage = 0;
     SQLiteDatabase db;
     Setup setup = new Setup();
     @Override
@@ -40,6 +44,8 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
         current_selected = extras.getString("current_selected");
         selected_destination = extras.getString("selected_destination");
         */
+
+
 
         Bundle extras = getIntent().getExtras();
 
@@ -61,7 +67,33 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        imageChange = (Button) findViewById(R.id.btn_change_image);
+        //Just set one Click listener for the image
+        imageView = findViewById(R.id.map_image);
+        Bitmap bittymap = OrgActivity.allOrgBuildingDetails.get(0).map_image;
+        imageView.setImageBitmap(bittymap);
+        System.out.println("Check: "+bittymap);
+        imageChange.setOnClickListener(aButtonChangeImageListener);
+
     }
+    View.OnClickListener aButtonChangeImageListener = new View.OnClickListener() {
+
+        public void onClick(View v) {
+
+            //Increase Counter to move to next Image
+            currentImage++;
+            currentImage = currentImage % OrgActivity.allOrgBuildingDetails.size();
+            System.out.println("current "+currentImage);
+
+            for(int i = 0; i < OrgActivity.allOrgBuildingDetails.size(); i++)
+            {
+                System.out.println("Getting bitmap: "+OrgActivity.allOrgBuildingDetails.get(i));
+            }
+            hImageViewSemafor.setImageBitmap(OrgActivity.allOrgBuildingDetails.get(currentImage).map_image);
+
+        }
+    };
     protected void onStart()
     {
         super.onStart();
@@ -95,10 +127,6 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
     }
     public void setImage()
     {
-        ImageView imageView = findViewById(R.id.map_image);
 
-        Bitmap bittymap = OrgActivity.allOrgBuildingDetails.get(0).map_image;
-        imageView.setImageBitmap(bittymap);
-        System.out.println("Check: "+bittymap);
     }
 }

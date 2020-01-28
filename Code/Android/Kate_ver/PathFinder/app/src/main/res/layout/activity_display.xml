@@ -23,11 +23,20 @@
             <ImageView
                 android:id="@+id/map_image"
                 android:layout_width="match_parent"
-                android:layout_height="414dp"
+                android:layout_height="286dp"
                 app:layout_constraintBottom_toTopOf="@+id/tableLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+            <Space
+                android:layout_width="100dp"
+                android:layout_height="match_parent" />
+
+            <Button
+                android:id="@+id/btn_change_image"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:text="Next Image" />
 
             <Space
                 android:layout_width="100dp"
