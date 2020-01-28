@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -47,16 +48,10 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
         selected_name = getNextLocationDetails.get(0).point_name;
         selected_map_id = getNextLocationDetails.get(0).maps_map_id;
 
-        try {
-            db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
-            setup.setUpMap(current_selected_name,selected_name,db);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
+        setup.setUpMap(db);
         setInitialImage();
         setImageRotateListener();
-
     }
 
     private void setImageRotateListener() {
@@ -92,12 +87,35 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
         TextView mes3 =  (TextView)findViewById(R.id.display_path_information);
         mes1.setText(current_selected_name);
         mes2.setText(selected_name);
-        for(int i = 0; i <  setup.getDirect().size(); i++)
-        {
-            String combo = "Location: "+setup.getDirect().get(i).fromPointId+" Direction: \n\n"+setup.getDirect().get(i).pointDirection+"\n\n Next Location: "+setup.getDirect().get(i).toPointId+"\n\n";
+        ArrayList<Node> foundPointNames = new ArrayList<>();
+        foundPointNames = findPointNames(foundPointNames);
+        for(int i = 0; i <  setup.getDirect().size(); i++) {
+            String combo = "Location: " + foundPointNames.get(i).fromPointName + "\nDirection:" + foundPointNames.get(i).pointDirectionName + "\nNext Location:" + foundPointNames.get(i).toPointName + "\n";
             mes3.append(combo);
             mes3.append("\n");
         }
+    }
+    public ArrayList<Node> findPointNames(ArrayList<Node> foundPointNames)
+    {
+        //setup.getDirect()
+        db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
+        if(db != null)
+        {
+            Cursor cur = db.rawQuery("select point_name from map_points", null);
+            //System.out.println("Check C: "+c.getCount());
+            if (cur.getCount() != setup.getDirect().size()) {
+                while (cur.moveToNext()) {
+                    cur.getString(1);
+                    //String fromPointName ;
+                    //String toPointName;
+                    Node edge = new Node ("Entrance","Reception", "Canteen");
+                    foundPointNames.add(edge);
+                }
+            }
+        }
+
+        return foundPointNames;
+
     }
     public void onClick(View view)
     {

@@ -24,6 +24,10 @@ public class Node implements Serializable
     int toPointId;
     String pointDirection;
 
+    String fromPointName;
+    String toPointName;
+    String pointDirectionName;
+
     public Node()
     {
 
@@ -41,6 +45,14 @@ public class Node implements Serializable
         this.destination = destination;
         this.weight = weight;
     }
+
+    public Node(String fromPointName, String toPointName,String pointDirectionName)
+    {
+        this.fromPointName = fromPointName;
+        this.toPointName = toPointName;
+        this.pointDirectionName = pointDirectionName;
+    }
+
 
     public Node(int fromPointId, int toPointId,String pointDirection)
     {

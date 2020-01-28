@@ -86,7 +86,7 @@ public class Setup
     {
         return finalDirectionsArray;
     }
-    public void setUpMap(String currentDest, String finalDest, SQLiteDatabase db) throws IOException {
+    public void setUpMap(SQLiteDatabase db) {
         Graph graph = new Graph();
         setUpEverythingArrays(db);
         graph = new Graph(map_points_array.size());

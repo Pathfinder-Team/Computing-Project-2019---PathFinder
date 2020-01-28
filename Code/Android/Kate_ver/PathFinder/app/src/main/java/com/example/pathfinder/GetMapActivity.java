@@ -71,7 +71,7 @@ public class GetMapActivity extends AppCompatActivity {
                     db.execSQL("CREATE TABLE IF NOT EXISTS " +
                             "map_points(" +
                             "current_point_id int ," +
-                            "point_name varhar," +
+                            "point_name varchar," +
                             "maps_map_id int);");
 
                     db.execSQL("CREATE TABLE IF NOT EXISTS " +
@@ -80,7 +80,7 @@ public class GetMapActivity extends AppCompatActivity {
                             "point_from_id int," +
                             "point_to_id int," +
                             "point_weight int," +
-                            "point_direction varhar);");
+                            "point_direction varchar);");
                     //System.out.println("Check: "+PathFinderMap.length());
                     for (int i = 0; i < PathFinderMap.length(); i++) {
                         JSONObject c = PathFinderMap.getJSONObject(i);
