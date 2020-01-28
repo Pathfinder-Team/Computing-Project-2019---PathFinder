@@ -98,11 +98,17 @@ public class ActionJson extends HttpServlet {
 		System.out.println(" rp.getUserNameRights() ActionJson: "+ rp.getUserNameRights());
 		
 		org_name = request.getParameter("org_name");
+		org_building = request.getParameter("org_building");
+		
+		System.out.println("org_name: "+org_name);
+		System.out.println("org_building: "+org_building);
 		
 		try 
 		{
 			
-		prepStat = conn.prepareStatement("select * from map_points");
+		prepStat = conn.prepareStatement("select * from map_points join maps on maps.map_id=map_points.maps_map_id where org_name = ? and org_building = ?");
+		prepStat.setString(1, org_name);
+		prepStat.setString(2, org_building);
 		result = prepStat.executeQuery();
 		map_points_array.clear();
 	    while(result.next())
@@ -111,7 +117,9 @@ public class ActionJson extends HttpServlet {
 	    	map_points_array.add(edge);
 	    }
 	    
-		prepStat1 = conn.prepareStatement("select * from point_to");
+		prepStat1 = conn.prepareStatement("select point_id,point_from_id,point_to_id,point_weight,point_direction from point_to join map_points on point_to.point_from_id = map_points.current_point_id join maps on maps.map_id = map_points.maps_map_id where org_name = ? and org_building =?");
+		prepStat1.setString(1, org_name);
+		prepStat1.setString(2, org_building);
 		result1 = prepStat1.executeQuery();
 		
 		points_array.clear();
@@ -147,7 +155,7 @@ public class ActionJson extends HttpServlet {
 	    	//if(jsonObject != 0)
 		    for(int i = 0; i < size;i++)
 		    {
-		    	System.out.println("I: "+i);
+		    	//System.out.println("I: "+i);
 			    JSONArray array2 = new JSONArray();
 			    JSONObject record = new JSONObject();
 			    
@@ -189,17 +197,6 @@ public class ActionJson extends HttpServlet {
 	    	e.printStackTrace();
 	    	System.out.println("Special Json error: "+e);
 		}
-	    try
-	    {
-	    	
-
-	    }
-	    catch (Exception e) 
-	    {
-	    	e.printStackTrace();
-	    	System.out.println("Special Json error: "+e);
-		}
-	    
 	}
 	//response.sendRedirect("Maps.jsp");
 

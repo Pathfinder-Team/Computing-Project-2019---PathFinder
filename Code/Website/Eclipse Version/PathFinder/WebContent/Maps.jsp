@@ -170,7 +170,7 @@
 				<%
 					selected = request.getParameter("imageName");
 				%>
-				<img src="GetImageAction?map_name=<%=selected%>" alt="Select Image" >
+				<img src="GetImageAction?map_name=<%=selected%>" alt="Select Image" height="200px" width="200px">
 				<br>
 				<br>
 				<p>
@@ -190,10 +190,6 @@
 				<button type="submit" >View Points</button>
 				</form>
 				<br>
-				<br>
-				<form action="ActionJson" method="post">
-				<button type="submit" >Create Points Json</button>
-				</form>
 				<br>
 			</section>
 		</main>

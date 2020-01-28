@@ -293,8 +293,8 @@ public class Graph
                 // just 2 diffrent ways to look at the information if you want to read it as vertex going to desintation uncomment the second out seconds
                 // other if you want to it as vertex coming from previous keep these uncommented.
 
-                //System.out.print("" + source + " Came From " + previous[source]);
-                //System.out.print(", Costing Weight of " + distance[source]);
+                System.out.print("" + source + " Came From " + previous[source]);
+                System.out.print(", Costing Weight of " + distance[source]);
                 System.out.println(" ");
             }
         }

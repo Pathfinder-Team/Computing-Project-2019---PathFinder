@@ -181,6 +181,7 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
                 break;
         }
     }
+
     public int getIntLocation(String location)
     {
         for(int i = 0; i < pointNames.size();i++)

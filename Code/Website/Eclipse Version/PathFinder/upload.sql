@@ -1,6 +1,4 @@
-create database 4eyg55o51s;
 
-use 4eyg55o51s;
 
 CREATE TABLE IF NOT EXISTS  `account_rank` (
   `account_rank_id` INT(11) NOT NULL,
@@ -154,22 +152,29 @@ INSERT INTO `map_points` (`current_point_id`, `point_name`, `maps_map_id`) VALUE
 (12, 'end hallway upstairs', 2);
 
 INSERT INTO `point_to` (`point_id`, `point_from_id`, `point_to_id`, `point_weight`,`point_direction`) VALUES
-(1,1, 2, 2,'straight'),
-(2,1, 8, 2,'upstairs'),
-(3,2, 3, 2,'left'),
-(4,2, 4, 3,'straight'),
-(5,3, 2, 2,'reception'),
-(6,4, 5, 2,'left'),
-(7,4, 6, 2,'right'),
-(8,5, 4, 2,'main_hallway'),
-(9,6, 4, 2,'main_hallway'),
-(10,7, 4, 2,'right'),
-(11,7, 12, 2,'upstairs'),
-(12,8, 9, 2,'left'),
-(13,8, 10, 2,'straight'),
-(14,9, 8, 2,'main_hallway'),
-(16,10, 11, 2,'left'),
-(17,10, 4, 2,'downstairs'),
-(18,10, 12, 2,'straight'),
-(19,12, 7, 2,'downstairs');
+(1,1, 2, 2,'straight_ahead'),
+(2,1, 8, 2,'upstairs_hallway'),
+(3,2, 1, 2,'straight_ahead'),
+(4,2, 3, 2,'turn_left'),
+(5,2, 4, 3,'straight_ahead'),
+(6,3, 2, 2,'straight_ahead'),
+(7,4, 2, 2,'straight_ahead'),
+(8,4, 5, 2,'turn_left'),
+(9,4, 6, 2,'turn_right'),
+(10,4, 10, 2,'upstairs_hallway'),
+(11,5, 4, 2,'downstairs_hallway'),
+(12,6, 4, 2,'straight_ahead'),
+(13,7, 4, 2,'straight_ahead'),
+(14,7, 12, 2,'upstairs_hallway'),
+(15,8, 9, 2,'turn_left'),
+(16,8, 10, 2,'straight_ahead'),
+(17,8, 1, 2,'downstairs'),
+(18,10, 8, 2,'straight_ahead'),
+(19,9, 8, 2,'downstairs_hallway'),
+(20,10, 11, 2,'turn_left'),
+(21,10, 4, 2,'downstairs_hallway'),
+(22,10, 12, 2,'straight_ahead'),
+(23,11, 10, 2,'straight_ahead'),
+(24,12, 10, 2,'straight_ahead'),
+(25,12, 7, 2,'downstairs_hallway');
 

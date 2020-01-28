@@ -95,4 +95,6 @@ public class Setup
         graph.findShortestPaths();
         finalDirectionsArray = graph.getCurrentDirections();
     }
+
+
 }
