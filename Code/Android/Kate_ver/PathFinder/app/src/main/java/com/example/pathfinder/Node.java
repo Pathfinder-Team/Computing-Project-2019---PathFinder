@@ -28,9 +28,18 @@ public class Node implements Serializable
     String toPointName;
     String pointDirectionName;
 
+    int point;
+    String name;
+
     public Node()
     {
 
+    }
+
+    public Node(int point, String name)
+    {
+        this.point = point;
+        this.name = name;
     }
 
     public Node(int source, int destination)

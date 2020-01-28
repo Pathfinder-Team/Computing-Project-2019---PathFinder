@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DisplayActivity extends AppCompatActivity implements View.OnClickListener {
@@ -98,22 +99,35 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
     public ArrayList<Node> findPointNames(ArrayList<Node> foundPointNames)
     {
         //setup.getDirect()
+        ArrayList<Node> nameArray = new ArrayList<>();
         db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
         if(db != null)
         {
-            Cursor cur = db.rawQuery("select point_name from map_points", null);
-            //System.out.println("Check C: "+c.getCount());
-            if (cur.getCount() != setup.getDirect().size()) {
-                while (cur.moveToNext()) {
-                    cur.getString(1);
+            System.out.println("Ceke 1");
+            Cursor cur = db.rawQuery("select * from map_points", null);
+            System.out.println("Ceke 2");
+            while (cur.moveToNext()) {
+
+                    Node nameNode = new Node(cur.getInt(0),cur.getString(1));
+                    nameArray.add(nameNode);
                     //String fromPointName ;
                     //String toPointName;
-                    Node edge = new Node ("Entrance","Reception", "Canteen");
-                    foundPointNames.add(edge);
+            }
+            for (int i = 0; i < nameArray.size();i++)
+            {
+                for (int j = 0; j < nameArray.size();j++) {
+                    if (setup.getDirect() == setup.getDirect().) {
+                        if(foundPointNames.get(i).toPointName == setup.getDirect())
+                        {
+
+                        }
+                    }
                 }
+                Node edge = new Node("Entrance","Reception", "Canteen");
+                foundPointNames.add(edge);
             }
         }
-
+        System.out.println("Check: "+nameArray);
         return foundPointNames;
 
     }
