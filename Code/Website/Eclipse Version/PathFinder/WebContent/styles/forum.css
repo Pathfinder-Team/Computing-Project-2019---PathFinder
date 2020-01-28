@@ -8,12 +8,16 @@ Forum Page
 #fit1, #fit2 {
 	font-size: 0.9em;
 }
-
+/*
 .sign_login {
+  display: block;
   list-style:none;
-  padding:0 0;
-  margin:0 0;
+  padding:0 auto;
+  margin:0 auto;
 }
+*/
+
+
 
 #form ul li {
 	width: 12%;
