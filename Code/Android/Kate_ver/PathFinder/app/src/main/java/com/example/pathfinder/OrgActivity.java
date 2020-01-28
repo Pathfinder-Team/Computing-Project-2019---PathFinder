@@ -6,8 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -37,6 +40,7 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
     String special2 = "Empty";
     ArrayList<String> orgNames = null;
     ArrayList<String> orgBuildings = null;
+    public static ArrayList<OrgNode> allOrgBuildingDetails = null;
     static String orgName = "Limerick Institute of Technology";
     static String org_building ="LIT Thurles";
     // URL to get contacts JSON
@@ -50,6 +54,7 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
 
         orgNames = new ArrayList<>();
         orgBuildings = new ArrayList<>();
+        allOrgBuildingDetails = new ArrayList<>();
 
         Spinner spin = (Spinner) findViewById(R.id.spinner);
         Spinner spin2 = (Spinner) findViewById(R.id.spinner2);
@@ -123,12 +128,29 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
         db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
         if(db != null)
         {
-            Cursor cc = db.rawQuery("select org_building from map_details", null);
+            Cursor cc = db.rawQuery("select * from map_details", null);
             if( cc != null) {
                 if (cc.getCount() != orgBuildings.size() && cc.getCount() > 0) {
                     while (cc.moveToNext()) {
-                        System.out.println("Check: "+cc.getString(0));
-                        orgBuildings.add(cc.getString(0));
+                        //System.out.println("Check: "+cc.getString(0));
+
+                        //byte[] decodedString = Base64.decode(cc.getString("map_image"), Base64.DEFAULT);
+                        //Bitmap map_image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                        //byte [] barr = Base64.getDecoder().decode(cc.getString("map_image"));
+
+                        byte[] decodedString = Base64.decode(cc.getString(5), Base64.DEFAULT);
+                        Bitmap map_image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+
+                        System.out.println(map_image);
+                        OrgNode addEdge = new OrgNode(cc.getInt(0),
+                                cc.getString(1),
+                                cc.getString(2),
+                                cc.getString(3),
+                                cc.getString(4),
+                                map_image);
+                        allOrgBuildingDetails.add(addEdge);
+                        orgBuildings.add(cc.getString(2));
                     }
                 }
             }

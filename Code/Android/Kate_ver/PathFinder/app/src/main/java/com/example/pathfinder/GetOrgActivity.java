@@ -93,7 +93,7 @@ public class GetOrgActivity extends AppCompatActivity
                             "org_building varchar," +
                             "map_name varchar," +
                             "map_comments varchar," +
-                            "map_image longblob);");
+                            "map_image varchar);");
 
                     for (int i = 0; i < PathFinderMap.length(); i++) {
 
@@ -123,12 +123,11 @@ public class GetOrgActivity extends AppCompatActivity
                                     String org_building = cc.getString("org_building");
                                     String map_name = cc.getString("map_name");
                                     String map_comments = cc.getString("map_comments");
+                                    String map_image = cc.getString("map_image");
 
-                                    byte[] decodedString = Base64.decode(cc.getString("map_image"), Base64.DEFAULT);
-                                    Bitmap map_image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-
+                                    //byte[] decodedString = Base64.decode(cc.getString("map_image"), Base64.DEFAULT);
+                                    //Bitmap map_image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                                     //byte [] barr = Base64.getDecoder().decode(cc.getString("map_image"));
-                                    //String map_image = barr;
 
                                     db.execSQL("INSERT INTO map_details VALUES('"
                                             + map_id + "','"

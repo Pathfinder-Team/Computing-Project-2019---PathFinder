@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -59,16 +61,13 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        //System.out.println("current_selected: "+current_selected);
-        //System.out.println("selected_destination:"+selected_destination);
-
-        Button btn_scan = (Button) findViewById(R.id.btn_scan);
-        btn_scan.setOnClickListener(this);
     }
     protected void onStart()
     {
         super.onStart();
+
+        setImage();
+
         TextView mes1 = (TextView)findViewById(R.id.display_current);
         TextView mes2 =  (TextView)findViewById(R.id.display_next);
         TextView mes3 =  (TextView)findViewById(R.id.display_path_information);
@@ -76,8 +75,6 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
         mes2.setText(selected_name);
         //ArrayList<String > myArray = new ArrayList<>();
         //myArray.add("Straight");
-
-
 
         for(int i = 0; i <  setup.getDirect().size(); i++)
         {
@@ -95,5 +92,13 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(intent);
                 break;
         }
+    }
+    public void setImage()
+    {
+        ImageView imageView = findViewById(R.id.map_image);
+
+        Bitmap bittymap = OrgActivity.allOrgBuildingDetails.get(0).map_image;
+        imageView.setImageBitmap(bittymap);
+        System.out.println("Check: "+bittymap);
     }
 }

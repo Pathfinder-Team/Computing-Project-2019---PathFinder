@@ -21,14 +21,13 @@
 
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/map_image"
                 android:layout_width="match_parent"
                 android:layout_height="414dp"
                 app:layout_constraintBottom_toTopOf="@+id/tableLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ground" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Space
                 android:layout_width="100dp"
