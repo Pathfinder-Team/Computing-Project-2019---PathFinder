@@ -21,14 +21,11 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
     public static int current_selected_id = 0;
     public static String current_selected_name = "";
     public static int current_selected_map_id = 0;
-
     public static int selected_destination_id = 0;
     public static String selected_name = "";
-    public static int    selected_map_id = 0;
+    public static int selected_map_id = 0;
     public ArrayList<Node> getCurrentLocationDetails = null;
     public ArrayList<Node> getNextLocationDetails = null;
-    ImageView hImageViewSemafor;
-    Button imageChange;
     ImageView imageView;
     int currentImage = 0;
     SQLiteDatabase db;
@@ -37,15 +34,6 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);
-
-        /*
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        current_selected = extras.getString("current_selected");
-        selected_destination = extras.getString("selected_destination");
-        */
-
-
 
         Bundle extras = getIntent().getExtras();
 
@@ -59,8 +47,6 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
         selected_name = getNextLocationDetails.get(0).point_name;
         selected_map_id = getNextLocationDetails.get(0).maps_map_id;
 
-
-
         try {
             db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
             setup.setUpMap(current_selected_name,selected_name,db);
@@ -68,53 +54,50 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
             e.printStackTrace();
         }
 
-        imageChange = (Button) findViewById(R.id.btn_change_image);
-        //Just set one Click listener for the image
-        imageView = findViewById(R.id.map_image);
-        Bitmap bittymap = OrgActivity.allOrgBuildingDetails.get(0).map_image;
-        imageView.setImageBitmap(bittymap);
-        System.out.println("Check: "+bittymap);
-        imageChange.setOnClickListener(aButtonChangeImageListener);
+        setInitialImage();
+        setImageRotateListener();
 
     }
-    View.OnClickListener aButtonChangeImageListener = new View.OnClickListener() {
 
-        public void onClick(View v) {
-
-            //Increase Counter to move to next Image
-            currentImage++;
-            currentImage = currentImage % OrgActivity.allOrgBuildingDetails.size();
-            System.out.println("current "+currentImage);
-
-            for(int i = 0; i < OrgActivity.allOrgBuildingDetails.size(); i++)
-            {
-                System.out.println("Getting bitmap: "+OrgActivity.allOrgBuildingDetails.get(i));
+    private void setImageRotateListener() {
+        final Button buttonRotate = (Button) findViewById(R.id.btn_change_image);
+        buttonRotate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                currentImage++;
+                if (currentImage == OrgActivity.allOrgBuildingDetails.size()) {
+                    currentImage = 0;
+                }
+                setCurrentImage();
             }
-            hImageViewSemafor.setImageBitmap(OrgActivity.allOrgBuildingDetails.get(currentImage).map_image);
+        });
+    }
 
-        }
-    };
+    private void setInitialImage() {
+        setCurrentImage();
+    }
+
+    private void setCurrentImage() {
+        imageView = findViewById(R.id.map_image);
+        Bitmap bittymap = OrgActivity.allOrgBuildingDetails.get(currentImage).map_image;
+        imageView.setImageBitmap(bittymap);
+    }
+
     protected void onStart()
     {
         super.onStart();
-
-        setImage();
 
         TextView mes1 = (TextView)findViewById(R.id.display_current);
         TextView mes2 =  (TextView)findViewById(R.id.display_next);
         TextView mes3 =  (TextView)findViewById(R.id.display_path_information);
         mes1.setText(current_selected_name);
         mes2.setText(selected_name);
-        //ArrayList<String > myArray = new ArrayList<>();
-        //myArray.add("Straight");
-
         for(int i = 0; i <  setup.getDirect().size(); i++)
         {
             mes3.append( setup.getDirect().get(i));
             mes3.append("\n");
         }
     }
-
     public void onClick(View view)
     {
         Intent intent;
@@ -124,9 +107,5 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(intent);
                 break;
         }
-    }
-    public void setImage()
-    {
-
     }
 }
