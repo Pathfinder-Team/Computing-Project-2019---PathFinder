@@ -28,6 +28,7 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
     public static int selected_map_id = 0;
     public ArrayList<Node> getCurrentLocationDetails = null;
     public ArrayList<Node> getNextLocationDetails = null;
+    ArrayList<Node> specialOmega = null;
     ImageView imageView;
     int currentImage = 0;
     SQLiteDatabase db;
@@ -38,7 +39,7 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_display);
 
         Bundle extras = getIntent().getExtras();
-
+        specialOmega = new ArrayList<>();
         getCurrentLocationDetails = (ArrayList<Node>) extras.getSerializable("current_selected");
         current_selected_id = getCurrentLocationDetails.get(0).current_point_id;
         current_selected_name = getCurrentLocationDetails.get(0).point_name;
@@ -90,7 +91,7 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
         mes2.setText(selected_name);
         ArrayList<Node> foundPointNames = new ArrayList<>();
         foundPointNames = findPointNames(foundPointNames);
-        for(int i = 0; i <  setup.getDirect().size(); i++) {
+        for(int i = 0; i <  foundPointNames.size(); i++) {
             String combo = "Location: " + foundPointNames.get(i).fromPointName + "\nDirection:" + foundPointNames.get(i).pointDirectionName + "\nNext Location:" + foundPointNames.get(i).toPointName + "\n";
             mes3.append(combo);
             mes3.append("\n");
@@ -98,14 +99,13 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
     }
     public ArrayList<Node> findPointNames(ArrayList<Node> foundPointNames)
     {
-        //setup.getDirect()
+        specialOmega = setup.getDirect();
+
         ArrayList<Node> nameArray = new ArrayList<>();
         db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
         if(db != null)
         {
-            System.out.println("Ceke 1");
             Cursor cur = db.rawQuery("select * from map_points", null);
-            System.out.println("Ceke 2");
             while (cur.moveToNext()) {
 
                     Node nameNode = new Node(cur.getInt(0),cur.getString(1));
@@ -113,23 +113,17 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
                     //String fromPointName ;
                     //String toPointName;
             }
-            for (int i = 0; i < nameArray.size();i++)
+            //System.out.println("Check 1"+specialOmega.get(0).fromPointId);
+            //System.out.println("Check 2 "+specialOmega.get(0).toPointId);
+            for (int i = 0; i < specialOmega.size();i++)
             {
-                for (int j = 0; j < nameArray.size();j++) {
-                    if (setup.getDirect(i). == ) {
-                        if(foundPointNames.get(i).toPointName == setup.getDirect())
-                        {
-
-                        }
-                    }
-                }
-                Node edge = new Node("Entrance","Reception", "Canteen");
-                foundPointNames.add(edge);
+                System.out.println("Size: "+specialOmega.size());
+                System.out.println("i: "+i);
             }
         }
-        System.out.println("Check: "+nameArray);
+        Node edge = new Node("Hey","There","Delilah");
+        foundPointNames.add(edge);
         return foundPointNames;
-
     }
     public void onClick(View view)
     {

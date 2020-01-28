@@ -118,18 +118,20 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
 
     public ArrayList<String> getPointName()
     {
+        System.out.println("getPointName");
         Counter++;
         db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
         if(db != null)
         {
+
             Cursor c = db.rawQuery("select * from map_points", null);
-            //System.out.println("Check C: "+c.getCount());
+            System.out.println("Check C: "+c.getCount());
             if (c.getCount() != pointNames.size()) {
                 while (c.moveToNext()) {
-                    //System.out.println("Special: " + c.getString(1));
+                    System.out.println("Special: " + c.getString(1));
                     pointNames.add(c.getString(1));
                 }
-                //System.out.println("pointNames: "+pointNames.size());
+                System.out.println("pointNames: "+pointNames.size());
             }
         }
         return pointNames;
@@ -166,7 +168,6 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
                 Bundle extras = new Bundle();
                 System.out.println(" returnMapPointsCurrent "+returnMapPointsCurrent.get(0).point_name);
                 System.out.println(" returnMapPointsDestination "+returnMapPointsDestination.get(0).point_name);
-                //System.out.println("cudvfrdrvfdg ------------------------: "+returnMapPointsCurrent.size());
                 extras.putSerializable("current_selected", (Serializable) returnMapPointsCurrent);
                 extras.putSerializable("selected_destination", (Serializable) returnMapPointsDestination);
                 intent.putExtras(extras);

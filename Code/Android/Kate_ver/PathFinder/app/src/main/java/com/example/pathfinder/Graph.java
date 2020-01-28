@@ -325,18 +325,20 @@ public class Graph
                     //System.out.println("source: "+directionsArray.get(j).source);
                     for(int k = 0; k < directionsArray.size();k++) {
                         if (adj[i].get(j).point_from_id == directionsArray.get(k).source && adj[i].get(j).point_to_id == directionsArray.get(k).destination) {
+
                             Node addEdge = new Node(adj[i].get(j).point_from_id,adj[i].get(j).point_to_id,adj[i].get(j).point_direction);
                             finalDirectionsArray.add(addEdge);
-                            System.out.println("adj[i].get(j).fromPointId: "+adj[i].get(j).fromPointId);
-                            System.out.println("adj[i].get(j).toPointId: "+adj[i].get(j).toPointId);
-                            System.out.println("adj[i].get(j).pointDirection: "+adj[i].get(j).pointDirection);
+                            //System.out.println("adj[i].get(j).fromPointId: "+finalDirectionsArray.get(j).fromPointId);
+                            //System.out.println("adj[i].get(j).toPointId: "+finalDirectionsArray.get(j).toPointId);
+                            //System.out.println("adj[i].get(j).pointDirection: "+finalDirectionsArray.get(j).pointDirection);
                             //System.out.println("Directions: " + adj[i].get(j).point_direction);
+
                         }
                     }
                 }
-        }
+            }
 
-
+        System.out.println(" ");
         System.out.println("###########################");
 
         //finalDirectionsArray
@@ -348,7 +350,6 @@ public class Graph
 
                  */
     }
-
     public ArrayList<Node> getCurrentDirections()
     {
         return finalDirectionsArray;
