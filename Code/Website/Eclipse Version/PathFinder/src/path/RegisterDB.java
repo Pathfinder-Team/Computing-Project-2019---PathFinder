@@ -83,15 +83,15 @@ public class RegisterDB extends HttpServlet
                 System.err.println("Error 2 " + e);
             }
     	}
-    	else if("RegUser".equals(whatAction))
+    	else if(("RegUser").equals(whatAction))
     	{
-	        // get the values from the register.html form and store in these 
+	        // get the values from the register.html form and store in these
 	        user_name = request.getParameter("user_name");
-	        first_name = request.getParameter("first_name");
+    	    first_name = request.getParameter("first_name");
 	        last_name = request.getParameter("last_name");
 	        password = request.getParameter("password");
 	        email = request.getParameter("email");
-	        organisation_name = request.getParameter("org_name");
+	        organisation_name = request.getParameter("organisation_name");
 	        
 	        try
 	        {
