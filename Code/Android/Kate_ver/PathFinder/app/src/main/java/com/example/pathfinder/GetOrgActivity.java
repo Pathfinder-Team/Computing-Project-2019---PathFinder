@@ -22,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.Base64.Decoder;
 import java.util.Base64.Encoder;
 
@@ -38,8 +39,8 @@ public class GetOrgActivity extends AppCompatActivity
     static String org_building ="LIT Thurles";
 
     // URL to get contacts JSON
-    //private static String url = "https://pathsearcher.azurewebsites.net/ActionJsonOrg";
-    private static String url = "http://10.0.2.2:8080/PathFinder/ActionJsonOrg";
+    private static String url = "https://pathsearcher.azurewebsites.net/ActionJsonOrg";
+    //private static String url = "http://10.0.2.2:8080/PathFinder/ActionJsonOrg";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

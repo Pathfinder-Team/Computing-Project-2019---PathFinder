@@ -38,6 +38,12 @@ public class GetMapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_map);
 
+        Bundle extras = getIntent().getExtras();
+        String orgName =  extras.getString("orgName");
+        String org_building = extras.getString("org_building");
+
+        url = "http://10.0.2.2:8080/PathFinder/ActionJson?org_name="+orgName+"&org_building="+org_building;
+
         new GetMapPoints().execute();
     }
     private class GetMapPoints extends AsyncTask<Void, Void, Void> {

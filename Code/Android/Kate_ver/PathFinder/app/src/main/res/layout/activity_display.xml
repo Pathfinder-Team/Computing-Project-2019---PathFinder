@@ -23,7 +23,7 @@
             <ImageView
                 android:id="@+id/map_image"
                 android:layout_width="match_parent"
-                android:layout_height="286dp"
+                android:layout_height="350dp"
                 app:layout_constraintBottom_toTopOf="@+id/tableLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +58,7 @@
 
                 <TableLayout
                     android:id="@+id/tableLayout"
-                    android:layout_width="match_parent"
+                    android:layout_width="356dp"
                     android:layout_height="match_parent"
                     android:background="@color/white"
                     android:foregroundGravity="center"

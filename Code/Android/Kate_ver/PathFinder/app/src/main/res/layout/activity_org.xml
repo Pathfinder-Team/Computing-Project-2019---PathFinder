@@ -27,8 +27,8 @@
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="203dp"
-                android:layout_height="34dp"
+                android:layout_width="200dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="28dp"
                 android:paddingRight="50dp"
                 android:text="@string/select_organisation"
@@ -39,8 +39,8 @@
 
             <Spinner
                 android:id="@+id/spinner"
-                android:layout_width="195dp"
-                android:layout_height="25dp"
+                android:layout_width="200dp"
+                android:layout_height="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -57,8 +57,8 @@
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="194dp"
-                android:layout_height="28dp"
+                android:layout_width="200dp"
+                android:layout_height="30dp"
                 android:paddingRight="50dp"
                 android:text="@string/select_building"
                 app:layout_constraintBottom_toTopOf="@+id/spinner2"
@@ -70,7 +70,7 @@
 
             <Spinner
                 android:id="@+id/spinner2"
-                android:layout_width="191dp"
+                android:layout_width="200dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -85,9 +85,15 @@
 
             <Button
                 android:id="@+id/btn_update_map"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/update_map" />
+                android:layout_width="180dp"
+                android:layout_height="match_parent"
+                android:text="@string/btn_update_map" />
+
+            <Button
+                android:id="@+id/btn_update_org"
+                android:layout_width="180dp"
+                android:layout_height="match_parent"
+                android:text="@string/btn_update_org" />
         </TableRow>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -102,7 +108,7 @@
                 android:layout_height="18dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:text="TextView"
+                android:text="@string/instructions"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

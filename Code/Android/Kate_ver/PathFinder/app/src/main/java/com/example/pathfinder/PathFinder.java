@@ -166,8 +166,8 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
             case R.id.btn_find_destination:
                 intent = new Intent(this, DisplayActivity.class);
                 Bundle extras = new Bundle();
-                System.out.println(" returnMapPointsCurrent "+returnMapPointsCurrent.get(0).point_name);
-                System.out.println(" returnMapPointsDestination "+returnMapPointsDestination.get(0).point_name);
+                //System.out.println(" returnMapPointsCurrent "+returnMapPointsCurrent.get(0).point_name);
+                //System.out.println(" returnMapPointsDestination "+returnMapPointsDestination.get(0).point_name);
                 extras.putSerializable("current_selected", (Serializable) returnMapPointsCurrent);
                 extras.putSerializable("selected_destination", (Serializable) returnMapPointsDestination);
                 intent.putExtras(extras);

@@ -1,32 +1,24 @@
 package com.example.pathfinder;
 
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -44,6 +36,7 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_org);
 
+        db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
         if(db != null) {
             createBuildingTable();
             populateTables();
@@ -70,7 +63,7 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
             spin2.setAdapter(adapter2);
             spin2.setOnItemSelectedListener(this);
 
-            Button btn_update_map = (Button) findViewById(R.id.btn_update_map);
+            Button btn_update_map = (Button) findViewById(R.id.btn_update_org);
             btn_update_map.setOnClickListener(this);
         }
         else
@@ -156,10 +149,19 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
     {
         Intent intent;
         switch(view.getId()) {
-            case R.id.btn_update_map:
-                intent = new Intent(this, GetMapActivity.class);
+            case R.id.btn_update_org:
+                intent = new Intent(this, GetOrgActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.btn_update_map:
+                intent = new Intent(this, GetMapActivity.class);
+                Bundle extras = new Bundle();
+                extras.putString("orgName",special1 );
+                extras.putString("org_building",special2 );
+                intent.putExtras(extras);
+                startActivity(intent);
+                break;
+
         }
     }
     public void createBuildingTable()
@@ -193,7 +195,8 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
         {
             while (buildImage.moveToNext())
             {
-                String map_image = buildImage.getString(5);
+                String map_image = buildImage.getString(0);
+                System.out.println("map_image: "+map_image);
                 db.execSQL("INSERT INTO map_information VALUES('"+map_image+"')");
             }
         }

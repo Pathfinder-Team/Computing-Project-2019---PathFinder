@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name"></string>
+    <string name="app_name">PathFinder</string>
     <string name="splash">Welcome to PathFinder!</string>
     <string name="version">Version 1.0</string>
     <string name="btn_org">Organisation</string>
@@ -18,7 +18,7 @@
     <string name="updated">The Map Has Been Updated</string>
     <string name="select_organisation">Select Organisation</string>
     <string name="select_building">Select Building</string>
-    <string name="update_map">Click to Update Map</string>
+    <string name="btn_update_map">Update Map</string>
     <string name="btn_update_org">Update Org</string>
     <string name="updated_org">The Organisation have been updated</string>
 
