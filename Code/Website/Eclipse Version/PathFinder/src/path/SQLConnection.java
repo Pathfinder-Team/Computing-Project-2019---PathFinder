@@ -8,8 +8,7 @@ public class SQLConnection {
     String DB = "4eyg55o51s";
     String USERNAME = "root";
     String PASSWORD = "password";
-    
-    
+
    
 /*
 	String URL = "jdbc:mysql://remotemysql.com:3306/4eyg55o51S?autoReconnect=true&useSSL=false";

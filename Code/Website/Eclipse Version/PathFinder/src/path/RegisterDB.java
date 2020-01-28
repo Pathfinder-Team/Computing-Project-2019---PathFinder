@@ -50,37 +50,73 @@ public class RegisterDB extends HttpServlet
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        // get the values from the register.html form and store in these 
-        user_name = request.getParameter("user_name");
-        first_name = request.getParameter("first_name");
-        last_name = request.getParameter("last_name");
-        password = request.getParameter("password");
-        email = request.getParameter("email");
-        organisation_name = request.getParameter("org_name");
-        
-        try
-        {
-            // create a query that inserts all form values into the users table
-            String query = "insert into users values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            prepStat = conn.prepareStatement(query);
-            prepStat.setInt(1, 0);
-            prepStat.setString(2, user_name);
-            prepStat.setString(3, first_name);
-            prepStat.setString(4, last_name);
-            prepStat.setString(5, password);
-            prepStat.setString(6, email);
-            prepStat.setTimestamp(7, timestamp);
-            prepStat.setString(8, organisation_name);
-            prepStat.setInt(9, 2);
-            prepStat.executeUpdate();
-            
-            response.sendRedirect("login.html");
+    	
+    	String whatAction = request.getParameter("whatAction");
+    	
+    	if("RegOrg".equals(whatAction))
+    	{
+            // get the values from the register.html form and store in these 
+    		String organisation_name = request.getParameter("organisation_name");
+    		String organisation_address = request.getParameter("organisation_address");
+    		String organisation_email = request.getParameter("organisation_email");
+    		String organisation_mobile = request.getParameter("organisation_mobile");
+    		String organisation_building_name = request.getParameter("organisation_building_name");
 
-        } catch (IOException | SQLException e)
-        {
+            try
+            {
+                // create a query that inserts all form values into the users table
+                String query = "insert into organisation values(?, ?, ?, ?, ?, ?)";
+                prepStat = conn.prepareStatement(query);
+                prepStat.setString(1, organisation_name);
+                prepStat.setString(2, organisation_address);
+                prepStat.setString(3, organisation_email);
+                prepStat.setString(4, organisation_mobile);
+                prepStat.setString(5, organisation_mobile);
+                prepStat.setString(6, organisation_name);
+                prepStat.executeUpdate();
+                
+                response.sendRedirect("login.html");
 
-            System.err.println("Error 2 " + e);
-        }
+            } catch (IOException | SQLException e)
+            {
+
+                System.err.println("Error 2 " + e);
+            }
+    	}
+    	else if("RegUser".equals(whatAction))
+    	{
+	        // get the values from the register.html form and store in these 
+	        user_name = request.getParameter("user_name");
+	        first_name = request.getParameter("first_name");
+	        last_name = request.getParameter("last_name");
+	        password = request.getParameter("password");
+	        email = request.getParameter("email");
+	        organisation_name = request.getParameter("org_name");
+	        
+	        try
+	        {
+	            // create a query that inserts all form values into the users table
+	            String query = "insert into users values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	            prepStat = conn.prepareStatement(query);
+	            prepStat.setInt(1, 0);
+	            prepStat.setString(2, user_name);
+	            prepStat.setString(3, first_name);
+	            prepStat.setString(4, last_name);
+	            prepStat.setString(5, password);
+	            prepStat.setString(6, email);
+	            prepStat.setTimestamp(7, timestamp);
+	            prepStat.setString(8, organisation_name);
+	            prepStat.setInt(9, 2);
+	            prepStat.executeUpdate();
+	            
+	            response.sendRedirect("login.html");
+	
+	        } catch (IOException | SQLException e)
+	        {
+	
+	            System.err.println("Error 2 " + e);
+	        }
+    	}
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

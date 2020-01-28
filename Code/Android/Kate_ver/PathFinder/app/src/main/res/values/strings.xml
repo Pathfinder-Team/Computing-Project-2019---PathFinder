@@ -11,8 +11,8 @@
     <string name="start_text">Select Location</string>
     <string name="Select">Destination</string>
     <string name="start_path">Start Path</string>
-    <string name="current_dest">Current Destination</string>
-    <string name="next_dest">Next Destination</string>
+    <string name="current_dest">Starting Location</string>
+    <string name="next_dest">Final Destination</string>
     <string name="path_info_message">Path Information</string>
     <string name="display_information"> </string>
     <string name="updated">The Map Has Been Updated</string>

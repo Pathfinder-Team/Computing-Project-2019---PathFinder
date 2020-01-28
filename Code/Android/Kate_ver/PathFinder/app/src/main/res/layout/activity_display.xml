@@ -34,8 +34,9 @@
 
             <Button
                 android:id="@+id/btn_change_image"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="Next Image" />
 
             <Space
@@ -59,6 +60,7 @@
                     android:id="@+id/tableLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:orientation="vertical"
                     android:background="@color/white"
                     android:gravity="center"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -69,8 +71,6 @@
                     app:layout_constraintVertical_bias="1.0">
 
                     <TableRow
-                        android:layout_width="303dp"
-                        android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:padding="20dp">
 
@@ -90,9 +90,6 @@
                     </TableRow>
 
                     <TableRow
-
-                        android:layout_width="match_parent"
-                        android:layout_height="192dp"
                         android:layout_gravity="center"
                         android:padding="20dp">
 
@@ -110,24 +107,23 @@
                             android:padding="10dp"
                             android:text="@string/next_dest" />
                     </TableRow>
-                    <TableRow
 
-                        android:layout_width="match_parent"
-                        android:layout_height="192dp"
+                    <TableRow
+                        android:layout_height="135dp"
                         android:layout_gravity="center"
                         android:padding="20dp">
 
                         <TextView
                             android:id="@+id/path_info"
-                            android:layout_width="109dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="10dp"
                             android:text="@string/path_info_message" />
 
                         <TextView
                             android:id="@+id/display_path_information"
-                            android:layout_width="241dp"
-                            android:layout_height="91dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:padding="10dp"
                             android:text="@string/display_information" />
                     </TableRow>
