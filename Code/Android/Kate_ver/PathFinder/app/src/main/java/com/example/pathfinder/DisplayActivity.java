@@ -116,7 +116,7 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
             for (int i = 0; i < nameArray.size();i++)
             {
                 for (int j = 0; j < nameArray.size();j++) {
-                    if (setup.getDirect() == setup.getDirect().) {
+                    if (setup.getDirect(i). == ) {
                         if(foundPointNames.get(i).toPointName == setup.getDirect())
                         {
 
