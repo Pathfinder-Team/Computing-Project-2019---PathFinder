@@ -21,5 +21,9 @@
     <string name="btn_update_map">Update Map</string>
     <string name="btn_update_org">Update Org</string>
     <string name="updated_org">The Organisation have been updated</string>
+    <string name="network_access">Network Access Application</string>
+    <string name="button_text">Click to display Webpage</string>
+    <string name="hint">Enter webpage to display</string>
+
 
 </resources>

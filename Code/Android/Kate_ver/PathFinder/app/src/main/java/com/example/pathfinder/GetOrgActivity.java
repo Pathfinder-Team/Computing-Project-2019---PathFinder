@@ -36,8 +36,8 @@ public class GetOrgActivity extends AppCompatActivity
 
     private ProgressDialog pDialog;
     SQLiteDatabase db;
-    static String orgName = "Limerick Institute of Technology";
-    static String org_building ="LIT Thurles";
+    static String orgName = "";
+    static String org_building ="";
 
     // URL to get contacts JSON
     //private static String url = "https://pathsearcher.azurewebsites.net/ActionJsonOrg";

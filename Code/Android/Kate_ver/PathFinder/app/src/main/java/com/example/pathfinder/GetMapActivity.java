@@ -34,7 +34,7 @@ public class GetMapActivity extends AppCompatActivity {
     static String org_building ="";
     // URL to get contacts JSON
     //private static String url = "https://pathsearcher.azurewebsites.net/ActionJson?org_name="+orgName+"&org_building="+org_building;
-    private static String url = "http://10.0.2.2:8080/PathFinder/ActionJson?org_name="+orgName+"&org_building="+org_building;
+    private static String url = "http://10.0.2.2:8080/PathFinder/ActionJson?org_name="+orgName+"&org_building="+org_building+"";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,7 @@ public class GetMapActivity extends AppCompatActivity {
         String org_building = extras.getString("org_building");
 
         url = "http://10.0.2.2:8080/PathFinder/ActionJson?org_name="+orgName+"&org_building="+org_building;
+        //url = "https://pathsearcher.azurewebsites.net/ActionJson?org_name="+orgName+"&org_building="+org_building+"";
 
         new GetMapPoints().execute();
     }
@@ -90,22 +91,18 @@ public class GetMapActivity extends AppCompatActivity {
                                 + maps_map_id + "');");
 
                          */
-
-
                         if (c != null) {
                             JSONArray PathFinderMap2 = c.getJSONArray("special_points");
                             if(PathFinderMap2 != null) {
                                 for (int j = 0; j < PathFinderMap2.length(); j++)
                                 {
                                     JSONObject cc = PathFinderMap2.getJSONObject(j);
-
                                     /*
-                                    int point_id = cc.getInt("point_id");
-                                    int point_from_id = cc.getInt("point_from_id");
-                                    int point_to_id = cc.getInt("point_to_id");
-                                    int point_weight = cc.getInt("point_weight");
-                                    String point_direction = cc.getString("point_direction");
-
+                                        int point_id = cc.getInt("point_id");
+                                        int point_from_id = cc.getInt("point_from_id");
+                                        int point_to_id = cc.getInt("point_to_id");
+                                        int point_weight = cc.getInt("point_weight");
+                                        String point_direction = cc.getString("point_direction");
                                      */
                                     Node specialNode2 = new Node(cc.getInt("point_id"),
                                             cc.getInt("point_from_id"),
@@ -114,22 +111,17 @@ public class GetMapActivity extends AppCompatActivity {
                                             cc.getString("point_direction"));
                                     sp.add(specialNode2);
                                     /*
-
-                                    db.execSQL("INSERT INTO special_points VALUES('"
-                                            + point_id + "','"
-                                            + point_from_id + "','"
-                                            + point_to_id + "','"
-                                            + point_weight + "','"
-                                            + point_direction + "');");
-
-
+                                        db.execSQL("INSERT INTO special_points VALUES('"
+                                                + point_id + "','"
+                                                + point_from_id + "','"
+                                                + point_to_id + "','"
+                                                + point_weight + "','"
+                                                + point_direction + "');");
                                      */
                                 }
                             }
                         }
                     }
-
-
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
@@ -141,7 +133,6 @@ public class GetMapActivity extends AppCompatActivity {
                                     .show();
                         }
                     });
-
                 }
             } else {
                 Log.e(TAG, "Couldn't get json from server.");
@@ -154,11 +145,9 @@ public class GetMapActivity extends AppCompatActivity {
                                 .show();
                     }
                 });
-
             }
             return null;
         }
-
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
@@ -168,8 +157,7 @@ public class GetMapActivity extends AppCompatActivity {
                 pDialog.dismiss();
             }
             TextView txtView = findViewById(R.id.updatedID);
-
-            callCommiter();
+            callCommitter();
             if(db != null) {
                 txtView.setText("The Map has been updated");
             }
@@ -178,48 +166,9 @@ public class GetMapActivity extends AppCompatActivity {
                 txtView.setText("The Map has been not been updated");
             }
         }
-        public void callCommiter()
+        public void callCommitter()
         {
             callValueSorter();
-
-        }
-        public void callValueSorter()
-        {
-            ArrayList<MapNode> sortMapPoints = new ArrayList<>();
-            int counter = 1;
-            for(int i = 0; i < mp.size();i++)
-            {
-                MapNode mp1 = new MapNode(counter++, mp.get(i).current_point_id);
-                sortMapPoints.add(mp1);
-                if(sortMapPoints.get(i).oldNum == mp.get(i).current_point_id)
-                {
-                    //System.out.println("Old: "+mp.get(i).current_point_id+". New: "+sortMapPoints.get(i).newNum);
-                    mp.get(i).current_point_id = sortMapPoints.get(i).newNum;
-                }
-
-            }
-
-            //
-            //System.out.println("check stage 2");
-            for(int i = 0; i < sp.size(); i++)
-            {
-                //System.out.println("from: "+sp.get(i).point_from_id+". to: "+sp.get(i).point_to_id);
-
-                //System.out.println("size: "+sp.size());
-                //System.out.println("old: "+sortMapPoints.get(i).oldNum);
-                //System.out.println("point from: "+sp.get(i).point_from_id);
-                for(int j = 0; j < mp.size();j++) {
-                    if (sortMapPoints.get(j).oldNum == sp.get(i).point_from_id) {
-                        //System.out.println("Old: "+sp.get(i).point_from_id+". New: "+sortMapPoints.get(i).newNum);
-                        sp.get(i).point_from_id = sortMapPoints.get(j).newNum;
-                    }
-                    if(sortMapPoints.get(j).oldNum == sp.get(i).point_to_id)
-                    {
-                        //System.out.println("Old: "+sp.get(i).point_to_id+". New: "+sortMapPoints.get(i).newNum);
-                        sp.get(i).point_to_id = sortMapPoints.get(j).newNum;
-                    }
-                }
-            }
             for(int i = 0; i < mp.size(); i++)
             {
                 db.execSQL("INSERT INTO map_points VALUES('"
@@ -239,6 +188,35 @@ public class GetMapActivity extends AppCompatActivity {
                         + sp.get(i).point_weight + "','"
                         + sp.get(i).point_direction + "');");
                 //System.out.println("From: "+sp.get(i).point_from_id+", To: "+sp.get(i).point_to_id);
+            }
+            mp.clear();
+            sp.clear();
+        }
+        public void callValueSorter()
+        {
+            ArrayList<MapNode> sortMapPoints = new ArrayList<>();
+            int counter = 1;
+            for(int i = 0; i < mp.size();i++)
+            {
+                MapNode mp1 = new MapNode(counter++, mp.get(i).current_point_id);
+                sortMapPoints.add(mp1);
+                if(sortMapPoints.get(i).oldNum == mp.get(i).current_point_id)
+                {
+                    mp.get(i).current_point_id = sortMapPoints.get(i).newNum;
+                }
+
+            }
+            for(int i = 0; i < sp.size(); i++)
+            {
+                for(int j = 0; j < mp.size();j++) {
+                    if (sortMapPoints.get(j).oldNum == sp.get(i).point_from_id) {
+                        sp.get(i).point_from_id = sortMapPoints.get(j).newNum;
+                    }
+                    if(sortMapPoints.get(j).oldNum == sp.get(i).point_to_id)
+                    {
+                        sp.get(i).point_to_id = sortMapPoints.get(j).newNum;
+                    }
+                }
             }
         }
     }
