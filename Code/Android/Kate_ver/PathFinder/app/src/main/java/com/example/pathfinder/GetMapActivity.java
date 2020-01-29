@@ -27,16 +27,11 @@ public class GetMapActivity extends AppCompatActivity {
 
     private ProgressDialog pDialog;
     SQLiteDatabase db;
-    static String orgName = "Limerick Institute of Technology";
-    static String org_building ="LIT Thurles";
+    static String orgName = "";
+    static String org_building ="";
     // URL to get contacts JSON
-<<<<<<< HEAD
     //private static String url = "https://pathsearcher.azurewebsites.net/ActionJson?org_name="+orgName+"&org_building="+org_building;
     private static String url = "http://10.0.2.2:8080/PathFinder/ActionJson?org_name="+orgName+"&org_building="+org_building;
-=======
-    private static String url = "https://pathsearcher.azurewebsites.net/ActionJson?org_name="+orgName+"&org_building="+org_building;
-    //private static String url = "http://10.0.2.2:8080/PathFinder/ActionJson?org_name="+orgName+"&org_building="+org_building;
->>>>>>> f1e529aef7d155b0bce6395396de9fceef00be9a
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -2,8 +2,6 @@ package path;
 
 public class SQLConnection {
 	
-	
-	
 	// for college
 	/*
     String URL = "jdbc:mysql://localhost:3306/4eyg55o51s?autoReconnect=true&useSSL=false";
