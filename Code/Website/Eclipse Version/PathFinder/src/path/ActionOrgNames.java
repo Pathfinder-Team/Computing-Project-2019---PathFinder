@@ -26,6 +26,7 @@ public class ActionOrgNames extends HttpServlet
     Connection conn;
     Statement stmt;
     ResultSet result;
+    ArrayList<String> orgList = new ArrayList<>();
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
@@ -36,28 +37,27 @@ public class ActionOrgNames extends HttpServlet
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(connect.URL, connect.USERNAME, connect.PASSWORD);
-            System.out.println("Connected Login");
+            System.out.println("Connected ActionOrgNames");
         } catch (ClassNotFoundException | SQLException e)
         {
             System.err.println("Error 1 " + e);
         }
 
         PreparedStatement prepStat;
-        
         try
         {
-        	ArrayList<String> orgList = new ArrayList()
             String query = "select organisation_name from organisation";
             prepStat = conn.prepareStatement(query);
             result = prepStat.executeQuery();
            
             while (result.next())
             {
-            	String name = result.getString(("organisation_name"));
+            	String name = result.getString("organisation_name");
+            	System.out.println("name: "+name);
             	orgList.add(name);
             }
             request.setAttribute("orgList", orgList);
-            RequestDispatcher rd = request.getRequestDispatcher("/register.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/registerUser.jsp");
             rd.forward(request, response);
         } catch (IOException | SQLException e)
         {

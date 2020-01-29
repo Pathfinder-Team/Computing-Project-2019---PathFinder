@@ -1,3 +1,4 @@
+<%@ page import ="java.util.ArrayList"%>
 <!doctype html>
 <html lang="en">
     <head>
@@ -23,7 +24,6 @@
                 else
                     return false;
             }
-
             function validate_req(fname, lname, orgname, username, email, password1, password2)
             {
                 if (fname == null || fname == "")
@@ -64,7 +64,6 @@
 
                 return true;
             }
-
             function pass_length(password1) {
                 if (password1.length < 8) {
                     alert("Password must have at least 8 characters in it");
@@ -98,9 +97,11 @@
             </nav>
             <main>
 			<%
+
 				if (null != request.getAttribute("orgList"))
 				{
-					ArrayList<String> orgLists = request.getAttribute("orgList");
+					ArrayList<String> orgLists = new ArrayList<>();
+					orgLists = request.getAttribute("orgList");
 				}
 			%>
                 <section id="form">
