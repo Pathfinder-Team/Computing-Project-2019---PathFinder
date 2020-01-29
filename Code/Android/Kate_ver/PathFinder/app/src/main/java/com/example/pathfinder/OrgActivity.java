@@ -158,15 +158,16 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
                 break;
             case R.id.btn_update_map:
                 if(special1 != null && special2 != null) {
-                    intent = new Intent(this, GetMapActivity.class);
-                    Bundle extras = new Bundle();
-                    extras.putString("orgName", special1);
-                    extras.putString("org_building", special2);
-                    intent.putExtras(extras);
-                    startActivity(intent);
+                    if(special1 != "" && special2 != "") {
+                        intent = new Intent(this, GetMapActivity.class);
+                        Bundle extras = new Bundle();
+                        extras.putString("orgName", special1);
+                        extras.putString("org_building", special2);
+                        intent.putExtras(extras);
+                        startActivity(intent);
+                    }
                 }
                 break;
-
         }
     }
     public void populateTables()
