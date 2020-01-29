@@ -1,3 +1,7 @@
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="javax.servlet.http.*,javax.servlet.*"%>
+<%@page import="path.getRankPower"%>
+<%@page import="path.SQLConnection"%>
 <!doctype html>
 <html lang="en">
     <head>
@@ -55,6 +59,44 @@
     </head>
 
     <body>
+    <%
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		Connection conn = null;
+		Statement stmt = null;
+		PreparedStatement prepStat = null;
+		ArrayList<String> specialArray = new ArrayList<>();
+
+		ResultSet result;
+		getRankPower rp = new getRankPower();
+
+		String org_name = "";
+	        try
+	        {
+	        	SQLConnection connect = new SQLConnection();
+	            Class.forName("com.mysql.cj.jdbc.Driver");
+	            // setup the connection with the DB
+	            conn = DriverManager.getConnection(connect.URL(), connect.USERNAME(), connect.PASSWORD());
+	            
+	            System.out.println("Connected");
+	        } catch (ClassNotFoundException | SQLException e)
+	        {
+	            System.err.println("Error 1" + e);
+	        }
+		rp.getStatusRank(request,response,stmt,conn);
+		System.out.println("registerUser.jsp: "+ rp.getUserNameRights());
+
+		try {
+			prepStat = conn.prepareStatement("select organisation_name from organisation");
+			result = prepStat.executeQuery();
+			while (result.next()) {
+				org_name = result.getString("organisation_name");
+				specialArray.add(organisation_name);
+			}
+
+		} catch (SQLException ex) {
+			System.err.println("Error Org: " + ex);
+		}
+	%>
         <div id="container">
             <header>
                 <img src="images/bn_header.png" alt="PathFinder banner" >
@@ -77,11 +119,29 @@
 
                             <p id="info">Please fill in this form to register Organisation:</p>
 
+							<!-- 
                             <p><label for="organisation_name" class="title">Organisation Name: <span>*</span></label>
                                 <input type="text" name="organisation_name" id="organisation_name" /></p>
-
-                            <p><label for="organisation_address" class="title">Organisation Address: <span>*</span></label>
-                                <input type="text" name="organisation_address" id="organisation_address" /></p>
+							 -->
+                                
+                            <select name="organisation_name">
+							<option value="">SELECT</option>
+							<%
+								for (int i = 0; i < specialArray.size(); i++) 
+								{
+									String organisation_name = (String) specialArray.get(i);
+							%>
+							<option value="<%=organisation_name%>">
+								<%=organisation_name%>
+							</option>
+							<%
+							}
+							
+							%>
+						</select> 
+						
+						    <p><label for="organisation_address" class="title">Organisation Address: <span>*</span></label>
+                            <input type="text" name="organisation_address" id="organisation_address" /></p>
 
                             <p><label for="organisation_email" class="title">Organisation Email: <span>*</span></label>
                                 <input type="email" name="organisation_email" id="organisation_email" /></p>

@@ -1,5 +1,3 @@
-<%@ page import ="java.util.*"%>
-
 <!doctype html>
 <html lang="en">
     <head>
@@ -84,6 +82,7 @@
     </head>
 
     <body>
+   
         <div id="container">
             <header>
                 <img src="images/bn_header.png" alt="PathFinder banner" >
@@ -97,20 +96,7 @@
                 </ul>
             </nav>
             <main>
-			<%
 
-				if (null != request.getAttribute("orgList"))
-				{
-					List<String> orgLists = new ArrayList<>();
-					orgLists = request.getParameter("orgList");
-				}
-			%>
-			
-			<select name="category">
-    		<c:forEach items="${orgLists}" var="category">
-      	  	<option value="${orgLists}">${orgLists}</option>
-    		</c:forEach>
-			</select>
                 <section id="form">
 
                     <h1>Register</h1>
@@ -128,7 +114,7 @@
 
                             <p><label for="organisation_name" class="title">Organisation name: <span>*</span></label>
                                 <input type="text" name="organisation_name" id="organisation_name" /></p>
-
+                                
                             <p><label for="user_name" class="title">Username: <span>*</span></label>
                                 <input type="text" name="user_name" id="user_name" /></p>
 
@@ -145,6 +131,7 @@
                             <p>
                                 <input type="submit" name="submit" id="submit" value="Submit Details" />
                             </p>
+                            
                         </fieldset>
                     </form>
                 </section>
