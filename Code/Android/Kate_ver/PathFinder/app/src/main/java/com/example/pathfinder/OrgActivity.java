@@ -25,19 +25,11 @@ import java.util.ArrayList;
 public class OrgActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     SQLiteDatabase db;
-    String special1 = "Empty";
-    String special2 = "Empty";
+    String special1 = "";
+    String special2 = "";
     ArrayList<String> orgNames = null;
     ArrayList<String> orgBuildings = null;
     public static ArrayList<OrgNode> allOrgBuildingDetails = null;
-<<<<<<< HEAD
-    static String orgName = "Limerick Institute of Technology";
-    static String org_building ="LIT Thurles";
-    // URL to get contacts JSON
-    //private static String url = "https://pathsearcher.azurewebsites.net/ActionJsonOrg";
-    private static String url = "http://10.0.2.2:8080/PathFinder/ActionJson";
-=======
->>>>>>> f1e529aef7d155b0bce6395396de9fceef00be9a
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +55,6 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
             spin.setAdapter(adapter);
             spin.setOnItemSelectedListener(this);
 
-
             ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getOrgBuildings());
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -75,7 +66,6 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
 
             Button btn_update_map = (Button) findViewById(R.id.btn_update_map);
             btn_update_map.setOnClickListener(this);
-
         }
         else
         {
@@ -167,12 +157,14 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
                 startActivity(intent);
                 break;
             case R.id.btn_update_map:
-                intent = new Intent(this, GetMapActivity.class);
-                Bundle extras = new Bundle();
-                extras.putString("orgName",special1 );
-                extras.putString("org_building",special2 );
-                intent.putExtras(extras);
-                startActivity(intent);
+                if(special1 != null && special2 != null) {
+                    intent = new Intent(this, GetMapActivity.class);
+                    Bundle extras = new Bundle();
+                    extras.putString("orgName", special1);
+                    extras.putString("org_building", special2);
+                    intent.putExtras(extras);
+                    startActivity(intent);
+                }
                 break;
 
         }
