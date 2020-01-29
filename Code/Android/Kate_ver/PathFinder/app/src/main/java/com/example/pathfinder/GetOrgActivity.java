@@ -3,6 +3,7 @@ package com.example.pathfinder;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -39,8 +40,8 @@ public class GetOrgActivity extends AppCompatActivity
     static String org_building ="LIT Thurles";
 
     // URL to get contacts JSON
-    private static String url = "https://pathsearcher.azurewebsites.net/ActionJsonOrg";
-    //private static String url = "http://10.0.2.2:8080/PathFinder/ActionJsonOrg";
+    //private static String url = "https://pathsearcher.azurewebsites.net/ActionJsonOrg";
+    private static String url = "http://10.0.2.2:8080/PathFinder/ActionJsonOrg";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,10 @@ public class GetOrgActivity extends AppCompatActivity
 
 
         new GetOrgDetails().execute();
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, OrgActivity.class));
     }
     private class GetOrgDetails extends AsyncTask<Void, Void, Void> {
 

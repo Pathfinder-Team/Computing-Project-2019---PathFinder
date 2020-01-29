@@ -62,7 +62,7 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
         if(getCurrentLocationDetails.size() > 0) {
             setup.setUpMap(db);
         }
-        db.close();
+        //db.close();
     }
 
     private void setImageRotateListener() {
@@ -205,7 +205,7 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
                     buildingMaps.add(map_image);
                 }
             }
-            db.close();
+            //db.close();
         }
         System.out.println("before call");
         setInitialImage();

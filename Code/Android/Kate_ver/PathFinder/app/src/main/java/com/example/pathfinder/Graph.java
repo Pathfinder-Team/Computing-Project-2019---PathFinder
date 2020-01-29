@@ -64,8 +64,9 @@ public class Graph
                 point_to_id, point_weight,
                 point_direction);
        // System.out.println("###########################");
-        //System.out.println("point_from_id: "+point_from_id+", point_to_id: "+point_to_id+", point_weight: "+point_weight);
+        System.out.println("point_from_id: "+point_from_id+", point_to_id: "+point_to_id+", point_weight: "+point_weight);
        // System.out.println("###########################");
+
 
         adj[MapPriority.current_point_id].addFirst(edge);
     }
