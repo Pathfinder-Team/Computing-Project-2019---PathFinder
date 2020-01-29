@@ -7,14 +7,17 @@
     <string name="btn_contact">contact us</string>
     <string name="btn_map">Update Maps:</string>
     <string name="btn_path_finder">Path:</string>
-    <string name="instructions">Instructions to use:</string>
+    <string name="instructions_org">Instructions to use: You must first update the organisations by clicking on the update org button,
+        you must then select an appropriate Organisation and Organisation building,
+        all buildings will have there Organisations name shorted in there name,
+        once you have selected both options from the drop down click the update map button. </string>
     <string name="start_text">Select Location</string>
     <string name="Select">Destination</string>
     <string name="start_path">Start Path</string>
     <string name="current_dest">Starting Location</string>
     <string name="next_dest">Final Destination</string>
     <string name="path_info_message">Path Information</string>
-    <string name="display_information"> </string>
+    <string name="display_information"> Directions</string>
     <string name="updated">The Map Has Been Updated</string>
     <string name="select_organisation">Select Organisation</string>
     <string name="select_building">Select Building</string>
@@ -22,8 +25,10 @@
     <string name="btn_update_org">Update Org</string>
     <string name="updated_org">The Organisation have been updated</string>
     <string name="network_access">Network Access Application</string>
-    <string name="button_text">Click to display Webpage</string>
-    <string name="hint">Enter webpage to display</string>
+    <string name="button_text">Visit our Website</string>
+    <string name="hint">PathFinder</string>
+    <string name="contact_display_message">Thank you for Visiting PathFinder, If you need to contact us send us an email at PathFinder@gmail.com or vist us at our website.</string>
+    <string name="btn_wipe_info">Wipe Details</string>
 
 
 </resources>

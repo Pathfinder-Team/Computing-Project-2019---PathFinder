@@ -58,7 +58,7 @@ public class SplashActivity extends AppCompatActivity {
         splash.startAnimation(fade1);
         splash_image.startAnimation(spinin);
         version.startAnimation(fade2);
-        createBuildingTable();
+        //createBuildingTable();
     }
     public void createBuildingTable()
     {

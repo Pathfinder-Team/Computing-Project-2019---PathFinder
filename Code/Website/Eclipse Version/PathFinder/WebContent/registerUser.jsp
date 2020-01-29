@@ -1,4 +1,5 @@
-<%@ page import ="java.util.ArrayList"%>
+<%@ page import ="java.util.*"%>
+
 <!doctype html>
 <html lang="en">
     <head>
@@ -100,10 +101,16 @@
 
 				if (null != request.getAttribute("orgList"))
 				{
-					ArrayList<String> orgLists = new ArrayList<>();
-					orgLists = request.getAttribute("orgList");
+					List<String> orgLists = new ArrayList<>();
+					orgLists = request.getParameter("orgList");
 				}
 			%>
+			
+			<select name="category">
+    		<c:forEach items="${orgLists}" var="category">
+      	  	<option value="${orgLists}">${orgLists}</option>
+    		</c:forEach>
+			</select>
                 <section id="form">
 
                     <h1>Register</h1>

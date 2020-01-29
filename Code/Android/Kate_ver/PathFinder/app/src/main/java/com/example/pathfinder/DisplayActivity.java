@@ -99,12 +99,17 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
         TextView mes3 =  (TextView)findViewById(R.id.display_path_information);
         mes1.setText(current_selected_name);
         mes2.setText(selected_name);
+        System.out.println(current_selected_name);
+        System.out.println(selected_name);
         ArrayList<Node> foundPointNames = new ArrayList<>();
         foundPointNames = findPointNames(foundPointNames);
         for(int i = 0; i <  foundPointNames.size(); i++) {
             String combo = "Location: " + foundPointNames.get(i).fromPointName + "\nDirection:" + foundPointNames.get(i).pointDirectionName + "\nNext Location:" + foundPointNames.get(i).toPointName + "\n";
+            //mes3.append("Location: " + foundPointNames.get(i).fromPointName);
+            //mes3.append("\nDirection:" + foundPointNames.get(i).pointDirectionName);
+            //mes3.append("\nNext Location:" + foundPointNames.get(i).toPointName);
             mes3.append(combo);
-            mes3.append("\n");
+            mes3.append("\n\n");
         }
     }
     public ArrayList<Node> findPointNames(ArrayList<Node> foundPointNames)
@@ -190,7 +195,7 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
     }
     public void getBuildingMaps()
     {
-        System.out.println("Check Here");
+        //System.out.println("Check Here");
         db = openOrCreateDatabase("mapDB", Context.MODE_PRIVATE, null);
         if (db != null)
         {
@@ -201,13 +206,13 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
                 {
                     byte[] decodedString = Base64.decode(cc.getString(0), Base64.DEFAULT);
                     Bitmap map_image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                    System.out.println("Map_Image: "+map_image);
+                    //System.out.println("Map_Image: "+map_image);
                     buildingMaps.add(map_image);
                 }
             }
             //db.close();
         }
-        System.out.println("before call");
+        //System.out.println("before call");
         setInitialImage();
         setImageRotateListener();
     }

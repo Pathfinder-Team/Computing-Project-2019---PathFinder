@@ -1,61 +1,62 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="#99B3E6"
     tools:context=".ContactActivity">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="380dp"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:text="Superb" />
 
-    <EditText
-        android:id="@+id/url"
+    <LinearLayout
+        android:padding="10px"
+        android:orientation="vertical"
+        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:hint="@string/hint"
-        android:inputType="textUri" />
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/url"
-        android:layout_below="@+id/url"
-        android:layout_marginTop="10dp"
-        android:onClick="onButtonClicked"
-        android:text="@string/button_text" />
-
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="99dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button"
-        android:layout_alignLeft="@+id/url">
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView3"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5px"
+            android:text="@string/contact_display_message" />
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"/>
 
-            <WebView
-                android:id="@+id/webView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-    </ScrollView>
-</RelativeLayout>
+        <EditText
+            android:id="@+id/url"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:ems="10"
+            android:hint="@string/hint"
+            android:inputType="textUri"
+            android:text="https://pathsearcher.azurewebsites.net/"
+            tools:layout_editor_absoluteX="99dp"
+            tools:layout_editor_absoluteY="22dp" />
 
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="onButtonClicked"
+            android:text="@string/button_text"
+            tools:layout_editor_absoluteX="6dp"
+            tools:layout_editor_absoluteY="-38dp" />
 
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="176dp"
+            tools:layout_editor_absoluteY="190dp" />
 
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

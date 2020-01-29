@@ -173,6 +173,8 @@ public class GetOrgActivity extends AppCompatActivity
 
             if(db != null) {
                 txtView.setText("The Organisations have been updated");
+                Intent inten = new Intent(GetOrgActivity.this, OrgActivity.class);
+                startActivity(inten);
             }
             else if (db == null)
             {

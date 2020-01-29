@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout2"
@@ -28,21 +27,21 @@
         android:id="@+id/btn_org"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="12dp"
         android:gravity="center"
         android:minWidth="0dp"
         android:minHeight="0dp"
         android:text="@string/btn_org"
-        app:layout_constraintBottom_toTopOf="@+id/btn_contact"
+        app:layout_constraintBottom_toTopOf="@+id/btn_wipe_info"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btn_contact"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="12dp"
         android:gravity="center"
         android:minWidth="0dp"
         android:minHeight="0dp"
@@ -56,7 +55,7 @@
         android:id="@+id/btn_path_finder"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="228dp"
+        android:layout_marginBottom="180dp"
         android:gravity="center"
         android:minWidth="0dp"
         android:minHeight="0dp"
@@ -64,6 +63,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_wipe_info"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:gravity="center"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="@string/btn_wipe_info"
+        app:layout_constraintBottom_toTopOf="@+id/btn_contact"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent" />
 
 

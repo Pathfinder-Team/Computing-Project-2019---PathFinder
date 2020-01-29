@@ -1,4 +1,6 @@
 package path;
+
+import java.util.*;
 /* 
 Authors: Kevin Dunne, Jekaterina Pavlenko, Christopher Costelloe
 Date: 11/12/2019
@@ -26,7 +28,7 @@ public class ActionOrgNames extends HttpServlet
     Connection conn;
     Statement stmt;
     ResultSet result;
-    ArrayList<String> orgList = new ArrayList<>();
+    List<String> orgList = new ArrayList<>();
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
@@ -42,7 +44,6 @@ public class ActionOrgNames extends HttpServlet
         {
             System.err.println("Error 1 " + e);
         }
-
         PreparedStatement prepStat;
         try
         {

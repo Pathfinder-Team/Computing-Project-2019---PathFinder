@@ -3,6 +3,7 @@ package com.example.pathfinder;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -165,6 +166,8 @@ public class GetMapActivity extends AppCompatActivity {
             callCommitter();
             if(db != null) {
                 txtView.setText("The Map has been updated");
+                Intent inten = new Intent(GetMapActivity.this, PathFinder.class);
+                startActivity(inten);
             }
             else if (db == null)
             {
