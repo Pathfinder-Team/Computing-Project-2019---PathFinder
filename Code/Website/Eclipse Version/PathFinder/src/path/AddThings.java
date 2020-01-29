@@ -163,7 +163,7 @@ public class AddThings extends HttpServlet {
 		}
 		else if(pointsAction.contentEquals("insertNode"))
 		{
-			int current_point_id = Integer.parseInt(request.getParameter("current_point_id"));
+			//int current_point_id = Integer.parseInt(request.getParameter("current_point_id"));
 			String point_name = request.getParameter("point_name");
 			int maps_map_id = Integer.parseInt(request.getParameter("maps_map_id"));
 			
@@ -171,7 +171,7 @@ public class AddThings extends HttpServlet {
 			
 			try {
 				prepStat = conn.prepareStatement("insert into map_points values(? ,? ,?)");
-				prepStat.setInt(1, current_point_id);
+				prepStat.setInt(1, 0);
 				prepStat.setString(2, point_name);
 				prepStat.setInt(3, maps_map_id);
 				prepStat.executeUpdate();
