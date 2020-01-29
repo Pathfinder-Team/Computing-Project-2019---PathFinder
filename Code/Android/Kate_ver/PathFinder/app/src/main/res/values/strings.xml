@@ -7,12 +7,9 @@
     <string name="btn_contact">contact us</string>
     <string name="btn_map">Update Maps:</string>
     <string name="btn_path_finder">Path:</string>
-    <string name="instructions_org">Instructions to use: You must first update the organisations by clicking on the update org button,
-        you must then select an appropriate Organisation and Organisation building,
-        all buildings will have there Organisations name shorted in there name,
-        once you have selected both options from the drop down click the update map button. </string>
+    <string name="instructions_org">Instructions to use:\nYou must first update the organisations by clicking on the update org button,\nyou must then select an appropriate Organisation and Organisation building,\nall buildings will have there Organisations name shorted in there name,\nonce you have selected both options from the drop down click the update map button. </string>
     <string name="start_text">Select Location</string>
-    <string name="Select">Destination</string>
+    <string name="Select">Select Destination</string>
     <string name="start_path">Start Path</string>
     <string name="current_dest">Starting Location</string>
     <string name="next_dest">Final Destination</string>
@@ -27,8 +24,10 @@
     <string name="network_access">Network Access Application</string>
     <string name="button_text">Visit our Website</string>
     <string name="hint">PathFinder</string>
-    <string name="contact_display_message">Thank you for Visiting PathFinder, If you need to contact us send us an email at PathFinder@gmail.com or vist us at our website.</string>
+    <string name="contact_display_message">Thank you for Visiting PathFinder,\n
+        If you need to contact us send us an email at PathFinder@gmail.com or vist us at our website.</string>
     <string name="btn_wipe_info">Wipe Details</string>
+    <string name="path_instructions">Instructions:\n\nYou must select 1 item on each drop down,\nif you are unsure of your current location use the scanner to find your location,\nOnce both drop downs have items selected press the Start Path Button</string>
 
 
 </resources>
