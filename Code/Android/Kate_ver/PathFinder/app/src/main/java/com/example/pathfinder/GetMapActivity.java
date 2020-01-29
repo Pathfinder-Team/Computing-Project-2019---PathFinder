@@ -30,13 +30,24 @@ public class GetMapActivity extends AppCompatActivity {
     static String orgName = "Limerick Institute of Technology";
     static String org_building ="LIT Thurles";
     // URL to get contacts JSON
+<<<<<<< HEAD
     //private static String url = "https://pathsearcher.azurewebsites.net/ActionJson?org_name="+orgName+"&org_building="+org_building;
     private static String url = "http://10.0.2.2:8080/PathFinder/ActionJson?org_name="+orgName+"&org_building="+org_building;
+=======
+    private static String url = "https://pathsearcher.azurewebsites.net/ActionJson?org_name="+orgName+"&org_building="+org_building;
+    //private static String url = "http://10.0.2.2:8080/PathFinder/ActionJson?org_name="+orgName+"&org_building="+org_building;
+>>>>>>> f1e529aef7d155b0bce6395396de9fceef00be9a
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_map);
+
+        Bundle extras = getIntent().getExtras();
+        String orgName =  extras.getString("orgName");
+        String org_building = extras.getString("org_building");
+
+        url = "http://10.0.2.2:8080/PathFinder/ActionJson?org_name="+orgName+"&org_building="+org_building;
 
         new GetMapPoints().execute();
     }
@@ -47,7 +58,7 @@ public class GetMapActivity extends AppCompatActivity {
             super.onPreExecute();
             // Showing progress dialog
             pDialog = new ProgressDialog(GetMapActivity.this);
-            pDialog.setMessage("Please wait...");
+            pDialog.setMessage("Updating Map Please wait...");
             pDialog.setCancelable(false);
             pDialog.show();
 

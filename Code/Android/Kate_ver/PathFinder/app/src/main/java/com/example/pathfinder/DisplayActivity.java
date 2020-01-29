@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -28,6 +30,10 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
     public static int selected_map_id = 0;
     public ArrayList<Node> getCurrentLocationDetails = null;
     public ArrayList<Node> getNextLocationDetails = null;
+<<<<<<< HEAD
+=======
+    public ArrayList<Bitmap> buildingMaps = null;
+>>>>>>> f1e529aef7d155b0bce6395396de9fceef00be9a
     ArrayList<Node> specialOmega = null;
     ImageView imageView;
     int currentImage = 0;
@@ -37,9 +43,15 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);
+        buildingMaps = new ArrayList<>();
+        specialOmega = new ArrayList<>();
+        getBuildingMaps();
 
         Bundle extras = getIntent().getExtras();
+<<<<<<< HEAD
         specialOmega = new ArrayList<>();
+=======
+>>>>>>> f1e529aef7d155b0bce6395396de9fceef00be9a
         getCurrentLocationDetails = (ArrayList<Node>) extras.getSerializable("current_selected");
         current_selected_id = getCurrentLocationDetails.get(0).current_point_id;
         current_selected_name = getCurrentLocationDetails.get(0).point_name;
@@ -52,8 +64,7 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
 
         db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
         setup.setUpMap(db);
-        setInitialImage();
-        setImageRotateListener();
+        db.close();
     }
 
     private void setImageRotateListener() {
@@ -62,7 +73,7 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onClick(View arg0) {
                 currentImage++;
-                if (currentImage == OrgActivity.allOrgBuildingDetails.size()) {
+                if (currentImage == buildingMaps.size()) {
                     currentImage = 0;
                 }
                 setCurrentImage();
@@ -76,7 +87,7 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
 
     private void setCurrentImage() {
         imageView = findViewById(R.id.map_image);
-        Bitmap bittymap = OrgActivity.allOrgBuildingDetails.get(currentImage).map_image;
+        Bitmap bittymap = buildingMaps.get(currentImage);
         imageView.setImageBitmap(bittymap);
     }
 
@@ -110,9 +121,8 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
 
                     Node nameNode = new Node(cur.getInt(0),cur.getString(1));
                     nameArray.add(nameNode);
-                    //String fromPointName ;
-                    //String toPointName;
             }
+<<<<<<< HEAD
             //System.out.println("Check 1"+specialOmega.get(0).fromPointId);
             //System.out.println("Check 2 "+specialOmega.get(0).toPointId);
             for (int i = 0; i < specialOmega.size();i++)
@@ -123,6 +133,38 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
         }
         Node edge = new Node("Hey","There","Delilah");
         foundPointNames.add(edge);
+=======
+            String name1 = "";
+            String name2 = "";
+            for (int i = 0; i < specialOmega.size();i++)
+            {
+                int local_num_1 = specialOmega.get(i).fromPointId;
+                int local_num_2 = specialOmega.get(i).toPointId;
+                String local_direction_value = specialOmega.get(i).pointDirection;
+
+                for(int j = 0; j < nameArray.size();j++)
+                {
+                    if(local_num_1 == nameArray.get(j).point)
+                    {
+                        name1 = "";
+                        name1 = nameArray.get(j).name;
+                    }
+                    if(local_num_2 == nameArray.get(j).point)
+                    {
+                        name2="";
+                        name2 = nameArray.get(j).name;
+                    }
+
+                }
+
+                local_direction_value = makePretty(local_direction_value);
+                Node edge = new Node(name1,name2,local_direction_value);
+                foundPointNames.add(edge);
+                //System.out.println("Size: "+specialOmega.size());
+                //System.out.println("i: "+i);
+            }
+        }
+>>>>>>> f1e529aef7d155b0bce6395396de9fceef00be9a
         return foundPointNames;
     }
     public void onClick(View view)
@@ -134,5 +176,53 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(intent);
                 break;
         }
+    }
+    public String makePretty(String local_variable)
+    {
+
+        if(local_variable.equals("straight_ahead"))
+        {
+            local_variable = "Head Straight ahead to reach the next destination";
+        }
+        else if(local_variable.equals("turn_left"))
+        {
+            local_variable = "Turn left ahead to reach the next destination";
+        }
+        else if(local_variable.equals("turn_right"))
+        {
+            local_variable = "Turn right ahead to reach the next destination";
+        }
+        else if(local_variable.equals("upstairs"))
+        {
+            local_variable = "Head up stairs to reach the next destination";
+        }
+        else if(local_variable.equals("downstairs"))
+        {
+            local_variable = "Head down stairs to reach the next destination";
+        }
+        return local_variable;
+    }
+    public void getBuildingMaps()
+    {
+        System.out.println("Check Here");
+        db = openOrCreateDatabase("mapDB", Context.MODE_PRIVATE, null);
+        if (db != null)
+        {
+            Cursor cc = db.rawQuery("select map_image from map_information", null);
+            if (cc != null)
+            {
+                while (cc.moveToNext())
+                {
+                    byte[] decodedString = Base64.decode(cc.getString(0), Base64.DEFAULT);
+                    Bitmap map_image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    System.out.println("Map_Image: "+map_image);
+                    buildingMaps.add(map_image);
+                }
+            }
+            db.close();
+        }
+        System.out.println("before call");
+        setInitialImage();
+        setImageRotateListener();
     }
 }
