@@ -14,7 +14,7 @@
     <string name="current_dest">Starting Location</string>
     <string name="next_dest">Final Destination</string>
     <string name="path_info_message">Path Information</string>
-    <string name="display_information"> Directions</string>
+    <string name="display_information"></string>
     <string name="updated">The Map Has Been Updated</string>
     <string name="select_organisation">Select Organisation</string>
     <string name="select_building">Select Building</string>

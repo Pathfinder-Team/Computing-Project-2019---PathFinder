@@ -104,12 +104,18 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
         ArrayList<Node> foundPointNames = new ArrayList<>();
         foundPointNames = findPointNames(foundPointNames);
         for(int i = 0; i <  foundPointNames.size(); i++) {
-            String combo = "Location: " + foundPointNames.get(i).fromPointName + "\nDirection:" + foundPointNames.get(i).pointDirectionName + "\nNext Location:" + foundPointNames.get(i).toPointName + "\n";
+            String combo = "Location: " + foundPointNames.get(i).fromPointName + "\n\nDirection:" + foundPointNames.get(i).pointDirectionName + "\nNext Location:" + foundPointNames.get(i).toPointName + "\n";
             //mes3.append("Location: " + foundPointNames.get(i).fromPointName);
             //mes3.append("\nDirection:" + foundPointNames.get(i).pointDirectionName);
             //mes3.append("\nNext Location:" + foundPointNames.get(i).toPointName);
             mes3.append(combo);
-            mes3.append("\n\n");
+            mes3.append("\n");
+            mes3.append("---------------- Next Instructions ---------------------------\n\n");
+            if(selected_name.equals(foundPointNames.get(i).toPointName))
+            {
+                mes3.append("\nYou have arrived at the "+selected_name+".\n");
+                mes3.append("\nCongratulations Your Amazing.");
+            }
         }
     }
     public ArrayList<Node> findPointNames(ArrayList<Node> foundPointNames)
@@ -173,23 +179,23 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
 
         if(local_variable.equals("straight_ahead"))
         {
-            local_variable = "Head Straight ahead to reach the next destination";
+            local_variable = "\nHead Straight ahead\nto reach the next destination.\n";
         }
         else if(local_variable.equals("turn_left"))
         {
-            local_variable = "Turn left ahead to reach the next destination";
+            local_variable = "\nTurn left ahead\nto reach the next destination.\n";
         }
         else if(local_variable.equals("turn_right"))
         {
-            local_variable = "Turn right ahead to reach the next destination";
+            local_variable = "\nTurn right ahead\nto reach the next destination.\n";
         }
         else if(local_variable.equals("upstairs"))
         {
-            local_variable = "Head up stairs to reach the next destination";
+            local_variable = "\nHead up stairs to\nreach the next destination.\n";
         }
         else if(local_variable.equals("downstairs"))
         {
-            local_variable = "Head down stairs to reach the next destination";
+            local_variable = "\nHead Down Stairs to\nreach the next destination.\n";
         }
         return local_variable;
     }
