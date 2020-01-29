@@ -38,7 +38,6 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
 
         db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
         if(db != null) {
-            createBuildingTable();
             populateTables();
         }
 
@@ -63,8 +62,12 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
             spin2.setAdapter(adapter2);
             spin2.setOnItemSelectedListener(this);
 
-            Button btn_update_map = (Button) findViewById(R.id.btn_update_org);
+            Button btn_update_org = (Button) findViewById(R.id.btn_update_org);
+            btn_update_org.setOnClickListener(this);
+
+            Button btn_update_map = (Button) findViewById(R.id.btn_update_map);
             btn_update_map.setOnClickListener(this);
+
         }
         else
         {
@@ -165,20 +168,6 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
                 break;
 
         }
-    }
-    public void createBuildingTable()
-    {
-        db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
-        db.execSQL("DROP TABLE IF EXISTS building_details");
-        db.execSQL("DROP TABLE IF EXISTS map_information");
-
-        db.execSQL("CREATE TABLE IF NOT EXISTS " +
-                "building_details(" +
-                "building_name varchar);");
-
-        db.execSQL("CREATE TABLE IF NOT EXISTS " +
-                "map_information(" +
-                "map_image varchar);");
     }
     public void populateTables()
     {

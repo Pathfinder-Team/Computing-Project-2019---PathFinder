@@ -45,18 +45,23 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
         getBuildingMaps();
 
         Bundle extras = getIntent().getExtras();
-        getCurrentLocationDetails = (ArrayList<Node>) extras.getSerializable("current_selected");
-        current_selected_id = getCurrentLocationDetails.get(0).current_point_id;
-        current_selected_name = getCurrentLocationDetails.get(0).point_name;
-        current_selected_map_id = getCurrentLocationDetails.get(0).maps_map_id;
+            getCurrentLocationDetails = (ArrayList<Node>) extras.getSerializable("current_selected");
 
-        getNextLocationDetails = (ArrayList<Node>) extras.getSerializable("selected_destination");
-        selected_destination_id = getNextLocationDetails.get(0).current_point_id;
-        selected_name = getNextLocationDetails.get(0).point_name;
-        selected_map_id = getNextLocationDetails.get(0).maps_map_id;
+            if(getCurrentLocationDetails.size() > 0) {
+                current_selected_id = getCurrentLocationDetails.get(0).current_point_id;
+                current_selected_name = getCurrentLocationDetails.get(0).point_name;
+                current_selected_map_id = getCurrentLocationDetails.get(0).maps_map_id;
+
+                getNextLocationDetails = (ArrayList<Node>) extras.getSerializable("selected_destination");
+                selected_destination_id = getNextLocationDetails.get(0).current_point_id;
+                selected_name = getNextLocationDetails.get(0).point_name;
+                selected_map_id = getNextLocationDetails.get(0).maps_map_id;
+            }
 
         db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
-        setup.setUpMap(db);
+        if(getCurrentLocationDetails.size() > 0) {
+            setup.setUpMap(db);
+        }
         db.close();
     }
 
@@ -80,14 +85,15 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
 
     private void setCurrentImage() {
         imageView = findViewById(R.id.map_image);
-        Bitmap bittymap = buildingMaps.get(currentImage);
-        imageView.setImageBitmap(bittymap);
+        if(buildingMaps.size() > 0) {
+            Bitmap bittymap = buildingMaps.get(currentImage);
+            imageView.setImageBitmap(bittymap);
+        }
     }
 
     protected void onStart()
     {
         super.onStart();
-
         TextView mes1 = (TextView)findViewById(R.id.display_current);
         TextView mes2 =  (TextView)findViewById(R.id.display_next);
         TextView mes3 =  (TextView)findViewById(R.id.display_path_information);

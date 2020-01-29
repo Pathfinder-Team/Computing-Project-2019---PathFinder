@@ -76,25 +76,6 @@ public class GetOrgActivity extends AppCompatActivity
                     JSONArray PathFinderMap = jsonObj.getJSONArray("org_details");
 
                     db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
-                    db.execSQL("DROP TABLE IF EXISTS org_details");
-                    db.execSQL("DROP TABLE IF EXISTS map_details");
-
-                    db.execSQL("CREATE TABLE IF NOT EXISTS " +
-                            "org_details(" +
-                            "organisation_name varchar ," +
-                            "organisation_address varchar ," +
-                            "organisation_email varchar," +
-                            "organisation_mobile varchar," +
-                            "organisation_building_name varchar);");
-
-                    db.execSQL("CREATE TABLE IF NOT EXISTS " +
-                            "map_details(" +
-                            "map_id int ," +
-                            "org_name varchar," +
-                            "org_building varchar," +
-                            "map_name varchar," +
-                            "map_comments varchar," +
-                            "map_image varchar);");
 
                     for (int i = 0; i < PathFinderMap.length(); i++) {
 
