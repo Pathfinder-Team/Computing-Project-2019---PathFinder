@@ -30,7 +30,10 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
     public static int selected_map_id = 0;
     public ArrayList<Node> getCurrentLocationDetails = null;
     public ArrayList<Node> getNextLocationDetails = null;
+<<<<<<< HEAD
+=======
     public ArrayList<Bitmap> buildingMaps = null;
+>>>>>>> f1e529aef7d155b0bce6395396de9fceef00be9a
     ArrayList<Node> specialOmega = null;
     ImageView imageView;
     int currentImage = 0;
@@ -45,7 +48,18 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
         getBuildingMaps();
 
         Bundle extras = getIntent().getExtras();
+<<<<<<< HEAD
             getCurrentLocationDetails = (ArrayList<Node>) extras.getSerializable("current_selected");
+=======
+<<<<<<< HEAD
+        specialOmega = new ArrayList<>();
+=======
+>>>>>>> f1e529aef7d155b0bce6395396de9fceef00be9a
+        getCurrentLocationDetails = (ArrayList<Node>) extras.getSerializable("current_selected");
+        current_selected_id = getCurrentLocationDetails.get(0).current_point_id;
+        current_selected_name = getCurrentLocationDetails.get(0).point_name;
+        current_selected_map_id = getCurrentLocationDetails.get(0).maps_map_id;
+>>>>>>> ed1053851b21627f412313b698f0f4966662bbf9
 
             if(getCurrentLocationDetails.size() > 0) {
                 current_selected_id = getCurrentLocationDetails.get(0).current_point_id;
@@ -121,6 +135,18 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
                     Node nameNode = new Node(cur.getInt(0),cur.getString(1));
                     nameArray.add(nameNode);
             }
+<<<<<<< HEAD
+            //System.out.println("Check 1"+specialOmega.get(0).fromPointId);
+            //System.out.println("Check 2 "+specialOmega.get(0).toPointId);
+            for (int i = 0; i < specialOmega.size();i++)
+            {
+                System.out.println("Size: "+specialOmega.size());
+                System.out.println("i: "+i);
+            }
+        }
+        Node edge = new Node("Hey","There","Delilah");
+        foundPointNames.add(edge);
+=======
             String name1 = "";
             String name2 = "";
             for (int i = 0; i < specialOmega.size();i++)
@@ -151,6 +177,7 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
                 //System.out.println("i: "+i);
             }
         }
+>>>>>>> f1e529aef7d155b0bce6395396de9fceef00be9a
         return foundPointNames;
     }
     public void onClick(View view)
