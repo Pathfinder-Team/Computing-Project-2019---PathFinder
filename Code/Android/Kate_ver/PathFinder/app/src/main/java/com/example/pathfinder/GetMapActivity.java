@@ -164,16 +164,19 @@ public class GetMapActivity extends AppCompatActivity {
             }
             TextView txtView = findViewById(R.id.updatedID);
             callCommitter();
-            if(db != null) {
-                txtView.setText("The Map has been updated");
-                Intent inten = new Intent(GetMapActivity.this, PathFinder.class);
-                startActivity(inten);
-            }
-            else if (db == null)
+
+            if (db == null)
             {
+
                 txtView.setText("The Map has been not been updated, check building or organisations you have chosen");
                 Intent inten = new Intent(GetMapActivity.this, OrgActivity.class);
                 startActivity(inten);
+            }
+            else if(db != null) {
+
+                    txtView.setText("The Map has been updated");
+                    Intent inten = new Intent(GetMapActivity.this, PathFinder.class);
+                    startActivity(inten);
             }
         }
         public void callCommitter()
