@@ -35,10 +35,10 @@ public class GetMapActivity extends AppCompatActivity {
     static String org_building ="";
     // URL to get contacts JSON
     // internet
-    //private static String url = "https://pathsearcher.azurewebsites.net/ActionJson?org_name="+orgName+"&org_building="+org_building;
+    private static String url = "https://pathsearcher.azurewebsites.net/ActionJson?org_name="+orgName+"&org_building="+org_building;
 
     // local database
-    private static String url = "http://10.0.2.2:8080/PathFinder/ActionJson?org_name="+orgName+"&org_building="+org_building+"";
+    //private static String url = "http://10.0.2.2:8080/PathFinder/ActionJson?org_name="+orgName+"&org_building="+org_building+"";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +50,9 @@ public class GetMapActivity extends AppCompatActivity {
         String org_building = extras.getString("org_building");
 
         // local database
-        url = "http://10.0.2.2:8080/PathFinder/ActionJson?org_name="+orgName+"&org_building="+org_building;
+        //url = "http://10.0.2.2:8080/PathFinder/ActionJson?org_name="+orgName+"&org_building="+org_building;
         // internet database
-        //url = "https://pathsearcher.azurewebsites.net/ActionJson?org_name="+orgName+"&org_building="+org_building+"";
+        url = "https://pathsearcher.azurewebsites.net/ActionJson?org_name="+orgName+"&org_building="+org_building+"";
 
         new GetMapPoints().execute();
     }
@@ -171,7 +171,9 @@ public class GetMapActivity extends AppCompatActivity {
             }
             else if (db == null)
             {
-                txtView.setText("The Map has been not been updated");
+                txtView.setText("The Map has been not been updated, check building or organisations you have chosen");
+                Intent inten = new Intent(GetMapActivity.this, OrgActivity.class);
+                startActivity(inten);
             }
         }
         public void callCommitter()

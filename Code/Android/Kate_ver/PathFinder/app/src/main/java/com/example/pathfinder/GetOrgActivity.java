@@ -5,29 +5,17 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.sql.Blob;
-import java.util.ArrayList;
-import java.util.Base64.Decoder;
-import java.util.Base64.Encoder;
-
-
 
 public class GetOrgActivity extends AppCompatActivity
 {
@@ -41,17 +29,15 @@ public class GetOrgActivity extends AppCompatActivity
 
     // URL to get contacts JSON
     // internet database
-    //private static String url = "https://pathsearcher.azurewebsites.net/ActionJsonOrg";
+    private static String url = "https://pathsearcher.azurewebsites.net/ActionJsonOrg";
 
     // local database
-    private static String url = "http://10.0.2.2:8080/PathFinder/ActionJsonOrg";
+    //private static String url = "http://10.0.2.2:8080/PathFinder/ActionJsonOrg";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_org);
-
-
         new GetOrgDetails().execute();
     }
     @Override
@@ -87,6 +73,8 @@ public class GetOrgActivity extends AppCompatActivity
                     JSONArray PathFinderMap = jsonObj.getJSONArray("org_details");
 
                     db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
+                    SpecialClass specialClass = new SpecialClass();
+                    specialClass.Wipe(db);
 
                     for (int i = 0; i < PathFinderMap.length(); i++) {
 
@@ -157,7 +145,6 @@ public class GetOrgActivity extends AppCompatActivity
                                 .show();
                     }
                 });
-
             }
             return null;
         }
