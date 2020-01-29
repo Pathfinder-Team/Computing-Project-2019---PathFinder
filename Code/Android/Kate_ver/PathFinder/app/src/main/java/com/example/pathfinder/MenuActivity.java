@@ -37,9 +37,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_scan:
                 intent = new Intent(this, ScanActivity.class);
-                Bundle extras1 = new Bundle();
-                extras1.putString("ActivityName","MenuActivity");
-                intent.putExtras(extras1);
                 startActivity(intent);
                 break;
             case R.id.btn_contact:

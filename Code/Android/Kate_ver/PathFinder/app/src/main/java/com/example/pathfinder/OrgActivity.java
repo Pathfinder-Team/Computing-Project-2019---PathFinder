@@ -93,7 +93,7 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
     public ArrayList<String> getOrgNames()
     {
         db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
-        if(db != null)
+        if(db!= null)
         {
             Cursor c = db.rawQuery("select * from org_details", null);
             if( c != null) {
@@ -103,6 +103,7 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
                     }
                 }
             }
+            c.close();
             return orgNames;
         }
         else
@@ -137,6 +138,7 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
                     }
                 }
             }
+            cc.close();
             return orgBuildings;
         }
         else
@@ -189,6 +191,7 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
                 db.execSQL("INSERT INTO building_details VALUES('"+organisation_building_name+"')");
             }
         }
+        buildCur.close();
 
         Cursor buildImage = db.rawQuery("select map_image from map_details", null);
         if(buildImage != null)
@@ -200,5 +203,6 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
                 db.execSQL("INSERT INTO map_information VALUES('"+map_image+"')");
             }
         }
+        buildImage.close();
     }
 }

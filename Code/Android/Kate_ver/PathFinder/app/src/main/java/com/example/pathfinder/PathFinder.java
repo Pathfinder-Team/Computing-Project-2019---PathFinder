@@ -38,6 +38,8 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_path_finder);
 
+
+
         Intent intent = getIntent();
         ActExtra = intent.getExtras();
         if(ActExtra != null)
@@ -118,45 +120,46 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
 
     public ArrayList<String> getPointName()
     {
-        System.out.println("getPointName");
-        Counter++;
         db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
         if(db != null)
         {
-
             Cursor c = db.rawQuery("select * from map_points", null);
-            System.out.println("Check C: "+c.getCount());
             if (c.getCount() != pointNames.size()) {
                 while (c.moveToNext()) {
-                    System.out.println("Special: " + c.getString(1));
                     pointNames.add(c.getString(1));
                 }
-                System.out.println("pointNames: "+pointNames.size());
             }
+            c.close();
+            return pointNames;
         }
-        return pointNames;
+        else
+        {
+            return null;
+        }
     }
 
     public ArrayList<Node> getMapPoints()
     {
-        Counter++;
         db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
         if(db != null)
         {
             Cursor c = db.rawQuery("select * from map_points", null);
-            //System.out.println("Check C: "+c.getCount());
-            if (c.getCount() != mapPoints.size()) {
+            if (c.getCount() > 0) {
                 while (c.moveToNext()) {
-                    //System.out.println("Special: " + c.getString(1));
                     Node edge = new Node (c.getInt(0),
                             c.getString(1),
                             c.getInt(2));
                     mapPoints.add(edge);
                 }
-                //System.out.println("pointNames: "+pointNames.size());
+                c.close();
             }
+            return mapPoints;
         }
-        return mapPoints;
+        else
+        {
+            return null;
+        }
+
     }
 
     public void onClick(View view)
@@ -166,8 +169,6 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
             case R.id.btn_find_destination:
                 intent = new Intent(this, DisplayActivity.class);
                 Bundle extras = new Bundle();
-                //System.out.println(" returnMapPointsCurrent "+returnMapPointsCurrent.get(0).point_name);
-                //System.out.println(" returnMapPointsDestination "+returnMapPointsDestination.get(0).point_name);
                 extras.putSerializable("current_selected", (Serializable) returnMapPointsCurrent);
                 extras.putSerializable("selected_destination", (Serializable) returnMapPointsDestination);
                 intent.putExtras(extras);
@@ -189,7 +190,6 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
         {
             if(location.equals(pointNames.get(i)))
             {
-                //System.out.println("##################### I: "+i);
                 return i;
             }
         }
