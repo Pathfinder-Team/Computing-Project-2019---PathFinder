@@ -30,6 +30,14 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
     ArrayList<String> orgNames = null;
     ArrayList<String> orgBuildings = null;
     public static ArrayList<OrgNode> allOrgBuildingDetails = null;
+<<<<<<< HEAD
+    static String orgName = "Limerick Institute of Technology";
+    static String org_building ="LIT Thurles";
+    // URL to get contacts JSON
+    //private static String url = "https://pathsearcher.azurewebsites.net/ActionJsonOrg";
+    private static String url = "http://10.0.2.2:8080/PathFinder/ActionJson";
+=======
+>>>>>>> f1e529aef7d155b0bce6395396de9fceef00be9a
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
