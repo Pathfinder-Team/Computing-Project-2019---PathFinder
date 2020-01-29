@@ -48,7 +48,7 @@
             <nav id="menu">
                 <ul>
                     <li><a href="index.html" >ABOUT US</a></li>
-                    <li><a href="register.jsp">REGISTER</a></li>
+                    <li><a href="register.html">REGISTER</a></li>
                     <li><a href="login.html" class="current">LOGIN</a></li>
                     <li><a href="contact.html" >CONTACT US</a></li>
                 </ul>

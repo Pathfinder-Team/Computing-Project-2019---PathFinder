@@ -91,12 +91,18 @@
             <nav id="menu">
                 <ul>
                     <li><a href="index.html" >ABOUT US</a></li>
-                    <li><a href="register.jsp" class="current">REGISTER</a></li>
+                    <li><a href="register.html" class="current">REGISTER</a></li>
                     <li><a href="login.html" >LOGIN</a></li>
                     <li><a href="contact.html" >CONTACT US</a></li>
                 </ul>
             </nav>
             <main>
+			<%
+				if (null != request.getAttribute("orgList"))
+				{
+					ArrayList<String> orgLists = request.getAttribute("orgList");
+				}
+			%>
                 <section id="form">
 
                     <h1>Register</h1>
