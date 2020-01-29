@@ -100,7 +100,9 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
             if( c != null) {
                 if (c.getCount() != orgNames.size() && c.getCount() > 0) {
                     while (c.moveToNext()) {
-                        orgNames.add(c.getString(0));
+                        if(!orgNames.contains(c.getString(0))) {
+                            orgNames.add(c.getString(0));
+                        }
                     }
                 }
             }

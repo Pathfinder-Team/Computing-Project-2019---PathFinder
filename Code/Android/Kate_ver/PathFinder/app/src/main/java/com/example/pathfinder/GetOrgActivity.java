@@ -53,7 +53,10 @@ public class GetOrgActivity extends AppCompatActivity
     }
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, OrgActivity.class));
+        //startActivity(new Intent(this, OrgActivity.class));
+        Intent intent = new Intent(GetOrgActivity.this, OrgActivity.class);
+        startActivity(intent);
+        finish();
     }
     private class GetOrgDetails extends AsyncTask<Void, Void, Void> {
 

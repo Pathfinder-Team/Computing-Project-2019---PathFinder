@@ -64,12 +64,12 @@ public class SplashActivity extends AppCompatActivity {
     {
         db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
 
-        db.execSQL("DROP TABLE IF EXISTS building_details");
+        //db.execSQL("DROP TABLE IF EXISTS building_details");
         db.execSQL("DROP TABLE IF EXISTS map_information");
         db.execSQL("DROP TABLE IF EXISTS map_points");
         db.execSQL("DROP TABLE IF EXISTS special_points");
-        db.execSQL("DROP TABLE IF EXISTS org_details");
-        db.execSQL("DROP TABLE IF EXISTS map_details");
+        //db.execSQL("DROP TABLE IF EXISTS org_details");
+        //db.execSQL("DROP TABLE IF EXISTS map_details");
 
         db.execSQL("CREATE TABLE IF NOT EXISTS " +
                 "org_details(" +

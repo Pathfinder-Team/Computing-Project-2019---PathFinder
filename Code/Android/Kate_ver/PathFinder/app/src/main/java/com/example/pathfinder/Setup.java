@@ -11,6 +11,10 @@ public class Setup
 {
     ArrayList<Node> points_array = new ArrayList();
     ArrayList<Node> map_points_array = new ArrayList();
+
+    ArrayList<MapNode> sortMapPoints = new ArrayList<>();
+    ArrayList<MapNode> sortSpecialPoints = new ArrayList<>();
+
     public static ArrayList<Node> finalDirectionsArray = new ArrayList();
 
     public Setup()
@@ -19,24 +23,20 @@ public class Setup
     }
     public void setUpEverythingArrays(SQLiteDatabase db)
     {
+        int counter = 1;
         Cursor c = db.rawQuery("select * from map_points",null);
         while (c.moveToNext()) {
             Node edge = new Node(c.getInt(0),
                     c.getString(1),
                     c.getInt(2));
-            //Node edge = new Node(result.getInt("current_point_id"), result.getString("point_name"), result.getInt("maps_map_id"));
+            //counter++;
+            MapNode mp = new MapNode(counter++,c.getInt(0));
+            //sortMapPoints.add(mp);
             map_points_array.add(edge);
         }
+
         Cursor cd = db.rawQuery("select * from special_points",null);
         while (cd.moveToNext()) {
-
-            /*
-            System.out.println("point_id: "+cd.getInt(0));
-            System.out.println("point_from_id: "+cd.getInt(1));
-            System.out.println("point_to_id: "+cd.getInt(2));
-            System.out.println("point_weight: "+cd.getInt(3));
-            System.out.println("point_direction: "+cd.getString(4));
-            */
             Node edge = new Node(cd.getInt(0),
                     cd.getInt(1),
                     cd.getInt(2),
@@ -44,20 +44,26 @@ public class Setup
                     cd.getString(4));
             points_array.add(edge);
         }
+
+        //callValueSorter();
         db.close();
-
-        /*
-        for(int i = 0; i < points_array.size(); i++)
-        {
-            System.out.println("point_id"+points_array.get(i).point_id);
-            System.out.println("point_from_id"+points_array.get(i).point_from_id);
-            System.out.println("point_to_id"+points_array.get(i).point_to_id);
-            System.out.println("point_weight"+points_array.get(i).point_weight);
-            System.out.println("point_direction"+points_array.get(i).point_direction);
-        }
-
-         */
     }
+
+    /*
+    public void callValueSorter()
+    {
+        for(int i = 0; i < sortMapPoints.size(); i++)
+        {
+            if(sortMapPoints.get(i).oldNum == map_points_array.get(i).current_point_id)
+            {
+                System.out.println("check 1: "+map_points_array.get(i).current_point_id);
+                System.out.println("check 2: "+sortMapPoints.get(i).newNum);
+                map_points_array.get(i).current_point_id = sortMapPoints.get(i).newNum;
+            }
+        }
+    }
+
+     */
     public void setupEdges(Graph graph) {
         for (int i = 0; i < map_points_array.size(); i++)
         {
