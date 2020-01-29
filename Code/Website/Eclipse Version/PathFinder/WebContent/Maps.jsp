@@ -99,7 +99,7 @@
 		<nav id="menu">
 			<ul>
 				<li><a href="index.html">ABOUT US</a></li>
-				<li><a href="register.html">REGISTER</a></li>
+				<li><a href="register.jsp">REGISTER</a></li>
 				<li><a href="login.html">LOGIN</a></li>
 				<li><a href="contact.html">CONTACT US</a></li>
 			</ul>
@@ -113,8 +113,12 @@
 					<li><a href="ControlDB">Control</a></li>
 				</ul>
 				<br> <br>
-				<p>Here you can upload maps:</p>
-				<br>
+				<p>Instructions:</p>
+				<ol>
+					<li><p>1. Upload a Map</p></li>
+					<li><p>2. Add Map point</p></li>
+					<li><p>3. Add the connections between Point A and Point B</p></li>
+				</ol>
 				
 				<!-- 
 				<p>

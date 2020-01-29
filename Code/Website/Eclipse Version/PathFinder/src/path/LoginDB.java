@@ -25,13 +25,11 @@ public class LoginDB extends HttpServlet
     Connection conn;
     Statement stmt;
     ResultSet result;
-    
-   
-	
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
 
+    	System.out.println("LoginDB");
     	SQLConnection connect = new SQLConnection();
         try
         {
@@ -41,7 +39,7 @@ public class LoginDB extends HttpServlet
             conn = DriverManager.getConnection(connect.URL, connect.USERNAME, connect.PASSWORD);
             //conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/?user=root");
             
-            System.out.println("Connected");
+            System.out.println("Connected Login");
         } catch (ClassNotFoundException | SQLException e)
         {
             System.err.println("Error 1 " + e);
@@ -52,13 +50,16 @@ public class LoginDB extends HttpServlet
         String checkUsername = request.getParameter("user_name");
         String checkPassowrd = request.getParameter("password");
         
+        System.out.println("checkUsername: "+checkUsername);
+        System.out.println("checkPassowrd: "+checkPassowrd);
+        
         boolean found = false;
         PreparedStatement prepStat;
         try
         {
             
             // query to get the user, password from users table where the user_name = username you get from the form
-            String query = " select user_name,password from users where user_name = ?";
+            String query = "select user_name,password from users where user_name = ?";
             prepStat = conn.prepareStatement(query);
             prepStat.setString(1, checkUsername);
             result = prepStat.executeQuery();
@@ -86,19 +87,19 @@ public class LoginDB extends HttpServlet
 
                 response.addCookie(cookUsername);
                 response.addCookie(cookPassword);
-                String getNameRights = checkUsername;
+
                 response.sendRedirect("ControlDB");
             } else
             {
                 // display a message using a jsp page that the was an error
                 String errorMessage = "The retrived password or username did not match";
                 request.setAttribute("error", errorMessage);
-                RequestDispatcher rd = request.getRequestDispatcher("/login.html");
+                RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
                 rd.forward(request, response);
             }
         } catch (IOException | SQLException e)
         {
-            System.err.println("Special Login Warning" + e);
+            System.err.println("Special Login Warning: " + e);
         }
     }
 

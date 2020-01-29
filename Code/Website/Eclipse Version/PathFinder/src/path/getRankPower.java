@@ -77,7 +77,7 @@ public class getRankPower
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
-			System.err.println("Error 8s" + ex);
+			System.err.println("Error 8s: " + ex);
 		}
 	}
 	public void getStatusRank(HttpServletRequest request, HttpServletResponse response, Statement stmt,Connection conn)
@@ -129,9 +129,7 @@ public class getRankPower
 			Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
 			System.err.println("Error 9" + ex);
 		}
-		
 	}
-	
 	// 1
 	public static void setUserNameRights(String userNameRights)
 	{

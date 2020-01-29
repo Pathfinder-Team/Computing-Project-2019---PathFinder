@@ -8,11 +8,11 @@
         <script type="text/javascript">
             function validateAll()
             {
-                var orgname = document.getElementById("orgname").value;
-                var orgaddress = document.getElementById("orgaddress").value;
-                var orgemail = document.getElementById("orgemail").value;
-                var orgmobile = document.getElementById("orgmobile").value;
-                var orgbuildname = document.getElementById("orgbuildname").value;
+                var orgname = document.getElementById("organisation_name").value;
+                var orgaddress = document.getElementById("organisation_address").value;
+                var orgemail = document.getElementById("organisation_email").value;
+                var orgmobile = document.getElementById("organisation_mobile").value;
+                var orgbuildname = document.getElementById("organisation_building_name").value;
 
                 if (validate_req(orgname, orgaddress, orgemail, orgmobile, orgbuildname) == true)
                     return true;
@@ -63,7 +63,7 @@
                 <ul>
                     <li><a href="index.html" >ABOUT US</a></li>
                     <li><a href="register.html" class="current">REGISTER</a></li>
-                    <li><a href="login.html" >LOGIN</a></li>
+                    <li><a href="login.jsp" >LOGIN</a></li>
                     <li><a href="contact.html" >CONTACT US</a></li>
                 </ul>
             </nav>
@@ -80,8 +80,8 @@
                             <p><label for="organisation_name" class="title">Organisation Name: <span>*</span></label>
                                 <input type="text" name="organisation_name" id="organisation_name" /></p>
 
-                            <p><label for="organisation address" class="title">Organisation Address: <span>*</span></label>
-                                <input type="text" name="organisation address" id="organisation address" /></p>
+                            <p><label for="organisation_address" class="title">Organisation Address: <span>*</span></label>
+                                <input type="text" name="organisation_address" id="organisation_address" /></p>
 
                             <p><label for="organisation_email" class="title">Organisation Email: <span>*</span></label>
                                 <input type="email" name="organisation_email" id="organisation_email" /></p>

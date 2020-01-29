@@ -2,15 +2,12 @@ package com.example.pathfinder;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
-
 
 
     @Override
@@ -20,7 +17,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         Button btn_org = (Button) findViewById(R.id.btn_org);
         btn_org.setOnClickListener(this);
-
 
         Button btn_contact = (Button) findViewById(R.id.btn_contact);
         btn_contact.setOnClickListener(this);

@@ -38,7 +38,7 @@ public class ControlDB extends HttpServlet
             // setup the connection with the DB
             conn = DriverManager.getConnection(connect.URL, connect.USERNAME, connect.PASSWORD);
             
-            System.out.println("Connected");
+            System.out.println("Connected ControlDB");
         } catch (ClassNotFoundException | SQLException e)
         {
             System.err.println("Error 1" + e);
@@ -52,7 +52,7 @@ public class ControlDB extends HttpServlet
 		
 		rp.getStatusRank(request,response,stmt,conn);
 		
-		System.out.println(" rp.getUserNameRights() ControlDB: "+ rp.getUserNameRights());
+		//System.out.println(" rp.getUserNameRights() ControlDB: "+ rp.getUserNameRights());
 		
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -73,7 +73,7 @@ public class ControlDB extends HttpServlet
                 + "              <nav id=\"menu\">"
                 + "               <ul>"
                 + "                 <li><a href=\"index.html\" >ABOUT US</a></li>"
-                + "                 <li><a href=\"register.html\" >REGISTER</a></li>"
+                + "                 <li><a href=\"register.jsp\" >REGISTER</a></li>"
                 + "                 <li><a href=\"login.html\" >LOGIN</a></li>"
                 + "                 <li><a href=\"contact.html\" >CONTACT US</a></li>"
                 + "             </ul>"
@@ -94,29 +94,23 @@ public class ControlDB extends HttpServlet
             // if AccountStatusRights which determines if your an admin or normal user equals 1 then you are an admin
             if (rp.getStatusRights() == 1)
             {
-                out.println("<h2>Welcome to the Administrator Control Panel</h2>"
+                out.println("<h2>Administrator Control Panel</h2>"
                         + "<h3>Controls</h3>"
-                        + "<form action=\"ChangeDetailsDB\">"
                         + "<h4>Username: " + rp.getUserNameRights() + "</h4>"
                         + "<h4>Email: " + rp.getEmailRights() + "</h4>"
-                        + "<h4>Organization: " + rp.getOrgRights() + "</h4>"
-                        + "<button type=\"submit\" >Edit Details</button>"
-                        + "</form>");
+                        + "<h4>Organization: " + rp.getOrgRights() + "</h4>");
 
             } else if (rp.getStatusRights() == 2)
             {
-                out.println("<h2>Welcome to the User Control Panel</h2>"
+                out.println("<h2>User Control Panel</h2>"
                         + "<h3 style=\"text-align:left\">Controls</h3>"
-                        + "<form action=\"ChangeDetailsDB\">"
                         + "<h4>Username: " + rp.getUserNameRights() + "</h4>"
                         + "<h4>Email: " + rp.getEmailRights() + "</h4>"
-                        + "<h4>Organization: " + rp.getOrgRights() + "</h4>"
-                        + "<button type=\"submit\" >Edit Details</button>"
-                        + "</form>");
+                        + "<h4>Organization: " + rp.getOrgRights() + "</h4>");
             } else
             {
-                //response.setHeader("Refresh", "0; authorisation.html");
-                //response.sendRedirect("authorisation.html");
+                response.setHeader("Refresh", "0; authorisation.html");
+                response.sendRedirect("authorisation.html");
             }
             out.println("</section>\n"
                     + "<br>\n"

@@ -55,24 +55,30 @@ public class RegisterDB extends HttpServlet
     	
     	if("RegOrg".equals(whatAction))
     	{
+    		System.out.println("Reg Org ");
             // get the values from the register.html form and store in these 
     		String organisation_name = request.getParameter("organisation_name");
     		String organisation_address = request.getParameter("organisation_address");
     		String organisation_email = request.getParameter("organisation_email");
     		String organisation_mobile = request.getParameter("organisation_mobile");
     		String organisation_building_name = request.getParameter("organisation_building_name");
+    		
+    		System.out.println("organisation_name: "+organisation_name);
+    		System.out.println("organisation_address: "+organisation_address);
+    		System.out.println("organisation_email: "+organisation_email);
+    		System.out.println("organisation_mobile: "+organisation_mobile);
+    		System.out.println("organisation_building_name: "+organisation_building_name);
 
             try
             {
                 // create a query that inserts all form values into the users table
-                String query = "insert into organisation values(?, ?, ?, ?, ?, ?)";
+                String query = "insert into organisation values(?, ?, ?, ?, ?)";
                 prepStat = conn.prepareStatement(query);
                 prepStat.setString(1, organisation_name);
                 prepStat.setString(2, organisation_address);
                 prepStat.setString(3, organisation_email);
                 prepStat.setString(4, organisation_mobile);
-                prepStat.setString(5, organisation_mobile);
-                prepStat.setString(6, organisation_name);
+                prepStat.setString(5, organisation_building_name);
                 prepStat.executeUpdate();
                 
                 response.sendRedirect("login.html");
@@ -80,11 +86,14 @@ public class RegisterDB extends HttpServlet
             } catch (IOException | SQLException e)
             {
 
-                System.err.println("Error 2 " + e);
+                System.err.println("Error registerOrg " + e);
+                response.sendRedirect("registerOrg.html");
+                
             }
     	}
     	else if(("RegUser").equals(whatAction))
     	{
+    		System.out.println("Reg User");
 	        // get the values from the register.html form and store in these
 	        user_name = request.getParameter("user_name");
     	    first_name = request.getParameter("first_name");
@@ -109,12 +118,13 @@ public class RegisterDB extends HttpServlet
 	            prepStat.setInt(9, 2);
 	            prepStat.executeUpdate();
 	            
-	            response.sendRedirect("login.html");
+	            response.sendRedirect("registerUser.html");
 	
 	        } catch (IOException | SQLException e)
 	        {
 	
-	            System.err.println("Error 2 " + e);
+	        	response.sendRedirect("login.html");
+	            System.err.println("Error RegUser " + e);
 	        }
     	}
     }

@@ -13,14 +13,16 @@ import android.widget.TextView;
 
 public class ContactActivity extends AppCompatActivity {
 
-    private EditText urlText;
-    private TextView textView;
+    EditText urlText;
+    TextView textView;
 
     WebView webView;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_contact);
+
+        System.out.println("contact activity");
         urlText = (EditText) findViewById(R.id.url);
         webView = (WebView) findViewById(R.id.webView);
     }

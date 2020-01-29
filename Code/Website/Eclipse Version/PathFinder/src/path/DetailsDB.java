@@ -83,7 +83,7 @@ public class DetailsDB extends HttpServlet {
             // setup the connection with the DB
             conn = DriverManager.getConnection(connect.URL, connect.USERNAME, connect.PASSWORD);
             
-            System.out.println("Connected");
+            System.out.println("Connected DetailsDB");
         } catch (ClassNotFoundException | SQLException e)
         {
             System.err.println("Error 1" + e);
@@ -93,7 +93,7 @@ public class DetailsDB extends HttpServlet {
 			throws ServletException, IOException {
 		///////////////////////////////////////////
 		rp.getStatusRank(request,response,stmt,conn);
-		System.out.println(" rp.getUserNameRights() ControlDB: "+ rp.getUserNameRights());
+		System.out.println(" rp.getUserNameRights() DetailsDB: "+ rp.getUserNameRights());
 		
 		try {
 			//System.out.println("get org details");
@@ -140,7 +140,7 @@ public class DetailsDB extends HttpServlet {
 					+ "<nav id=\"menu\">" 
 					+ "<ul>"
 					+ "<li><a href=\"index.html\" >ABOUT US</a></li>"
-					+ "<li><a href=\"register.html\" >REGISTER</a></li>"
+					+ "<li><a href=\"register.jsp\" >REGISTER</a></li>"
 					+ "<li><a href=\"login.html\" >LOGIN</a></li>"
 					+ "<li><a href=\"contact.html\" >CONTACT US</a></li>"
 					+ "</ul>"

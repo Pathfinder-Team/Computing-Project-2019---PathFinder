@@ -14,11 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".GetOrgActivity"></activity>
+        <activity android:name=".ContactActivity"></activity>
+        <activity android:name=".GetOrgActivity" />
         <activity android:name=".DisplayActivity" />
         <activity android:name=".PathFinder" />
         <activity android:name=".ScanActivity" />
-        <activity android:name=".ContactActivity" />
         <activity android:name=".OrgActivity" />
         <activity android:name=".GetMapActivity" />
         <activity android:name=".MenuActivity" />

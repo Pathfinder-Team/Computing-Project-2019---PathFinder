@@ -77,7 +77,7 @@ public class ActionJsonOrg extends HttpServlet {
             // setup the connection with the DB
             conn = DriverManager.getConnection(connect.URL, connect.USERNAME, connect.PASSWORD);
             
-            System.out.println("Connected");
+            System.out.println("Connected ActionJsonOrg");
         } catch (ClassNotFoundException | SQLException e)
         {
             System.err.println("Error 1" + e);

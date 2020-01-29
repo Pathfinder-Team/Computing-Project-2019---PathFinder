@@ -33,7 +33,10 @@ public class GetMapActivity extends AppCompatActivity {
     static String orgName = "";
     static String org_building ="";
     // URL to get contacts JSON
+    // internet
     //private static String url = "https://pathsearcher.azurewebsites.net/ActionJson?org_name="+orgName+"&org_building="+org_building;
+
+    // local database
     private static String url = "http://10.0.2.2:8080/PathFinder/ActionJson?org_name="+orgName+"&org_building="+org_building+"";
 
     @Override
@@ -45,7 +48,9 @@ public class GetMapActivity extends AppCompatActivity {
         String orgName =  extras.getString("orgName");
         String org_building = extras.getString("org_building");
 
+        // local database
         url = "http://10.0.2.2:8080/PathFinder/ActionJson?org_name="+orgName+"&org_building="+org_building;
+        // internet database
         //url = "https://pathsearcher.azurewebsites.net/ActionJson?org_name="+orgName+"&org_building="+org_building+"";
 
         new GetMapPoints().execute();

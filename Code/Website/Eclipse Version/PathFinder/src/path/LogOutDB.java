@@ -76,7 +76,7 @@ public class LogOutDB extends HttpServlet
                     + "            <nav id=\"menu\">\n"
                     + "                <ul>\n"
                     + "                    <li><a href=\"index.html\" >About Us</a></li>\n"
-                    + "                    <li><a href=\"register.html\">Register</a></li>\n"
+                    + "                    <li><a href=\"register.jsp\">Register</a></li>\n"
                     + "                    <li><a href=\"login.html\" >LOGIN</a></li>\n"
                     + "                    <li><a href=\"contact.html\" >CONTACT</a></li>\n"
                     + "                </ul>\n"
