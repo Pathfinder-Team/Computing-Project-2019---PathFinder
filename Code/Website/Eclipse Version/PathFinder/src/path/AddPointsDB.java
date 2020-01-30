@@ -6,6 +6,8 @@ package path;
  */
 
 import java.sql.*;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,9 +36,11 @@ public class AddPointsDB extends HttpServlet
     int maps_map_id = 0;
 	int current_point_id = 0;
 	String point_name = "";
+	ArrayList<String> directionOptions = new ArrayList<>();
     
     public void init() throws ServletException
     {
+    	setupDirectionsArray();
 
     	SQLConnection connect = new SQLConnection();
         try
@@ -166,11 +170,26 @@ public class AddPointsDB extends HttpServlet
                 + "\n"
                 + "<p><label for=\"point_weight\" class=\"title\">point_weight: <span>*</span></label>\n"
                 + "<input type=\"number\" name=\"point_weight\" id=\"point_weight\" /required></p>\n"
-                + "\n"
+                + "\n");
+                
+                out.println(""
+                + "<p><label for=\"point_direction\" class=\"title\">Direction's: <span>*</span></label>\n"
+                + "<select name=\"point_direction\">"
+                + "<option value=\"\">Select</option>");
+                for (int i = 0; i < directionOptions.size();i++)
+				{
+                    out.println("<option value="+directionOptions.get(i)+">"+directionOptions.get(i)+"</option>");
+				}
+                out.println("</select>");
+                
+                /*
+                out.println(""
                 + "<p><label for=\"point_direction\" class=\"title\">direciton dropdown: <span>*</span></label>\n"
                 + "<input type=\"text\" name=\"point_direction\" id=\"point_direction\" /required></p>\n"
-                + "\n"
-                + "<input type=\"hidden\" name=\"insertPoints\" id=\"insertPoints\" value=\"insertPoints\"></p>\n"
+                + "\n");
+                 */
+                		
+                out.println("<input type=\"hidden\" name=\"insertPoints\" id=\"insertPoints\" value=\"insertPoints\"></p>\n"
                 + "<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Submit Details\" />\n"
                 + "</p>\n"
                 + "</fieldset>\n"
@@ -189,6 +208,14 @@ public class AddPointsDB extends HttpServlet
                 + "</body>\n"
                 + "</html>\n"
                 + "");
+    }
+    public void setupDirectionsArray()
+    {
+    	directionOptions.add("straight_ahead");
+    	directionOptions.add("upstairs_hallway");
+    	directionOptions.add("downstairs_hallway");
+    	directionOptions.add("turn_left");
+    	directionOptions.add("turn_right");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

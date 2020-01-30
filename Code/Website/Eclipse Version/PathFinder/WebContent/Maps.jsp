@@ -46,7 +46,7 @@
 	            // setup the connection with the DB
 	            conn = DriverManager.getConnection(connect.URL(), connect.USERNAME(), connect.PASSWORD());
 	            
-	            System.out.println("Connected");
+	            //System.out.println("Connected");
 	        } catch (ClassNotFoundException | SQLException e)
 	        {
 	            System.err.println("Error 1" + e);
@@ -55,7 +55,7 @@
 
 		///////////////////////////////////////////
 		rp.getStatusRank(request,response,stmt,conn);
-		System.out.println(" Maps.jsp: "+ rp.getUserNameRights());
+		//System.out.println(" Maps.jsp: "+ rp.getUserNameRights());
 
 		try {
 			//System.out.println("get org details");
