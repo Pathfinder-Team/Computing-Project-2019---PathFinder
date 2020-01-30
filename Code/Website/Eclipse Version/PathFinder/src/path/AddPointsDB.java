@@ -45,7 +45,7 @@ public class AddPointsDB extends HttpServlet
             // setup the connection with the DB
             conn = DriverManager.getConnection(connect.URL, connect.USERNAME, connect.PASSWORD);
             
-            System.out.println("Connected");
+            System.out.println("Connected AddPointsDB");
         } catch (ClassNotFoundException | SQLException e)
         {
             System.err.println("Error 1" + e);
@@ -59,9 +59,9 @@ public class AddPointsDB extends HttpServlet
     	String point_building_name = request.getParameter("organisation_building_name");
 		String map_image_name = request.getParameter("maps_map_id");
     	
-    	System.out.println("special map_image_name: "+map_image_name);
-    	System.out.println("special point_org: "+point_org);
-    	System.out.println("special point_building_name: "+point_building_name);
+    	//System.out.println("special map_image_name: "+map_image_name);
+    	//System.out.println("special point_org: "+point_org);
+    	//System.out.println("special point_building_name: "+point_building_name);
     	
     	
 		try {
@@ -137,7 +137,7 @@ public class AddPointsDB extends HttpServlet
                 + "<legend>Add New Points to Map</legend>\n"
                 + "<br>\n"
                 + "\n"
-                + "<p><label for=\"Name of Point\" class=\"title\" >point_name Name: <span>*</span></label>\n"
+                + "<p><label for=\"point_name\" class=\"title\" >Name of Point: <span>*</span></label>\n"
                 + "<input type=\"text\" name=\"point_name\" id=\"point_name\" /required></p>\n"
                 + "\n"
                 + "<input type=\"hidden\" name=\"maps_map_id\" id=\"maps_map_id\" value="+maps_map_id+"></p>\n"
@@ -158,16 +158,16 @@ public class AddPointsDB extends HttpServlet
                 + "<legend>Add New Points to Map</legend>\n"
                 + "<br>\n"
                 + "\n"
-                + "<p><label for=\"from Dropdown\" class=\"title\" >point_from_id: <span>*</span></label>\n"
+                + "<p><label for=\"point_from_id\" class=\"title\" >From point dropdown: <span>*</span></label>\n"
                 + "<input type=\"text\" name=\"point_from_id\" id=\"point_from_id\" /required></p>\n"
                 + "\n"
-                + "<p><label for=\"to Dropdown\" class=\"title\">point_to_id: <span>*</span></label>\n"
+                + "<p><label for=\"point_to_id\" class=\"title\">to point dropdown: <span>*</span></label>\n"
                 + "<input type=\"number\" name=\"point_to_id\" id=\"point_to_id\" /required></p>\n"
                 + "\n"
-                + "<p><label for=\"Weight\" class=\"title\">point_weight: <span>*</span></label>\n"
+                + "<p><label for=\"point_weight\" class=\"title\">point_weight: <span>*</span></label>\n"
                 + "<input type=\"number\" name=\"point_weight\" id=\"point_weight\" /required></p>\n"
                 + "\n"
-                + "<p><label for=\"direction dropdown\" class=\"title\">point_direction: <span>*</span></label>\n"
+                + "<p><label for=\"point_direction\" class=\"title\">direciton dropdown: <span>*</span></label>\n"
                 + "<input type=\"text\" name=\"point_direction\" id=\"point_direction\" /required></p>\n"
                 + "\n"
                 + "<input type=\"hidden\" name=\"insertPoints\" id=\"insertPoints\" value=\"insertPoints\"></p>\n"

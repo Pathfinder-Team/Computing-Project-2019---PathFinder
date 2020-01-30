@@ -81,6 +81,8 @@ public class GetMapActivity extends AppCompatActivity {
                     JSONArray PathFinderMap = jsonObj.getJSONArray("map_points");
 
                     db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
+                    SpecialClass specialClass = new SpecialClass();
+                    specialClass.WipeDB(db);
                     //System.out.println("Check: "+PathFinderMap.length());
                     for (int i = 0; i < PathFinderMap.length(); i++) {
                         JSONObject c = PathFinderMap.getJSONObject(i);

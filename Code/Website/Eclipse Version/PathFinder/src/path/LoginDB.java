@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.servlet.*;
 import javax.servlet.annotation.*;
@@ -25,6 +26,7 @@ public class LoginDB extends HttpServlet
     Connection conn;
     Statement stmt;
     ResultSet result;
+    ArrayList<String> directionOptions = new ArrayList<>();
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
@@ -45,6 +47,7 @@ public class LoginDB extends HttpServlet
             System.err.println("Error 1 " + e);
         }
     	
+        setupDirectionsArray();
     	
         // get the username and password from the login.html form
         String checkUsername = request.getParameter("user_name");
@@ -101,6 +104,10 @@ public class LoginDB extends HttpServlet
         {
             System.err.println("Special Login Warning: " + e);
         }
+    }
+    public void setupDirectionsArray()
+    {
+    	directionOptions.add("");
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
