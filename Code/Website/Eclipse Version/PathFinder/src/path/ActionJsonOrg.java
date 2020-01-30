@@ -114,6 +114,7 @@ public class ActionJsonOrg extends HttpServlet {
 		OrgMaps.clear();
 	    while(result1.next())
 	    {
+	    	System.out.println("map_image: "+result1.getBlob("map_image"));
 	    	OrgNode orgNode = new OrgNode(result1.getInt("map_id"),
 	    			result1.getString("org_name"),
 	    			result1.getString("org_building"),

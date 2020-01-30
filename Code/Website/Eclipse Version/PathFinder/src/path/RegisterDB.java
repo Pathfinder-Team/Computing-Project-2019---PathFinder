@@ -118,12 +118,12 @@ public class RegisterDB extends HttpServlet
 	            prepStat.setInt(9, 2);
 	            prepStat.executeUpdate();
 	            
-	            response.sendRedirect("registerUser.jsp");
+	            response.sendRedirect("login.html");
 	
 	        } catch (IOException | SQLException e)
 	        {
 	
-	        	response.sendRedirect("login.html");
+	        	response.sendRedirect("registerOrg.jsp");
 	            System.err.println("Error RegUser " + e);
 	        }
     	}

@@ -169,6 +169,7 @@ public class GetImageAction extends HttpServlet {
 				{
 					//System.out.println("Inside check if");
 					imgLen = rs1.getString("map_image");
+					System.out.println("imgLen "+imgLen);
 				//System.out.println(imgLen.length());
 					//if (rs1.next()) {
 						//System.out.println("next if");

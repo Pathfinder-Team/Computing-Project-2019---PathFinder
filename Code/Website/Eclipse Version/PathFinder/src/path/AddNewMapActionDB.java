@@ -83,6 +83,8 @@ public class AddNewMapActionDB extends HttpServlet {
 		map_comments = request.getParameter("map_comments");
 		InputStream inputStream = null;
 		Part parts1 = request.getPart("map_image");
+		
+		System.out.println("part: "+parts1);
 
 		if (parts1 != null) {
 			System.out.println(parts1.getName());
@@ -98,6 +100,7 @@ public class AddNewMapActionDB extends HttpServlet {
 			prepStat.setString(4, map_name);
 			prepStat.setString(5, map_comments);
 			if (inputStream != null) {
+				System.out.println("inputStream: "+inputStream.read());
 				prepStat.setBlob(6, inputStream);
 			}
 			int i = prepStat.executeUpdate();
