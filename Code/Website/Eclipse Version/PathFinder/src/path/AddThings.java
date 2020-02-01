@@ -69,10 +69,13 @@ public class AddThings extends HttpServlet {
 		
 		String mapAction = "";
 		mapAction = request.getParameter("mapAction");
+		//System.out.println("mapAction: "+mapAction);
 		String userAction = "";
 		userAction = request.getParameter("userAction");
+		//System.out.println("userAction: "+userAction);
 		String pointsAction = "";
 		pointsAction = request.getParameter("insertPoints");
+		//System.out.println("insertPoints: "+pointsAction);
 		
 		if(mapAction == null)
 		{
@@ -86,7 +89,7 @@ public class AddThings extends HttpServlet {
 		{
 			pointsAction = "";
 		}
-		System.out.println("mapAction: "+mapAction);
+		//System.out.println("mapAction: "+mapAction);
 		if(mapAction.equals("mapAction"))
 		{
 			org_name = rp.getOrgRights();
@@ -105,12 +108,12 @@ public class AddThings extends HttpServlet {
 			try {
 				int counter = 0;
 				
-				System.out.println("counter : "+counter);
-				System.out.println("org_name : "+org_name);
-				System.out.println("org_building : "+org_building);
-				System.out.println("map_name : "+map_name);
-				System.out.println("map_comments : "+map_comments);
-				System.out.println("inputStream : "+inputStream);
+				//System.out.println("counter : "+counter);
+				//System.out.println("org_name : "+org_name);
+				//System.out.println("org_building : "+org_building);
+				//System.out.println("map_name : "+map_name);
+				//System.out.println("map_comments : "+map_comments);
+				//System.out.println("inputStream : "+inputStream);
 				
 				prepStat = conn.prepareStatement("insert into maps values(? ,? ,? ,? ,? ,? )");
 				prepStat.setInt(1, counter);
@@ -125,10 +128,10 @@ public class AddThings extends HttpServlet {
 				response.sendRedirect("Maps.jsp");
 			} catch (SQLException ex) {
 				response.sendRedirect("UploadMapDB");
-				System.err.println("inputStream: " + inputStream);
-				System.err.println("Error 5: " + parts1.getInputStream());
-				System.err.println("Error 6: " + parts1);
-				System.err.println("Error 2: " + ex);
+				//System.err.println("inputStream: " + inputStream);
+				//System.err.println("Error 5: " + parts1.getInputStream());
+				//System.err.println("Error 6: " + parts1);
+				//System.err.println("Error 2: " + ex);
 			}
 		}else if(userAction.equals("userAction"))
 		{
@@ -139,7 +142,7 @@ public class AddThings extends HttpServlet {
 	        password = request.getParameter("password");
 	        email = request.getParameter("email");
 
-	        System.out.println("Account_Status_Users " + Account_Status_Users);
+	        //System.out.println("Account_Status_Users " + Account_Status_Users);
 
 	        try {
 	            String query = "insert into users values(?, ?, ?, ?, ?, ?, ?, ?)";
@@ -167,7 +170,7 @@ public class AddThings extends HttpServlet {
 			String point_name = request.getParameter("point_name");
 			int maps_map_id = Integer.parseInt(request.getParameter("maps_map_id"));
 			
-			System.out.println("maps_map_id "+maps_map_id);
+			//System.out.println("maps_map_id "+maps_map_id);
 			
 			try {
 				prepStat = conn.prepareStatement("insert into map_points values(? ,? ,?)");
@@ -175,7 +178,7 @@ public class AddThings extends HttpServlet {
 				prepStat.setString(2, point_name);
 				prepStat.setInt(3, maps_map_id);
 				prepStat.executeUpdate();
-				response.sendRedirect("ViewPointsDB");
+				response.sendRedirect("PointNamesDB");
 				
 			} catch (SQLException ex) {
 				Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -186,19 +189,23 @@ public class AddThings extends HttpServlet {
 		}
 		else if(pointsAction.contentEquals("insertPoints"))
 		{
+			String org_name = request.getParameter("org_name");
+			String org_building = request.getParameter("org_building");
 			int point_from_id = Integer.parseInt(request.getParameter("current_point_id"));
 			int point_to_id = Integer.parseInt(request.getParameter("point_to_id"));
 			int point_weight = Integer.parseInt(request.getParameter("point_weight"));
 			String point_direction = request.getParameter("point_direction");
 			
 			try {
-				prepStat = conn.prepareStatement("insert into map point_to values(? ,? ,?, ?)");
-				prepStat.setInt(1, point_from_id);
-				prepStat.setInt(2, point_to_id);
-				prepStat.setInt(3, point_weight);
-				prepStat.setString(4, point_direction);
+				prepStat = conn.prepareStatement("insert into map point_to values(?,? ,? ,?, ?)");
+				prepStat.setInt(1, 0);
+				prepStat.setInt(2, point_from_id);
+				prepStat.setInt(3, point_to_id);
+				prepStat.setInt(4, point_weight);
+				prepStat.setString(5, point_direction);
 				prepStat.executeUpdate();
-				response.sendRedirect("ViewPointsDB");				
+				System.out.println("Redirecting: ");
+				response.sendRedirect("AddMapPoints");				
 			} catch (SQLException ex) {
 				Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
 				System.err.println("Error 2: " + ex);

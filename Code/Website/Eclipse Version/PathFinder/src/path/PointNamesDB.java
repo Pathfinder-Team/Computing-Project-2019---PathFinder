@@ -20,11 +20,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author: Kevin Dunne,Jekaterina Pavlenko
  */
-@WebServlet(name = "AddPointsDB", urlPatterns =
+@WebServlet(name = "PointNamesDB", urlPatterns =
 {
-    "/AddPointsDB"
+    "/PointNamesDB"
 })
-public class AddPointsDB extends HttpServlet
+public class PointNamesDB extends HttpServlet
 {
 	
     Connection conn;
@@ -51,14 +51,11 @@ public class AddPointsDB extends HttpServlet
 	ArrayList<String> directionOptions = new ArrayList<>();
 	getRankPower rp = new getRankPower();
 	
+	static String org_name;
+	static String organisation_building_name;
+	
     public void init() throws ServletException
     {
-    	setupPointsFromArray();
-    	setupPointsToArray();
-    	setupWeigthtsArray();
-    	setupDirectionsArray();
-    	
-
     	SQLConnection connect = new SQLConnection();
         try
         {
@@ -66,7 +63,7 @@ public class AddPointsDB extends HttpServlet
             // setup the connection with the DB
             conn = DriverManager.getConnection(connect.URL, connect.USERNAME, connect.PASSWORD);
             
-            System.out.println("Connected AddPointsDB");
+            System.out.println("Connected PointNamesDB");
         } catch (ClassNotFoundException | SQLException e)
         {
             System.err.println("Error 1" + e);
@@ -76,31 +73,40 @@ public class AddPointsDB extends HttpServlet
             throws ServletException, IOException
     {
     	
-    	System.out.println("rp.getUserNameRights() AddPointsDB: "+ rp.getUserNameRights());
+    	//System.out.println("rp.getUserNameRights() AddPointsDB: "+ rp.getUserNameRights());
     	
-    	String point_org = request.getParameter("organisation_name");
-    	String point_building_name = request.getParameter("organisation_building_name");
-		String map_image_name = request.getParameter("maps_map_id");
+    	System.out.println("Check 1: "+org_name);
+    	System.out.println("Check 2: "+organisation_building_name);
+    	System.out.println(" ");
+    	
 
+    	if(request.getParameter("org_name") != null)
+    	{
+    		org_name = request.getParameter("org_name");
+    		organisation_building_name = request.getParameter("organisation_building_name");
+    	}
+    	
+    	
+    	//System.out.println("org_name: "+org_name);
+    	
+    	//System.out.println("organisation_building_name: "+organisation_building_name);
 		try {
-			prepStat = conn.prepareStatement("select org_building from maps where org_name = ?");
-			prepStat.setString(1, "Limerick Institute of Technology");
-			//prepStat.setString(1, rp.getOrgRights());
+			prepStat = conn.prepareStatement("select map_id,map_name from maps where org_building = ?");
+			prepStat.setString(1, organisation_building_name);
 			result = prepStat.executeQuery();
-		
+			buildingFloor.clear();
 			while (result.next()) {
 				
-				//map_id = result.getInt("map_id");
-				//map_name = result.getString("map_name");
-				org_building = result.getString("org_building");
-				//current_point_id = result.getInt("current_point_id");
-				//point_name = result.getString("point_name");
-				//maps_map_id = result.getInt("maps_map_id");
+				map_id = result.getInt("map_id");
+				map_name = result.getString("map_name");
+
 				
-				if(!buildingName.contains(org_building))
+				Node specialEdge = new Node(map_id,map_name);
+				
+				if(!buildingFloor.contains(map_id))
 				{
-					//System.out.println("Trigger: "+org_building);
-					buildingName.add(org_building);
+
+					buildingFloor.add(specialEdge);
 				}
 				
 			}
@@ -144,68 +150,38 @@ public class AddPointsDB extends HttpServlet
                 + "						   <li><a href=\"ControlDB\">Control</a></li>\r\n"
                 + "                    </ul>\r\n"
 				+ "<br>\r\n");
-                
-                //////////////////////////////////////////////////
-                out.println("<br>\r\n"
-                + "<h3>Add New Map Nodes</h3>\n"
-                + "<h4 align=\"center\">Organisation: "+point_org+"</h4>\n"
-                + "<form action=\"PointNamesDB\" method=\"post\" name=\"form\" onSubmit=\"return validateAll();\" >\n"
-                + "<fieldset>\n"
-                + "<legend>Select which Building to add new Nodes</legend>\n"
-                + "<br>\n"
-                + "\n");
-               
                 out.println(""
-                + "<p><label for=\"organisation_building_name\" class=\"title\">Organisation Building's: <span>*</span></label>\n"
-                + "<select name=\"organisation_building_name\">"
-                + "<option value=\"\">Select</option>");
-                for (int i = 0; i < buildingName.size();i++)
-				{
-                	
-                    out.println("<option value='"+buildingName.get(i)+"'>"+buildingName.get(i)+"</option>");
-                    //System.out.println("buildingName.get(i): "+buildingName.get(i));
-				}
-                out.println("</select><br><br>"
-                		+ "<input type=\"hidden\" name=\"org_name\" id=\"org_name\" value='"+point_org+"'></p>\n"
-                		+ "");
+                + "<br>\r\n"
+                + "<h3>Add New Nodes</h3>\n"
+                + "<form action=\"AddThings\" method=\"post\" name=\"form\" onSubmit=\"return validateAll();\" >\n"
+                + "<fieldset>\n"
+                + "<legend>Add New Points to Map</legend>\n"
+                + "<br>\n"
+                + "<p>Current Organisation: "+org_name
+                + "<p>Current Building: "+organisation_building_name
+                + "\n");
                 
-                out.println("<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Submit Details\" />\n"
+                out.println(""
+                + "<p><label for=\"maps_map_id\" class=\"title\">Building Floor: <span>*</span></label>\n"
+                + "<select name=\"maps_map_id\">"
+                + "<option value=\"\">Select</option>");
+                for (int i = 0; i < buildingFloor.size();i++)
+				{
+                    out.println("<option value="+buildingFloor.get(i).floorId+">"+buildingFloor.get(i).floorName+"</option>");
+				}
+                out.println("</select>");
+                
+                out.println(""
+                + "<p><label for=\"point_name\" class=\"title\" >Name of Point: <span>*</span></label>\n"
+                + "<input type=\"text\" name=\"point_name\" id=\"point_name\" /required></p>\n"
+                + "\n"
+             	+ "<input type=\"hidden\" name=\"insertPoints\" id=\"insertPoints\" value=\"insertNode\"></p>\n"
+                + "\n"
+                + "<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Submit Details\" />\n"
                 + "</p>\n"
                 + "</fieldset>\n"
-                + "</form>"
-                + "<br>"
-                + "<br>");
-
-                //////////////////////////////////////////////
-                out.println("<br>\r\n"
-                + "<h3>Add New Map Points</h3>\n"
-                + "<form action=\"AddMapPoints\" method=\"post\" name=\"form\" onSubmit=\"return validateAll();\" >\n"
-                + "<fieldset>\n"
-                + "<legend>Select which Building to Add New Points</legend>\n"
-                + "<br>\n"
-                + "\n");
-               
-                out.println(""
-                + "<p><label for=\"organisation_building_name\" class=\"title\">Organisation Building's: <span>*</span></label>\n"
-                + "<select name=\"organisation_building_name\">"
-                + "<option value=\"\">Select</option>");
-                for (int i = 0; i < buildingName.size();i++)
-				{
-                	
-                    out.println("<option value='"+buildingName.get(i)+"'>"+buildingName.get(i)+"</option>");
-                    //System.out.println("buildingName.get(i): "+buildingName.get(i));
-				}
-                out.println("</select><br><br>"
-                		+ "<input type=\"hidden\" name=\"org_name\" id=\"org_name\" value='"+point_org+"'></p>\n"
-                		+ "");
+                + "</form>\n<br><br>");
                 
-                out.println("<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Submit Details\" />\n"
-                + "</p>\n"
-                + "</fieldset>\n"
-                + "</form>"
-                + "<br>"
-                + "<br>");
-                //////////////////////////////////////////////////
 
         out.println("</section>\n"
         		+ "<br><br>"
@@ -222,41 +198,6 @@ public class AddPointsDB extends HttpServlet
                 + "");
     }
     
-    
-    public void setupPointsFromArray()
-    {
-    	pointsFromOptions.add(1);
-    	pointsFromOptions.add(2);
-    	pointsFromOptions.add(3);
-    	pointsFromOptions.add(4);
-    	pointsFromOptions.add(5);
-    }
-    
-    public void setupPointsToArray()
-    {
-    	pointsToOptions.add(1);
-    	pointsToOptions.add(2);
-    	pointsToOptions.add(3);
-    	pointsToOptions.add(4);
-    	pointsToOptions.add(5);
-    }
-    
-    public void setupWeigthtsArray()
-    {
-    	pointsWeightOptions.add(1);
-    	pointsWeightOptions.add(2);
-    	pointsWeightOptions.add(3);
-    	pointsWeightOptions.add(4);
-
-    }
-    public void setupDirectionsArray()
-    {
-    	directionOptions.add("straight_ahead");
-    	directionOptions.add("upstairs_hallway");
-    	directionOptions.add("downstairs_hallway");
-    	directionOptions.add("turn_left");
-    	directionOptions.add("turn_right");
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
