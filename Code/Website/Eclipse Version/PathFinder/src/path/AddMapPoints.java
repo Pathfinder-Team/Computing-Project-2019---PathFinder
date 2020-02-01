@@ -76,7 +76,7 @@ public class AddMapPoints extends HttpServlet
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-    	
+    	Maps_Points_Array.clear();
     	//System.out.println("rp.getUserNameRights() AddMapPoints: "+ rp.getUserNameRights());
     	
     	//System.out.println("Check 1: "+point_org);

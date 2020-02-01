@@ -218,4 +218,6 @@ INSERT INTO `point_to` (`point_id`, `point_from_id`, `point_to_id`, `point_weigh
 (42,20, 17, 3,'downstairs_hallway'),
 (43,20, 19, 2,'straight_ahead');
 
+
+
 #insert into point_to values(0,1 ,22 ,5, 'turn_left');
