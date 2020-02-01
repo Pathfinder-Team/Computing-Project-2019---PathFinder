@@ -161,6 +161,7 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
             case R.id.btn_update_map:
                 if(special1 != null && special2 != null) {
                     if(special1 != "" && special2 != "") {
+                        buildMapImage();
                         intent = new Intent(this, GetMapActivity.class);
                         Bundle extras = new Bundle();
                         extras.putString("orgName", special1);
@@ -185,13 +186,17 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
         }
         buildCur.close();
 
-        Cursor buildImage = db.rawQuery("select map_image from map_details", null);
+    }
+    public void buildMapImage()
+    {
+        Cursor buildImage = db.rawQuery("select map_image from map_details where org_name = ?", new String[] {special1});
+
         if(buildImage != null)
         {
             while (buildImage.moveToNext())
             {
                 String map_image = buildImage.getString(0);
-                System.out.println("map_image: "+map_image);
+                //System.out.println("map_image: "+map_image);
                 db.execSQL("INSERT INTO map_information VALUES('"+map_image+"')");
             }
         }
