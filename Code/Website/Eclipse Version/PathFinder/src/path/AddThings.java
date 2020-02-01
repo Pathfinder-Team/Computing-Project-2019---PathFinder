@@ -189,16 +189,16 @@ public class AddThings extends HttpServlet {
 		}
 		else if(pointsAction.contentEquals("insertPoints"))
 		{
-			String org_name = request.getParameter("org_name");
-			String org_building = request.getParameter("org_building");
+			//String org_name = request.getParameter("org_name");
+			//String org_building = request.getParameter("org_building");
 			int point_from_id = Integer.parseInt(request.getParameter("current_point_id"));
 			int point_to_id = Integer.parseInt(request.getParameter("point_to_id"));
 			int point_weight = Integer.parseInt(request.getParameter("point_weight"));
 			String point_direction = request.getParameter("point_direction");
-			
+			int counter = 0;
 			try {
-				prepStat = conn.prepareStatement("insert into map point_to values(?,? ,? ,?, ?)");
-				prepStat.setInt(1, 0);
+				prepStat = conn.prepareStatement("insert into map point_to values(? ,? ,? ,?, ?)");
+				prepStat.setInt(1, counter);
 				prepStat.setInt(2, point_from_id);
 				prepStat.setInt(3, point_to_id);
 				prepStat.setInt(4, point_weight);

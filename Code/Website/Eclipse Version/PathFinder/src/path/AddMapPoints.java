@@ -77,17 +77,21 @@ public class AddMapPoints extends HttpServlet
             throws ServletException, IOException
     {
     	
-    	System.out.println("rp.getUserNameRights() AddMapPoints: "+ rp.getUserNameRights());
+    	//System.out.println("rp.getUserNameRights() AddMapPoints: "+ rp.getUserNameRights());
     	
-    	System.out.println("Check 1: "+point_org);
-    	System.out.println("Check 2: "+point_building_name);
-    	System.out.println(" ");
+    	//System.out.println("Check 1: "+point_org);
+    	//System.out.println("Check 2: "+point_building_name);
+    	//System.out.println(" ");
     	
     	
-    	point_org = request.getParameter("org_name");
-    	System.out.println("point_org: "+point_org);
-    	point_building_name = request.getParameter("organisation_building_name");
-    	System.out.println("point_building_name: "+point_building_name);
+    	if(request.getParameter("org_name") != null)
+    	{
+    		point_org = request.getParameter("org_name");
+    		point_building_name = request.getParameter("organisation_building_name");
+    	}
+    	
+    	//System.out.println("point_org: "+point_org);
+    	//System.out.println("point_building_name: "+point_building_name);
 		///
 		try {
 			prepStat = conn.prepareStatement("select current_point_id, point_name, maps_map_id from map_points join maps on map_points.maps_map_id= maps.map_id where org_building = ?");
@@ -199,10 +203,13 @@ public class AddMapPoints extends HttpServlet
                 "<input type=\"hidden\" name=\"insertPoints\" id=\"insertPoints\" value=\"insertPoints\"></p>\n"
                 +"<input type=\"hidden\" name=\"org_name\" id=\"org_name\" value='"+point_org+"'></p>\n"
                 +"<input type=\"hidden\" name=\"org_building\" id=\"org_building\" value='"+point_building_name+"'></p>\n"
-                + "<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Submit Details\" />\n"
+                + "<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Submit Points\" />\n"
                 + "</p>\n"
                 + "</fieldset>\n"
                 + "</form>\n");
+                
+                
+                //////////////////////////////////////////////
 
         out.println("</section>\n"
         		+ "<br><br>"

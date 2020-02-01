@@ -75,9 +75,9 @@ public class PointNamesDB extends HttpServlet
     	
     	//System.out.println("rp.getUserNameRights() AddPointsDB: "+ rp.getUserNameRights());
     	
-    	System.out.println("Check 1: "+org_name);
-    	System.out.println("Check 2: "+organisation_building_name);
-    	System.out.println(" ");
+    	//System.out.println("Check 1: "+org_name);
+    	//System.out.println("Check 2: "+organisation_building_name);
+    	//System.out.println(" ");
     	
 
     	if(request.getParameter("org_name") != null)
@@ -85,6 +85,8 @@ public class PointNamesDB extends HttpServlet
     		org_name = request.getParameter("org_name");
     		organisation_building_name = request.getParameter("organisation_building_name");
     	}
+    	
+    	
     	
     	
     	//System.out.println("org_name: "+org_name);
@@ -177,10 +179,19 @@ public class PointNamesDB extends HttpServlet
                 + "\n"
              	+ "<input type=\"hidden\" name=\"insertPoints\" id=\"insertPoints\" value=\"insertNode\"></p>\n"
                 + "\n"
-                + "<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Submit Details\" />\n"
+                + "<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Submit Node\" />\n"
                 + "</p>\n"
                 + "</fieldset>\n"
                 + "</form>\n<br><br>");
+                
+                out.println("<form action=\"AddMapPoints\" method=\"post\" name=\"form\" onSubmit=\"return validateAll();\" >"
+                + "<fieldset>"
+                + "<Legend> Add Map Point</legend>"
+                + "<input type=\"hidden\" name=\"org_name\" id=\"org_name\" value='"+org_name+"'></p>\n"
+                + "<input type=\"hidden\" name=\"organisation_building_name\" id=\"organisation_building_name\" value='"+organisation_building_name+"'>"
+                + "<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Add Map Points\" /></p>"
+                + "</fieldset>"
+                + "</form>");
                 
 
         out.println("</section>\n"

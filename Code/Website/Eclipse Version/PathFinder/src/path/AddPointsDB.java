@@ -39,25 +39,12 @@ public class AddPointsDB extends HttpServlet
 	String org_building = "";
 	int map_id = 0;
 	String map_name = "";
-	
-	//new
-	ArrayList<Integer> pointsFromOptions = new ArrayList<>();
-	ArrayList<Integer> pointsToOptions = new ArrayList<>();
-	ArrayList<Integer> pointsWeightOptions = new ArrayList<>();
-	ArrayList<Node> special1 = new ArrayList<>();
+
 	ArrayList<String> buildingName = new ArrayList<>();
-	ArrayList<Node> buildingFloor = new ArrayList<>();
-	//
-	ArrayList<String> directionOptions = new ArrayList<>();
 	getRankPower rp = new getRankPower();
 	
     public void init() throws ServletException
     {
-    	setupPointsFromArray();
-    	setupPointsToArray();
-    	setupWeigthtsArray();
-    	setupDirectionsArray();
-    	
 
     	SQLConnection connect = new SQLConnection();
         try
@@ -76,7 +63,7 @@ public class AddPointsDB extends HttpServlet
             throws ServletException, IOException
     {
     	
-    	System.out.println("rp.getUserNameRights() AddPointsDB: "+ rp.getUserNameRights());
+    	//System.out.println("rp.getUserNameRights() AddPointsDB: "+ rp.getUserNameRights());
     	
     	String point_org = request.getParameter("organisation_name");
     	String point_building_name = request.getParameter("organisation_building_name");
@@ -84,27 +71,23 @@ public class AddPointsDB extends HttpServlet
 
 		try {
 			prepStat = conn.prepareStatement("select org_building from maps where org_name = ?");
-			prepStat.setString(1, "Limerick Institute of Technology");
-			//prepStat.setString(1, rp.getOrgRights());
+			
+			if(point_org != null)
+			{
+				prepStat.setString(1, point_org);
+			}
+			else
+			{
+				prepStat.setString(1, rp.getOrgRights());	
+			}
 			result = prepStat.executeQuery();
-		
 			while (result.next()) {
-				
-				//map_id = result.getInt("map_id");
-				//map_name = result.getString("map_name");
 				org_building = result.getString("org_building");
-				//current_point_id = result.getInt("current_point_id");
-				//point_name = result.getString("point_name");
-				//maps_map_id = result.getInt("maps_map_id");
-				
 				if(!buildingName.contains(org_building))
 				{
-					//System.out.println("Trigger: "+org_building);
 					buildingName.add(org_building);
 				}
-				
 			}
-			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -169,7 +152,7 @@ public class AddPointsDB extends HttpServlet
                 		+ "<input type=\"hidden\" name=\"org_name\" id=\"org_name\" value='"+point_org+"'></p>\n"
                 		+ "");
                 
-                out.println("<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Submit Details\" />\n"
+                out.println("<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Select Building\" />\n"
                 + "</p>\n"
                 + "</fieldset>\n"
                 + "</form>"
@@ -199,7 +182,7 @@ public class AddPointsDB extends HttpServlet
                 		+ "<input type=\"hidden\" name=\"org_name\" id=\"org_name\" value='"+point_org+"'></p>\n"
                 		+ "");
                 
-                out.println("<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Submit Details\" />\n"
+                out.println("<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Select Building\" />\n"
                 + "</p>\n"
                 + "</fieldset>\n"
                 + "</form>"
@@ -222,41 +205,6 @@ public class AddPointsDB extends HttpServlet
                 + "");
     }
     
-    
-    public void setupPointsFromArray()
-    {
-    	pointsFromOptions.add(1);
-    	pointsFromOptions.add(2);
-    	pointsFromOptions.add(3);
-    	pointsFromOptions.add(4);
-    	pointsFromOptions.add(5);
-    }
-    
-    public void setupPointsToArray()
-    {
-    	pointsToOptions.add(1);
-    	pointsToOptions.add(2);
-    	pointsToOptions.add(3);
-    	pointsToOptions.add(4);
-    	pointsToOptions.add(5);
-    }
-    
-    public void setupWeigthtsArray()
-    {
-    	pointsWeightOptions.add(1);
-    	pointsWeightOptions.add(2);
-    	pointsWeightOptions.add(3);
-    	pointsWeightOptions.add(4);
-
-    }
-    public void setupDirectionsArray()
-    {
-    	directionOptions.add("straight_ahead");
-    	directionOptions.add("upstairs_hallway");
-    	directionOptions.add("downstairs_hallway");
-    	directionOptions.add("turn_left");
-    	directionOptions.add("turn_right");
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
