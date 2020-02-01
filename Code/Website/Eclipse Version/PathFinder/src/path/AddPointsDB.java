@@ -36,10 +36,18 @@ public class AddPointsDB extends HttpServlet
     int maps_map_id = 0;
 	int current_point_id = 0;
 	String point_name = "";
+	//new
+	ArrayList<Integer> pointsFromOptions = new ArrayList<>();
+	ArrayList<Integer> pointsToOptions = new ArrayList<>();
+	ArrayList<Integer> pointsWeightOptions = new ArrayList<>();
+	//
 	ArrayList<String> directionOptions = new ArrayList<>();
     
     public void init() throws ServletException
     {
+    	setupPointsFromArray();
+    	setupPointsToArray();
+    	setupWeigthtsArray();
     	setupDirectionsArray();
 
     	SQLConnection connect = new SQLConnection();
@@ -161,19 +169,40 @@ public class AddPointsDB extends HttpServlet
                 + "<fieldset>\n"
                 + "<legend>Add New Points to Map</legend>\n"
                 + "<br>\n"
-                + "\n"
-                + "<p><label for=\"point_from_id\" class=\"title\" >From point dropdown: <span>*</span></label>\n"
-                + "<input type=\"text\" name=\"point_from_id\" id=\"point_from_id\" /required></p>\n"
-                + "\n"
-                + "<p><label for=\"point_to_id\" class=\"title\">to point dropdown: <span>*</span></label>\n"
-                + "<input type=\"number\" name=\"point_to_id\" id=\"point_to_id\" /required></p>\n"
-                + "\n"
-                + "<p><label for=\"point_weight\" class=\"title\">point_weight: <span>*</span></label>\n"
-                + "<input type=\"number\" name=\"point_weight\" id=\"point_weight\" /required></p>\n"
                 + "\n");
                 
                 out.println(""
-                + "<p><label for=\"point_direction\" class=\"title\">Direction's: <span>*</span></label>\n"
+                        + "<p><label for=\"point_from_id\" class=\"title\">From point dropdown: <span>*</span></label>\n"
+                        + "<select name=\"point_from_id\">"
+                        + "<option value=\"\">Select</option>");
+                        for (int i = 0; i < pointsFromOptions.size();i++)
+        				{
+                            out.println("<option value="+pointsFromOptions.get(i)+">"+pointsFromOptions.get(i)+"</option>");
+        				}
+                out.println("</select>");
+                
+                out.println(""
+                        + "<p><label for=\"point_to_id\" class=\"title\">To point dropdown: <span>*</span></label>\n"
+                        + "<select name=\"point_to_id\">"
+                        + "<option value=\"\">Select</option>");
+                        for (int i = 0; i < pointsToOptions.size();i++)
+        				{
+                            out.println("<option value="+pointsToOptions.get(i)+">"+pointsToOptions.get(i)+"</option>");
+        				}
+                out.println("</select>");
+                
+                out.println(""
+                        + "<p><label for=\"point_weight\" class=\"title\">Point_weight: <span>*</span></label>\n"
+                        + "<select name=\"point_weight\">"
+                        + "<option value=\"\">Select</option>");
+                        for (int i = 0; i < pointsWeightOptions.size();i++)
+        				{
+                            out.println("<option value="+pointsWeightOptions.get(i)+">"+pointsWeightOptions.get(i)+"</option>");
+        				}
+                out.println("</select>");
+                
+                out.println(""
+                + "<p><label for=\"point_direction\" class=\"title\">Directions: <span>*</span></label>\n"
                 + "<select name=\"point_direction\">"
                 + "<option value=\"\">Select</option>");
                 for (int i = 0; i < directionOptions.size();i++)
@@ -208,6 +237,32 @@ public class AddPointsDB extends HttpServlet
                 + "</body>\n"
                 + "</html>\n"
                 + "");
+    }
+    public void setupPointsFromArray()
+    {
+    	pointsFromOptions.add(1);
+    	pointsFromOptions.add(2);
+    	pointsFromOptions.add(3);
+    	pointsFromOptions.add(4);
+    	pointsFromOptions.add(5);
+    }
+    
+    public void setupPointsToArray()
+    {
+    	pointsToOptions.add(1);
+    	pointsToOptions.add(2);
+    	pointsToOptions.add(3);
+    	pointsToOptions.add(4);
+    	pointsToOptions.add(5);
+    }
+    
+    public void setupWeigthtsArray()
+    {
+    	pointsWeightOptions.add(1);
+    	pointsWeightOptions.add(2);
+    	pointsWeightOptions.add(3);
+    	pointsWeightOptions.add(4);
+
     }
     public void setupDirectionsArray()
     {
