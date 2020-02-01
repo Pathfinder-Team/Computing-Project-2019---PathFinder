@@ -30,6 +30,30 @@ public class SpecialClass {
                 "point_weight int," +
                 "point_direction varchar);");
     }
+    public void WipeDBRunning(SQLiteDatabase db)
+    {
+        // main table
+        db.execSQL("DROP TABLE IF EXISTS map_points");
+        db.execSQL("DROP TABLE IF EXISTS special_points");
+        db.execSQL("DROP TABLE IF EXISTS map_information");
+        //
+        db.execSQL("CREATE TABLE IF NOT EXISTS " +
+                "map_points(" +
+                "current_point_id int ," +
+                "point_name varchar," +
+                "maps_map_id int);");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS " +
+                "special_points(" +
+                "point_id int ," +
+                "point_from_id int," +
+                "point_to_id int," +
+                "point_weight int," +
+                "point_direction varchar);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " +
+                "map_information(" +
+                "map_image varchar);");
+    }
     public void CrateAllTables(SQLiteDatabase db)
     {
         db.execSQL("CREATE TABLE IF NOT EXISTS " +

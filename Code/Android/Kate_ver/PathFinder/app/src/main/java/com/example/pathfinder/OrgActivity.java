@@ -30,6 +30,7 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
     ArrayList<String> orgNames = null;
     ArrayList<String> orgBuildings = null;
     public static ArrayList<OrgNode> allOrgBuildingDetails = null;
+    Spinner spin2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,8 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
 
         db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
         if(db != null) {
+            SpecialClass specialClass = new SpecialClass();
+            specialClass.WipeDBRunning(db);
             populateTables();
         }
 
@@ -46,7 +49,7 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
         allOrgBuildingDetails = new ArrayList<>();
 
         Spinner spin = (Spinner) findViewById(R.id.spinner);
-        Spinner spin2 = (Spinner) findViewById(R.id.spinner2);
+        spin2 = (Spinner) findViewById(R.id.spinner2);
 
         if(getOrgNames() != null) {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getOrgNames());
@@ -55,11 +58,6 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
             spin.setAdapter(adapter);
             spin.setOnItemSelectedListener(this);
 
-            ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getOrgBuildings());
-            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-            spin2.setAdapter(adapter2);
-            spin2.setOnItemSelectedListener(this);
 
             Button btn_update_org = (Button) findViewById(R.id.btn_update_org);
             btn_update_org.setOnClickListener(this);
@@ -76,27 +74,38 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
 
 
     @Override
-    public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
+    public void onItemSelected(@org.jetbrains.annotations.NotNull AdapterView<?> arg0, View arg1, int position, long id) {
 
         if(arg0.getId() == R.id.spinner)
         {
             special1 = getOrgNames().get(position);
+            getBuildingNames(special1);
         }
         if(arg0.getId() == R.id.spinner2)
         {
-            special2 = getOrgBuildings().get(position);
+            special2 = getOrgBuildings(special1).get(position);
         }
     }
+
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
 
     }
+    public void getBuildingNames(String special1)
+    {
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getOrgBuildings(special1));
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spin2.setAdapter(adapter2);
+        spin2.setOnItemSelectedListener(this);
+    }
+    // getting the organisation names
     public ArrayList<String> getOrgNames()
     {
         db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
         if(db!= null)
         {
-            Cursor c = db.rawQuery("select * from org_details", null);
+            Cursor c = db.rawQuery("select organisation_name from org_details", null);
             if( c != null) {
                 if (c.getCount() != orgNames.size() && c.getCount() > 0) {
                     while (c.moveToNext()) {
@@ -116,12 +125,13 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
 
     }
 
-    public ArrayList<String> getOrgBuildings()
+    public ArrayList<String> getOrgBuildings(String special1)
     {
+        orgBuildings.clear();
         db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
         if(db != null)
         {
-            Cursor cc = db.rawQuery("select * from map_details", null);
+            Cursor cc = db.rawQuery("select * from map_details where org_name = ?", new String[]{special1});
             if( cc != null) {
                 if (cc.getCount() != orgBuildings.size() && cc.getCount() > 0) {
                     while (cc.moveToNext()) {

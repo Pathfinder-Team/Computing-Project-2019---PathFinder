@@ -29,10 +29,10 @@ public class GetOrgActivity extends AppCompatActivity
 
     // URL to get contacts JSON
     // internet database
-    private static String url = "https://pathsearcher.azurewebsites.net/ActionJsonOrg";
+    //private static String url = "https://pathsearcher.azurewebsites.net/ActionJsonOrg";
 
     // local database
-    //private static String url = "http://10.0.2.2:8080/PathFinder/ActionJsonOrg";
+    private static String url = "http://10.0.2.2:8080/PathFinder/ActionJsonOrg";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
