@@ -31,7 +31,7 @@ public class Setup
                     c.getInt(2));
             //counter++;
             MapNode mp = new MapNode(counter++,c.getInt(0));
-            //sortMapPoints.add(mp);
+            //sortMapPoints.add(mapPointsArray);
             map_points_array.add(edge);
         }
 

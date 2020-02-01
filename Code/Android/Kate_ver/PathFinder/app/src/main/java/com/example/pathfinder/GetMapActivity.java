@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +18,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 
 public class GetMapActivity extends AppCompatActivity {
@@ -27,8 +25,8 @@ public class GetMapActivity extends AppCompatActivity {
     private String TAG = GetMapActivity.class.getSimpleName();
 
 
-    ArrayList<Node> mp = new ArrayList<>();
-    ArrayList<Node> sp = new ArrayList<>();
+    ArrayList<Node> mapPointsArray = new ArrayList<>();
+    ArrayList<Node> specialPointsArray = new ArrayList<>();
     private ProgressDialog pDialog;
     SQLiteDatabase db;
     static String orgName = "";
@@ -90,8 +88,11 @@ public class GetMapActivity extends AppCompatActivity {
                         //String point_name = c.getString("point_name");
                         //int maps_map_id = c.getInt("maps_map_id");
 
-                        Node specialNode1 = new Node(c.getInt("current_point_id"),c.getString("point_name"),c.getInt("maps_map_id"));
-                        mp.add(specialNode1);
+                        Node specialNode1 = new Node(c.getInt("current_point_id"),
+                                c.getString("point_name"),
+                                c.getInt("maps_map_id"));
+                        // adding all details to this array to be sorted later
+                        mapPointsArray.add(specialNode1);
                         /*
                         db.execSQL("INSERT INTO map_points VALUES('"
                                 + current_point_id + "','"
@@ -117,7 +118,8 @@ public class GetMapActivity extends AppCompatActivity {
                                             cc.getInt("point_to_id"),
                                             cc.getInt("point_weight"),
                                             cc.getString("point_direction"));
-                                    sp.add(specialNode2);
+                                    // adding all details to this array to be sorted later
+                                    specialPointsArray.add(specialNode2);
                                     /*
                                         db.execSQL("INSERT INTO special_points VALUES('"
                                                 + point_id + "','"
@@ -169,7 +171,6 @@ public class GetMapActivity extends AppCompatActivity {
 
             if (db == null)
             {
-
                 txtView.setText("The Map has been not been updated, check building or organisations you have chosen");
                 Intent inten = new Intent(GetMapActivity.this, OrgActivity.class);
                 startActivity(inten);
@@ -184,55 +185,101 @@ public class GetMapActivity extends AppCompatActivity {
         public void callCommitter()
         {
             callValueSorter();
-            for(int i = 0; i < mp.size(); i++)
+            for(int i = 0; i < mapPointsArray.size(); i++)
             {
                 db.execSQL("INSERT INTO map_points VALUES('"
-                        + mp.get(i).current_point_id + "','"
-                        + mp.get(i).point_name + "','"
-                        + mp.get(i).maps_map_id + "');");
+                        + mapPointsArray.get(i).current_point_id + "','"
+                        + mapPointsArray.get(i).point_name + "','"
+                        + mapPointsArray.get(i).maps_map_id + "');");
 
-                //System.out.println("From: "+sp.get(i).point_from_id+", To: "+sp.get(i).point_to_id);
+                //System.out.println("From: "+specialPointsArray.get(i).point_from_id+", To: "+specialPointsArray.get(i).point_to_id);
             }
 
-            for(int i = 0; i < sp.size(); i++)
+            for(int i = 0; i < specialPointsArray.size(); i++)
             {
                 db.execSQL("INSERT INTO special_points VALUES('"
-                        + sp.get(i).point_id + "','"
-                        + sp.get(i).point_from_id + "','"
-                        + sp.get(i).point_to_id + "','"
-                        + sp.get(i).point_weight + "','"
-                        + sp.get(i).point_direction + "');");
-                //System.out.println("From: "+sp.get(i).point_from_id+", To: "+sp.get(i).point_to_id);
+                        + specialPointsArray.get(i).point_id + "','"
+                        + specialPointsArray.get(i).point_from_id + "','"
+                        + specialPointsArray.get(i).point_to_id + "','"
+                        + specialPointsArray.get(i).point_weight + "','"
+                        + specialPointsArray.get(i).point_direction + "');");
+                //System.out.println("From: "+specialPointsArray.get(i).point_from_id+", To: "+specialPointsArray.get(i).point_to_id);
             }
-            mp.clear();
-            sp.clear();
+            mapPointsArray.clear();
+            specialPointsArray.clear();
         }
         public void callValueSorter()
         {
             ArrayList<MapNode> sortMapPoints = new ArrayList<>();
             int counter = 1;
-            for(int i = 0; i < mp.size();i++)
+            for(int i = 0; i < mapPointsArray.size(); i++)
             {
-                MapNode mp1 = new MapNode(counter++, mp.get(i).current_point_id);
-                sortMapPoints.add(mp1);
-                if(sortMapPoints.get(i).oldNum == mp.get(i).current_point_id)
+                MapNode mapPointOne = new MapNode(counter++, mapPointsArray.get(i).current_point_id);
+                sortMapPoints.add(mapPointOne);
+                if(sortMapPoints.get(i).oldNum == mapPointsArray.get(i).current_point_id)
                 {
-                    mp.get(i).current_point_id = sortMapPoints.get(i).newNum;
+                    mapPointsArray.get(i).current_point_id = sortMapPoints.get(i).newNum;
                 }
+                //System.out.println(" ");
+            }
+            ///////////////////////////////////////////////////////////////////////////////////////
 
-            }
-            for(int i = 0; i < sp.size(); i++)
+            for(int i = 0; i < specialPointsArray.size(); i++)
             {
-                for(int j = 0; j < mp.size();j++) {
-                    if (sortMapPoints.get(j).oldNum == sp.get(i).point_from_id) {
-                        sp.get(i).point_from_id = sortMapPoints.get(j).newNum;
-                    }
-                    if(sortMapPoints.get(j).oldNum == sp.get(i).point_to_id)
-                    {
-                        sp.get(i).point_to_id = sortMapPoints.get(j).newNum;
+                //System.out.println("from " + specialPointsArray.get(i).point_from_id+",to: " + specialPointsArray.get(i).point_to_id);
+            }
+            //System.out.println("-----------------------------");
+            for(int i = 0; i < specialPointsArray.size(); i++)
+            {
+
+                for(int j = 0; j < sortMapPoints.size(); j++ )
+                {
+
+                    if (specialPointsArray.get(i).point_from_id == sortMapPoints.get(j).oldNum) {
+
+                        /*
+                        System.out.println(" ");
+                        System.out.println("I: "+i+",Does From: "+specialPointsArray.get(i).point_from_id);
+                        System.out.println("Match This: "+sortMapPoints.get(j).oldNum);
+                        System.out.println("Then replace From with: "+sortMapPoints.get(j).newNum);
+
+                         */
+                        specialPointsArray.get(i).point_from_id = sortMapPoints.get(j).newNum;
+                        break;
                     }
                 }
             }
+
+
+            //System.out.println(" -- ");
+            for(int i = 0; i < specialPointsArray.size(); i++)
+            {
+
+                for(int j = 0; j < sortMapPoints.size(); j++ )
+                {
+
+                    if (specialPointsArray.get(i).point_to_id == sortMapPoints.get(j).oldNum) {
+                        /*
+                        System.out.println(" ");
+                        System.out.println("I: "+i+", Does To: "+specialPointsArray.get(i).point_to_id);
+                        System.out.println("Match This: "+sortMapPoints.get(j).oldNum);
+                        System.out.println("Then replace To with: "+sortMapPoints.get(j).newNum);
+                        specialPointsArray.get(i).point_to_id = sortMapPoints.get(j).newNum;
+
+                         */
+                        break;
+                    }
+                }
+            }
+            //System.out.println(" /////// ");
+            //System.out.println("-------------- Blob Start ---------------------");
+
+            //for(int i = 0; i < specialPointsArray.size(); i++)
+            //{
+             //   System.out.println("from " + specialPointsArray.get(i).point_from_id+",to: " + specialPointsArray.get(i).point_to_id);
+            //}
+            //System.out.println("-----------------------------");
+            //System.out.println("----------- Blob End ----------------------");
         }
     }
 }
