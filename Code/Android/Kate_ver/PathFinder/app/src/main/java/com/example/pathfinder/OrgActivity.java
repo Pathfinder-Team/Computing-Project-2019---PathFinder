@@ -73,6 +73,7 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
     }
 
 
+
     @Override
     public void onItemSelected(@org.jetbrains.annotations.NotNull AdapterView<?> arg0, View arg1, int position, long id) {
 
@@ -85,6 +86,14 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
         {
             special2 = getOrgBuildings(special1).get(position);
         }
+    }
+
+    @Override
+    public void onRestart()
+    {
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
     }
 
     @Override
