@@ -77,42 +77,22 @@ public class GetMapActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
                     JSONArray PathFinderMap = jsonObj.getJSONArray("map_points");
-
                     db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
                     SpecialClass specialClass = new SpecialClass();
                     specialClass.WipeDB(db);
-                    //System.out.println("Check: "+PathFinderMap.length());
                     for (int i = 0; i < PathFinderMap.length(); i++) {
                         JSONObject c = PathFinderMap.getJSONObject(i);
-                        //int current_point_id = c.getInt("current_point_id");
-                        //String point_name = c.getString("point_name");
-                        //int maps_map_id = c.getInt("maps_map_id");
-
                         Node specialNode1 = new Node(c.getInt("current_point_id"),
                                 c.getString("point_name"),
                                 c.getInt("maps_map_id"));
                         // adding all details to this array to be sorted later
                         mapPointsArray.add(specialNode1);
-                        /*
-                        db.execSQL("INSERT INTO map_points VALUES('"
-                                + current_point_id + "','"
-                                + point_name + "','"
-                                + maps_map_id + "');");
-
-                         */
                         if (c != null) {
                             JSONArray PathFinderMap2 = c.getJSONArray("special_points");
                             if(PathFinderMap2 != null) {
                                 for (int j = 0; j < PathFinderMap2.length(); j++)
                                 {
                                     JSONObject cc = PathFinderMap2.getJSONObject(j);
-                                    /*
-                                        int point_id = cc.getInt("point_id");
-                                        int point_from_id = cc.getInt("point_from_id");
-                                        int point_to_id = cc.getInt("point_to_id");
-                                        int point_weight = cc.getInt("point_weight");
-                                        String point_direction = cc.getString("point_direction");
-                                     */
                                     Node specialNode2 = new Node(cc.getInt("point_id"),
                                             cc.getInt("point_from_id"),
                                             cc.getInt("point_to_id"),
@@ -120,14 +100,6 @@ public class GetMapActivity extends AppCompatActivity {
                                             cc.getString("point_direction"));
                                     // adding all details to this array to be sorted later
                                     specialPointsArray.add(specialNode2);
-                                    /*
-                                        db.execSQL("INSERT INTO special_points VALUES('"
-                                                + point_id + "','"
-                                                + point_from_id + "','"
-                                                + point_to_id + "','"
-                                                + point_weight + "','"
-                                                + point_direction + "');");
-                                     */
                                 }
                             }
                         }
@@ -176,7 +148,6 @@ public class GetMapActivity extends AppCompatActivity {
                 startActivity(inten);
             }
             else if(db != null) {
-
                     txtView.setText("The Map has been updated");
                     Intent inten = new Intent(GetMapActivity.this, PathFinder.class);
                     startActivity(inten);
@@ -205,81 +176,61 @@ public class GetMapActivity extends AppCompatActivity {
                         + specialPointsArray.get(i).point_direction + "');");
                 //System.out.println("From: "+specialPointsArray.get(i).point_from_id+", To: "+specialPointsArray.get(i).point_to_id);
             }
+            // clearing both arrays since so there empty if i come back and enter a new map
             mapPointsArray.clear();
             specialPointsArray.clear();
         }
         public void callValueSorter()
         {
+            // arraylist that takes in a new number and an old number
             ArrayList<MapNode> sortMapPoints = new ArrayList<>();
             int counter = 1;
             for(int i = 0; i < mapPointsArray.size(); i++)
             {
+                // take in a number from 1-N and the old current point value
                 MapNode mapPointOne = new MapNode(counter++, mapPointsArray.get(i).current_point_id);
                 sortMapPoints.add(mapPointOne);
+                // if the old num matchs a number in the MPA array then replace it
                 if(sortMapPoints.get(i).oldNum == mapPointsArray.get(i).current_point_id)
                 {
                     mapPointsArray.get(i).current_point_id = sortMapPoints.get(i).newNum;
                 }
-                //System.out.println(" ");
             }
-            ///////////////////////////////////////////////////////////////////////////////////////
-
             for(int i = 0; i < specialPointsArray.size(); i++)
             {
-                //System.out.println("from " + specialPointsArray.get(i).point_from_id+",to: " + specialPointsArray.get(i).point_to_id);
-            }
-            //System.out.println("-----------------------------");
-            for(int i = 0; i < specialPointsArray.size(); i++)
-            {
-
                 for(int j = 0; j < sortMapPoints.size(); j++ )
                 {
-
+                    // if the array contains a matching value
                     if (specialPointsArray.get(i).point_from_id == sortMapPoints.get(j).oldNum) {
-
                         /*
                         System.out.println(" ");
                         System.out.println("I: "+i+",Does From: "+specialPointsArray.get(i).point_from_id);
                         System.out.println("Match This: "+sortMapPoints.get(j).oldNum);
                         System.out.println("Then replace From with: "+sortMapPoints.get(j).newNum);
-
                          */
+                        // swapping the old number for the new number
                         specialPointsArray.get(i).point_from_id = sortMapPoints.get(j).newNum;
+                        // breaking out so it doesnt replace any thing it shouldnt
                         break;
                     }
                 }
             }
-
-
-            //System.out.println(" -- ");
             for(int i = 0; i < specialPointsArray.size(); i++)
             {
-
                 for(int j = 0; j < sortMapPoints.size(); j++ )
                 {
-
                     if (specialPointsArray.get(i).point_to_id == sortMapPoints.get(j).oldNum) {
                         /*
                         System.out.println(" ");
                         System.out.println("I: "+i+", Does To: "+specialPointsArray.get(i).point_to_id);
                         System.out.println("Match This: "+sortMapPoints.get(j).oldNum);
                         System.out.println("Then replace To with: "+sortMapPoints.get(j).newNum);
-                        specialPointsArray.get(i).point_to_id = sortMapPoints.get(j).newNum;
-
                          */
+                        specialPointsArray.get(i).point_to_id = sortMapPoints.get(j).newNum;
                         break;
                     }
                 }
             }
-            //System.out.println(" /////// ");
-            //System.out.println("-------------- Blob Start ---------------------");
-
-            //for(int i = 0; i < specialPointsArray.size(); i++)
-            //{
-             //   System.out.println("from " + specialPointsArray.get(i).point_from_id+",to: " + specialPointsArray.get(i).point_to_id);
-            //}
-            //System.out.println("-----------------------------");
-            //System.out.println("----------- Blob End ----------------------");
         }
     }
 }
