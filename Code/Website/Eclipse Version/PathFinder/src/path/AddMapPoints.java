@@ -50,10 +50,13 @@ public class AddMapPoints extends HttpServlet
 	
     public void init() throws ServletException
     {
-
+    	
+    	// clearing the arrays
     	directionOptions.clear();
     	pointsWeightOptions.clear();
     	Maps_Points_Array.clear();
+    	
+    	// settuping up the arrays
     	setupDirectionsArray();
     	setupWeightsArray();
     	
@@ -74,7 +77,12 @@ public class AddMapPoints extends HttpServlet
             throws ServletException, IOException
     {
     	
-    	System.out.println("rp.getUserNameRights() AddPointsDB: "+ rp.getUserNameRights());
+    	System.out.println("rp.getUserNameRights() AddMapPoints: "+ rp.getUserNameRights());
+    	
+    	System.out.println("Check 1: "+point_org);
+    	System.out.println("Check 2: "+point_building_name);
+    	System.out.println(" ");
+    	
     	
     	point_org = request.getParameter("org_name");
     	System.out.println("point_org: "+point_org);
@@ -186,9 +194,11 @@ public class AddMapPoints extends HttpServlet
                     out.println("<option value="+directionOptions.get(i)+">"+directionOptions.get(i)+"</option>");
 				}
                 out.println("</select>");
-                
-                		
-                out.println("<input type=\"hidden\" name=\"insertPoints\" id=\"insertPoints\" value=\"insertPoints\"></p>\n"
+
+                out.println(
+                "<input type=\"hidden\" name=\"insertPoints\" id=\"insertPoints\" value=\"insertPoints\"></p>\n"
+                +"<input type=\"hidden\" name=\"org_name\" id=\"org_name\" value='"+point_org+"'></p>\n"
+                +"<input type=\"hidden\" name=\"org_building\" id=\"org_building\" value='"+point_building_name+"'></p>\n"
                 + "<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Submit Details\" />\n"
                 + "</p>\n"
                 + "</fieldset>\n"

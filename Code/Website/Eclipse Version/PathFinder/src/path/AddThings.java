@@ -189,6 +189,8 @@ public class AddThings extends HttpServlet {
 		}
 		else if(pointsAction.contentEquals("insertPoints"))
 		{
+			String org_name = request.getParameter("org_name");
+			String org_building = request.getParameter("org_building");
 			int point_from_id = Integer.parseInt(request.getParameter("current_point_id"));
 			int point_to_id = Integer.parseInt(request.getParameter("point_to_id"));
 			int point_weight = Integer.parseInt(request.getParameter("point_weight"));
@@ -202,6 +204,7 @@ public class AddThings extends HttpServlet {
 				prepStat.setInt(4, point_weight);
 				prepStat.setString(5, point_direction);
 				prepStat.executeUpdate();
+				System.out.println("Redirecting: ");
 				response.sendRedirect("AddMapPoints");				
 			} catch (SQLException ex) {
 				Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);

@@ -51,6 +51,9 @@ public class PointNamesDB extends HttpServlet
 	ArrayList<String> directionOptions = new ArrayList<>();
 	getRankPower rp = new getRankPower();
 	
+	static String org_name;
+	static String organisation_building_name;
+	
     public void init() throws ServletException
     {
     	SQLConnection connect = new SQLConnection();
@@ -60,7 +63,7 @@ public class PointNamesDB extends HttpServlet
             // setup the connection with the DB
             conn = DriverManager.getConnection(connect.URL, connect.USERNAME, connect.PASSWORD);
             
-            System.out.println("Connected AddPointsDB");
+            System.out.println("Connected PointNamesDB");
         } catch (ClassNotFoundException | SQLException e)
         {
             System.err.println("Error 1" + e);
@@ -71,10 +74,21 @@ public class PointNamesDB extends HttpServlet
     {
     	
     	//System.out.println("rp.getUserNameRights() AddPointsDB: "+ rp.getUserNameRights());
+    	
+    	System.out.println("Check 1: "+org_name);
+    	System.out.println("Check 2: "+organisation_building_name);
+    	System.out.println(" ");
+    	
 
-    	String org_name = request.getParameter("org_name");
+    	if(request.getParameter("org_name") != null)
+    	{
+    		org_name = request.getParameter("org_name");
+    		organisation_building_name = request.getParameter("organisation_building_name");
+    	}
+    	
+    	
     	//System.out.println("org_name: "+org_name);
-    	String organisation_building_name = request.getParameter("organisation_building_name");
+    	
     	//System.out.println("organisation_building_name: "+organisation_building_name);
 		try {
 			prepStat = conn.prepareStatement("select map_id,map_name from maps where org_building = ?");
