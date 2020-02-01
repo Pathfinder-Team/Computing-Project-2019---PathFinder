@@ -107,7 +107,7 @@ ENGINE = InnoDB;
 -- Table  `point_to`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `point_to` (
-  `point_id` VARCHAR(45) NOT NULL,
+  `point_id` int(45) NOT NULL auto_increment,
   `point_from_id` INT UNSIGNED NOT NULL,
   `point_to_id` INT NOT NULL,
   `point_weight` INT NOT NULL,

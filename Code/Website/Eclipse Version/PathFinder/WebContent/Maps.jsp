@@ -36,9 +36,6 @@
 		String user_org_name = "";
 		int imageId = 0;
 		String selected = "";
-
-
-	    	
 	        try
 	        {
 	        	SQLConnection connect = new SQLConnection();
@@ -46,7 +43,7 @@
 	            // setup the connection with the DB
 	            conn = DriverManager.getConnection(connect.URL(), connect.USERNAME(), connect.PASSWORD());
 	            
-	            //System.out.println("Connected");
+	            System.out.println("Connected Maps.jsp");
 	        } catch (ClassNotFoundException | SQLException e)
 	        {
 	            System.err.println("Error 1" + e);
@@ -179,7 +176,6 @@
 				<br>
 				<p>
 					Building Name:<%=organisation_building_name%>
-					<%  %>
 				<br>
 					
 				</p>
@@ -187,11 +183,11 @@
 				<input type="hidden" id="maps_map_id" name="maps_map_id" value="<%=selected%>">
 				<input type="hidden" id="organisation_name" name="organisation_name" value="<%=organisation_name%>">
 				<input type="hidden" id="organisation_building_name" name="organisation_building_name" value="<%=organisation_building_name%>">
-				<button type="submit" >Add Map Points</button>
+				<button type="submit" >Add Map Nodes and Points</button>
 				</form>
 				<br>
 				<form action="ViewPointsDB" method="post">
-				<button type="submit" >View Points</button>
+				<button type="submit" >View Map Detail's</button>
 				</form>
 				<br>
 				<br>

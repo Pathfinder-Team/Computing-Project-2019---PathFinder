@@ -20,10 +20,20 @@ public class Node
     int point_weight;
     String point_direction;
     
+    String floorName = "";
+    int floorId = 0;
+    
     public Node()
     {
         
     }
+    
+    public Node(int floorId, String floorName)
+    {
+        this.floorId = floorId;
+        this.floorName = floorName;
+    }
+    
     public Node(int source, int destination, int weight)
     {
         this.source = source;

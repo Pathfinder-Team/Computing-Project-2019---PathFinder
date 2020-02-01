@@ -131,9 +131,9 @@ public class getRankPower
 		}
 	}
 	// 1
-	public static void setUserNameRights(String userNameRights)
+	public static void setUserNameRights(String powerUsername)
 	{
-		userNameRights = userNameRights;
+		userNameRights = powerUsername;
 	}
 	public String getUserNameRights()
 	{

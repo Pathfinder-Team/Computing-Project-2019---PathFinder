@@ -41,7 +41,7 @@ public class LoginDB extends HttpServlet
             conn = DriverManager.getConnection(connect.URL, connect.USERNAME, connect.PASSWORD);
             //conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/?user=root");
             
-            System.out.println("Connected Login");
+            System.out.println("Connected LoginDB");
         } catch (ClassNotFoundException | SQLException e)
         {
             System.err.println("Error 1 " + e);
@@ -53,8 +53,8 @@ public class LoginDB extends HttpServlet
         String checkUsername = request.getParameter("user_name");
         String checkPassowrd = request.getParameter("password");
         
-        System.out.println("checkUsername: "+checkUsername);
-        System.out.println("checkPassowrd: "+checkPassowrd);
+        //System.out.println("checkUsername: "+checkUsername);
+        //System.out.println("checkPassowrd: "+checkPassowrd);
         
         boolean found = false;
         PreparedStatement prepStat;
