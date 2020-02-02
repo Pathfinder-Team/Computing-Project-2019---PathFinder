@@ -50,6 +50,8 @@ public class GetImageAction extends HttpServlet {
 	String map_name;
 	String map_comments;
 	Blob map_image;
+	
+	getRankPower rp = new getRankPower();
 
     public void init() throws ServletException
     {
@@ -69,113 +71,48 @@ public class GetImageAction extends HttpServlet {
     }
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// create a cookie array
-		Cookie cookie = null;
-		Cookie[] cookies = null;
-		cookies = request.getCookies();
-		// were going to loop through the cookies array and if the active cookies match
-		// values in the database
-		// we know we are that user in the database so were going to put there
-		// information into some variables
-		try {
-			if (cookies != null) {
-				for (int i = 0; i < cookies.length; i++) {
-					cookie = cookies[i];
-					stmt = conn.createStatement();
-					String sql5 = "select "
-							+ "user_id,"
-							+ "user_name,"
-							+ "password,"
-							+ "account_rank_account_rank_id,"
-							+ "email,"
-							+ "organisation_name "
-							+ "from users";
-					result = stmt.executeQuery(sql5);
-					while (result.next()) {
-						String powerOrgName = result.getString("organisation_name");
-						String powerUsername = result.getString("user_name");
-						int powerID = result.getInt("user_id");
-						String powerPassword = result.getString("password");
-						int powerStatus = result.getInt("account_rank_account_rank_id");
-						String powerEmail = result.getString("email");
 
-						// if cookie username and username from the database match then we are this
-						// record,
-						// extremly important note!: all usernames are unique so they database cannot
-						// contain 2 exact usernames
-						if (powerUsername.equals(cookie.getValue())) {
-							userNameRights = powerUsername;
-							idRights = powerID;
-							passwordRights = powerPassword;
-							AccountStatusRights = powerStatus;
-							emailRights = powerEmail;
-							orgNameRights = powerOrgName;
-						}
-					}
-				}
-			}
-		} catch (SQLException ex) {
-			Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
-			System.err.println("Error 2" + ex);
-		}
+		rp.getStatusRank(request,response,stmt,conn);
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		String jsp_org_name2 = request.getParameter("map_name");
+		String org_name = request.getParameter("org_name");
 		//System.out.println("map_name: "+jsp_org_name2);
 		try {
 			
-			/*
-			PreparedStatement prepStat1 = conn.prepareStatement("select map_image "
-					+ "from maps "
-					+ "join organisation "
-					+ "on maps.org_name = organisation.organisation_name "
-					+ "where map_name = ?");
-           	
-            prepStat1.setString(1, jsp_org_name2);
-            result = prepStat1.executeQuery();
-            System.out.println("prepstat: "+prepStat1);
-            String imgLen = "";
-			if (result.next()) 
-			{
-				imgLen = result.getString(1);
-				//System.out.println("imgLen: "+imgLen);
-				//System.out.println(imgLen.length());
-			}
-			if (result.next()) {
-				int len = imgLen.length();
-				byte[] rb = new byte[len];
-				InputStream readImg = result.getBinaryStream(1);
-				int index = readImg.read(rb, 0, len);
-				//System.out.println("index " + index);
-				stmt.close();
-				response.reset();
-				response.setContentType("image/jpg");
-				response.getOutputStream().write(rb, 0, len);
-				response.getOutputStream().flush();
-			}
-			*/
 			
+			/*
 			ResultSet rs1 = stmt.executeQuery("select maps.map_image,maps.map_name "
 					+ "from maps "
 					+ "join organisation "
 					+ "on maps.org_name = organisation.organisation_name "
-					+ "where org_name = 'Limerick Institute of Technology'");
+					+ "where org_name = ?");
+					*/
+			
+			prepStat = conn.prepareStatement("select maps.map_image,maps.map_name "
+					+ "from maps "
+					+ "join organisation "
+					+ "on maps.org_name = organisation.organisation_name "
+					+ "where org_name = ?");
+			prepStat.setString(1,org_name );
+			result = prepStat.executeQuery();
+			
 			String imgLen = "";
-			while (rs1.next()) 
+			while (result.next()) 
 			{
-				String check = rs1.getString("map_name");
+				String check = result.getString("map_name");
 				//System.out.println("Check: "+check);
 				if(check.equals(jsp_org_name2))
 				{
 					//System.out.println("Inside check if");
-					imgLen = rs1.getString("map_image");
+					imgLen = result.getString("map_image");
 					System.out.println("imgLen "+imgLen);
 				//System.out.println(imgLen.length());
 					//if (rs1.next()) {
 						//System.out.println("next if");
 						int len = imgLen.length();
 						byte[] rb = new byte[len];
-						InputStream readImg = rs1.getBinaryStream(1);
+						InputStream readImg = result.getBinaryStream(1);
 						int index = readImg.read(rb, 0, len);
 						//System.out.println("index " + index);
 						stmt.close();

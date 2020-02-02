@@ -116,30 +116,6 @@
 					<li><p>2. Add Map point</p></li>
 					<li><p>3. Add the connections between Point A and Point B</p></li>
 				</ol>
-				
-				<!-- 
-				<p>
-					Organization name:<//%=organisation_name%>
-				</p>
-				
-				<p>
-					Organization Address:<//%=organisation_address%>
-				</p>
-				<p>
-					Organization Email:
-					<//%=organisation_email%>
-				</p>
-				<p>
-					Organization Contact Number:
-					<//%=organisation_mobile%>
-				</p>
-				<p>
-					Organization Building Name:
-					<//%=organisation_building_name%>
-				</p>
-				<br>
-				
-				 -->
 
 				<form action="UploadMapDB" method="post" class="">
 					<button type="submit">Upload A New Map</button>
@@ -171,7 +147,7 @@
 				<%
 					selected = request.getParameter("imageName");
 				%>
-				<img src="GetImageAction?map_name=<%=selected%>" alt="Select Image" height="200px" width="200px">
+				<img src="GetImageAction?map_name=<%=selected%>&org_name=<%=organisation_name%>" alt="Select Image" height="200px" width="200px">
 				<br>
 				<br>
 				<p>
@@ -188,6 +164,8 @@
 				<br>
 				<form action="ViewPointsDB" method="post">
 				<button type="submit" >View Map Detail's</button>
+				<input type="hidden" id="organisation_name" name="organisation_name" value="<%=organisation_name%>">
+				<input type="hidden" id="organisation_building_name" name="organisation_building_name" value="<%=organisation_building_name%>">
 				</form>
 				<br>
 				<br>

@@ -238,8 +238,8 @@ public class Graph
 
     public void displayPath(int root, int destination)
     {
-        System.out.println("############################################################");
-        System.out.println("############################################################");
+        //System.out.println("############################################################");
+        //System.out.println("############################################################");
         System.out.println(" ");
         Stack<Integer> fromid = new Stack();
         Stack<Integer> toid = new Stack();
@@ -287,7 +287,7 @@ public class Graph
             if (distance[source] == 99999)
             {
                 System.out.print("This index is UNREACHABLE: " + source);
-                System.out.println("");
+                System.out.println(" ");
             }
             else
             {
@@ -300,7 +300,7 @@ public class Graph
             }
         }
 
-        System.out.println("###########################");
+        //System.out.println("###########################");
         //System.out.println("adj.length: "+adj.length);
 
         /*
@@ -339,8 +339,8 @@ public class Graph
                 }
             }
 
-        System.out.println(" ");
-        System.out.println("###########################");
+        //System.out.println(" ");
+        //System.out.println("###########################");
 
         //finalDirectionsArray
         //System.out.println("Source: " + directionsArray.get(i).source + ", Destination: " + directionsArray.get(i).destination);
