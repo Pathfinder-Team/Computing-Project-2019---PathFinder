@@ -268,8 +268,8 @@ public class EditDB extends HttpServlet
 	                + "<p><label for=\"point_weight\" class=\"title\">point_weight: <span>*</span></label>\n"
 	                + "<input type=\"number\" name=\"point_weight\" id=\"point_weight\" value="+ point_weight+" /required></p>\n"
 	                + "\n"
-	                + "<p><label for=\"point_name\" class=\"title\">point_name: <span>*</span></label>\n"
-	                + "<input type=\"text\" name=\"point_name\" id=\"point_name\" value='"+point_direction+"' /required></p>\n"
+	                + "<p><label for=\"point_direction\" class=\"title\">point_direction: <span>*</span></label>\n"
+	                + "<input type=\"text\" name=\"point_direction\" id=\"point_direction\" value='"+point_direction+"' /required></p>\n"
 	                + "<input type=\"hidden\" id=\"TriggerEditPoint\" name=\"TriggerEditPoint\" value=\"EditPoint\">"
 	                + "<input type=\"hidden\" id=\"pageDirection\" name=\"pageDirection\" value='"+pageDirection+"'>"
 	                + "<p>\n");

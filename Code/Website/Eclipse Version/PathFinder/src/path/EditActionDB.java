@@ -54,11 +54,11 @@ public class EditActionDB extends HttpServlet
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        triggerIdNode = null;
+        //triggerIdNode = null;
         System.out.println("Check: "+triggerIdPoint);
-        triggerIdPoint = null;
-        triggerIdOrg = null;
-        triggerIdOrgBuilding = null;
+        //triggerIdPoint = null;
+        //triggerIdOrg = null;
+        //triggerIdOrgBuilding = null;
     	
     	if(request.getParameter("pageDirection") != null || request.getParameter("pageDirection") != "")
     	{
@@ -75,7 +75,7 @@ public class EditActionDB extends HttpServlet
     	else if (request.getParameter("TriggerEditPoint") != null)
     	{
 	        // value PointDelete
-	        triggerIdPoint = request.getParameter("TriggerPoint");
+	        triggerIdPoint = request.getParameter("TriggerEditPoint");
 	        System.out.println("2. triggerIdPoint: "+triggerIdPoint);
 	        trigger3(request,response);
     	}
@@ -185,13 +185,7 @@ public class EditActionDB extends HttpServlet
 	            int point_weight = Integer.parseInt(request.getParameter("point_weight"));
 	            String point_direction = request.getParameter("point_direction");
 	            
-	            String query = "update point_to "
-	            		+ "set point_id = ?,"
-	            		+ "point_from_id = ?,"
-	            		+ "point_to_id = ?,"
-	            		+ "point_weight = ?,"
-	            		+ "point_direction = ?"
-	            		+ "where point_id = ?";
+	            String query = "update point_to set point_id = ?, point_from_id = ?, point_to_id = ?, point_weight = ?, point_direction = ? where point_id = ?";
 	            prepStat = conn.prepareStatement(query);
 	            
 	            prepStat.setInt(1, point_id);
