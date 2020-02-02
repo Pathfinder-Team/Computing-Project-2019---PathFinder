@@ -28,6 +28,7 @@ import javax.servlet.http.*;
 import javax.servlet.*;
 import java.io.*;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -72,6 +73,7 @@ public class DetailsDB extends HttpServlet {
 	Blob map_image;
 
 	getRankPower rp = new getRankPower();
+	ArrayList<String> buildingNames = new ArrayList<>();
 	
     public void init() throws ServletException
     {
@@ -113,6 +115,10 @@ public class DetailsDB extends HttpServlet {
 				organisation_email = result.getString("organisation_email");
 				organisation_mobile = result.getInt("organisation_mobile");
 				organisation_building_name = result.getString("organisation_building_name");
+				if(!buildingNames.contains(organisation_building_name))
+				{
+					buildingNames.add(organisation_building_name);
+				}
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(ControlDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -155,18 +161,30 @@ public class DetailsDB extends HttpServlet {
 	                + "                    </ul>\r\n"
 					+ "<br>\r\n" 
 					+ "<br>\r\n"
-					+ "<p>Organisation Information:<p>\r\n"
+					+ "<p>Organisation Information:<p>"
 					+ "<br>"
-					+ "<form action=\"EditDB\">"
+					+ "<form action=\"EditDB\" method=\"post\">"
+					+ "<input type=\"hidden\" id=\"TriggerEditOrg\" name=\"TriggerEditOrg\" value=\"EditOrg\">"
+					+ "<input type=\"hidden\" id=\"organisation_name\" name=\"organisation_name\" value='"+organisation_name+"'>"
+					+ "<input type=\"hidden\" id=\"organisation_address\" name=\"organisation_address\" value='"+organisation_address+"'>"
+					+ "<input type=\"hidden\" id=\"organisation_email\" name=\"organisation_email\" value="+organisation_email+">"
+					+ "<input type=\"hidden\" id=\"organisation_mobile\" name=\"organisation_mobile\" value="+organisation_mobile+">"
+					
 					+ "Organisation Name: " + organisation_name
-					+ "<input type=\"hidden\" id=\"old_organisation_name\" name=\"old_organisation_name\" value="+organisation_name+">"
 					+ "<br>Organisation Address: " + organisation_address
 					+ "<br>Organisation Email: " + organisation_email
 					+ "<br>Organisation Contact Number: " + organisation_mobile
-					+ "<br>Organisation Building Name: " + organisation_building_name
+	                + "<br><label for=\"organisation_building_name\">Organisation Building's:  </label>"
+	                + "<select name=\"organisation_building_name\">"
+	                + "<option value=\"\">Select</option>");
+	                for (int i = 0; i < buildingNames.size();i++)
+	        		{    	
+	                out.println("<option value='"+buildingNames.get(i)+"'>"+buildingNames.get(i)+"</option>");
+	        		}
+	                out.println("</select><br><br>"
+	                + "<br>"
 					+ "<br>"
-					+ "<br>"
-					+ "<button type=\"submit\" >Edit Name</button>"
+					+ "<button type=\"submit\" >Edit Org</button>"
 					+ "</form>");
 			out.println("                  <div class=\"clearfix\"></div>\r\n" + "\r\n"
 					+ "                    <div style=\"padding:6px;\">\r\n" + "                        <br>\r\n"

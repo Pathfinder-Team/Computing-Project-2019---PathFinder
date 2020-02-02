@@ -104,10 +104,10 @@ public class EditDB extends HttpServlet
                 out.println("<main>\n"
                 + "<section id=\"form\">\n"
                 + "<ul class=\"sign_login\">\r\n"
-                + "<li><a href=\"ControlDB\">CONTROL</a></li>\r\n"
                 + "<li><a href=\"DetailsDB\">DETAILS</a></li>\r\n"
                 + "<li><a href=\"Maps.jsp\">MAPS</a></li>\r\n"
                 + "<li><a href=\"LogOutDB\" >LOG OUT</a></li>\r\n"
+                + "<li><a href=\"ControlDB\">CONTROL</a></li>\r\n"
                 + "</ul>\r\n"
 				+ "<br>\r\n" 
 				+ "<br>\r\n");
@@ -115,26 +115,33 @@ public class EditDB extends HttpServlet
                 // Edit the Org
                 if(triggerIdOrg.equals("EditOrg"))
                 {
+    		        String organisation_name = request.getParameter("organisation_name");
+    	            String organisation_address = request.getParameter("organisation_address");
+    	            String organisation_email = request.getParameter("organisation_email");
+    	            int organisation_mobile = Integer.parseInt(request.getParameter("organisation_mobile"));
+    	            String organisation_building_name = request.getParameter("organisation_building_name");
+    	            
 					out.println("<h1>Edit</h1>\n"
 	                + "<form action=\"EditActionDB\" method=\"post\" name=\"form\" onSubmit=\"return validateAll();\" >\n"
 	                + "<fieldset>\n"
-	                + "<legend>Edit Record</legend>\n"
+	                + "<legend>Edit Organisation </legend>\n"
 	                + "<br>\n"
 	                + "\n"
 	                + "<p><label for=\"organisation_name\" class=\"title\" >organisation Name: <span>*</span></label>\n"
-	                + "<input type=\"text\" name=\"organisation_name\" id=\"organisation_name\" /required></p>\n"
+	                + "<input type=\"text\" name=\"organisation_name\" id=\"organisation_name\" value='"+organisation_name+"' /required></p>\n"
 	                + "\n"
 	                + "<p><label for=\"organisation_address\" class=\"title\">organisation_address: <span>*</span></label>\n"
-	                + "<input type=\"text\" name=\"organisation_address\" id=\"organisation_address\" /required></p>\n"
+	                + "<input type=\"text\" name=\"organisation_address\" id=\"organisation_address\" value='"+organisation_address+"' /required></p>\n"
 	                + "\n"
 	                + "<p><label for=\"organisation_email\" class=\"title\">organisation_email: <span>*</span></label>\n"
-	                + "<input type=\"email\" name=\"organisation_email\" id=\"organisation_email\" /required></p>\n"
+	                + "<input type=\"email\" name=\"organisation_email\" id=\"organisation_email\" value="+organisation_email+" /required></p>\n"
 	                + "\n"
 	                + "<p><label for=\"organisation_mobile\" class=\"title\">organisation_mobile: <span>*</span></label>\n"
-	                + "<input type=\"number\" name=\"organisation_mobile\" id=\"organisation_mobile\" /required></p>\n"
+	                + "<input type=\"number\" name=\"organisation_mobile\" id=\"organisation_mobile\" value="+organisation_mobile+" /required></p>\n"
 	                + "\n"
 	                + "<p><label for=\"organisation_building_name\" class=\"title\">organisation_building_name: <span>*</span></label>\n"
-	                + "<input type=\"text\" name=\"organisation_building_name\" id=\"organisation_building_name\" /required></p>\n"
+	                + "<input type=\"text\" name=\"organisation_building_name\" id=\"organisation_building_name\" value='"+organisation_building_name+"' /required></p>\n"
+	                + "<input type=\"hidden\" id=\"TriggerEditOrg\" name=\"TriggerEditOrg\" value=\"EditOrg\">"
 	                + "<p>\n");
 			        out.println(
 			        "<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Submit Details\" />\n"
@@ -176,26 +183,35 @@ public class EditDB extends HttpServlet
                 // edit the org building
                 else if(triggerIdOrgBuilding.equals("EditOrgBuilding"))
                 {
+                	
+    		        int map_id = Integer.parseInt(request.getParameter("map_id"));
+    		        String org_name = request.getParameter("org_name");
+    		        String org_building = request.getParameter("org_building");
+    		        String map_name = request.getParameter("map_name");
+    		        String map_comments = request.getParameter("map_comments");
+   
+  
+                	
 					out.println("<h1>Edit</h1>\n"
 	                + "<form action=\"EditActionDB\" method=\"post\" name=\"form\" onSubmit=\"return validateAll();\" >\n"
 	                + "<fieldset>\n"
-	                + "<legend>Edit Record</legend>\n"
+	                + "<legend>Edit Building Details</legend>\n"
 	                + "<br>\n"
 	                + "\n"
 	                + "<p><label for=\"map_id\" class=\"title\" >map_id: <span>*</span></label>\n"
-	                + "<input type=\"text\" name=\"map_id\" id=\"map_id\" /required></p>\n"
+	                + "<input type=\"text\" name=\"map_id\" id=\"map_id\" value="+map_id+"  /required></p>\n"
 	                + "\n"
 	                + "<p><label for=\"org_name\" class=\"title\">org_name: <span>*</span></label>\n"
-	                + "<input type=\"text\" name=\"org_name\" id=\"org_name\" /required></p>\n"
+	                + "<input type=\"text\" name=\"org_name\" id=\"org_name\" value="+org_name+" /required></p>\n"
 	                + "\n"
-	                + "<p><label for=\"org_building\" class=\"title\">organisation_email: <span>*</span></label>\n"
-	                + "<input type=\"email\" name=\"org_building\" id=\"org_building\" /required></p>\n"
+	                + "<p><label for=\"org_building\" class=\"title\">org_building: <span>*</span></label>\n"
+	                + "<input type=\"email\" name=\"org_building\" id=\"org_building\"  value="+org_building+" /required></p>\n"
 	                + "\n"
 	                + "<p><label for=\"map_name\" class=\"title\">map_name: <span>*</span></label>\n"
-	                + "<input type=\"number\" name=\"map_name\" id=\"map_name\" /required></p>\n"
+	                + "<input type=\"number\" name=\"map_name\" id=\"map_name\" value="+map_name+" /required></p>\n"
 	                + "\n"
 	                + "<p><label for=\"map_comments\" class=\"title\">map_comments: <span>*</span></label>\n"
-	                + "<input type=\"text\" name=\"map_comments\" id=\"map_comments\" /required></p>\n"
+	                + "<input type=\"text\" name=\"map_comments\" id=\"map_comments\" value="+map_comments+" /required></p>\n"
 	                + "<p>\n");
 			        out.println(
 			        "<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Submit Details\" />\n"

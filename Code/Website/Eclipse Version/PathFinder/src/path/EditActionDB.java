@@ -23,9 +23,6 @@ import javax.servlet.http.HttpServletResponse;
 })
 public class EditActionDB extends HttpServlet
 {
-
-	
-	
     String triggerIdNode = "";
     String triggerIdPoint = "";
     String triggerIdOrg = "";
@@ -86,7 +83,7 @@ public class EditActionDB extends HttpServlet
 	        {
 		        String organisation_name = request.getParameter("organisation_name");
 	            String organisation_address = request.getParameter("organisation_address");
-	            String organisation_emai8l = request.getParameter("organisation_email");
+	            String organisation_email = request.getParameter("organisation_email");
 	            int organisation_mobile = Integer.parseInt(request.getParameter("organisation_mobile"));
 	            String organisation_building_name = request.getParameter("organisation_building_name");
 	            String old_organisation_name = request.getParameter("old_organisation_name");
@@ -115,7 +112,7 @@ public class EditActionDB extends HttpServlet
 	        }
 	        response.sendRedirect("DetailsDB");
         }
-        // Edit the Org
+        // Edit the Node
         else if(triggerIdNode.equals("EditNode"))
         {
 	        try
@@ -145,6 +142,40 @@ public class EditActionDB extends HttpServlet
         }
         // Edit points
         else if(triggerIdPoint.equals("EditPoint"))
+        {
+	        try
+	        {
+		        int point_id = Integer.parseInt(request.getParameter("point_id"));
+	            int point_from_id = Integer.parseInt(request.getParameter("point_from_id"));
+	            int point_to_id = Integer.parseInt(request.getParameter("point_to_id"));
+	            int point_weight = Integer.parseInt(request.getParameter("point_weight"));
+	            String point_direction = request.getParameter("point_direction");
+	            
+	            String query = "update point_to "
+	            		+ "set point_id = ?,"
+	            		+ "point_from_id = ?,"
+	            		+ "point_to_id = ?,"
+	            		+ "point_weight = ?,"
+	            		+ "point_direction = ?,"
+	            		+ "where point_id = ?";
+	            prepStat = conn.prepareStatement(query);
+	            
+	            prepStat.setInt(1, point_id);
+	            prepStat.setInt(2, point_from_id);
+	            prepStat.setInt(3, point_to_id);
+	            prepStat.setInt(4, point_weight);
+	            prepStat.setString(5, point_direction);
+	            prepStat.setInt(6, point_id);
+	            prepStat.executeUpdate();
+	
+	        } catch (SQLException e)
+	        {
+	            System.err.println("Error 2 " + e);
+	        }
+	        response.sendRedirect("DetailsDB");
+        }
+        // Edit points
+        else if(triggerIdOrgBuilding.equals("EditOrgBuilding"))
         {
 	        try
 	        {
