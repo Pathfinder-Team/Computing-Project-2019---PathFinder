@@ -106,15 +106,7 @@ public class AddThings extends HttpServlet {
 				inputStream = parts1.getInputStream();
 			}
 			try {
-				int counter = 0;
-				
-				//System.out.println("counter : "+counter);
-				//System.out.println("org_name : "+org_name);
-				//System.out.println("org_building : "+org_building);
-				//System.out.println("map_name : "+map_name);
-				//System.out.println("map_comments : "+map_comments);
-				//System.out.println("inputStream : "+inputStream);
-				
+				int counter = 0;				
 				prepStat = conn.prepareStatement("insert into maps values(? ,? ,? ,? ,? ,? )");
 				prepStat.setInt(1, counter);
 				prepStat.setString(2, org_name);

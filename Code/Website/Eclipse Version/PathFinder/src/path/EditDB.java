@@ -54,24 +54,28 @@ public class EditDB extends HttpServlet
             throws ServletException, IOException
     {
     	
+    	////////////////////////////
     	if(request.getParameter("TriggerEditOrg") != null)
     	{
 	    	// value EditOrg
     		triggerIdOrg = request.getParameter("TriggerEditOrg");
 	        System.out.println("triggerIdOrg: "+triggerIdOrg);
     	}
+    	///////////////////////////////
     	else if (request.getParameter("TriggerEditOrgBuilding") != null)
     	{
 	        // value EditOrgBuilding
     		triggerIdOrgBuilding = request.getParameter("TriggerEditOrgBuilding");
 	        System.out.println("triggerIdOrgBuilding: "+triggerIdOrgBuilding);
     	}
+    	//////////////////////////////
     	else if (request.getParameter("TriggerEditPoint") != null)
     	{
 	        // value EditPoint
 	        triggerIdPoint = request.getParameter("TriggerEditPoint");
 	        System.out.println("triggerIdPoint: "+triggerIdPoint);
     	}
+    	//////////////////////////////
     	else if(request.getParameter("TriggerEditNode") != null)
     	{
 	        // EditNode

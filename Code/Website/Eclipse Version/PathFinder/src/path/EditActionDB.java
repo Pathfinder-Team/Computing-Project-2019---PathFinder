@@ -54,28 +54,34 @@ public class EditActionDB extends HttpServlet
             throws ServletException, IOException
     {
 
-    	
-    	
-    	if(request.getParameter("TriggerNode") != null)
+    	if(request.getParameter("TriggerEditNode") != null)
     	{
 	    	// value NodeDelete
-	        triggerIdNode = request.getParameter("TriggerNode");
+	        triggerIdNode = request.getParameter("TriggerEditNode");
 	        System.out.println("triggerIdNode: "+triggerIdNode);
     	}
-    	else if (request.getParameter("TriggerPoint") != null)
+    	else if (request.getParameter("TriggerEditPoint") != null)
     	{
 	        // value PointDelete
 	        triggerIdPoint = request.getParameter("TriggerPoint");
 	        System.out.println("triggerIdPoint: "+triggerIdPoint);
     	}
-    	else if(request.getParameter("TriggerOrg") != null)
+    	else if(request.getParameter("TriggerEditOrg") != null)
     	{
 	        // OrgDelete
-	        triggerIdOrgBuilding = request.getParameter("TriggerOrgBuilding");
+    		triggerIdOrg = request.getParameter("TriggerEditOrg");
+	        System.out.println("triggerIdOrg: "+triggerIdOrg);
+    	}
+    	else if(request.getParameter("TriggerOrgBuilding") != null)
+    	{
+	        // OrgDelete
+	        triggerIdOrgBuilding = request.getParameter("TriggerEditOrgBuilding");
 	        System.out.println("triggerIdOrgBuilding: "+triggerIdOrgBuilding);
     	}
     	
         
+        /////////////////////////////////////////////////////////////////////////
+
         // Edit the Org
         if(triggerIdOrg.equals("EditOrg"))
         {
@@ -86,9 +92,13 @@ public class EditActionDB extends HttpServlet
 	            String organisation_email = request.getParameter("organisation_email");
 	            int organisation_mobile = Integer.parseInt(request.getParameter("organisation_mobile"));
 	            String organisation_building_name = request.getParameter("organisation_building_name");
-	            String old_organisation_name = request.getParameter("old_organisation_name");
 	            
-	        
+	            System.out.println("organisation_name: "+organisation_name);
+	            System.out.println("organisation_address: "+organisation_address);
+	            System.out.println("organisation_email: "+organisation_email);
+	            System.out.println("organisation_mobile: "+organisation_mobile);
+	            System.out.println("organisation_building_name: "+organisation_building_name);
+	            
 	            String query = "update organisation "
 	            		+ "set organisation_name = ?,"
 	            		+ "organisation_address = ?,"
@@ -103,15 +113,18 @@ public class EditActionDB extends HttpServlet
 	            prepStat.setString(3, organisation_email);
 	            prepStat.setInt(4, organisation_mobile);
 	            prepStat.setString(5, organisation_building_name);
-	            prepStat.setString(6, old_organisation_name);
+	            prepStat.setString(6, organisation_name);
 	            prepStat.executeUpdate();
-	
+	            
+	            response.sendRedirect("DetailsDB");
+
 	        } catch (SQLException e)
 	        {
 	            System.err.println("Error 2 " + e);
 	        }
-	        response.sendRedirect("DetailsDB");
         }
+        /////////////////////////////////////////////////////////////////////////
+
         // Edit the Node
         else if(triggerIdNode.equals("EditNode"))
         {
@@ -140,6 +153,8 @@ public class EditActionDB extends HttpServlet
 	        }
 	        response.sendRedirect("DetailsDB");
         }
+        /////////////////////////////////////////////////////////////////////////
+
         // Edit points
         else if(triggerIdPoint.equals("EditPoint"))
         {
@@ -174,6 +189,7 @@ public class EditActionDB extends HttpServlet
 	        }
 	        response.sendRedirect("DetailsDB");
         }
+        /////////////////////////////////////////////////////////////////////////
         // Edit points
         else if(triggerIdOrgBuilding.equals("EditOrgBuilding"))
         {

@@ -179,8 +179,6 @@ INSERT INTO `point_to` (`point_id`, `point_from_id`, `point_to_id`, `point_weigh
 (5,2, 4, 3,'straight_ahead'),
 (6,3, 2, 2,'straight_ahead'),
 (7,4, 2, 2,'straight_ahead'),
-(44,1 ,21 ,4, 'downstairs_hallway'),
-(45,21 ,1 ,5, 'upstairs_hallway'),
 (8,4, 5, 2,'turn_left'),
 (9,4, 6, 2,'turn_right'),
 (10,4, 10, 2,'upstairs_hallway'),
@@ -220,8 +218,12 @@ INSERT INTO `point_to` (`point_id`, `point_from_id`, `point_to_id`, `point_weigh
 (42,20, 17, 3,'downstairs_hallway'),
 (43,20, 19, 2,'straight_ahead');
 
+INSERT INTO `map_points` (`current_point_id`, `point_name`, `maps_map_id`) VALUES
+(21, 'Basemeant', 1);
+
+INSERT INTO `point_to` (`point_id`, `point_from_id`, `point_to_id`, `point_weight`,`point_direction`) VALUES
+(44,1 ,21 ,4, 'downstairs_hallway'),
+(45,21 ,1 ,5, 'upstairs_hallway');
+
 select * from point_to;
 select * from map_points;
-
-
-#insert into point_to values(0,1 ,22 ,5, 'turn_left');

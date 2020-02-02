@@ -19,7 +19,6 @@ public class GetImageAction extends HttpServlet {
 	Connection conn;
 	Connection conn2;
 	Statement stmt;
-	PreparedStatement prepStat;
 
 	int powerID;
 	String powerUsername;
@@ -80,50 +79,32 @@ public class GetImageAction extends HttpServlet {
 		//System.out.println("map_name: "+jsp_org_name2);
 		try {
 			
-			
-			/*
-			ResultSet rs1 = stmt.executeQuery("select maps.map_image,maps.map_name "
-					+ "from maps "
-					+ "join organisation "
-					+ "on maps.org_name = organisation.organisation_name "
-					+ "where org_name = ?");
-					*/
-			
-			prepStat = conn.prepareStatement("select maps.map_image,maps.map_name "
+			PreparedStatement prepStat = conn.prepareStatement("select maps.map_image,maps.map_name "
 					+ "from maps "
 					+ "join organisation "
 					+ "on maps.org_name = organisation.organisation_name "
 					+ "where org_name = ?");
 			prepStat.setString(1,org_name );
+			
 			result = prepStat.executeQuery();
 			
 			String imgLen = "";
 			while (result.next()) 
 			{
 				String check = result.getString("map_name");
-				//System.out.println("Check: "+check);
 				if(check.equals(jsp_org_name2))
 				{
-					//System.out.println("Inside check if");
 					imgLen = result.getString("map_image");
-					System.out.println("imgLen "+imgLen);
-				//System.out.println(imgLen.length());
-					//if (rs1.next()) {
-						//System.out.println("next if");
 						int len = imgLen.length();
 						byte[] rb = new byte[len];
 						InputStream readImg = result.getBinaryStream(1);
 						int index = readImg.read(rb, 0, len);
-						//System.out.println("index " + index);
-						stmt.close();
+						prepStat.close();
 						response.reset();
 						response.setContentType("image/jpg");
 						response.getOutputStream().write(rb, 0, len);
 						response.getOutputStream().flush();
-						System.out.println(" ");
 						break;
-					//}
-					
 				}
 			}
 			
