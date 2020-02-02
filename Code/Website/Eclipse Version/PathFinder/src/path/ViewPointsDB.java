@@ -115,7 +115,6 @@ public class ViewPointsDB extends HttpServlet
 			e.printStackTrace();
 		    System.out.println("Special Json error: "+e);
 		}
-    	//System.out.println("special "+maps_map_id);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 		out.println("<!doctype html>\n"
@@ -157,34 +156,61 @@ public class ViewPointsDB extends HttpServlet
                 
 		                for (int i = 0; i < map_points_array.size(); i++)
 		                {		                    
-			        		out.println("<th>current_point_id:" + map_points_array.get(i).current_point_id+"</th>"
-					                + "<th>point_name:" + map_points_array.get(i).point_name+ "</th>"
-					                + "<th>maps_map_id:" + map_points_array.get(i).maps_map_id+"</th>"
-					                + "<tr>");
+			        		out.println("<th>Current Point:" + map_points_array.get(i).current_point_id+"</th>"
+					                + "<th>Name:" + map_points_array.get(i).point_name+ "</th>"
+					                + "<th>Map Id:" + map_points_array.get(i).maps_map_id+"</th>"
+					                +"<th><form action=\"DeleteDB\" method=\"post\">"
+							        + "<input type=\"hidden\" id=\"pageDirection\" name=\"pageDirection\" value=\"PostsDB\">"
+							        + "<input type=\"hidden\" id=\"TriggerNode\" name=\"TriggerNode\" value=\"NodeDelete\">"
+							        + "<input type=\"hidden\" id=\"current_point_id\" name=\"current_point_id\" value="+map_points_array.get(i).current_point_id+">"
+							        + "<input type=\"submit\" value=\"Delete Node\">"
+							        + "</form>"
+							        + "</th>"
+							        +"<th>"
+							        + "<form action=\"EditDB\" method=\"post\">"
+							        + "<input type=\"hidden\" id=\"pageDirection\" name=\"pageDirection\" value=\"PostsDB\">"
+							        + "<input type=\"hidden\" id=\"TriggerEditNode\" name=\"TriggerEditNode\" value=\"EditNode\">"
+							        + "<input type=\"hidden\" id=\"current_point_id\" name=\"current_point_id\" value="+map_points_array.get(i).current_point_id+">"
+							        + "<input type=\"hidden\" id=\"point_name\" name=\"point_name\" value='"+map_points_array.get(i).point_name+"'>"
+							        + "<input type=\"hidden\" id=\"maps_map_id\" name=\"maps_map_id\" value="+map_points_array.get(i).maps_map_id+">"
+							        + "<input type=\"submit\" value=\"Edit Node\">"
+							        + "</form>"
+							        + "</th>"
+							        + "<tr>");
 		                    for(int j = 0; j < points_array.size();j++)
 		                    {
 		                        if (map_points_array.get(i).current_point_id == points_array.get(j).point_from_id) {
-				        		out.println("<th>point_from_id:" +points_array.get(j).point_from_id+"</th>"
-						                + "<th>point_to_id:" + points_array.get(i).point_to_id+ "</th>"
-						                + "<th>point_weight:" + points_array.get(i).point_weight+ "</th>"
-						                + "<th>point_direction:" + points_array.get(i).point_direction+"</th>"
+				        		out.println("<th>Point From:" +points_array.get(j).point_from_id+"</th>"
+						                + "<th>Point To:" + points_array.get(j).point_to_id+ "</th>"
+						                + "<th>Weigth:" + points_array.get(j).point_weight+ "</th>"
+						                + "<th>Direction:" + points_array.get(j).point_direction+"</th>"
+						                + "<th><form action=\"DeleteDB\" method=\"post\">"
+								        + "<input type=\"hidden\" id=\"TriggerPoint\" name=\"TriggerPoint\" value=\"PointDelete\">"
+								        + "<input type=\"hidden\" id=\"point_id\" name=\"point_id\" value="+ points_array.get(j).point_id+">"
+								        + "<input type=\"hidden\" id=\"pageDirection\" name=\"pageDirection\" value=\"PostsDB\">"
+										+ "<input type=\"submit\" value=\"Delete Point\">"
+										+ "</form>"
+										+ "</th>"
+								        + "<th>"
+								        + "<form action=\"EditDB\" method=\"post\">"
+								        + "<input type=\"hidden\" id=\"TriggerEditPoint\" name=\"TriggerEditPoint\" value=\"EditPoint\">"
+								        + "<input type=\"hidden\" id=\"point_id\" name=\"point_id\" value="+ points_array.get(j).point_id+">"
+								        + "<input type=\"hidden\" id=\"point_from_id\" name=\"point_from_id\" value="+points_array.get(i).point_from_id+">"
+								        + "<input type=\"hidden\" id=\"point_to_id\" name=\"point_to_id\" value="+points_array.get(i).point_to_id+">"
+								        + "<input type=\"hidden\" id=\"point_weight\" name=\"point_weight\" value="+points_array.get(i).point_weight+">"
+								        + "<input type=\"hidden\" id=\"point_direction\" name=\"point_direction\" value='"+points_array.get(i).point_direction+"'>"
+								        + "<input type=\"hidden\" id=\"pageDirection\" name=\"pageDirection\" value=\"PostsDB\">"
+								        + "<input type=\"submit\" value=\"Edit Point\">"
+								        + "</form>"
+								        + "</th>"
 						                + "<tr>");
 		                        }
 		                    }
+			        		out.println("<tr>"
+			        				+ "<th> </th>"
+			        				+ "</tr>");
 		                }
-				        out.println("<form action=\"EditDB\" method=\"post\">"
-				        + "<input type=\"hidden\" id=\"pageDirection\" name=\"pageDirection\" value=\"PostsDB\">"
-				        + "<input type=\"submit\" value=\"Delete Post\">"
-				        + "</form>"
-				        + "</tr>"
-				        + "<th>"
-				        + "<form action=\"EditDB\" method=\"post\">"
-				        + "<input type=\"hidden\" id=\"pageDirection\" name=\"pageDirection\" value=\"PostsDB\">"
-				        + "<input type=\"submit\" value=\"Edit Post\">"
-				        + "</form>"
-				        + "</th>"
-				        + "</tr>"
-				        + "</table>"
+				        out.println("</table>"
 				        + "<br>");
         out.println("</section>\n"
         		+ "<br>"

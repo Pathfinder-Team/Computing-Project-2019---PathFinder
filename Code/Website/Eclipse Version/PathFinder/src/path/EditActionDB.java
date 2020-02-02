@@ -24,13 +24,12 @@ import javax.servlet.http.HttpServletResponse;
 public class EditActionDB extends HttpServlet
 {
 
-	String organisation_name = "";
-	String old_organisation_name = "";
-	String organisation_address = "";
-	String organisation_email = "";
-	int organisation_mobile = 0;
-	String organisation_building_name = "";
-	String user_org_name = "";
+	
+	
+    String triggerIdNode = "";
+    String triggerIdPoint = "";
+    String triggerIdOrg = "";
+    String triggerIdOrgBuilding = "";
 
     Connection conn;
     PreparedStatement prepStat;
@@ -58,46 +57,127 @@ public class EditActionDB extends HttpServlet
             throws ServletException, IOException
     {
 
+    	
+    	
+    	if(request.getParameter("TriggerNode") != null)
+    	{
+	    	// value NodeDelete
+	        triggerIdNode = request.getParameter("TriggerNode");
+	        System.out.println("triggerIdNode: "+triggerIdNode);
+    	}
+    	else if (request.getParameter("TriggerPoint") != null)
+    	{
+	        // value PointDelete
+	        triggerIdPoint = request.getParameter("TriggerPoint");
+	        System.out.println("triggerIdPoint: "+triggerIdPoint);
+    	}
+    	else if(request.getParameter("TriggerOrg") != null)
+    	{
+	        // OrgDelete
+	        triggerIdOrgBuilding = request.getParameter("TriggerOrgBuilding");
+	        System.out.println("triggerIdOrgBuilding: "+triggerIdOrgBuilding);
+    	}
+    	
         
-        organisation_name = request.getParameter("organisation_name");
-        organisation_address = request.getParameter("organisation_address");
-        organisation_email = request.getParameter("organisation_email");
-        organisation_mobile = Integer.parseInt(request.getParameter("organisation_mobile"));
-        organisation_building_name = request.getParameter("organisation_building_name");
-        old_organisation_name = request.getParameter("old_organisation_name");
-        
-        
-        System.out.println("organisation_name: "+organisation_name);
-        System.out.println("old_organisation_name: "+old_organisation_name);
-        System.out.println("organisation_address: "+organisation_address);
-        System.out.println("organisation_email: "+organisation_email);
-        System.out.println("organisation_building_name: "+organisation_building_name);
-        System.out.println("organisation_mobile: "+organisation_mobile);
-        try
+        // Edit the Org
+        if(triggerIdOrg.equals("EditOrg"))
         {
-            String query = "update organisation "
-            		+ "set organisation_name = ?,"
-            		+ "organisation_address = ?,"
-            		+ "organisation_email = ?,"
-            		+ "organisation_mobile = ?,"
-            		+ "organisation_building_name = ? "
-            		+ "where organisation_name = ?";
-            prepStat = conn.prepareStatement(query);
-            
-            prepStat.setString(1, organisation_name);
-            prepStat.setString(2, organisation_address);
-            prepStat.setString(3, organisation_email);
-            prepStat.setInt(4, organisation_mobile);
-            prepStat.setString(5, organisation_building_name);
-            prepStat.setString(6, old_organisation_name);
-            prepStat.executeUpdate();
-
-        } catch (SQLException e)
-        {
-            System.err.println("Error 2 " + e);
+	        try
+	        {
+		        String organisation_name = request.getParameter("organisation_name");
+	            String organisation_address = request.getParameter("organisation_address");
+	            String organisation_emai8l = request.getParameter("organisation_email");
+	            int organisation_mobile = Integer.parseInt(request.getParameter("organisation_mobile"));
+	            String organisation_building_name = request.getParameter("organisation_building_name");
+	            String old_organisation_name = request.getParameter("old_organisation_name");
+	            
+	        
+	            String query = "update organisation "
+	            		+ "set organisation_name = ?,"
+	            		+ "organisation_address = ?,"
+	            		+ "organisation_email = ?,"
+	            		+ "organisation_mobile = ?,"
+	            		+ "organisation_building_name = ? "
+	            		+ "where organisation_name = ?";
+	            prepStat = conn.prepareStatement(query);
+	            
+	            prepStat.setString(1, organisation_name);
+	            prepStat.setString(2, organisation_address);
+	            prepStat.setString(3, organisation_email);
+	            prepStat.setInt(4, organisation_mobile);
+	            prepStat.setString(5, organisation_building_name);
+	            prepStat.setString(6, old_organisation_name);
+	            prepStat.executeUpdate();
+	
+	        } catch (SQLException e)
+	        {
+	            System.err.println("Error 2 " + e);
+	        }
+	        response.sendRedirect("DetailsDB");
         }
-        response.sendRedirect("DetailsDB");
-
+        // Edit the Org
+        else if(triggerIdNode.equals("EditNode"))
+        {
+	        try
+	        {
+		        int current_point_id = Integer.parseInt(request.getParameter("current_point_id"));
+	            String point_name = request.getParameter("point_name");
+	            int maps_map_id = Integer.parseInt(request.getParameter("maps_map_id"));
+	            
+	            String query = "update map_points "
+	            		+ "set current_point_id = ?,"
+	            		+ "point_name = ?,"
+	            		+ "maps_map_id = ?,"
+	            		+ "where current_map_id = ?";
+	            prepStat = conn.prepareStatement(query);
+	            
+	            prepStat.setInt(1, current_point_id);
+	            prepStat.setString(2, point_name);
+	            prepStat.setInt(3, maps_map_id);
+	            prepStat.setInt(4, current_point_id);
+	            prepStat.executeUpdate();
+	
+	        } catch (SQLException e)
+	        {
+	            System.err.println("Error 2 " + e);
+	        }
+	        response.sendRedirect("DetailsDB");
+        }
+        // Edit points
+        else if(triggerIdPoint.equals("EditPoint"))
+        {
+	        try
+	        {
+		        int point_id = Integer.parseInt(request.getParameter("point_id"));
+	            int point_from_id = Integer.parseInt(request.getParameter("point_from_id"));
+	            int point_to_id = Integer.parseInt(request.getParameter("point_to_id"));
+	            int point_weight = Integer.parseInt(request.getParameter("point_weight"));
+	            String point_direction = request.getParameter("point_direction");
+	            
+	            String query = "update point_to "
+	            		+ "set point_id = ?,"
+	            		+ "point_from_id = ?,"
+	            		+ "point_to_id = ?,"
+	            		+ "point_weight = ?,"
+	            		+ "point_direction = ?,"
+	            		+ "where point_id = ?";
+	            prepStat = conn.prepareStatement(query);
+	            
+	            prepStat.setInt(1, point_id);
+	            prepStat.setInt(2, point_from_id);
+	            prepStat.setInt(3, point_to_id);
+	            prepStat.setInt(4, point_weight);
+	            prepStat.setString(5, point_direction);
+	            prepStat.setInt(6, point_id);
+	            prepStat.executeUpdate();
+	
+	        } catch (SQLException e)
+	        {
+	            System.err.println("Error 2 " + e);
+	        }
+	        response.sendRedirect("DetailsDB");
+        }
+        
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
