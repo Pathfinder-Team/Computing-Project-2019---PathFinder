@@ -21,8 +21,9 @@
 		Connection conn2 = null;
 		Statement stmt = null;
 		PreparedStatement prepStat = null;
-		ArrayList<String> specialArray = new ArrayList<>();
-		ArrayList<Integer> specialArrayID = new ArrayList<>();
+		ArrayList<String> mapNames = new ArrayList<>();
+		ArrayList<Integer> mapNamesId = new ArrayList<>();
+		ArrayList<String> buildingNames = new ArrayList<>();
 
 		ResultSet result;
 
@@ -66,6 +67,10 @@
 				organisation_email = result.getString("organisation_email");
 				organisation_mobile = result.getString("organisation_mobile");
 				organisation_building_name = result.getString("organisation_building_name");
+				if(!buildingNames.contains(organisation_building_name))
+				{
+					buildingNames.add(organisation_building_name);
+				}
 			}
 
 		} catch (SQLException ex) {
@@ -78,8 +83,8 @@
 			result = prepStat.executeQuery();
 		
 			while (result.next()) {
-				specialArray.add(result.getString("map_name"));
-				specialArrayID.add(result.getInt("map_id"));
+				mapNames.add(result.getString("map_name"));
+				mapNamesId.add(result.getInt("map_id"));
 			}
 			
 		} catch (Exception e) {
@@ -127,9 +132,9 @@
 					<select name="imageName">
 						<option value="ground">SELECT</option>
 						<%
-							for (int i = 0; i < specialArray.size(); i++) 
+							for (int i = 0; i < mapNames.size(); i++) 
 							{
-								String imageName = (String) specialArray.get(i);
+								String imageName = (String) mapNames.get(i);
 						%>
 						<option value="<%=imageName%>">
 							<%=imageName%>
@@ -163,9 +168,24 @@
 				</form>
 				<br>
 				<form action="ViewPointsDB" method="post">
-				<button type="submit" >View Map Detail's</button>
+				<select name="organisation_building_name">
+				<option value="">SELECT</option>
+				<%
+				for (int i = 0; i < buildingNames.size(); i++) 
+				{
+					String buildingName = (String) buildingNames.get(i);
+				%>
+				<option value="<%=buildingName%>">
+					<%=buildingName%>
+				</option>
+				<%
+				}	
+				%>
+				</select> 
+				
 				<input type="hidden" id="organisation_name" name="organisation_name" value="<%=organisation_name%>">
-				<input type="hidden" id="organisation_building_name" name="organisation_building_name" value="<%=organisation_building_name%>">
+				
+				<button type="submit" >View Map Detail's</button>
 				</form>
 				<br>
 				<br>

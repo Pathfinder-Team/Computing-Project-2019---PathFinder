@@ -42,7 +42,7 @@ public class ViewPointsDB extends HttpServlet
     int maps_map_id = 0;
 	int current_point_id = 0;
 	String point_name = "";
-	LinkedList<Node> adj[];
+	boolean trigger = true;
 	
 	String org_name;
 	String org_building;
@@ -66,22 +66,24 @@ public class ViewPointsDB extends HttpServlet
             System.err.println("Error 1" + e);
         }
     }
-    @SuppressWarnings("unchecked")
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
 		org_name = request.getParameter("organisation_name");
-		org_building = request.getParameter("organisation_building_name");
-		
-		org_building = "LIT Thurles";
-		org_name = "Limerick Institute of Technology";
-		
 		System.out.println("org_name: "+org_name);
-		System.out.println("org_building: "+org_building);
-		
+		if(request.getParameter("organisation_building_name") != "")
+		{
+			org_building = request.getParameter("organisation_building_name");
+			System.out.println("org_building: "+org_building);
+		}
+		else
+		{
+			trigger = false;
+			System.out.println("Trigger: "+trigger);
+		}
+
 		try 
 		{
-			
 		prepStat = conn.prepareStatement("select * from map_points join maps on maps.map_id=map_points.maps_map_id where org_name = ? and org_building = ?");
 		prepStat.setString(1, org_name);
 		prepStat.setString(2, org_building);
@@ -150,6 +152,11 @@ public class ViewPointsDB extends HttpServlet
 				+ "<br>"
 				+ "<br>"
 				+ "<br>");
+                if(trigger == false)
+                {
+                	
+                	out.println("<h3> You Have Not selected a Building Go Back</h3>");
+                }
                 out.println(
 						"<table class=\"comments\">"
 				        + "<tr>");

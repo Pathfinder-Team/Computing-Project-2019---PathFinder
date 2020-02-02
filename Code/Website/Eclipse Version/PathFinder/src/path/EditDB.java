@@ -174,7 +174,7 @@ public class EditDB extends HttpServlet
 	                + "<input type=\"text\" name=\"point_name\" id=\"point_name\"  value='"+point_name +"' /required></p>\n"
 	                + "\n"
 	                + "<p><label for=\"maps_map_id\" class=\"title\">maps_map_id: <span>*</span></label>\n"
-	                + "<input type=\"email\" name=\"maps_map_id\" id=\"maps_map_id\"  value="+maps_map_id +" /required></p>\n"
+	                + "<input type=\"number\" name=\"maps_map_id\" id=\"maps_map_id\"  value="+maps_map_id +" /required></p>\n"
 	                + "<input type=\"hidden\" id=\"TriggerEditNode\" name=\"TriggerEditNode\" value=\"EditNode\">"
 	                + "\n"
 	                + "<p>\n");
@@ -209,7 +209,7 @@ public class EditDB extends HttpServlet
 	                + "<input type=\"text\" name=\"org_name\" id=\"org_name\" value="+org_name+" /required></p>\n"
 	                + "\n"
 	                + "<p><label for=\"org_building\" class=\"title\">org_building: <span>*</span></label>\n"
-	                + "<input type=\"email\" name=\"org_building\" id=\"org_building\"  value="+org_building+" /required></p>\n"
+	                + "<input type=\"text\" name=\"org_building\" id=\"org_building\"  value="+org_building+" /required></p>\n"
 	                + "\n"
 	                + "<p><label for=\"map_name\" class=\"title\">map_name: <span>*</span></label>\n"
 	                + "<input type=\"number\" name=\"map_name\" id=\"map_name\" value="+map_name+" /required></p>\n"

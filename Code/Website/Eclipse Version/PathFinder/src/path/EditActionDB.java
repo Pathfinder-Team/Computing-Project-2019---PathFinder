@@ -134,24 +134,27 @@ public class EditActionDB extends HttpServlet
 	            String point_name = request.getParameter("point_name");
 	            int maps_map_id = Integer.parseInt(request.getParameter("maps_map_id"));
 	            
-	            String query = "update map_points "
-	            		+ "set current_point_id = ?,"
-	            		+ "point_name = ?,"
-	            		+ "maps_map_id = ?,"
-	            		+ "where current_map_id = ?";
+
+	          	            
+	            String query = "update map_points set current_point_id = ?, point_name = ?, maps_map_id = ? where current_point_id = ?";
 	            prepStat = conn.prepareStatement(query);
+	             
+	            System.out.println("current_point_id: "+current_point_id);
+	            System.out.println("point_name: "+point_name);
+	            System.out.println("maps_map_id: "+maps_map_id);
 	            
 	            prepStat.setInt(1, current_point_id);
 	            prepStat.setString(2, point_name);
 	            prepStat.setInt(3, maps_map_id);
 	            prepStat.setInt(4, current_point_id);
 	            prepStat.executeUpdate();
-	
+	            response.sendRedirect("Maps.jsp");
 	        } catch (SQLException e)
 	        {
 	            System.err.println("Error 2 " + e);
+	            response.sendRedirect("Maps.jsp");
 	        }
-	        response.sendRedirect("DetailsDB");
+	        
         }
         /////////////////////////////////////////////////////////////////////////
 
@@ -182,12 +185,14 @@ public class EditActionDB extends HttpServlet
 	            prepStat.setString(5, point_direction);
 	            prepStat.setInt(6, point_id);
 	            prepStat.executeUpdate();
+	            response.sendRedirect("Maps.jsp");
 	
 	        } catch (SQLException e)
 	        {
 	            System.err.println("Error 2 " + e);
+	            response.sendRedirect("Maps.jsp");
 	        }
-	        response.sendRedirect("DetailsDB");
+	        
         }
         /////////////////////////////////////////////////////////////////////////
         // Edit points

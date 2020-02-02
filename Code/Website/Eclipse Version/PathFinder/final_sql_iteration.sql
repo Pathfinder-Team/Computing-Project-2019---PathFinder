@@ -126,8 +126,8 @@ INSERT INTO `account_rank` (`account_rank_id`, `rank_name`) VALUES
 (2, 'Standard_users');
 
 INSERT INTO `organisation` (`organisation_name`, `organisation_address`, `organisation_email`, `organisation_mobile`, `organisation_building_name`) VALUES
-('Codec', 'Dublin', 'Codec@gmail.com', '0873010201', 'Codec Dublin'),
-('Limerick Institute of Technology', 'Thurles', 'LIT@gmail.com', '0873010201', 'Lit Thurles');
+('Codec', 'Dublin', 'Codec@gmail.com', '087401020', 'Codec Dublin'),
+('Limerick Institute of Technology', 'Thurles', 'LIT@gmail.com', '0873014320', 'Lit Thurles');
 
 INSERT INTO `users` (`user_id`, `user_name`, `first_name`, `last_name`, `password`, `email`, `created`, `organisation_name`, `account_rank_account_rank_id`) VALUES
 (1, 'kevind', 'Kevin', 'Dunne', 'password', 'kevin@kevin', '2019-12-02 18:22:26', 'Limerick Institute of Technology', 1),
@@ -227,3 +227,7 @@ INSERT INTO `point_to` (`point_id`, `point_from_id`, `point_to_id`, `point_weigh
 
 select * from point_to;
 select * from map_points;
+select * from maps;
+select * from organisation;
+
+update map_points set current_point_id = 1, point_name = "Front Entrance Main", maps_map_id = 1 where current_point_id = 1;
