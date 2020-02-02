@@ -117,9 +117,9 @@
 				<br> <br>
 				<p>Instructions:</p>
 				<ol>
-					<li><p>1. Upload a Map</p></li>
-					<li><p>2. Add Map point</p></li>
-					<li><p>3. Add the connections between Point A and Point B</p></li>
+					<li><p>Upload a Map</p></li>
+					<li><p>Add Map point</p></li>
+					<li><p>Add the connections between Point A and Point B</p></li>
 				</ol>
 
 				<form action="UploadMapDB" method="post" class="">
@@ -128,6 +128,7 @@
 				
 				<br>
 			
+				<h5>Select an Image from the dropdown below and display it</h5>
 				<form action="Maps.jsp">
 					<select name="imageName">
 						<option value="ground">SELECT</option>
@@ -145,6 +146,7 @@
 						
 						%>
 					</select> 
+					
 				<input type="Submit" value="Submit">
 				<br>
 				<br>
@@ -152,7 +154,7 @@
 				<%
 					selected = request.getParameter("imageName");
 				%>
-				<img src="GetImageAction?map_name=<%=selected%>&org_name=<%=organisation_name%>" alt="Select Image" height="200px" width="200px">
+				<img src="GetImageAction?map_name=<%=selected%>&org_name=<%=organisation_name%>" alt="" height="350px" width="300px">
 				<br>
 				<br>
 				<p>
@@ -167,6 +169,7 @@
 				<button type="submit" >Add Map Nodes and Points</button>
 				</form>
 				<br>
+				<h5>Select a Building from the drop down below and view it's map points</h5>
 				<form action="ViewPointsDB" method="post">
 				<select name="organisation_building_name">
 				<option value="">SELECT</option>

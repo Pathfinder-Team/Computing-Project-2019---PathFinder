@@ -10,6 +10,7 @@ import javax.servlet.http.*;
 import javax.servlet.*;
 import java.io.*;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,6 +54,8 @@ public class UploadMapDB extends HttpServlet
 	String map_comments;
 	Blob map_image;
 	getRankPower rp = new getRankPower();
+	
+	ArrayList<String> buildingNames = new ArrayList<>();
 
     public void init() throws ServletException
     {
@@ -89,6 +92,10 @@ public class UploadMapDB extends HttpServlet
 				organisation_email = result.getString("organisation_email");
 				organisation_mobile = result.getString("organisation_mobile");
 				organisation_building_name = result.getString("organisation_building_name");
+				if(!buildingNames.contains(organisation_building_name))
+				{
+					buildingNames.add(organisation_building_name);
+				}
 			}
 
 		} catch (SQLException ex) {
@@ -140,9 +147,21 @@ public class UploadMapDB extends HttpServlet
         		+ "<form method=\"post\" action=\"AddThings\" enctype=\"multipart/form-data\">\r\n"
         		+ "<fieldset>" 
         		+ "<input type=\"hidden\" name=\"org_name\" id=\"org_name\" value=\""+orgNameRights+"\" /></p>"
-        		+ "<input type=\"hidden\" name=\"mapAction\" id=\"mapAction\" value=\"mapAction\" /></p>"
-        		+ "<p><label for=\"org_building\" class=\"title\">Building Name: <span>*</span></label>"
-        		+ "<input type=\"text\" name=\"org_building\" id=\"org_building\" /></p>"
+        		+ "<input type=\"hidden\" name=\"mapAction\" id=\"mapAction\" value=\"mapAction\" /></p>");
+        		
+		        out.println(""
+		        + "<p><label for=\"org_building\" class=\"title\">Building Name: <span>*</span></label>\n"
+		        + "<select name=\"org_building\">"
+		        + "<option value=\"\">Select</option>");
+		        for (int i = 0; i < buildingNames.size();i++)
+				{
+		            out.println("<option value="+buildingNames.get(i)+">"+buildingNames.get(i)+"</option>");
+				}
+		        out.println("</select>"
+        		//+ "<p><label for=\"org_building\" class=\"title\">Building Name: <span>*</span></label>"
+        		//+ "<input type=\"text\" name=\"org_building\" id=\"org_building\" /></p>"
+        		
+        		
         		+ "<p><label for=\"map_name\" class=\"title\">Floor Name: <span>*</span></label>"
         		+ "<input type=\"text\" name=\"map_name\" id=\"map_name\" /></p>"
         		+ "<p><label for=\"map_comments\" class=\"title\">Map Comments: <span>*</span></label>"

@@ -107,29 +107,6 @@ public class GetImageAction extends HttpServlet {
 						break;
 				}
 			}
-			
-			/*
-			rs1 = stmt.executeQuery("select map_image "
-					+ "from maps "
-					+ "join organisation "
-					+ "on maps.org_name = organisation.organisation_name "
-					+ "where org_name = 'Limerick Institute of Technology'");
-			
-			
-			if (rs1.next()) {
-				int len = imgLen.length();
-				byte[] rb = new byte[len];
-				InputStream readImg = rs1.getBinaryStream(1);
-				int index = readImg.read(rb, 0, len);
-				//System.out.println("index " + index);
-				stmt.close();
-				response.reset();
-				response.setContentType("image/jpg");
-				response.getOutputStream().write(rb, 0, len);
-				response.getOutputStream().flush();
-			}
-			*/
-			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
