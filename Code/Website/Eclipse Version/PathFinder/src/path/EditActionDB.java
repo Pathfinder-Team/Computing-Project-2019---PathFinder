@@ -44,7 +44,7 @@ public class EditActionDB extends HttpServlet
             // setup the connection with the DB
             conn = DriverManager.getConnection(connect.URL, connect.USERNAME, connect.PASSWORD);
             
-            System.out.println("Connected");
+            System.out.println("Connected EditActionDB");
         } catch (ClassNotFoundException | SQLException e)
         {
             System.err.println("Error 1" + e);
@@ -54,43 +54,51 @@ public class EditActionDB extends HttpServlet
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-
-    	if(request.getParameter("TriggerEditNode") != null)
-    	{
-	    	// value NodeDelete
-	        triggerIdNode = request.getParameter("TriggerEditNode");
-	       // System.out.println("triggerIdNode: "+triggerIdNode);
-    	}
-    	else if (request.getParameter("TriggerEditPoint") != null)
-    	{
-	        // value PointDelete
-	        triggerIdPoint = request.getParameter("TriggerPoint");
-	      //  System.out.println("triggerIdPoint: "+triggerIdPoint);
-    	}
-    	else if(request.getParameter("TriggerEditOrg") != null)
-    	{
-	        // OrgDelete
-    		triggerIdOrg = request.getParameter("TriggerEditOrg");
-	       // System.out.println("triggerIdOrg: "+triggerIdOrg);
-    	}
-    	else if(request.getParameter("TriggerOrgBuilding") != null)
-    	{
-	        // OrgDelete
-	        triggerIdOrgBuilding = request.getParameter("TriggerEditOrgBuilding");
-	       // System.out.println("triggerIdOrgBuilding: "+triggerIdOrgBuilding);
-    	}
-    	
+        triggerIdNode = null;
+        System.out.println("Check: "+triggerIdPoint);
+        triggerIdPoint = null;
+        triggerIdOrg = null;
+        triggerIdOrgBuilding = null;
     	
     	if(request.getParameter("pageDirection") != null || request.getParameter("pageDirection") != "")
     	{
     		pageDirection = request.getParameter("pageDirection");
     	}
-        
-        /////////////////////////////////////////////////////////////////////////
-
-        // Edit the Org
-        if(triggerIdOrg.equals("EditOrg"))
-        {
+    	
+    	if(request.getParameter("TriggerEditNode") != null)
+    	{
+	    	// value NodeDelete
+	        triggerIdNode = request.getParameter("TriggerEditNode");
+	        System.out.println("1. triggerIdNode: "+triggerIdNode);
+	        trigger2(request,response);
+    	}
+    	else if (request.getParameter("TriggerEditPoint") != null)
+    	{
+	        // value PointDelete
+	        triggerIdPoint = request.getParameter("TriggerPoint");
+	        System.out.println("2. triggerIdPoint: "+triggerIdPoint);
+	        trigger3(request,response);
+    	}
+    	else if(request.getParameter("TriggerEditOrg") != null)
+    	{
+	        // OrgDelete
+    		triggerIdOrg = request.getParameter("TriggerEditOrg");
+    		trigger1(request,response);
+	        System.out.println("3. triggerIdOrg: "+triggerIdOrg);
+    	}
+    	else if(request.getParameter("TriggerOrgBuilding") != null)
+    	{
+	        // OrgDelete
+	        triggerIdOrgBuilding = request.getParameter("TriggerEditOrgBuilding");
+	        System.out.println("4. triggerIdOrgBuilding: "+triggerIdOrgBuilding);
+	        trigger4(request,response);
+    	}
+    }
+	public void trigger1(HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+	    // Edit the Org
+	    if(triggerIdOrg.equals("EditOrg"))
+	    {
 	        try
 	        {
 		        String organisation_name = request.getParameter("organisation_name");
@@ -125,25 +133,24 @@ public class EditActionDB extends HttpServlet
 	            prepStat.executeUpdate();
 	            
 	            response.sendRedirect("DetailsDB");
-
+	
 	        } catch (SQLException e)
 	        {
 	            System.err.println("Error 2 " + e);
 	        }
-        }
-        /////////////////////////////////////////////////////////////////////////
-
+	    }
+	}
+    public void trigger2(HttpServletRequest request, HttpServletResponse response)throws IOException
+    {
         // Edit the Node
-        else if(triggerIdNode.equals("EditNode"))
+        if(triggerIdNode.equals("EditNode"))
         {
 	        try
 	        {
 		        int current_point_id = Integer.parseInt(request.getParameter("current_point_id"));
 	            String point_name = request.getParameter("point_name");
 	            int maps_map_id = Integer.parseInt(request.getParameter("maps_map_id"));
-	            
-
-	          	            
+	                    
 	            String query = "update map_points set current_point_id = ?, point_name = ?, maps_map_id = ? where current_point_id = ?";
 	            prepStat = conn.prepareStatement(query);
 	             
@@ -164,10 +171,11 @@ public class EditActionDB extends HttpServlet
 	        }
 	        
         }
-        /////////////////////////////////////////////////////////////////////////
-
+    }
+    public void trigger3(HttpServletRequest request, HttpServletResponse response)throws IOException
+    {
         // Edit points
-        else if(triggerIdPoint.equals("EditPoint"))
+        if(triggerIdPoint.equals("EditPoint"))
         {
 	        try
 	        {
@@ -202,9 +210,11 @@ public class EditActionDB extends HttpServlet
 	        }
 	        
         }
-        /////////////////////////////////////////////////////////////////////////
-        // Edit points
-        else if(triggerIdOrgBuilding.equals("EditOrgBuilding"))
+    }
+    public void trigger4(HttpServletRequest request, HttpServletResponse response) throws IOException
+    {
+    	// Edit points
+        if(triggerIdOrgBuilding.equals("EditOrgBuilding"))
         {
 	        try
 	        {
@@ -237,7 +247,6 @@ public class EditActionDB extends HttpServlet
 	        }
 	        response.sendRedirect("DetailsDB");
         }
-        
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

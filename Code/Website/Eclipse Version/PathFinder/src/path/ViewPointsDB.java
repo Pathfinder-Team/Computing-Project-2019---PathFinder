@@ -43,7 +43,8 @@ public class ViewPointsDB extends HttpServlet
 	getRankPower rp = new getRankPower();
 	
 	String org_name;
-	static String org_building;
+	String org_building;
+	String pageDirection;
 	ArrayList<Node> map_points_array = new ArrayList();
 	ArrayList<Node> points_array = new ArrayList();
     
@@ -82,14 +83,14 @@ public class ViewPointsDB extends HttpServlet
 		if(request.getParameter("organisation_building_name") != "")
 		{
 			org_building = request.getParameter("organisation_building_name");
-			//System.out.println("org_building: "+org_building);
+			System.out.println("org_building: "+org_building);
 		}
 		else
 		{
 			trigger = false;
 			//System.out.println("Trigger: "+trigger);
 		}
-
+		
 		try 
 		{
 		prepStat = conn.prepareStatement("select * from map_points join maps on maps.map_id=map_points.maps_map_id where org_name = ? and org_building = ?");

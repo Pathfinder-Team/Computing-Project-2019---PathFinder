@@ -56,10 +56,16 @@ public class EditDB extends HttpServlet
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-    	
+
+        triggerIdNode = "";
+        triggerIdPoint = "";
+        triggerIdOrg = "";
+        triggerIdOrgBuilding = "";
+    
     	if(request.getParameter("pageDirection") != null || request.getParameter("pageDirection") != "")
     	{
     		pageDirection = request.getParameter("pageDirection");
+    		System.out.println("PageDirction EditDB: "+pageDirection);
     	}
     	
     	//orgBuilding = request.getParameter("TriggerEditOrg");
@@ -68,28 +74,28 @@ public class EditDB extends HttpServlet
     	{
 	    	// value EditOrg
     		triggerIdOrg = request.getParameter("TriggerEditOrg");
-	        //System.out.println("triggerIdOrg: "+triggerIdOrg);
+	        System.out.println("triggerIdOrg: "+triggerIdOrg);
     	}
     	///////////////////////////////
     	else if (request.getParameter("TriggerEditOrgBuilding") != null)
     	{
 	        // value EditOrgBuilding
     		triggerIdOrgBuilding = request.getParameter("TriggerEditOrgBuilding");
-	       // System.out.println("triggerIdOrgBuilding: "+triggerIdOrgBuilding);
+	        System.out.println("triggerIdOrgBuilding: "+triggerIdOrgBuilding);
     	}
     	//////////////////////////////
     	else if (request.getParameter("TriggerEditPoint") != null)
     	{
 	        // value EditPoint
 	        triggerIdPoint = request.getParameter("TriggerEditPoint");
-	      //  System.out.println("triggerIdPoint: "+triggerIdPoint);
+	        System.out.println("triggerIdPoint: "+triggerIdPoint);
     	}
     	//////////////////////////////
     	else if(request.getParameter("TriggerEditNode") != null)
     	{
 	        // EditNode
     		triggerIdNode = request.getParameter("TriggerEditNode");
-	      //  System.out.println("triggerIdNode: "+triggerIdNode);
+	        System.out.println("triggerIdNode: "+triggerIdNode);
     	}
  
         response.setContentType("text/html;charset=UTF-8");
