@@ -27,6 +27,7 @@ public class EditActionDB extends HttpServlet
     String triggerIdPoint = "";
     String triggerIdOrg = "";
     String triggerIdOrgBuilding = "";
+    String pageDirection = "";
 
     Connection conn;
     PreparedStatement prepStat;
@@ -58,27 +59,32 @@ public class EditActionDB extends HttpServlet
     	{
 	    	// value NodeDelete
 	        triggerIdNode = request.getParameter("TriggerEditNode");
-	        System.out.println("triggerIdNode: "+triggerIdNode);
+	       // System.out.println("triggerIdNode: "+triggerIdNode);
     	}
     	else if (request.getParameter("TriggerEditPoint") != null)
     	{
 	        // value PointDelete
 	        triggerIdPoint = request.getParameter("TriggerPoint");
-	        System.out.println("triggerIdPoint: "+triggerIdPoint);
+	      //  System.out.println("triggerIdPoint: "+triggerIdPoint);
     	}
     	else if(request.getParameter("TriggerEditOrg") != null)
     	{
 	        // OrgDelete
     		triggerIdOrg = request.getParameter("TriggerEditOrg");
-	        System.out.println("triggerIdOrg: "+triggerIdOrg);
+	       // System.out.println("triggerIdOrg: "+triggerIdOrg);
     	}
     	else if(request.getParameter("TriggerOrgBuilding") != null)
     	{
 	        // OrgDelete
 	        triggerIdOrgBuilding = request.getParameter("TriggerEditOrgBuilding");
-	        System.out.println("triggerIdOrgBuilding: "+triggerIdOrgBuilding);
+	       // System.out.println("triggerIdOrgBuilding: "+triggerIdOrgBuilding);
     	}
     	
+    	
+    	if(request.getParameter("pageDirection") != null || request.getParameter("pageDirection") != "")
+    	{
+    		pageDirection = request.getParameter("pageDirection");
+    	}
         
         /////////////////////////////////////////////////////////////////////////
 
@@ -93,11 +99,13 @@ public class EditActionDB extends HttpServlet
 	            int organisation_mobile = Integer.parseInt(request.getParameter("organisation_mobile"));
 	            String organisation_building_name = request.getParameter("organisation_building_name");
 	            
+	            /*
 	            System.out.println("organisation_name: "+organisation_name);
 	            System.out.println("organisation_address: "+organisation_address);
 	            System.out.println("organisation_email: "+organisation_email);
 	            System.out.println("organisation_mobile: "+organisation_mobile);
 	            System.out.println("organisation_building_name: "+organisation_building_name);
+	            */
 	            
 	            String query = "update organisation "
 	            		+ "set organisation_name = ?,"
@@ -139,20 +147,20 @@ public class EditActionDB extends HttpServlet
 	            String query = "update map_points set current_point_id = ?, point_name = ?, maps_map_id = ? where current_point_id = ?";
 	            prepStat = conn.prepareStatement(query);
 	             
-	            System.out.println("current_point_id: "+current_point_id);
-	            System.out.println("point_name: "+point_name);
-	            System.out.println("maps_map_id: "+maps_map_id);
+	            //System.out.println("current_point_id: "+current_point_id);
+	            //System.out.println("point_name: "+point_name);
+	            //System.out.println("maps_map_id: "+maps_map_id);
 	            
 	            prepStat.setInt(1, current_point_id);
 	            prepStat.setString(2, point_name);
 	            prepStat.setInt(3, maps_map_id);
 	            prepStat.setInt(4, current_point_id);
 	            prepStat.executeUpdate();
-	            response.sendRedirect("Maps.jsp");
+	            response.sendRedirect("ViewPointsDB?organisation_building_name="+pageDirection);
 	        } catch (SQLException e)
 	        {
 	            System.err.println("Error 2 " + e);
-	            response.sendRedirect("Maps.jsp");
+	            response.sendRedirect("ViewPointsDB?organisation_building_name="+pageDirection);
 	        }
 	        
         }
@@ -174,7 +182,7 @@ public class EditActionDB extends HttpServlet
 	            		+ "point_from_id = ?,"
 	            		+ "point_to_id = ?,"
 	            		+ "point_weight = ?,"
-	            		+ "point_direction = ?,"
+	            		+ "point_direction = ?"
 	            		+ "where point_id = ?";
 	            prepStat = conn.prepareStatement(query);
 	            
@@ -185,12 +193,12 @@ public class EditActionDB extends HttpServlet
 	            prepStat.setString(5, point_direction);
 	            prepStat.setInt(6, point_id);
 	            prepStat.executeUpdate();
-	            response.sendRedirect("Maps.jsp");
+	            response.sendRedirect("ViewPointsDB?organisation_building_name="+pageDirection);
 	
 	        } catch (SQLException e)
 	        {
 	            System.err.println("Error 2 " + e);
-	            response.sendRedirect("Maps.jsp");
+	            response.sendRedirect("ViewPointsDB?org_building="+pageDirection);
 	        }
 	        
         }

@@ -30,6 +30,9 @@ public class EditDB extends HttpServlet
     String triggerIdPoint = "";
     String triggerIdOrg = "";
     String triggerIdOrgBuilding = "";
+    String pageDirection = "";
+    
+    String orgBuilding;
 
 
     public void init() throws ServletException
@@ -54,33 +57,39 @@ public class EditDB extends HttpServlet
             throws ServletException, IOException
     {
     	
+    	if(request.getParameter("pageDirection") != null || request.getParameter("pageDirection") != "")
+    	{
+    		pageDirection = request.getParameter("pageDirection");
+    	}
+    	
+    	//orgBuilding = request.getParameter("TriggerEditOrg");
     	////////////////////////////
     	if(request.getParameter("TriggerEditOrg") != null)
     	{
 	    	// value EditOrg
     		triggerIdOrg = request.getParameter("TriggerEditOrg");
-	        System.out.println("triggerIdOrg: "+triggerIdOrg);
+	        //System.out.println("triggerIdOrg: "+triggerIdOrg);
     	}
     	///////////////////////////////
     	else if (request.getParameter("TriggerEditOrgBuilding") != null)
     	{
 	        // value EditOrgBuilding
     		triggerIdOrgBuilding = request.getParameter("TriggerEditOrgBuilding");
-	        System.out.println("triggerIdOrgBuilding: "+triggerIdOrgBuilding);
+	       // System.out.println("triggerIdOrgBuilding: "+triggerIdOrgBuilding);
     	}
     	//////////////////////////////
     	else if (request.getParameter("TriggerEditPoint") != null)
     	{
 	        // value EditPoint
 	        triggerIdPoint = request.getParameter("TriggerEditPoint");
-	        System.out.println("triggerIdPoint: "+triggerIdPoint);
+	      //  System.out.println("triggerIdPoint: "+triggerIdPoint);
     	}
     	//////////////////////////////
     	else if(request.getParameter("TriggerEditNode") != null)
     	{
 	        // EditNode
     		triggerIdNode = request.getParameter("TriggerEditNode");
-	        System.out.println("triggerIdNode: "+triggerIdNode);
+	      //  System.out.println("triggerIdNode: "+triggerIdNode);
     	}
  
         response.setContentType("text/html;charset=UTF-8");
@@ -146,6 +155,7 @@ public class EditDB extends HttpServlet
 	                + "<p><label for=\"organisation_building_name\" class=\"title\">organisation_building_name: <span>*</span></label>\n"
 	                + "<input type=\"text\" name=\"organisation_building_name\" id=\"organisation_building_name\" value='"+organisation_building_name+"' /required></p>\n"
 	                + "<input type=\"hidden\" id=\"TriggerEditOrg\" name=\"TriggerEditOrg\" value=\"EditOrg\">"
+	                + "<input type=\"hidden\" id=\"pageDirection\" name=\"pageDirection\" value='"+pageDirection+"'>"
 	                + "<p>\n");
 			        out.println(
 			        "<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Submit Details\" />\n"
@@ -176,6 +186,8 @@ public class EditDB extends HttpServlet
 	                + "<p><label for=\"maps_map_id\" class=\"title\">maps_map_id: <span>*</span></label>\n"
 	                + "<input type=\"number\" name=\"maps_map_id\" id=\"maps_map_id\"  value="+maps_map_id +" /required></p>\n"
 	                + "<input type=\"hidden\" id=\"TriggerEditNode\" name=\"TriggerEditNode\" value=\"EditNode\">"
+	                + "<input type=\"hidden\" id=\"pageDirection\" name=\"pageDirection\" value='"+pageDirection+"'>"
+	                
 	                + "\n"
 	                + "<p>\n");
 			        out.println(
@@ -216,6 +228,7 @@ public class EditDB extends HttpServlet
 	                + "\n"
 	                + "<p><label for=\"map_comments\" class=\"title\">map_comments: <span>*</span></label>\n"
 	                + "<input type=\"text\" name=\"map_comments\" id=\"map_comments\" value="+map_comments+" /required></p>\n"
+	                + "<input type=\"hidden\" id=\"pageDirection\" name=\"pageDirection\" value='"+pageDirection+"'>"
 	                + "<p>\n");
 			        out.println(
 			        "<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Submit Details\" />\n"
@@ -252,6 +265,7 @@ public class EditDB extends HttpServlet
 	                + "<p><label for=\"point_name\" class=\"title\">point_name: <span>*</span></label>\n"
 	                + "<input type=\"text\" name=\"point_name\" id=\"point_name\" value='"+point_direction+"' /required></p>\n"
 	                + "<input type=\"hidden\" id=\"TriggerEditPoint\" name=\"TriggerEditPoint\" value=\"EditPoint\">"
+	                + "<input type=\"hidden\" id=\"pageDirection\" name=\"pageDirection\" value='"+pageDirection+"'>"
 	                + "<p>\n");
 			        out.println(
 			        "<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Submit Details\" />\n"

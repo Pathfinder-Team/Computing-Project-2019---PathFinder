@@ -28,9 +28,6 @@ import javax.servlet.http.HttpServletResponse;
 })
 public class ViewPointsDB extends HttpServlet
 {
-	
-
-    
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
     Connection conn;
     Statement stmt;
@@ -43,9 +40,10 @@ public class ViewPointsDB extends HttpServlet
 	int current_point_id = 0;
 	String point_name = "";
 	boolean trigger = true;
+	getRankPower rp = new getRankPower();
 	
 	String org_name;
-	String org_building;
+	static String org_building;
 	ArrayList<Node> map_points_array = new ArrayList();
 	ArrayList<Node> points_array = new ArrayList();
     
@@ -60,7 +58,7 @@ public class ViewPointsDB extends HttpServlet
             // setup the connection with the DB
             conn = DriverManager.getConnection(connect.URL, connect.USERNAME, connect.PASSWORD);
             
-            System.out.println("Connected");
+            System.out.println("Connected ViewPointsDB");
         } catch (ClassNotFoundException | SQLException e)
         {
             System.err.println("Error 1" + e);
@@ -69,17 +67,27 @@ public class ViewPointsDB extends HttpServlet
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-		org_name = request.getParameter("organisation_name");
-		System.out.println("org_name: "+org_name);
+		trigger = true;
+		if(request.getParameter("organisation_name") != null)
+		{
+			org_name = request.getParameter("organisation_name");
+		}
+		else
+		{
+			rp.getStatusRank(request,response,stmt,conn);
+			org_name = rp.getOrgRights();
+		}
+		//System.out.println("org_name: "+org_name);
+		
 		if(request.getParameter("organisation_building_name") != "")
 		{
 			org_building = request.getParameter("organisation_building_name");
-			System.out.println("org_building: "+org_building);
+			//System.out.println("org_building: "+org_building);
 		}
 		else
 		{
 			trigger = false;
-			System.out.println("Trigger: "+trigger);
+			//System.out.println("Trigger: "+trigger);
 		}
 
 		try 
@@ -154,7 +162,6 @@ public class ViewPointsDB extends HttpServlet
 				+ "<br>");
                 if(trigger == false)
                 {
-                	
                 	out.println("<h3> You Have Not selected a Building Go Back</h3>");
                 }
                 out.println(
@@ -167,7 +174,7 @@ public class ViewPointsDB extends HttpServlet
 					                + "<th>Name:" + map_points_array.get(i).point_name+ "</th>"
 					                + "<th>Map Id:" + map_points_array.get(i).maps_map_id+"</th>"
 					                +"<th><form action=\"DeleteDB\" method=\"post\">"
-							        + "<input type=\"hidden\" id=\"pageDirection\" name=\"pageDirection\" value=\"PostsDB\">"
+					                + "<input type=\"hidden\" id=\"pageDirection\" name=\"pageDirection\" value='"+org_building+"'>"
 							        + "<input type=\"hidden\" id=\"TriggerNode\" name=\"TriggerNode\" value=\"NodeDelete\">"
 							        + "<input type=\"hidden\" id=\"current_point_id\" name=\"current_point_id\" value="+map_points_array.get(i).current_point_id+">"
 							        + "<input type=\"submit\" value=\"Delete Node\">"
@@ -175,7 +182,7 @@ public class ViewPointsDB extends HttpServlet
 							        + "</th>"
 							        +"<th>"
 							        + "<form action=\"EditDB\" method=\"post\">"
-							        + "<input type=\"hidden\" id=\"pageDirection\" name=\"pageDirection\" value=\"PostsDB\">"
+							        + "<input type=\"hidden\" id=\"pageDirection\" name=\"pageDirection\" value='"+org_building+"'>"
 							        + "<input type=\"hidden\" id=\"TriggerEditNode\" name=\"TriggerEditNode\" value=\"EditNode\">"
 							        + "<input type=\"hidden\" id=\"current_point_id\" name=\"current_point_id\" value="+map_points_array.get(i).current_point_id+">"
 							        + "<input type=\"hidden\" id=\"point_name\" name=\"point_name\" value='"+map_points_array.get(i).point_name+"'>"
@@ -194,7 +201,7 @@ public class ViewPointsDB extends HttpServlet
 						                + "<th><form action=\"DeleteDB\" method=\"post\">"
 								        + "<input type=\"hidden\" id=\"TriggerPoint\" name=\"TriggerPoint\" value=\"PointDelete\">"
 								        + "<input type=\"hidden\" id=\"point_id\" name=\"point_id\" value="+ points_array.get(j).point_id+">"
-								        + "<input type=\"hidden\" id=\"pageDirection\" name=\"pageDirection\" value=\"PostsDB\">"
+								        + "<input type=\"hidden\" id=\"pageDirection\" name=\"pageDirection\" value='"+org_building+"'>"
 										+ "<input type=\"submit\" value=\"Delete Point\">"
 										+ "</form>"
 										+ "</th>"
@@ -206,7 +213,7 @@ public class ViewPointsDB extends HttpServlet
 								        + "<input type=\"hidden\" id=\"point_to_id\" name=\"point_to_id\" value="+points_array.get(i).point_to_id+">"
 								        + "<input type=\"hidden\" id=\"point_weight\" name=\"point_weight\" value="+points_array.get(i).point_weight+">"
 								        + "<input type=\"hidden\" id=\"point_direction\" name=\"point_direction\" value='"+points_array.get(i).point_direction+"'>"
-								        + "<input type=\"hidden\" id=\"pageDirection\" name=\"pageDirection\" value=\"PostsDB\">"
+								        + "<input type=\"hidden\" id=\"pageDirection\" name=\"pageDirection\" value='"+org_building+"'>"
 								        + "<input type=\"submit\" value=\"Edit Point\">"
 								        + "</form>"
 								        + "</th>"

@@ -44,6 +44,7 @@ public class DeleteDB extends HttpServlet
     String triggerIdNode = "";
     String triggerIdPoint = "";
     String triggerIdOrgBuilding = "";
+    String pageDirection = "";
 
     @Override
     public void init() throws ServletException
@@ -66,75 +67,95 @@ public class DeleteDB extends HttpServlet
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
+    	triggerIdNode = null;
+    	triggerIdPoint =null;
+    	triggerIdOrgBuilding = null;
     	
-    	
+    	if(request.getParameter("pageDirection") != null || request.getParameter("pageDirection") != "")
+    	{
+    		pageDirection = request.getParameter("pageDirection");
+    	}
     	if(request.getParameter("TriggerNode") != null)
     	{
 	    	// value NodeDelete
 	        triggerIdNode = request.getParameter("TriggerNode");
-	        System.out.println("triggerIdNode: "+triggerIdNode);
+	        System.out.println("\ntriggerIdNode: "+triggerIdNode);
+	        trigger2(request,response);
     	}
     	else if (request.getParameter("TriggerPoint") != null)
     	{
 	        // value PointDelete
 	        triggerIdPoint = request.getParameter("TriggerPoint");
-	        System.out.println("triggerIdPoint: "+triggerIdPoint);
+	        System.out.println("\ntriggerIdPoint: "+triggerIdPoint);
+	        trigger1(request,response);
     	}
     	else if(request.getParameter("TriggerOrg") != null)
     	{
 	        // OrgDelete
 	        triggerIdOrgBuilding = request.getParameter("TriggerOrgBuilding");
-	        System.out.println("triggerIdOrgBuilding: "+triggerIdOrgBuilding);
+	        System.out.println("\ntriggerIdOrgBuilding: "+triggerIdOrgBuilding);
+	        trigger3(request,response);
     	}
-        
+    }
+    public void trigger1(HttpServletRequest request, HttpServletResponse response) throws IOException
+    {
+    	/////////////////////////////////////////////////////////////
         if(triggerIdPoint.equals("PointDelete"))
         {
 	        try
 	        {
 	        	String point_id = request.getParameter("point_id");
-	        	System.out.println("point_id: "+point_id);
+	        	System.out.println("point_id Point Delete: "+point_id);
 	            String query = "delete from point_to where point_id = ?";
 	            prepStat = conn.prepareStatement(query);
 	            prepStat.setString(1, point_id);
 	            prepStat.executeUpdate();
 	            
-	            response.sendRedirect("ViewPointsDB");
+	            System.out.println("pageDirection poit delete: "+pageDirection);
+	            response.sendRedirect("ViewPointsDB?organisation_building_name="+pageDirection);
 	
 	        } catch (IOException | SQLException e)
 	        {
 	            System.err.println("Error 2 " + e);
-	            response.sendRedirect("ChangeDetailsDB");
+	            response.sendRedirect("ViewPointsDB?organisation_building_name="+pageDirection);
 	        }
         }
-        else if(triggerIdNode.equals("NodeDelete"))
+    }
+    public void trigger2(HttpServletRequest request, HttpServletResponse response) throws IOException
+    {
+        if(triggerIdNode.equals("NodeDelete"))
         {
 	        try
 	        {
 	        	String current_point_id = request.getParameter("current_point_id");
-	        	System.out.println("current_point_id: "+current_point_id);
+	        	System.out.println("current_point_id Node Delete: "+current_point_id);
 	        	
 	            String query = "delete from map_points where current_point_id = ?";
 	            prepStat = conn.prepareStatement(query);
 	            prepStat.setString(1, current_point_id);
 	            prepStat.executeUpdate();
 	            
-	            response.sendRedirect("ViewPointsDB");
+	            System.out.println("pageDirection node delete: "+pageDirection);
+	            response.sendRedirect("ViewPointsDB?organisation_building_name="+pageDirection);
 	
 	        } catch (IOException | SQLException e)
 	        {
 	            System.err.println("Error 2 " + e);
-	            response.sendRedirect("ChangeDetailsDB");
+	            response.sendRedirect("ViewPointsDB?organisation_building_name="+pageDirection);
 	        }
         }
-        else if(triggerIdOrgBuilding.equals("BuildingDelete"))
+    }
+    public void trigger3(HttpServletRequest request, HttpServletResponse response) throws IOException
+    {
+        if(triggerIdOrgBuilding.equals("BuildingDelete"))
         {
 	        try
 	        {
 	        	String map_id = request.getParameter("map_id");
 	        	String org_building = request.getParameter("org_building");
 	        	
-	        	System.out.println("map_id: "+map_id);
-	        	System.out.println("org_building: "+org_building);
+	        	//System.out.println("map_id: "+map_id);
+	        	//System.out.println("org_building: "+org_building);
 	        	
 	            String query = "delete from maps where map_id = ? and org_building = ?";
 	            prepStat = conn.prepareStatement(query);
@@ -142,7 +163,7 @@ public class DeleteDB extends HttpServlet
 	            prepStat.setString(2, org_building);
 	            prepStat.executeUpdate();
 	            
-	            response.sendRedirect("ViewPointsDB");
+	            response.sendRedirect("DetailsDB");
 	
 	        } catch (IOException | SQLException e)
 	        {
