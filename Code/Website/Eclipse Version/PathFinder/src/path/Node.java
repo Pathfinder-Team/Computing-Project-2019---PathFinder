@@ -1,5 +1,6 @@
 package path;
 
+import java.sql.Timestamp;
 import java.util.LinkedList;
 
 public class Node
@@ -23,6 +24,12 @@ public class Node
     String floorName = "";
     int floorId = 0;
  
+    
+	int comment_Id;
+	String comment_title;
+    String comment_text;
+    Timestamp created;
+    String organisation_name;
     
     public Node()
     {
@@ -63,6 +70,15 @@ public class Node
         this.point_to_id = point_to_id;
         this.point_weight = point_weight;
         this.point_direction = point_direction;
+    }
+    
+    public Node(int comment_Id,String comment_title, String comment_text, Timestamp created,String organisation_name)
+    {
+    	this.comment_Id = comment_Id;
+    	this.comment_title = comment_title;
+        this.comment_text = comment_text;
+        this.created = created;
+        this.organisation_name = organisation_name;
     }
 
     

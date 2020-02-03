@@ -99,6 +99,12 @@ public class ControlDB extends HttpServlet
                         + "<h4>Username: " + rp.getUserNameRights() + "</h4>"
                         + "<h4>Email: " + rp.getEmailRights() + "</h4>"
                         + "<h4>Organization: " + rp.getOrgRights() + "</h4>");
+                
+               out.println("<h4>To view your Organisation Message's</h4>"
+				        + "<form action=\"GetMessages\" method=\"post\">"
+				        + "<input type=\"submit\" value=\"View Messages\">"
+				        + "</form>");
+               
 
             } else if (rp.getStatusRights() == 2)
             {

@@ -10,6 +10,7 @@ import javax.servlet.http.*;
 import javax.servlet.*;
 import java.io.*;
 import java.sql.*;
+import java.util.ArrayList;
 
 @WebServlet(name = "commentDB", urlPatterns =
 {
@@ -31,21 +32,11 @@ public class commentDB extends HttpServlet
     Connection conn;
     Statement stmt;
     PreparedStatement prepStat;
-
-    int powerID;
-    String powerUsername;
-    String powerFirstName;
-    String powerLastName;
-    String powerPassword;
-    String powerEmail;
-    int powerStatus;
     ResultSet result;
 
-    int user_id;
-    String userNameRights;
-    String passwordRights;
-    int AccountStatusRights;
-    getRankPower rp = new getRankPower();
+    String organisation_name = "";
+
+    ArrayList<String> orgNames = new ArrayList<>();
 
     public void init() throws ServletException
     {
@@ -67,21 +58,34 @@ public class commentDB extends HttpServlet
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-		rp.getStatusRank(request,response,stmt,conn);
-		System.out.println(" rp.getUserNameRights() commentDB: "+ rp.getUserNameRights());
+		try {
 
-        String comment_Id = request.getParameter("comment_Id");
-        String comment_title = request.getParameter("comment_title");
-        String comment_text = request.getParameter("comment_text");
+			prepStat = conn.prepareStatement("select organisation_name from organisation");
+			result = prepStat.executeQuery();
+			while (result.next()) {
+				organisation_name = result.getString("organisation_name");
+				if(!orgNames.contains(organisation_name))
+				{
+					orgNames.add(organisation_name);
+				}
+			}
+		} catch (SQLException ex) {
+			System.err.println("Error Org: " + ex);
+		}
         try
         {
+            String comment_Id = request.getParameter("comment_Id");
+            String comment_title = request.getParameter("comment_title");
+            String comment_text = request.getParameter("comment_text");
+            String organisation_name = request.getParameter("organisation_name");
+        	
             String query = "insert into comment values(?, ?, ?, ?, ?)";
             prepStat = conn.prepareStatement(query);
             prepStat.setString(1, comment_Id);
             prepStat.setString(2, comment_title);
             prepStat.setString(3, comment_text);
             prepStat.setTimestamp(4, timestamp);
-            prepStat.setInt(5, user_id);
+            prepStat.setString(5, organisation_name);
             prepStat.executeUpdate();
             response.sendRedirect("confirmation.html");
 
@@ -114,39 +118,30 @@ public class commentDB extends HttpServlet
 		
 				out.println("" + "<main>\r\n" 
 				+ "<section id=\"form\">\r\n");
-        
-				
-        if (rp.getStatusRights() == 2 || rp.getStatusRights() == 1 )
-        {
-        	out.println("" +          "<ul class=\"sign_login\">\r\n"
-    				+ "						   <li><a href=\"ControlDB\" >CONTROL</a></li>\r\n"
-                    + "                        <li><a href=\"DetailsDB\" >DETAILS</a></li>\r\n"
 
-                    + "                        <li><a href=\"Maps.jsp\">MAPS</a></li>\r\n"
-                    + "                        <li><a href=\"LogOutDB\" >LOG OUT</a></li>\r\n"
-                    + "                </ul>\r\n"
-    				+ "<br>\r\n"
-    				+ "<br>\r\n"
+        	out.println("<br>\r\n"
     				+"<form action=\"commentDB\" method=\"post\">"
                     + "<fieldset id=\"field\">"
                     + "<p><label for=\"comment_title\" class=\"title1\">Enter Comment Title: </label>\n"
                     + "<input type=\"text\" name=\"comment_title\" id=\"comment_title\" /></p>\n"
                     + "\n"
                     + "<p><label for=\"comment_text\" class=\"title1\">Comment Content: </label>\n"
-                    + "<textarea rows=\"10\" cols=\"80\" name=\"comment_text\" id=\"comment_text\" /></textarea></p>"
-                    + "<p>\n"
+                    + "<textarea rows=\"5\" cols=\"30\" name=\"comment_text\" id=\"comment_text\" /></textarea></p>"
+                    + "<p>\n");
+    		        out.println("<p><label for=\"organisation_name\" class=\"title1\">Organisation Name: <span>*</span></label>\n"
+    				        + "<select name=\"organisation_name\">"
+    				        + "<option value=\"\">Select</option>");
+    				        for (int i = 0; i < orgNames.size();i++)
+    						{
+    				            out.println("<option value='"+orgNames.get(i)+"'>"+orgNames.get(i)+"</option>");
+    						}
+    				        out.println("</select>"
+                    + "<br><br>"
                     + "<input type=\"submit\" name=\"submit\" id=\"submit1\" value=\"Submit Post\" />\n"
                     + "</p>"
                     + "</fieldset>"
                     + "</form>");
-        }
-        else 
-        {
-            out.println(""
-            		+ "<br><br>"
-            		+ "<h3>You need to login to send a message to administrator</h3>\n");
-            response.setHeader("Refresh", "5; login.html");
-        }
+
                 out.println("</section>\n"
                         + "</main>\n"
                         + "<footer>"

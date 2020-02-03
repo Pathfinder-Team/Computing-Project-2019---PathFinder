@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS  `account_rank` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-
+select * from comment;
 -- -----------------------------------------------------
 -- Table  `organisation`
 -- -----------------------------------------------------
@@ -58,16 +58,10 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS  `comment` (
   `comment_Id` INT(11) NOT NULL AUTO_INCREMENT,
   `comment_title` VARCHAR(45) NOT NULL,
-  `comment_text` VARCHAR(45) NOT NULL,
+  `comment_text` VARCHAR(500) NOT NULL,
   `created` TIMESTAMP NOT NULL,
-  `user_id` INT(11) NOT NULL,
-  PRIMARY KEY (`comment_Id`),
-  INDEX `fk_comment_users1` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `fk_comment_users1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES  `users` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  `organisation_name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`comment_Id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
