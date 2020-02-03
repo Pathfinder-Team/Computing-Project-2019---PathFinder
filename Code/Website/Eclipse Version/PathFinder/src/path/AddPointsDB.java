@@ -74,6 +74,7 @@ public class AddPointsDB extends HttpServlet
 			
 			if(point_org != null)
 			{
+				System.out.println("Checking if point_org is null");
 				prepStat.setString(1, point_org);
 			}
 			else

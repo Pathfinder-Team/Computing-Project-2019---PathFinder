@@ -62,6 +62,7 @@ public class ActionJsonOrg extends HttpServlet {
 	
 	getRankPower rp = new getRankPower();
 	int counter = 0;
+	// declaring 2 arraylists of type OrgNode
 	ArrayList<OrgNode> OrgArray = new ArrayList();
 	ArrayList<OrgNode> OrgMaps = new ArrayList();
 	
@@ -92,14 +93,17 @@ public class ActionJsonOrg extends HttpServlet {
 		rp.getStatusRank(request,response,stmt,conn);
 		System.out.println(" rp.getUserNameRights() ActionJsonOrg: "+ rp.getUserNameRights());
 		
+
 		try 
 		{
 			
 		prepStat = conn.prepareStatement("select * from organisation");
 		result = prepStat.executeQuery();
+		// clearing the array so it is always empty when called
 		OrgArray.clear();
 	    while(result.next())
 	    {
+	    	// populating the first array
 	    	OrgNode orgNode = new OrgNode(result.getString("organisation_name"),
 	    			result.getString("organisation_address"),
 	    			result.getString("organisation_email"),
@@ -111,7 +115,9 @@ public class ActionJsonOrg extends HttpServlet {
 		prepStat1 = conn.prepareStatement("select * from maps");
 		result1 = prepStat1.executeQuery();
 		
+		// clearing it so the array is always clean
 		OrgMaps.clear();
+		// populating the second array
 	    while(result1.next())
 	    {
 	    	System.out.println("map_image: "+result1.getBlob("map_image"));
@@ -130,6 +136,7 @@ public class ActionJsonOrg extends HttpServlet {
 		    System.out.println("Special Json error: "+e);
 		}
 
+		// declaring json object and array
 	    JSONObject jsonObject = new JSONObject();
 	    JSONArray array = new JSONArray();
 	    
@@ -137,16 +144,16 @@ public class ActionJsonOrg extends HttpServlet {
 	   // JSONObject record = new JSONObject();
 	    
 	    int size = OrgArray.size();
-	    
 	    try
 	    {
 	    	counter++;
-	    	//if(jsonObject != 0)
+	    	
 		    for(int i = 0; i < size;i++)
 		    {
 			    JSONArray array2 = new JSONArray();
 			    JSONObject record = new JSONObject();
 			    
+			    // adding the records into the json record object
 			    record.put("organisation_name", OrgArray.get(i).organisation_name);
 			    record.put("organisation_address", OrgArray.get(i).organisation_address);
 			    record.put("organisation_email", OrgArray.get(i).organisation_email);
@@ -155,8 +162,12 @@ public class ActionJsonOrg extends HttpServlet {
 			  
 			    for(int j = 0; j < OrgMaps.size();j++)
 			    {
+			    	// if the organisaiton name in the first array matchs the org name in the second array, this is basicaly 
+			    	// like a primary and foreign key
 			    	if(OrgArray.get(i).organisation_name.equals(OrgMaps.get(j).org_name))
 			    	{
+			    		
+			    		// add the records to a second json object
 			    		JSONObject record2 = new JSONObject();
 			    		record2.put("map_id", OrgMaps.get(j).map_id);
 					    record2.put("org_name", OrgMaps.get(j).org_name);
@@ -168,7 +179,8 @@ public class ActionJsonOrg extends HttpServlet {
 				        String encoded = Base64.getEncoder().encodeToString(bytes);
 				        record2.put("map_image", encoded);
 				        
-					    // add array record to second array
+				        
+					    // add object record to second array
 				    	array2.add(record2);
 			    	}
 			    	// add the second array to the record
