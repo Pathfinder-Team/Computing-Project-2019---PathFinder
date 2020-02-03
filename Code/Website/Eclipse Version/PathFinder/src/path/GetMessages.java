@@ -126,6 +126,7 @@ public class GetMessages extends HttpServlet
 						                +"<th>Title:" + commentArray.get(i).comment_title+ "</th>"
 						                + "<th>Organisation Name:" + commentArray.get(i).organisation_name+ "</th>"
 						                + "<th>Created:" + commentArray.get(i).created+ "</th>"
+						                /*
 						                + "<th>"
 							                + "<form action=\"DeleteDB\" method=\"post\">"
 							                + "<input type=\"hidden\" id=\"TriggerNode\" name=\"TriggerNode\" value=\"NodeDelete\">"
@@ -138,13 +139,12 @@ public class GetMessages extends HttpServlet
 									        + "<input type=\"submit\" value=\"Edit Node\">"
 									        + "</form>"
 								        + "</th>"
+									        */
 							        + "</tr>"
 							        + "<tr>"
-							        	+ "<th colspan=\"5\" align=\"left\">Comment:" + commentArray.get(i).comment_text+"</th>"
+							        	+ "<th colspan=\"3\" align=\"left\">Comment:" + commentArray.get(i).comment_text+"</th>"
 							        + "</tr>");
-			        		out.println("<tr>"
-			        				+ "<th> </th>"
-			        				+ "</tr>");
+			        		out.println("");
 		                }
 				        out.println("</table>"
 				        + "<br><br>");
