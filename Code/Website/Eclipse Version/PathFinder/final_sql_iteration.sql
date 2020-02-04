@@ -211,10 +211,4 @@ INSERT INTO `point_to` (`point_id`, `point_from_id`, `point_to_id`, `point_weigh
 (42,20, 17, 3,'downstairs_hallway'),
 (43,20, 19, 2,'straight_ahead');
 
-INSERT INTO `map_points` (`current_point_id`, `point_name`, `maps_map_id`) VALUES
-(21, 'Basemeant', 1);
-
-INSERT INTO `point_to` (`point_id`, `point_from_id`, `point_to_id`, `point_weight`,`point_direction`) VALUES
-(44,1 ,21 ,4, 'downstairs_hallway'),
-(45,21 ,1 ,5, 'upstairs_hallway');
 
