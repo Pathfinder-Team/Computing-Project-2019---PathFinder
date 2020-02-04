@@ -18,15 +18,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 
 public class OrgActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     SQLiteDatabase db;
-    String special1 = "";
-    String special2 = "";
+    String selectedOrgName = "";
+    String selectedBuildingName = "";
     ArrayList<String> orgNames = null;
     ArrayList<String> orgBuildings = null;
     public static ArrayList<OrgNode> allOrgBuildingDetails = null;
@@ -38,6 +37,7 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
         setContentView(R.layout.activity_org);
 
         db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
+        // if the db isnt null then wipe the db so its fresh
         if(db != null) {
             SpecialClass specialClass = new SpecialClass();
             specialClass.WipeDBRunning(db);
@@ -51,13 +51,13 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
         Spinner spin = (Spinner) findViewById(R.id.spinner);
         spin2 = (Spinner) findViewById(R.id.spinner2);
 
+        // if the orgName has been selected the display the second spinner
         if(getOrgNames() != null) {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getOrgNames());
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
             spin.setAdapter(adapter);
             spin.setOnItemSelectedListener(this);
-
 
             Button btn_update_org = (Button) findViewById(R.id.btn_update_org);
             btn_update_org.setOnClickListener(this);
@@ -72,22 +72,24 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
         }
     }
 
-
-
+    // if you have selectd an item
     @Override
     public void onItemSelected(@org.jetbrains.annotations.NotNull AdapterView<?> arg0, View arg1, int position, long id) {
 
+        // if you select something from the first spinner
         if(arg0.getId() == R.id.spinner)
         {
-            special1 = getOrgNames().get(position);
-            getBuildingNames(special1);
+            selectedOrgName = getOrgNames().get(position);
+            getBuildingNames(selectedOrgName);
         }
+        // if you select something from the second spinner
         if(arg0.getId() == R.id.spinner2)
         {
-            special2 = getOrgBuildings(special1).get(position);
+            selectedBuildingName = getOrgBuildings(selectedOrgName).get(position);
         }
     }
 
+    // restarting the activity on back
     @Override
     public void onRestart()
     {
@@ -102,6 +104,7 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
     }
     public void getBuildingNames(String special1)
     {
+        // setting up second spinner to display the organisation buildings
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getOrgBuildings(special1));
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -118,6 +121,7 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
             if( c != null) {
                 if (c.getCount() != orgNames.size() && c.getCount() > 0) {
                     while (c.moveToNext()) {
+                        // if the orgNames doesnt contain a building name then add it
                         if(!orgNames.contains(c.getString(0))) {
                             orgNames.add(c.getString(0));
                         }
@@ -136,6 +140,7 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
 
     public ArrayList<String> getOrgBuildings(String special1)
     {
+        // clearing the buildings so everytime you select a new org it displays only the ones that are connected to the database
         orgBuildings.clear();
         db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
         if(db != null)
@@ -178,13 +183,14 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
                 startActivity(intent);
                 break;
             case R.id.btn_update_map:
-                if(special1 != null && special2 != null) {
-                    if(special1 != "" && special2 != "") {
+                // if both points arent null move to display activity and pass org name and building along
+                if(selectedOrgName != null && selectedBuildingName != null) {
+                    if(selectedOrgName != "" && selectedBuildingName != "") {
                         buildMapImage();
                         intent = new Intent(this, GetMapActivity.class);
                         Bundle extras = new Bundle();
-                        extras.putString("orgName", special1);
-                        extras.putString("org_building", special2);
+                        extras.putString("orgName", selectedOrgName);
+                        extras.putString("org_building", selectedBuildingName);
                         intent.putExtras(extras);
                         startActivity(intent);
                     }
@@ -192,6 +198,7 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
                 break;
         }
     }
+    // populating the tables
     public void populateTables()
     {
         Cursor buildCur = db.rawQuery("select organisation_building_name from org_details", null);
@@ -208,7 +215,7 @@ public class OrgActivity extends AppCompatActivity implements AdapterView.OnItem
     }
     public void buildMapImage()
     {
-        Cursor buildImage = db.rawQuery("select map_image from map_details where org_name = ?", new String[] {special1});
+        Cursor buildImage = db.rawQuery("select map_image from map_details where org_name = ?", new String[] {selectedOrgName});
 
         if(buildImage != null)
         {

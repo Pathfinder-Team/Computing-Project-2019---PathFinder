@@ -43,6 +43,7 @@ public class GetMapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_map);
 
+        // get the org name and building name from org activity
         Bundle extras = getIntent().getExtras();
         String orgName =  extras.getString("orgName");
         String org_building = extras.getString("org_building");
@@ -52,10 +53,12 @@ public class GetMapActivity extends AppCompatActivity {
         // internet database
         url = "https://pathsearcher.azurewebsites.net/ActionJson?org_name="+orgName+"&org_building="+org_building+"";
 
+        // executing the getmappoints class
         new GetMapPoints().execute();
     }
     private class GetMapPoints extends AsyncTask<Void, Void, Void> {
 
+        // display dialog to display while the database information is being pulled
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -70,25 +73,33 @@ public class GetMapActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
-            String jsonStr = sh.makeServiceCall(url);
-            Log.e(TAG, "Response from url: " + jsonStr);
+            String jsonUrlString = sh.makeServiceCall(url);
+            Log.e(TAG, "Response from url: " + jsonUrlString);
 
-            if (jsonStr != null) {
+            if (jsonUrlString != null) {
                 try {
-                    JSONObject jsonObj = new JSONObject(jsonStr);
+                    // passing url string to json object
+                    JSONObject jsonObj = new JSONObject(jsonUrlString);
+                    // getting the object start that matchs map_points
                     JSONArray PathFinderMap = jsonObj.getJSONArray("map_points");
+                    // opening the database
                     db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
+                    // wiping the tables so a new map can be added with no previous map details being saved
                     SpecialClass specialClass = new SpecialClass();
                     specialClass.WipeDB(db);
+                    // for loop looping through json request result
                     for (int i = 0; i < PathFinderMap.length(); i++) {
+                        // adding the json object to the c object to pull the details out of the object that match the specefied fields
                         JSONObject c = PathFinderMap.getJSONObject(i);
                         Node specialNode1 = new Node(c.getInt("current_point_id"),
                                 c.getString("point_name"),
                                 c.getInt("maps_map_id"));
                         // adding all details to this array to be sorted later
                         mapPointsArray.add(specialNode1);
+                        // if c isnt null then add the nested array to pathFinderMap2
                         if (c != null) {
                             JSONArray PathFinderMap2 = c.getJSONArray("special_points");
+                            // if PFM2 isnt null get the nested json object details
                             if(PathFinderMap2 != null) {
                                 for (int j = 0; j < PathFinderMap2.length(); j++)
                                 {
@@ -138,15 +149,20 @@ public class GetMapActivity extends AppCompatActivity {
             {
                 pDialog.dismiss();
             }
+            // displaying a message that the map has been updated
             TextView txtView = findViewById(R.id.updatedID);
+            // sorting the array values into a specifed formatt and inserting the new format into the database
             callCommitter();
 
+            // if the map hasnt been updated display this message then move to org activity
             if (db == null)
             {
+
                 txtView.setText("The Map has been not been updated, check building or organisations you have chosen");
                 Intent inten = new Intent(GetMapActivity.this, OrgActivity.class);
                 startActivity(inten);
             }
+            // if the map successfully updated
             else if(db != null) {
                     txtView.setText("The Map has been updated");
                     Intent inten = new Intent(GetMapActivity.this, PathFinder.class);
@@ -155,6 +171,7 @@ public class GetMapActivity extends AppCompatActivity {
         }
         public void callCommitter()
         {
+            // sorting the json values into a specefied order
             callValueSorter();
             for(int i = 0; i < mapPointsArray.size(); i++)
             {

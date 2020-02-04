@@ -17,6 +17,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        // buttons
         Button btn_org = (Button) findViewById(R.id.btn_org);
         btn_org.setOnClickListener(this);
 
@@ -41,6 +42,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_wipe_info:
                 SQLiteDatabase db;
+                // if clicked wipe the specifed tables
                 db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
                 SpecialClass wipeInfo = new SpecialClass();
                 wipeInfo.Wipe(db);

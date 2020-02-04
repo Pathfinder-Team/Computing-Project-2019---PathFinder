@@ -22,7 +22,6 @@
         <activity android:name=".OrgActivity" />
         <activity android:name=".GetMapActivity" />
         <activity android:name=".MenuActivity" />
-        <activity android:name=".MainActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,8 +24,8 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
     ArrayList<Node> returnMapPointsDestination = null;
 
     SQLiteDatabase db;
-    String special1 = "Empty";
-    String special2 = "Empty";
+    String currentPoint = "Empty";
+    String selectedPoint = "Empty";
     int Counter = 0;
     public static TextView resultTextView1;
     public static String result;
@@ -37,8 +36,6 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_path_finder);
-
-
 
         Intent intent = getIntent();
         ActExtra = intent.getExtras();
@@ -82,14 +79,14 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
         mapPoints = getMapPoints();
         if(arg0.getId() == R.id.spinner)
         {
-            special1 = getPointName().get(position);
+            currentPoint = getPointName().get(position);
 
-            System.out.println("Special 1 : "+special1);
+            System.out.println("Special 1 : "+ currentPoint);
 
             for(int i = 0; i < mapPoints.size(); i++)
             {
                 //
-                if(special1.equals(mapPoints.get(i).point_name))
+                if(currentPoint.equals(mapPoints.get(i).point_name))
                 {
 
                     returnMapPointsCurrent.clear();
@@ -100,11 +97,11 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
         }
         if(arg0.getId() == R.id.spinner2)
         {
-            special2 = getPointName().get(position);
+            selectedPoint = getPointName().get(position);
             for(int i = 0; i < mapPoints.size(); i++)
             {
                 //
-                if(special2.equals(mapPoints.get(i).point_name))
+                if(selectedPoint.equals(mapPoints.get(i).point_name))
                 {
                     returnMapPointsDestination.clear();
                     returnMapPointsDestination.add(mapPoints.get(i));

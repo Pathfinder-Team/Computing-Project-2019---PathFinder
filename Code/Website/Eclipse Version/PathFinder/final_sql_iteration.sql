@@ -161,7 +161,7 @@ INSERT INTO `map_points` (`current_point_id`, `point_name`, `maps_map_id`) VALUE
 (17, 'End Hallway downstairs', 3),
 (18, 'Start Hallway Upstairs', 4),
 (19, 'Middle Hallway Upstairs', 4),
-(20, 'End Hallway Hpstairs', 4);
+(20, 'End Hallway Upstairs', 4);
 
 
 INSERT INTO `point_to` (`point_id`, `point_from_id`, `point_to_id`, `point_weight`,`point_direction`) VALUES

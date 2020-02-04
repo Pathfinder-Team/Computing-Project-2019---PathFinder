@@ -15,8 +15,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DisplayActivity extends AppCompatActivity implements View.OnClickListener {
@@ -31,7 +29,7 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
     public ArrayList<Node> getCurrentLocationDetails = null;
     public ArrayList<Node> getNextLocationDetails = null;
     public ArrayList<Bitmap> buildingMaps = null;
-    ArrayList<Node> specialOmega = null;
+    ArrayList<Node> directionsArray = null;
     ImageView imageView;
     int currentImage = 0;
     SQLiteDatabase db;
@@ -41,12 +39,13 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);
         buildingMaps = new ArrayList<>();
-        specialOmega = new ArrayList<>();
+        directionsArray = new ArrayList<>();
         getBuildingMaps();
 
         Bundle extras = getIntent().getExtras();
         getCurrentLocationDetails = (ArrayList<Node>) extras.getSerializable("current_selected");
 
+        // getting details from pathfinder activity
         if(getCurrentLocationDetails.size() > 0) {
             current_selected_id = getCurrentLocationDetails.get(0).current_point_id;
             current_selected_name = getCurrentLocationDetails.get(0).point_name;
@@ -71,6 +70,7 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onClick(View arg0) {
                 currentImage++;
+                // if statement to cycle through all images
                 if (currentImage == buildingMaps.size()) {
                     currentImage = 0;
                 }
@@ -79,12 +79,14 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
         });
     }
 
+    // setting the intial image
     private void setInitialImage() {
         setCurrentImage();
     }
 
     private void setCurrentImage() {
         imageView = findViewById(R.id.map_image);
+        // setting the current image
         if(buildingMaps.size() > 0) {
             Bitmap bittymap = buildingMaps.get(currentImage);
             imageView.setImageBitmap(bittymap);
@@ -94,6 +96,7 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
     protected void onStart()
     {
         super.onStart();
+        // text views displaying the current point, next point and the directions and linking to the xml page
         TextView mes1 = (TextView)findViewById(R.id.display_current);
         TextView mes2 =  (TextView)findViewById(R.id.display_next);
         TextView mes3 =  (TextView)findViewById(R.id.display_path_information);
@@ -105,9 +108,6 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
         foundPointNames = findPointNames(foundPointNames);
         for(int i = 0; i <  foundPointNames.size(); i++) {
             String combo = "Location: " + foundPointNames.get(i).fromPointName + "\n\nDirection:" + foundPointNames.get(i).pointDirectionName + "\nNext Location:" + foundPointNames.get(i).toPointName + "\n";
-            //mes3.append("Location: " + foundPointNames.get(i).fromPointName);
-            //mes3.append("\nDirection:" + foundPointNames.get(i).pointDirectionName);
-            //mes3.append("\nNext Location:" + foundPointNames.get(i).toPointName);
             mes3.append(combo);
             mes3.append("\n");
             mes3.append("---------------- Next Instructions ---------------------------\n\n");
@@ -120,7 +120,7 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
     }
     public ArrayList<Node> findPointNames(ArrayList<Node> foundPointNames)
     {
-        specialOmega = setup.getDirect();
+        directionsArray = setup.getDirect();
 
         ArrayList<Node> nameArray = new ArrayList<>();
         db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
@@ -134,11 +134,11 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
             }
             String name1 = "";
             String name2 = "";
-            for (int i = 0; i < specialOmega.size();i++)
+            for (int i = 0; i < directionsArray.size(); i++)
             {
-                int local_num_1 = specialOmega.get(i).fromPointId;
-                int local_num_2 = specialOmega.get(i).toPointId;
-                String local_direction_value = specialOmega.get(i).pointDirection;
+                int local_num_1 = directionsArray.get(i).fromPointId;
+                int local_num_2 = directionsArray.get(i).toPointId;
+                String local_direction_value = directionsArray.get(i).pointDirection;
 
                 for(int j = 0; j < nameArray.size();j++)
                 {
@@ -155,15 +155,16 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
 
                 }
 
+                // make the output text look pretty
                 local_direction_value = makePretty(local_direction_value);
+                // add the point names and directions to the array
                 Node edge = new Node(name1,name2,local_direction_value);
                 foundPointNames.add(edge);
-                //System.out.println("Size: "+specialOmega.size());
-                //System.out.println("i: "+i);
             }
         }
         return foundPointNames;
     }
+    //
     public void onClick(View view)
     {
         Intent intent;
@@ -174,31 +175,33 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
                 break;
         }
     }
+    // if statements to replace the directions from the database with more human readable text
     public String makePretty(String local_variable)
     {
 
         if(local_variable.equals("straight_ahead"))
         {
-            local_variable = "\nHead Straight ahead\nto reach the next destination.\n";
+            local_variable = "\nHead Straight ahead to reach the next destination.\n";
         }
         else if(local_variable.equals("turn_left"))
         {
-            local_variable = "\nTurn left ahead\nto reach the next destination.\n";
+            local_variable = "\nTurn left ahead to reach the next destination.\n";
         }
         else if(local_variable.equals("turn_right"))
         {
-            local_variable = "\nTurn right ahead\nto reach the next destination.\n";
+            local_variable = "\nTurn right ahead to reach the next destination.\n";
         }
         else if(local_variable.equals("upstairs"))
         {
-            local_variable = "\nHead up stairs to\nreach the next destination.\n";
+            local_variable = "\nHead up stairs to reach the next destination.\n";
         }
         else if(local_variable.equals("downstairs"))
         {
-            local_variable = "\nHead Down Stairs to\nreach the next destination.\n";
+            local_variable = "\nHead Down Stairs to reach the next destination.\n";
         }
         return local_variable;
     }
+    // get the map images from the database
     public void getBuildingMaps()
     {
         //System.out.println("Check Here");
@@ -210,6 +213,7 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
             {
                 while (cc.moveToNext())
                 {
+                    // convert the image from the database into a bipmap
                     byte[] decodedString = Base64.decode(cc.getString(0), Base64.DEFAULT);
                     Bitmap map_image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                     //System.out.println("Map_Image: "+map_image);

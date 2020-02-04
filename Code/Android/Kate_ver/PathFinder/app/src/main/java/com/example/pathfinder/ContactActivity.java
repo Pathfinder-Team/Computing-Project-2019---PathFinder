@@ -15,13 +15,11 @@ public class ContactActivity extends AppCompatActivity {
 
     EditText urlText;
     TextView textView;
-
     WebView webView;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
-
         System.out.println("contact activity");
         urlText = (EditText) findViewById(R.id.url);
         webView = (WebView) findViewById(R.id.webView);
@@ -34,6 +32,7 @@ public class ContactActivity extends AppCompatActivity {
                 getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
+            // load the web page specified
             webView.loadUrl(stringUrl);
         } else {
             textView.setText("No network connection available.");

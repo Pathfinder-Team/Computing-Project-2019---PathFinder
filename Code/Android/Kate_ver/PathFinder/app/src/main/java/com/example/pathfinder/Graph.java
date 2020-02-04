@@ -30,7 +30,6 @@ public class Graph
     {
 
     }
-
     // constructor
     public Graph(int graphSize)
     {
