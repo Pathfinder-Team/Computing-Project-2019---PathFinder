@@ -51,18 +51,22 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
         Spinner spin = (Spinner) findViewById(R.id.spinner);
         Spinner spin2 = (Spinner) findViewById(R.id.spinner2);
 
+        // setting up first drop down
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, getPointName());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        // setting up second drop down
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, getPointName());
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spin.setAdapter(adapter);
+        // if you have used the camera to get your current location it will be set as the drop downs current location
         if(ResultLocation != null)
         {
             int location = getIntLocation(ResultLocation);
             spin.setSelection(location);
         }
+
         spin.setOnItemSelectedListener(this);
         spin2.setAdapter(adapter2);
         spin2.setOnItemSelectedListener(this);
@@ -76,6 +80,7 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
     @Override
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
 
+        // displaying the map names
         mapPoints = getMapPoints();
         if(arg0.getId() == R.id.spinner)
         {
@@ -115,6 +120,7 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
 
     }
 
+    // getting the names of all the map points connected to that building
     public ArrayList<String> getPointName()
     {
         db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
@@ -158,10 +164,12 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
         }
 
     }
+
     public void onClick(View view)
     {
         Intent intent;
         switch(view.getId()) {
+            // pass the details to the Display activity page
             case R.id.btn_find_destination:
                 if(returnMapPointsCurrent.size() > 0 && returnMapPointsDestination.size() > 0 ) {
                     intent = new Intent(this, DisplayActivity.class);
@@ -172,6 +180,7 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
                     startActivity(intent);
                 }
                 break;
+                // scan a qr code
             case R.id.btn_scan:
                 intent = new Intent(this, ScanActivity.class);
                 Bundle ActExtra = new Bundle();
@@ -182,6 +191,7 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
         }
     }
 
+    // getting the current location by returning its index
     public int getIntLocation(String location)
     {
         for(int i = 0; i < pointNames.size();i++)

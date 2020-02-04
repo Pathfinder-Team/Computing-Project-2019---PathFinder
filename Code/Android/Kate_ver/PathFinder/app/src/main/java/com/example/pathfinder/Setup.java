@@ -21,6 +21,7 @@ public class Setup
     {
 
     }
+    // setting up the arrays that will needed to be passed to the graph class in a specific orders
     public void setUpEverythingArrays(SQLiteDatabase db)
     {
         int counter = 1;
@@ -44,26 +45,8 @@ public class Setup
                     cd.getString(4));
             points_array.add(edge);
         }
-
-        //callValueSorter();
         db.close();
     }
-
-    /*
-    public void callValueSorter()
-    {
-        for(int i = 0; i < sortMapPoints.size(); i++)
-        {
-            if(sortMapPoints.get(i).oldNum == map_points_array.get(i).current_point_id)
-            {
-                System.out.println("check 1: "+map_points_array.get(i).current_point_id);
-                System.out.println("check 2: "+sortMapPoints.get(i).newNum);
-                map_points_array.get(i).current_point_id = sortMapPoints.get(i).newNum;
-            }
-        }
-    }
-
-     */
     public void setupEdges(Graph graph) {
         for (int i = 0; i < map_points_array.size(); i++)
         {
@@ -98,6 +81,7 @@ public class Setup
         graph = new Graph(map_points_array.size());
         setupEdges(graph);
         graph.findShortestPaths();
+        // returning the point names and directions from the shortest path
         finalDirectionsArray = graph.getCurrentDirections();
     }
 

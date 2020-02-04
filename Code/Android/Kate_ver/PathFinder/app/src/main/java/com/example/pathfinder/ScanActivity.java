@@ -20,6 +20,7 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         ActExtra = intent.getExtras();
+        // getting the name of the page you just came from
         ActivitySelector = ActExtra.getString("ActivityName");
         ScannerView = new ZXingScannerView(this);
         setContentView(ScannerView);
@@ -28,6 +29,7 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
     @Override
     public void handleResult(Result result)
     {
+        // returning the current message that you have scanned from the qr code and then passing it to the PathFinder page
         if(ActivitySelector.equals("PathFinder"))
         {
             Intent intent = new Intent(this, PathFinder.class);
@@ -44,6 +46,7 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
     protected void onPause() {
         super.onPause();
 
+        // on pause stop the camera
         ScannerView.stopCamera();
     }
 
@@ -51,6 +54,7 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
     protected void onResume() {
         super.onResume();
 
+        // on resume start the camera again
         ScannerView.setResultHandler(this);
         ScannerView.startCamera();
     }
