@@ -42,7 +42,7 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
         if(ActExtra != null)
         {
             ResultLocation = ActExtra.getString("ResultLocation");
-            //System.out.println("ResultLocation: " + ResultLocation);
+            System.out.println("ResultLocation: " + ResultLocation);
         }
         pointNames = new ArrayList<>();
         mapPoints = new ArrayList<>();
@@ -63,6 +63,7 @@ public class PathFinder extends AppCompatActivity implements AdapterView.OnItemS
         // if you have used the camera to get your current location it will be set as the drop downs current location
         if(ResultLocation != null)
         {
+            System.out.println("ULTRA CHECKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK: "+ResultLocation);
             int location = getIntLocation(ResultLocation);
             spin.setSelection(location);
         }

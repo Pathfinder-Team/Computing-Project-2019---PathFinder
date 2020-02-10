@@ -35,6 +35,7 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
             Intent intent = new Intent(this, PathFinder.class);
             Bundle extras1 = new Bundle();
             SpecialMessage = result.getText();
+            System.out.println("message: "+SpecialMessage);
             extras1.putString("ResultLocation",SpecialMessage);
             intent.putExtras(extras1);
             startActivity(intent);
