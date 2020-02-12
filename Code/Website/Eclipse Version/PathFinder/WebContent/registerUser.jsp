@@ -5,12 +5,12 @@
 
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Register User</title>
-        <link rel="stylesheet" type="text/css" href="styles/mainstyle.css" />
-		<link rel="stylesheet" type="text/css" href="styles/forum.css" />
-        <script type="text/javascript">
+<head>
+<meta charset="UTF-8">
+<title>Register User</title>
+<link rel="stylesheet" type="text/css" href="styles/mainstyle.css" />
+<link rel="stylesheet" type="text/css" href="styles/forum.css" />
+<script type="text/javascript">
             function validateAll()
             {
                 var fname = document.getElementById("fname").value;
@@ -84,10 +84,10 @@
                 return true;
             }
         </script>
-    </head>
+</head>
 
-    <body>
-    <%
+<body>
+	<%
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		Connection conn = null;
 		Statement stmt = null;
@@ -125,84 +125,105 @@
 			System.err.println("Error Org: " + ex);
 		}
 	%>
-        <div id="container">
-            <header>
-                <img src="images/bn_header.png" alt="PathFinder banner" >
-            </header>
-            <nav id="menu">
-                <ul>
-                    <li><a href="index.html" >ABOUT US</a></li>
-                    <li><a href="register.html" class="current">REGISTER</a></li>
-                    <li><a href="login.html" >LOGIN</a></li>
-                    <li><a href="contact.html" >CONTACT US</a></li>
-                </ul>
-            </nav>
-            <main>
+	<div id="container">
+		<header>
+			<img src="images/bn_header.png" alt="PathFinder banner">
+		</header>
+		<nav id="menu">
+			<ul>
+				<li><a href="index.html">ABOUT US</a></li>
+				<li><a href="register.html" class="current">REGISTER</a></li>
+				<li><a href="login.html">LOGIN</a></li>
+				<li><a href="contact.html">CONTACT US</a></li>
+			</ul>
+		</nav>
+		<main>
 
-                <section id="form">
+			<section id="form">
 
-                    <h1>Register</h1>
+				<h1>Register</h1>
 
-                    <form action="RegisterDB" method="post" name="form" onSubmit="return validateAll();" >
-                        <fieldset>
+				<form action="RegisterDB" method="post" name="form"
+					onSubmit="return validateAll();">
+					<fieldset>
 
-                            <p id="info">Please fill in this form to create an account:</p>
+						<p id="info">Please fill in this form to create an account:</p>
 
-                            <p><label for="first_name" class="title">First Name: <span>*</span></label>
-                                <input type="text" name="first_name" id="first_name" /></p>
+						<p>
+							<label for="first_name" class="title">First Name: <span>*</span></label>
+							<input type="text" name="first_name" id="first_name" />
+						</p>
 
-                            <p><label for="last_name" class="title">Last Name: <span>*</span></label>
-                                <input type="text" name="last_name" id="last_name" /></p>
+						<p>
+							<label for="last_name" class="title">Last Name: <span>*</span></label>
+							<input type="text" name="last_name" id="last_name" />
+						</p>
 
-							<!-- 	
+						<!-- 	
                             <p><label for="organisation_name" class="title">Organisation name: <span>*</span></label>
                             <input type="text" name="organisation_name" id="organisation_name" /></p>
                              -->
-                            <p><label for="organisation_name" class="title">Organisation name: <span>*</span></label>
-                            <select name="organisation_name">
-							<option value="">SELECT</option>
-							<%
+						<p>
+							<label for="organisation_name" class="title">Organisation
+								name: <span>*</span>
+							</label> <select name="organisation_name">
+								<option value="">SELECT</option>
+								<%
 								for (int i = 0; i < specialArray.size(); i++) 
 								{
 									String organisation_name = (String) specialArray.get(i);
 							%>
-							<option value="<%=organisation_name%>">
-								<%=organisation_name%>
-							</option>
-							<%
+								<option value="<%=organisation_name%>">
+									<%=organisation_name%>
+								</option>
+								<%
 							}
 							
 							%>
-						</select></p> 
+							</select>
+						</p>
 
-                            <p><label for="user_name" class="title">Username: <span>*</span></label>
-                                <input type="text" name="user_name" id="user_name" /></p>
+						<p>
+							<label for="user_name" class="title">Username: <span>*</span></label>
+							<input type="text" name="user_name" id="user_name" />
+						</p>
 
-                            <p><label for="email" class="title">Email: <span>*</span></label>
-                                <input type="email" name="email" id="email" /></p>
+						<p>
+							<label for="email" class="title">Email: <span>*</span></label> <input
+								type="email" name="email" id="email" />
+						</p>
 
-                            <p><label for="password" class="title">Password: <span>*</span></label>
-                                <input type="password" name="password" id="password" /></p>
+						<p>
+							<label for="password" class="title">Password: <span>*</span></label>
+							<input type="password" name="password" id="password" />
+						</p>
 
-                            <input type="hidden" name="whatAction" id="whatAction" value="RegUser" />
+						<input type="hidden" name="whatAction" id="whatAction"
+							value="RegUser" />
 
-                            <p><label for="password2" class="title">Retype-Password <span>*</span></label>
-                                <input type="password" name="password" id="password2" onkeyup="passwords_match();" /></p>
-                            <p>
-                                <input type="submit" name="submit" id="submit" value="Submit Details" />
-                            </p>
-                            
-                        </fieldset>
-                    </form>
-                </section>
-                <br>
-                <br>
-            </main>
-            <footer>
-                <p>PathFinder project 2019</p>
-                <p>Authors: Kevin Dunne, Jekaterina Pavlenko &amp; Christopher Costelloe</p>
-                <p><img src="images/maze_ic.png" alt="Maze icon" ></p>
-            </footer>
-        </div>
-    </body>
+						<p>
+							<label for="password2" class="title">Retype-Password <span>*</span></label>
+							<input type="password" name="password" id="password2"
+								onkeyup="passwords_match();" />
+						</p>
+						<p>
+							<input type="submit" name="submit" id="submit"
+								value="Submit Details" />
+						</p>
+
+					</fieldset>
+				</form>
+			</section>
+			<br> <br>
+		</main>
+		<footer>
+			<p>PathFinder project 2019</p>
+			<p>Authors: Kevin Dunne, Jekaterina Pavlenko &amp; Christopher
+				Costelloe</p>
+			<p>
+				<img src="images/maze_ic.png" alt="Maze icon">
+			</p>
+		</footer>
+	</div>
+</body>
 </html>

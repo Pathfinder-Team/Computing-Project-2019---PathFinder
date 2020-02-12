@@ -125,9 +125,9 @@
 				<form action="UploadMapDB" method="post" class="">
 					<button type="submit">Upload A New Map</button>
 				</form>
-				
+
 				<br>
-			
+
 				<h5>Select an Image from the dropdown below and display it</h5>
 				<form action="Maps.jsp">
 					<select name="imageName">
@@ -145,60 +145,61 @@
 						}
 						
 						%>
-					</select> 
-					
-				<input type="Submit" value="Submit">
-				<br>
-				<br>
+					</select> <input type="Submit" value="Submit"> <br> <br>
 				</form>
 				<%
 					selected = request.getParameter("imageName");
 				%>
-				<img src="GetImageAction?map_name=<%=selected%>&org_name=<%=organisation_name%>" alt="" height="350px" width="300px">
-				<br>
-				<br>
+				<img
+					src="GetImageAction?map_name=<%=selected%>&org_name=<%=organisation_name%>"
+					alt="" height="350px" width="300px"> <br> <br>
 				<p>
 					Building Name:<%=organisation_building_name%>
-				<br>
-					
+					<br>
+
 				</p>
 				<form action="AddPointsDB" method="post">
-				<input type="hidden" id="maps_map_id" name="maps_map_id" value="<%=selected%>">
-				<input type="hidden" id="organisation_name" name="organisation_name" value="<%=organisation_name%>">
-				<input type="hidden" id="organisation_building_name" name="organisation_building_name" value="<%=organisation_building_name%>">
-				<button type="submit" >Add Map Nodes and Points</button>
+					<input type="hidden" id="maps_map_id" name="maps_map_id"
+						value="<%=selected%>"> <input type="hidden"
+						id="organisation_name" name="organisation_name"
+						value="<%=organisation_name%>"> <input type="hidden"
+						id="organisation_building_name" name="organisation_building_name"
+						value="<%=organisation_building_name%>">
+					<button type="submit">Add Map Nodes and Points</button>
 				</form>
 				<br>
-				<h5>Select a Building from the drop down below and view it's map points</h5>
+				<h5>Select a Building from the drop down below and view it's
+					map points</h5>
 				<form action="ViewPointsDB" method="post">
-				<select name="organisation_building_name">
-				<option value="">SELECT</option>
-				<%
+					<select name="organisation_building_name">
+						<option value="">SELECT</option>
+						<%
 				for (int i = 0; i < buildingNames.size(); i++) 
 				{
 					String buildingName = (String) buildingNames.get(i);
 				%>
-				<option value="<%=buildingName%>">
-					<%=buildingName%>
-				</option>
-				<%
+						<option value="<%=buildingName%>">
+							<%=buildingName%>
+						</option>
+						<%
 				}	
 				%>
-				</select> 
-				
-				<input type="hidden" id="organisation_name" name="organisation_name" value="<%=organisation_name%>">
-				
-				<button type="submit" >View Map Detail's</button>
+					</select> <input type="hidden" id="organisation_name"
+						name="organisation_name" value="<%=organisation_name%>">
+
+					<button type="submit">View Map Detail's</button>
 				</form>
-				<br>
-				<br>
+				<br> <br>
 			</section>
 		</main>
-		</div>
-            <footer>
-                <p>PathFinder project 2019</p>
-                <p>Authors: Kevin Dunne, Jekaterina Pavlenko & Christopher Costelloe</p>
-                <p><img src="images/maze_ic.png" alt="" ></p>
-            </footer>	
+	</div>
+	<footer>
+		<p>PathFinder project 2019</p>
+		<p>Authors: Kevin Dunne, Jekaterina Pavlenko & Christopher
+			Costelloe</p>
+		<p>
+			<img src="images/maze_ic.png" alt="">
+		</p>
+	</footer>
 </body>
 </html>

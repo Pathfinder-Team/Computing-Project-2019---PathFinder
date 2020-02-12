@@ -4,7 +4,6 @@ Author: Jekaterina Pavlenko K00224431
 Date: 09/03/2019
 Forum Page
 */
-
 #fit1, #fit2 {
 	font-size: 0.9em;
 }
@@ -16,9 +15,6 @@ Forum Page
   margin:0 auto;
 }
 */
-
-
-
 #form ul li {
 	width: 12%;
 }
@@ -27,37 +23,38 @@ Forum Page
 	width: 22%;
 }
 
-#form ul li a, #form2 ul li a  {
+#form ul li a, #form2 ul li a {
 	text-align: center;
 	display: block;
 	padding: .8em 0;
 	background-color: #3d3d5c;
-	color:#E7F3EF;
+	color: #E7F3EF;
 }
 
 .title {
 	font-size: 0.9em;
-        float:left;
-        width:45%;
+	float: left;
+	width: 45%;
 	text-align: right;
 	padding-right: 20px;
 }
 
 .title1 {
 	font-size: 0.9em;
-    width:100%;
+	width: 100%;
 	text-align: left;
 }
 
 span {
-	color:red;
+	color: red;
 }
 
 h2 {
 	text-align: center;
 }
+
 #info {
-    text-align: center;
+	text-align: center;
 }
 
 fieldset {
@@ -70,23 +67,23 @@ input {
 }
 
 fieldset {
-    width: 45%;
-    height: auto;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+	width: 45%;
+	height: auto;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #field {
 	width: 100%;
-    height: auto;
-    text-aligh:left;
-    margin-left: auto;
-    margin-right: auto;
+	height: auto;
+	text-aligh: left;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #form ul {
-	width: 100%;                        
+	width: 100%;
 	list-style-type: none;
 	position: relative;
 	margin-left: 30%;
@@ -105,20 +102,20 @@ fieldset {
 	text-align: center;
 	display: block;
 	padding: .6em 0;
-    margin: .2em .2em;
+	margin: .2em .2em;
 }
 
 #form a:hover, a:focus, #form2 a:hover, a:focus, .current {
 	color: white !important;
 	background-color: #a3a3c2;
 }
-label
-{
-    width:100px;
+
+label {
+	width: 100px;
 }
 
 #submit {
-    margin-left:18em;
+	margin-left: 18em;
 }
 
 #submit1 {

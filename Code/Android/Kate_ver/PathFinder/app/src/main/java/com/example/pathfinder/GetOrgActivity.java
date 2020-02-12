@@ -11,21 +11,22 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class GetOrgActivity extends AppCompatActivity
-{
+public class GetOrgActivity extends AppCompatActivity {
 
     private String TAG = GetMapActivity.class.getSimpleName();
 
     private ProgressDialog pDialog;
     SQLiteDatabase db;
     static String orgName = "";
-    static String org_building ="";
+    static String org_building = "";
 
     // URL to get contacts JSON
     // internet database
@@ -38,8 +39,10 @@ public class GetOrgActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_org);
+        System.out.println("Check");
         new GetOrgDetails().execute();
     }
+
     @Override
     public void onBackPressed() {
         //startActivity(new Intent(this, OrgActivity.class));
@@ -47,6 +50,7 @@ public class GetOrgActivity extends AppCompatActivity
         startActivity(intent);
         finish();
     }
+
     private class GetOrgDetails extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -64,6 +68,7 @@ public class GetOrgActivity extends AppCompatActivity
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
+            System.out.println("Checking URL: "+url);
             String jsonStr = sh.makeServiceCall(url);
             Log.e(TAG, "Response from url: " + jsonStr);
 
@@ -72,7 +77,7 @@ public class GetOrgActivity extends AppCompatActivity
                     JSONObject jsonObj = new JSONObject(jsonStr);
                     JSONArray PathFinderMap = jsonObj.getJSONArray("org_details");
 
-                    db=openOrCreateDatabase("mapDB", Context.MODE_PRIVATE,null);
+                    db = openOrCreateDatabase("mapDB", Context.MODE_PRIVATE, null);
                     SpecialClass specialClass = new SpecialClass();
                     specialClass.Wipe(db);
 
@@ -95,9 +100,8 @@ public class GetOrgActivity extends AppCompatActivity
 
                         if (c != null) {
                             JSONArray PathFinderMap2 = c.getJSONArray("map_details");
-                            if(PathFinderMap2 != null) {
-                                for (int j = 0; j < PathFinderMap2.length(); j++)
-                                {
+                            if (PathFinderMap2 != null) {
+                                for (int j = 0; j < PathFinderMap2.length(); j++) {
                                     JSONObject cc = PathFinderMap2.getJSONObject(j);
                                     int map_id = cc.getInt("map_id");
                                     String org_name = cc.getString("org_name");
@@ -148,23 +152,21 @@ public class GetOrgActivity extends AppCompatActivity
             }
             return null;
         }
+
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             // Dismiss the progress dialog
-            if (pDialog.isShowing())
-            {
+            if (pDialog.isShowing()) {
                 pDialog.dismiss();
             }
             TextView txtView = findViewById(R.id.updatedID);
 
-            if(db != null) {
+            if (db != null) {
                 txtView.setText("The Organisations have been updated");
                 Intent inten = new Intent(GetOrgActivity.this, OrgActivity.class);
                 startActivity(inten);
-            }
-            else if (db == null)
-            {
+            } else if (db == null) {
                 txtView.setText("There is a connection error");
             }
         }

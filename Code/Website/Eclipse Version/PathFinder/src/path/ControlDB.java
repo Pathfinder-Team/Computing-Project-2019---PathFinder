@@ -36,6 +36,7 @@ public class ControlDB extends HttpServlet
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
             // setup the connection with the DB
+            System.out.println("Long Check: "+connect.URL+", "+connect.USERNAME+",  "+connect.PASSWORD);
             conn = DriverManager.getConnection(connect.URL, connect.USERNAME, connect.PASSWORD);
             
             System.out.println("Connected ControlDB");
