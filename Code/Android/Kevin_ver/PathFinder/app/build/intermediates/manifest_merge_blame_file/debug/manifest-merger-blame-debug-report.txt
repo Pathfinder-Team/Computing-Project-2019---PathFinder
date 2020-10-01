@@ -6,124 +6,124 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="15"
-8-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml
+8-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml
 9        android:targetSdkVersion="29" />
-9-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml
+9-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml
 10
 11    <uses-permission android:name="android.permission.INTERNET" />
-11-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:5:5-66
-11-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:5:22-64
+11-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:5:5-66
+11-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:5:22-64
 12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-12-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:6:5-79
-12-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:6:22-76
+12-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:6:5-79
+12-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:6:22-76
 13    <uses-permission android:name="android.permission.CAMERA" />
-13-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:7:5-65
-13-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:7:22-62
+13-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:7:5-65
+13-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:7:22-62
 14
 15    <application
-15-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:9:5-36:19
+15-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:9:5-36:19
 16        android:allowBackup="true"
-16-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:10:9-35
+16-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:10:9-35
 17        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-17-->[androidx.core:core:1.0.1] C:\Users\kevin\.gradle\caches\transforms-2\files-2.1\46da25c3e2ae6308b2227b660caa604d\core-1.0.1\AndroidManifest.xml:22:18-86
+17-->[androidx.core:core:1.0.1] C:\Users\kdunne\.gradle\caches\transforms-2\files-2.1\c98024bd6086dde2720bfd2ef053a1a0\core-1.0.1\AndroidManifest.xml:22:18-86
 18        android:debuggable="true"
 19        android:icon="@mipmap/ic_launcher"
-19-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:12:9-43
+19-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:12:9-43
 20        android:label="@string/app_name"
-20-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:13:9-41
+20-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:13:9-41
 21        android:roundIcon="@mipmap/ic_launcher_round"
-21-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:14:9-54
+21-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:14:9-54
 22        android:supportsRtl="true"
-22-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:15:9-35
+22-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:15:9-35
 23        android:testOnly="true"
 24        android:theme="@style/AppTheme"
-24-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:16:9-40
+24-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:16:9-40
 25        android:usesCleartextTraffic="true" >
-25-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:11:9-44
+25-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:11:9-44
 26        <activity android:name="com.example.pathfinder.DisplayActivity" />
-26-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:17:9-62
-26-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:17:19-50
+26-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:17:9-62
+26-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:17:19-50
 27        <activity android:name="com.example.pathfinder.PathFinder" />
-27-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:18:9-48
-27-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:18:19-45
+27-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:18:9-48
+27-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:18:19-45
 28        <activity android:name="com.example.pathfinder.ScanActivity" />
-28-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:19:9-50
-28-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:19:19-47
+28-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:19:9-50
+28-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:19:19-47
 29        <activity android:name="com.example.pathfinder.ContactActivity" />
-29-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:20:9-53
-29-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:20:19-50
+29-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:20:9-53
+29-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:20:19-50
 30        <activity android:name="com.example.pathfinder.OrgActivity" />
-30-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:21:9-49
-30-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:21:19-46
+30-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:21:9-49
+30-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:21:19-46
 31        <activity android:name="com.example.pathfinder.GetMapActivity" />
-31-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:22:9-52
-31-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:22:19-49
+31-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:22:9-52
+31-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:22:19-49
 32        <activity android:name="com.example.pathfinder.MenuActivity" />
-32-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:23:9-50
-32-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:23:19-47
+32-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:23:9-50
+32-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:23:19-47
 33        <activity android:name="com.example.pathfinder.MainActivity" />
-33-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:24:9-50
-33-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:24:19-47
+33-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:24:9-50
+33-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:24:19-47
 34        <activity android:name="com.example.pathfinder.SplashActivity" >
-34-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:25:9-31:20
-34-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:25:19-49
+34-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:25:9-31:20
+34-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:25:19-49
 35            <intent-filter>
-35-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:26:13-30:29
+35-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:26:13-30:29
 36                <action android:name="android.intent.action.MAIN" />
-36-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:27:17-69
-36-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:27:25-66
+36-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:27:17-69
+36-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:27:25-66
 37
 38                <category android:name="android.intent.category.LAUNCHER" />
-38-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:29:17-77
-38-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:29:27-74
+38-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:29:17-77
+38-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:29:27-74
 39            </intent-filter>
 40        </activity>
 41
 42        <meta-data
-42-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:33:9-35:57
+42-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:33:9-35:57
 43            android:name="preloaded_fonts"
-43-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:34:13-43
+43-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:34:13-43
 44            android:resource="@array/preloaded_fonts" />
-44-->D:\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:35:13-54
+44-->C:\Users\kdunne\Documents\GitHub\Computing-Project-2019---PathFinder\Code\Android\Kevin_ver\PathFinder\app\src\main\AndroidManifest.xml:35:13-54
 45
 46        <activity
-46-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\kevin\.gradle\caches\transforms-2\files-2.1\21ee6817023f49317a71dcd7227c322f\jetified-play-services-auth-16.0.1\AndroidManifest.xml:23:9-27:75
+46-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\kdunne\.gradle\caches\transforms-2\files-2.1\d098d6d86c1d181a89ff9d8f44a0eab1\jetified-play-services-auth-16.0.1\AndroidManifest.xml:23:9-27:75
 47            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
-47-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\kevin\.gradle\caches\transforms-2\files-2.1\21ee6817023f49317a71dcd7227c322f\jetified-play-services-auth-16.0.1\AndroidManifest.xml:24:13-93
+47-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\kdunne\.gradle\caches\transforms-2\files-2.1\d098d6d86c1d181a89ff9d8f44a0eab1\jetified-play-services-auth-16.0.1\AndroidManifest.xml:24:13-93
 48            android:excludeFromRecents="true"
-48-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\kevin\.gradle\caches\transforms-2\files-2.1\21ee6817023f49317a71dcd7227c322f\jetified-play-services-auth-16.0.1\AndroidManifest.xml:25:13-46
+48-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\kdunne\.gradle\caches\transforms-2\files-2.1\d098d6d86c1d181a89ff9d8f44a0eab1\jetified-play-services-auth-16.0.1\AndroidManifest.xml:25:13-46
 49            android:exported="false"
-49-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\kevin\.gradle\caches\transforms-2\files-2.1\21ee6817023f49317a71dcd7227c322f\jetified-play-services-auth-16.0.1\AndroidManifest.xml:26:13-37
+49-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\kdunne\.gradle\caches\transforms-2\files-2.1\d098d6d86c1d181a89ff9d8f44a0eab1\jetified-play-services-auth-16.0.1\AndroidManifest.xml:26:13-37
 50            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-50-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\kevin\.gradle\caches\transforms-2\files-2.1\21ee6817023f49317a71dcd7227c322f\jetified-play-services-auth-16.0.1\AndroidManifest.xml:27:13-72
+50-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\kdunne\.gradle\caches\transforms-2\files-2.1\d098d6d86c1d181a89ff9d8f44a0eab1\jetified-play-services-auth-16.0.1\AndroidManifest.xml:27:13-72
 51        <!--
 52            Service handling Google Sign-In user revocation. For apps that do not integrate with
 53            Google Sign-In, this service will never be started.
 54        -->
 55        <service
-55-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\kevin\.gradle\caches\transforms-2\files-2.1\21ee6817023f49317a71dcd7227c322f\jetified-play-services-auth-16.0.1\AndroidManifest.xml:33:9-36:110
+55-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\kdunne\.gradle\caches\transforms-2\files-2.1\d098d6d86c1d181a89ff9d8f44a0eab1\jetified-play-services-auth-16.0.1\AndroidManifest.xml:33:9-36:110
 56            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
-56-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\kevin\.gradle\caches\transforms-2\files-2.1\21ee6817023f49317a71dcd7227c322f\jetified-play-services-auth-16.0.1\AndroidManifest.xml:34:13-89
+56-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\kdunne\.gradle\caches\transforms-2\files-2.1\d098d6d86c1d181a89ff9d8f44a0eab1\jetified-play-services-auth-16.0.1\AndroidManifest.xml:34:13-89
 57            android:exported="true"
-57-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\kevin\.gradle\caches\transforms-2\files-2.1\21ee6817023f49317a71dcd7227c322f\jetified-play-services-auth-16.0.1\AndroidManifest.xml:35:13-36
+57-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\kdunne\.gradle\caches\transforms-2\files-2.1\d098d6d86c1d181a89ff9d8f44a0eab1\jetified-play-services-auth-16.0.1\AndroidManifest.xml:35:13-36
 58            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION" />
-58-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\kevin\.gradle\caches\transforms-2\files-2.1\21ee6817023f49317a71dcd7227c322f\jetified-play-services-auth-16.0.1\AndroidManifest.xml:36:13-107
+58-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\kdunne\.gradle\caches\transforms-2\files-2.1\d098d6d86c1d181a89ff9d8f44a0eab1\jetified-play-services-auth-16.0.1\AndroidManifest.xml:36:13-107
 59
 60        <activity
-60-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\kevin\.gradle\caches\transforms-2\files-2.1\9a0be1985ad23c2bb46ff0378925bbc8\jetified-play-services-base-16.0.1\AndroidManifest.xml:23:9-26:75
+60-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\kdunne\.gradle\caches\transforms-2\files-2.1\34651011d7441a78242ad27d67e26cc2\jetified-play-services-base-16.0.1\AndroidManifest.xml:23:9-26:75
 61            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-61-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\kevin\.gradle\caches\transforms-2\files-2.1\9a0be1985ad23c2bb46ff0378925bbc8\jetified-play-services-base-16.0.1\AndroidManifest.xml:24:13-79
+61-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\kdunne\.gradle\caches\transforms-2\files-2.1\34651011d7441a78242ad27d67e26cc2\jetified-play-services-base-16.0.1\AndroidManifest.xml:24:13-79
 62            android:exported="false"
-62-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\kevin\.gradle\caches\transforms-2\files-2.1\9a0be1985ad23c2bb46ff0378925bbc8\jetified-play-services-base-16.0.1\AndroidManifest.xml:25:13-37
+62-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\kdunne\.gradle\caches\transforms-2\files-2.1\34651011d7441a78242ad27d67e26cc2\jetified-play-services-base-16.0.1\AndroidManifest.xml:25:13-37
 63            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-63-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\kevin\.gradle\caches\transforms-2\files-2.1\9a0be1985ad23c2bb46ff0378925bbc8\jetified-play-services-base-16.0.1\AndroidManifest.xml:26:13-72
+63-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\kdunne\.gradle\caches\transforms-2\files-2.1\34651011d7441a78242ad27d67e26cc2\jetified-play-services-base-16.0.1\AndroidManifest.xml:26:13-72
 64
 65        <meta-data
-65-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\kevin\.gradle\caches\transforms-2\files-2.1\e041f79511a2d7fe7ad52e8b606c57d8\jetified-play-services-basement-16.0.1\AndroidManifest.xml:23:9-25:69
+65-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\kdunne\.gradle\caches\transforms-2\files-2.1\81a8c526e7617db6f0740bfa09d013c9\jetified-play-services-basement-16.0.1\AndroidManifest.xml:23:9-25:69
 66            android:name="com.google.android.gms.version"
-66-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\kevin\.gradle\caches\transforms-2\files-2.1\e041f79511a2d7fe7ad52e8b606c57d8\jetified-play-services-basement-16.0.1\AndroidManifest.xml:24:13-58
+66-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\kdunne\.gradle\caches\transforms-2\files-2.1\81a8c526e7617db6f0740bfa09d013c9\jetified-play-services-basement-16.0.1\AndroidManifest.xml:24:13-58
 67            android:value="@integer/google_play_services_version" />
-67-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\kevin\.gradle\caches\transforms-2\files-2.1\e041f79511a2d7fe7ad52e8b606c57d8\jetified-play-services-basement-16.0.1\AndroidManifest.xml:25:13-66
+67-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\kdunne\.gradle\caches\transforms-2\files-2.1\81a8c526e7617db6f0740bfa09d013c9\jetified-play-services-basement-16.0.1\AndroidManifest.xml:25:13-66
 68    </application>
 69
 70</manifest>
